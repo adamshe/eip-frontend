@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EIP Admin</title>
+<style>
+:root {
+  --bg: #2b2b2b; --bg-card: #363636; --bg-input: #3d3d3d; --bg-chip: #454545;
+  --border: #4a4a4a; --border-soft: #3e3e3e;
+  --text: #ffffff; --text-dim: #d0d0d0; --text-muted: #9a9a9a;
+  --accent: #e8855e; --accent-hover: #f09770; --accent-bg: rgba(232, 133, 94, .18);
+  --ok: #7cb369; --danger: #d66a5b; --info: #5ba0d8;
+  --r: 10px; --rl: 14px;
+  --shadow: 0 2px 8px rgba(0,0,0,.35), 0 4px 16px rgba(0,0,0,.25);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.55 ui-sans-serif, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased; height: 100%; overflow: hidden; }
+.app { max-width: 1680px; margin: 0 auto; padding: 12px 20px 8px;
+  height: 100vh; height: 100dvh;
+  display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+
+header.topbar { flex: 0 0 auto; display: flex; align-items: center; gap: 14px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+header.topbar h1 { font: 600 22px/1 ui-sans-serif; letter-spacing: -0.01em;
+  margin: 0; color: var(--text); }
+header.topbar .spacer { flex: 1; }
+.pills { display: flex; gap: 6px; overflow-x: auto; flex: 1 1 auto; min-width: 0;
+  scrollbar-width: thin; }
+.pills::-webkit-scrollbar { height: 6px; }
+.pills::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.pill { background: var(--bg-card); color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: 999px;
+  padding: 4px 12px; font-size: 12px; cursor: pointer; white-space: nowrap;
+  max-width: 220px; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0;
+  transition: background 160ms, color 160ms, border-color 160ms;
+  font-family: inherit; }
+.pill:hover { color: var(--text); border-color: var(--text-muted); }
+.pill.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
+.pill .close { margin-left: 6px; opacity: 0.5; cursor: pointer; }
+.pill .close:hover { opacity: 1; color: var(--danger); }
+.pill[data-rc="0"] { border-left: 3px solid var(--ok); padding-left: 9px; }
+.pill[data-rc]:not([data-rc="0"]):not([data-rc=""]) { border-left: 3px solid var(--danger); padding-left: 9px; }
+
+.viewport { flex: 1 1 auto; min-height: 0; display: flex; overflow: hidden; }
+.mode { flex: 1; display: none; flex-direction: column; min-height: 0;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--rl); padding: 16px; overflow: hidden; box-shadow: var(--shadow); }
+.mode.active { display: flex; }
+
+.pick-head { display: flex; align-items: center; gap: 14px; flex: 0 0 auto;
+  margin-bottom: 10px; }
+.pick-head > label { display: flex; align-items: center; gap: 6px; cursor: pointer;
+  color: var(--text-dim); font-size: 13px; user-select: none; }
+.search-bar { display: flex; gap: 10px; align-items: center; flex: 1; }
+.search-bar input[type=text] { flex: 1; background: var(--bg-input); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 6px 10px; font-size: 13px; outline: none;
+  font-family: ui-monospace, monospace; }
+.search-bar input[type=text]:focus { border-color: var(--accent); }
+.search-bar .radio-group { display: flex; gap: 10px; }
+.search-bar .radio-group label { color: var(--text-dim); font-size: 12px; cursor: pointer;
+  display: flex; align-items: center; gap: 4px; }
+
+.search-results { flex: 0 0 auto; margin-bottom: 12px; max-height: 40%; overflow-y: auto; }
+.search-results:empty { display: none; }
+.search-results .hit { padding: 8px 12px; background: var(--bg-input);
+  border: 1px solid var(--border); border-radius: var(--r);
+  cursor: pointer; margin-bottom: 4px;
+  transition: border-color 160ms, background 160ms; }
+.search-results .hit:hover { border-color: var(--accent); background: var(--accent-bg); }
+.search-results .hit .name { color: var(--accent); font-weight: 600;
+  font-family: ui-monospace, monospace; }
+.search-results .hit .score { color: var(--text-muted); font-size: 11px; margin-left: 8px; }
+.search-results .hit .desc { color: var(--text-dim); font-size: 12px;
+  margin-top: 2px; line-height: 1.4; }
+
+.accordion { flex: 1 1 auto; overflow: auto; }
+.accordion::-webkit-scrollbar { width: 8px; height: 8px; }
+.accordion::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+/* Top-level three panels stacked vertically (GovCon on top, Research below,
+   Utility at bottom). Each panel occupies its own row. Column width is
+   FIXED at 140px across all panels so card widths are uniform regardless
+   of how many columns a panel has. */
+.pipeline-panels { display: flex; flex-direction: column; gap: 12px;
+  padding: 2px 2px 8px; }
+.panel { display: flex; flex-direction: column; gap: 6px;
+  padding: 10px; border: 1px solid var(--border); border-radius: 10px;
+  background: rgba(255,255,255,.015);
+  align-self: stretch; }
+.panel-header { margin: 0; padding: 2px 6px 8px;
+  color: var(--text); font-size: 14px; font-weight: 700;
+  letter-spacing: .01em; border-bottom: 1px solid var(--border-soft); }
+.panel-header .panel-count { color: var(--text-muted); font-size: 11px;
+  font-weight: 400; margin-left: 6px; }
+.panel[data-panel="GovCon"] { border-color: rgba(232, 133, 94, .35); }
+.panel[data-panel="Research"] { border-color: rgba(91, 160, 216, .35); }
+.panel[data-panel="Utility"] { border-color: rgba(154, 154, 154, .35); }
+
+/* Flex row of fixed-width columns: uniform 128px wide across all panels.
+   128 chosen so 11 GovCon columns + 10 gaps (5px) = 1458px fit within a
+   ~1500px content area without a horizontal scrollbar or wrap. Shorter
+   panels (Research / Utility) leave empty space on the right. */
+.pipeline-columns { display: flex; gap: 5px; flex-wrap: wrap;
+  align-items: start; }
+.pipeline-column { width: 128px; flex: 0 0 128px;
+  display: flex; flex-direction: column; gap: 4px; }
+
+/* Flat horizontal card row for panels with no internal pipeline logic
+   (single sub-group): cards flow left-to-right, alphabetical, 128px wide
+   each to match column cards. Wraps to a new line if the row runs out. */
+.panel-flat { display: flex; gap: 5px; flex-wrap: wrap; align-items: start; }
+.panel-flat .cmd-card { width: 128px; flex: 0 0 128px; }
+.column-header { padding: 6px 8px; background: var(--bg-input);
+  border: 1px solid var(--border); border-radius: 6px;
+  color: var(--text-dim); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .04em; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.column-cards { display: flex; flex-direction: column; gap: 4px; }
+.cmd-card { background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: border-color 160ms, box-shadow 200ms, transform 120ms; }
+.cmd-card:hover, .cmd-card[open] { border-color: var(--accent); }
+/* When collapsed, the body (help + button + its padding + border-top + bg)
+   must disappear entirely so the card becomes a simple rounded pill of
+   just the summary. Native <details> already hides non-summary children,
+   this makes it explicit and guards against any overriding CSS. */
+.cmd-card:not([open]) .cmd-body { display: none; }
+/* Glow on hover: crisp 1px accent ring + soft outer halo. */
+.cmd-card:hover { transform: translateY(-1px);
+  box-shadow: 0 0 0 1px var(--accent),
+              0 0 16px rgba(232, 133, 94, .45),
+              0 4px 20px rgba(0, 0, 0, .35); }
+.cmd-card[data-hidden="true"] { display: none; }
+.cmd-card > summary { padding: 7px 10px; cursor: pointer;
+  color: var(--accent); font-family: ui-monospace, monospace;
+  font-weight: 600; font-size: 12px; line-height: 1.2; list-style: none;
+  display: flex; align-items: center; justify-content: space-between;
+  user-select: none; flex-shrink: 0; }
+.cmd-card > summary::-webkit-details-marker { display: none; }
+.cmd-card > summary::after { content: '>'; color: var(--text-muted);
+  font-family: ui-monospace, monospace; transition: transform 200ms;
+  font-size: 10px; flex-shrink: 0; margin-left: 6px; }
+.cmd-card[open] > summary { background: var(--accent-bg); }
+.cmd-card[open] > summary::after { transform: rotate(90deg); }
+.cmd-body { padding: 8px 10px 10px; background: var(--bg-input);
+  border-top: 1px solid var(--border-soft); }
+/* Help gets a FIXED 2-line slot (height = 2 * line-height). Short text
+   leaves blank space below the line, not above the button -- so the
+   Open-form button lands at the SAME y in every card, not floating based
+   on text length. */
+.cmd-body .help { color: var(--text-dim); font-size: 11px; line-height: 1.4;
+  height: 2.8em; margin-bottom: 8px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; text-overflow: ellipsis; }
+.cmd-body .open-form { font-size: 11px; font-weight: 600; padding: 4px 12px;
+  background: var(--accent); color: #1a1a1a; border: none; border-radius: 6px;
+  cursor: pointer; font-family: inherit; }
+.cmd-body .open-form:hover { background: var(--accent-hover); }
+
+/* Hover tooltip: one shared overlay, position: fixed so parent overflow
+   does not clip. Appears 350ms after mouseenter, shows full help + args. */
+.card-tooltip { position: fixed; z-index: 1000; display: none;
+  background: var(--bg-card); border: 1px solid var(--accent);
+  border-radius: 10px; padding: 10px 12px; max-width: 520px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.65),
+              0 0 0 1px rgba(232,133,94,.3);
+  pointer-events: none; font-size: 11px; line-height: 1.5;
+  color: var(--text-dim); }
+.card-tooltip .tt-name { color: var(--accent); font-weight: 600;
+  font-family: ui-monospace, monospace; font-size: 13px; margin-bottom: 4px; }
+.card-tooltip .tt-help { color: var(--text); margin-bottom: 8px; }
+.card-tooltip .tt-args-label { color: var(--text-muted);
+  text-transform: uppercase; font-size: 10px; letter-spacing: .08em;
+  margin-bottom: 4px; }
+.card-tooltip .tt-arg { font-family: ui-monospace, monospace; font-size: 11px;
+  color: var(--text-dim); margin-bottom: 2px; }
+.card-tooltip .tt-arg .tt-flag { color: var(--accent); }
+.card-tooltip .tt-arg .tt-required { color: var(--danger); }
+.card-tooltip .tt-arg .tt-desc { color: var(--text-muted); margin-left: 6px; }
+.card-tooltip .tt-usage { font-family: ui-monospace, monospace; font-size: 10.5px;
+  color: var(--text-dim); background: #1f1f1f;
+  border: 1px solid var(--border-soft); border-radius: 4px;
+  padding: 4px 6px; margin-bottom: 3px;
+  white-space: pre; overflow-x: auto; }
+.card-tooltip .tt-usage .tt-comment { color: var(--text-muted); }
+
+.form-head { display: flex; align-items: center; gap: 12px; flex: 0 0 auto;
+  margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border-soft); }
+.form-head h2 { margin: 0; font-family: ui-monospace, monospace; color: var(--accent);
+  font-size: 18px; }
+.form-head .help { color: var(--text-muted); font-size: 12px; flex: 1; }
+.form-body { flex: 1 1 auto; overflow-y: auto; padding-right: 6px; }
+.form-body::-webkit-scrollbar { width: 8px; }
+.form-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.field { margin-bottom: 14px; }
+.field > label { display: block; color: var(--text-dim); font-size: 12px;
+  margin-bottom: 4px; font-weight: 500; }
+.field label .flag { color: var(--text-muted); font-family: ui-monospace, monospace;
+  font-size: 11px; margin-left: 6px; }
+.field label .req { color: var(--danger); margin-left: 4px; }
+.field label .pos { color: var(--info); margin-left: 6px; font-size: 10px;
+  text-transform: uppercase; letter-spacing: .05em; }
+.field input[type=text], .field input[type=number], .field select, .field textarea {
+  width: 100%; background: var(--bg-input); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 6px 10px; font: 13px ui-monospace, monospace; outline: none; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+.field textarea { min-height: 60px; max-height: 240px; resize: vertical; }
+.field .hint { color: var(--text-muted); font-size: 11px; margin-top: 3px; line-height: 1.4; }
+.field.checkbox { display: flex; align-items: center; gap: 8px; }
+.field.checkbox > label { margin: 0; cursor: pointer; order: 2; }
+
+.run-head, .view-head { display: flex; align-items: center; gap: 12px;
+  flex: 0 0 auto; margin-bottom: 10px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-soft); }
+.run-head code, .view-head code { flex: 1; color: var(--text-dim);
+  font-family: ui-monospace, monospace; font-size: 12px;
+  background: var(--bg-input); padding: 6px 10px; border-radius: var(--r);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  border: 1px solid var(--border); }
+.run-status { font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); padding: 2px 8px; border-radius: 999px;
+  background: var(--bg-chip); flex-shrink: 0; }
+.run-status[data-s=running] { color: var(--accent); background: var(--accent-bg);
+  animation: pulse 1.4s infinite ease-in-out; }
+.run-status[data-s="done-0"] { color: var(--ok); background: rgba(124,179,105,.18); }
+.run-status[data-s=error] { color: var(--danger); background: rgba(214,106,91,.18); }
+.run-status[data-s^="done-"]:not([data-s="done-0"]) { color: var(--danger);
+  background: rgba(214,106,91,.18); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+.output-area { flex: 1 1 auto; min-height: 0; overflow-y: auto;
+  background: #1f1f1f; border: 1px solid var(--border); border-radius: var(--r);
+  padding: 10px 14px; }
+.output-area::-webkit-scrollbar { width: 8px; }
+.output-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.output-area pre { margin: 0; font: 12px/1.5 ui-monospace, 'SF Mono', Consolas, monospace;
+  color: var(--text); white-space: pre-wrap; word-break: break-word; }
+
+.action-bar { flex: 0 0 auto; display: flex; gap: 10px; justify-content: flex-end;
+  align-items: center; padding: 8px 0 0; }
+.action-bar .spacer { flex: 1; }
+.action-bar button, .btn-primary, .btn-ghost, .btn-danger {
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  border-radius: var(--r); padding: 8px 18px; border: none;
+  transition: background 120ms, opacity 120ms; font-family: inherit; }
+.btn-primary { background: var(--accent); color: #1a1a1a; }
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+.btn-primary:disabled { opacity: .4; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--text-dim);
+  border: 1px solid var(--border); }
+.btn-ghost:hover { color: var(--text); border-color: var(--text-dim); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { background: #e47a6a; }
+.muted { color: var(--text-muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <h1>EIP Admin</h1>
+    <span class="muted" id="statusMsg"></span>
+    <nav class="pills" id="pills"></nav>
+  </header>
+
+  <section class="viewport">
+    <div class="mode" data-mode="pick">
+      <div class="pick-head">
+        <label><input type="checkbox" id="searchToggle" /> Search</label>
+        <div class="search-bar" id="searchBar" style="display:none">
+          <input type="text" id="searchInput" placeholder="type to filter or ask AI..." />
+          <div class="radio-group">
+            <label><input type="radio" name="searchMode" value="fuzzy" checked /> fuzzy</label>
+            <label><input type="radio" name="searchMode" value="ai" /> AI find</label>
+          </div>
+          <button class="btn-ghost" id="searchGo" style="display:none">Ask</button>
+        </div>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+      <div class="accordion" id="accordion"></div>
+    </div>
+
+    <div class="mode" data-mode="form">
+      <div class="form-head">
+        <button class="btn-ghost" id="formBack">&lt; back</button>
+        <h2 id="formName"></h2>
+        <span class="help" id="formHelp"></span>
+      </div>
+      <div class="form-body" id="formBody"></div>
+    </div>
+
+    <div class="mode" data-mode="run">
+      <div class="run-head">
+        <code id="runCmd"></code>
+        <span class="run-status" id="runStatus" data-s="running">starting</span>
+      </div>
+      <div class="output-area"><pre id="runOutput"></pre></div>
+    </div>
+
+    <div class="mode" data-mode="view">
+      <div class="view-head">
+        <button class="btn-ghost" id="viewBack">&lt; back</button>
+        <code id="viewCmd"></code>
+        <span class="run-status" id="viewStatus"></span>
+        <button class="btn-ghost" id="viewRerun">Re-run</button>
+      </div>
+      <div class="output-area"><pre id="viewOutput"></pre></div>
+    </div>
+  </section>
+
+  <footer class="action-bar" id="actionBar"></footer>
+</div>
+
+<script>
+/* ===== Config ===== */
+const STORAGE_KEY = 'eip_admin_runs_v1';
+
+/* ===== Crypto vault: non-extractable CryptoKey in IndexedDB, AES-GCM-256 ciphertext in localStorage. */
+const VAULT_DB = 'eip_admin_vault', VAULT_STORE = 'keys', VAULT_KEY = 'report_key';
+function _idbOpen() { return new Promise((res, rej) => {
+  const r = indexedDB.open(VAULT_DB, 1);
+  r.onupgradeneeded = () => r.result.createObjectStore(VAULT_STORE);
+  r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+function _idbGet(db, k) { return new Promise((res, rej) => {
+  const r = db.transaction(VAULT_STORE, 'readonly').objectStore(VAULT_STORE).get(k);
+  r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+function _idbPut(db, k, v) { return new Promise((res, rej) => {
+  const tx = db.transaction(VAULT_STORE, 'readwrite');
+  tx.objectStore(VAULT_STORE).put(v, k);
+  tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error); }); }
+let _keyPromise = null;
+function _ensureKey() {
+  if (_keyPromise) return _keyPromise;
+  _keyPromise = (async () => {
+    const db = await _idbOpen();
+    let k = await _idbGet(db, VAULT_KEY);
+    if (!k) {
+      k = await crypto.subtle.generateKey(
+        { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+      await _idbPut(db, VAULT_KEY, k);
+    }
+    return k;
+  })();
+  return _keyPromise;
+}
+function _b64enc(bytes) {
+  let s = ''; for (let i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+  return btoa(s); }
+function _b64dec(str) {
+  const s = atob(str); const out = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) out[i] = s.charCodeAt(i); return out; }
+async function _encryptJSON(key, obj) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const pt = new TextEncoder().encode(JSON.stringify(obj));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, pt));
+  const blob = new Uint8Array(iv.length + ct.length);
+  blob.set(iv, 0); blob.set(ct, iv.length);
+  return _b64enc(blob); }
+async function _decryptJSON(key, b64) {
+  const blob = _b64dec(b64);
+  const pt = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: blob.slice(0, 12) }, key, blob.slice(12));
+  return JSON.parse(new TextDecoder().decode(pt)); }
+
+/* ===== Storage ===== */
+let runs = [];
+async function loadRuns() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return [];
+  try {
+    const key = await _ensureKey();
+    if (raw.startsWith('[')) {
+      const parsed = JSON.parse(raw);
+      localStorage.setItem(STORAGE_KEY, await _encryptJSON(key, parsed));
+      return parsed;
+    }
+    return await _decryptJSON(key, raw);
+  } catch (e) { console.warn('load runs failed:', e); return []; }
+}
+async function saveRuns() {
+  try {
+    const key = await _ensureKey();
+    localStorage.setItem(STORAGE_KEY, await _encryptJSON(key, runs));
+  } catch (e) { console.warn('save runs failed:', e); }
+}
+
+/* ===== Schema ===== */
+let schema = null;
+let categoryMap = null;
+let panels = null;                  // {panelName: {columnName: [cmdNames]}}
+let commandByName = {};
+async function loadSchema() {
+  const r = await fetch('/api/admin/schema');
+  if (r.status === 401) { setStatus('unauthorized'); return; }
+  if (r.status === 503) { setStatus('admin not configured: set admin.password_sha256 in settings.json'); return; }
+  if (!r.ok) { setStatus('schema load failed: ' + r.status); return; }
+  const data = await r.json();
+  schema = data.commands;
+  categoryMap = data.category_map;
+  panels = data.panels || null;
+  commandByName = {};
+  schema.forEach(c => { commandByName[c.name] = c; });
+  renderAccordion();
+}
+
+/* ===== Mode machine ===== */
+let mode = 'pick';
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.viewport .mode').forEach(el => {
+    el.classList.toggle('active', el.dataset.mode === m);
+  });
+  renderActionBar();
+}
+function renderActionBar() {
+  const bar = document.getElementById('actionBar');
+  bar.innerHTML = '';
+  if (mode === 'form') {
+    bar.innerHTML = '<div class="spacer"></div><button class="btn-primary" id="runBtn">Run</button>';
+    document.getElementById('runBtn').addEventListener('click', runCurrentForm);
+  } else if (mode === 'run') {
+    if (currentRun && currentRun.status === 'running') {
+      bar.innerHTML = '<div class="spacer"></div><button class="btn-danger" id="stopBtn">Stop</button>';
+      document.getElementById('stopBtn').addEventListener('click', stopCurrentRun);
+    } else {
+      bar.innerHTML = '<div class="spacer"></div><button class="btn-ghost" id="newBtn">+ New</button>';
+      document.getElementById('newBtn').addEventListener('click', () => setMode('pick'));
+    }
+  } else if (mode === 'view') {
+    bar.innerHTML = '<div class="spacer"></div><button class="btn-ghost" id="newBtn">+ New</button>';
+    document.getElementById('newBtn').addEventListener('click', () => setMode('pick'));
+  }
+}
+
+/* ===== PICK: alphabetical card grid, every card <details open> by default ===== */
+/* Shared hover tooltip overlay (position:fixed in document.body so grid
+   overflow never clips it). */
+const _tooltip = document.createElement('div');
+_tooltip.className = 'card-tooltip';
+document.body.appendChild(_tooltip);
+let _tipTimer = null;
+
+function buildTooltip(c) {
+  _tooltip.innerHTML = '';
+  const nm = document.createElement('div'); nm.className = 'tt-name'; nm.textContent = c.name;
+  _tooltip.appendChild(nm);
+  const hp = document.createElement('div'); hp.className = 'tt-help';
+  hp.textContent = c.help || '(no description)';
+  _tooltip.appendChild(hp);
+  // Usage examples -- each shown as a monospace code block. Inline
+  // comments (text after '#') coloured muted to read naturally.
+  if (c.usage && c.usage.length) {
+    const uLbl = document.createElement('div'); uLbl.className = 'tt-args-label';
+    uLbl.textContent = 'Usage';
+    _tooltip.appendChild(uLbl);
+    c.usage.forEach(u => {
+      const row = document.createElement('div'); row.className = 'tt-usage';
+      const hashIdx = u.indexOf('#');
+      if (hashIdx > 0) {
+        row.appendChild(document.createTextNode(u.slice(0, hashIdx)));
+        const cm = document.createElement('span'); cm.className = 'tt-comment';
+        cm.textContent = u.slice(hashIdx);
+        row.appendChild(cm);
+      } else {
+        row.textContent = u;
+      }
+      _tooltip.appendChild(row);
+    });
+  }
+  if (c.arguments && c.arguments.length) {
+    const lbl = document.createElement('div'); lbl.className = 'tt-args-label';
+    lbl.textContent = 'Arguments';
+    _tooltip.appendChild(lbl);
+    c.arguments.forEach(a => {
+      const row = document.createElement('div'); row.className = 'tt-arg';
+      const flag = document.createElement('span'); flag.className = 'tt-flag';
+      flag.textContent = a.positional ? a.name : (a.flag || '--' + a.name);
+      row.appendChild(flag);
+      if (a.required) {
+        const r = document.createElement('span'); r.className = 'tt-required';
+        r.textContent = ' *';
+        row.appendChild(r);
+      }
+      if (a.help) {
+        const d = document.createElement('span'); d.className = 'tt-desc';
+        d.textContent = a.help;
+        row.appendChild(d);
+      }
+      _tooltip.appendChild(row);
+    });
+  }
+}
+
+function positionTooltip(card) {
+  const r = card.getBoundingClientRect();
+  _tooltip.style.display = 'block';
+  const tw = _tooltip.offsetWidth, th = _tooltip.offsetHeight;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  let x = r.right + 8, y = r.top;
+  if (x + tw > vw - 10) x = r.left - tw - 8;     // flip left if overflowing right
+  if (x < 10) x = Math.max(10, r.left);
+  if (y + th > vh - 10) y = vh - th - 10;
+  if (y < 10) y = 10;
+  _tooltip.style.left = x + 'px';
+  _tooltip.style.top = y + 'px';
+}
+
+function showCardTooltip(card, c) {
+  buildTooltip(c);
+  requestAnimationFrame(() => positionTooltip(card));
+}
+function clearCardTooltip() {
+  if (_tipTimer) { clearTimeout(_tipTimer); _tipTimer = null; }
+  _tooltip.style.display = 'none';
+}
+
+function buildCmdCard(n, c) {
+  const card = document.createElement('details');
+  card.className = 'cmd-card';
+  card.dataset.name = n;
+  card.open = true;
+  const sum = document.createElement('summary');
+  sum.textContent = n;
+  card.appendChild(sum);
+  const body = document.createElement('div');
+  body.className = 'cmd-body';
+  const helpEl = document.createElement('div'); helpEl.className = 'help';
+  helpEl.textContent = c.help || '(no description)';
+  const btn = document.createElement('button'); btn.className = 'open-form';
+  btn.textContent = 'Open form';
+  btn.addEventListener('click', (e) => { e.stopPropagation(); openForm(n); });
+  body.appendChild(helpEl);
+  body.appendChild(btn);
+  card.appendChild(body);
+  card.addEventListener('mouseenter', () => {
+    if (_tipTimer) clearTimeout(_tipTimer);
+    _tipTimer = setTimeout(() => showCardTooltip(card, c), 350);
+  });
+  card.addEventListener('mouseleave', clearCardTooltip);
+  return card;
+}
+
+function buildColumns(columnMap, seen) {
+  /* columnMap: {columnName: [cmdNames]} -> a .pipeline-columns grid. */
+  const cols = document.createElement('div');
+  cols.className = 'pipeline-columns';
+  Object.keys(columnMap).forEach(colName => {
+    const names = (columnMap[colName] || []).filter(n => commandByName[n]);
+    if (names.length === 0) return;
+    const col = document.createElement('div');
+    col.className = 'pipeline-column';
+    const header = document.createElement('div');
+    header.className = 'column-header';
+    header.textContent = colName;
+    header.title = colName;
+    col.appendChild(header);
+    const cards = document.createElement('div');
+    cards.className = 'column-cards';
+    names.forEach(n => {
+      cards.appendChild(buildCmdCard(n, commandByName[n]));
+      seen.add(n);
+    });
+    col.appendChild(cards);
+    cols.appendChild(col);
+  });
+  return cols;
+}
+
+function renderAccordion() {
+  const el = document.getElementById('accordion');
+  el.innerHTML = '';
+  const seen = new Set();
+
+  if (panels) {
+    // Three-panel layout: GovCon / Research / Utility, each with sub-columns.
+    const wrap = document.createElement('div');
+    wrap.className = 'pipeline-panels';
+    Object.keys(panels).forEach(panelName => {
+      const columnMap = panels[panelName] || {};
+      const totalCmds = Object.values(columnMap)
+        .reduce((n, arr) => n + (arr || []).filter(x => commandByName[x]).length, 0);
+      if (totalCmds === 0) return;
+      const panel = document.createElement('section');
+      panel.className = 'panel';
+      panel.dataset.panel = panelName;
+      const h = document.createElement('h2');
+      h.className = 'panel-header';
+      h.textContent = panelName;
+      const count = document.createElement('span');
+      count.className = 'panel-count';
+      count.textContent = '(' + totalCmds + ')';
+      h.appendChild(count);
+      panel.appendChild(h);
+      // Single-group panel = no pipeline logic. Flatten to a horizontal
+      // alphabetical row of cards (no column header).
+      const colNames = Object.keys(columnMap);
+      if (colNames.length === 1) {
+        const flat = document.createElement('div');
+        flat.className = 'panel-flat';
+        (columnMap[colNames[0]] || []).slice().sort().forEach(n => {
+          if (!commandByName[n]) return;
+          flat.appendChild(buildCmdCard(n, commandByName[n]));
+          seen.add(n);
+        });
+        panel.appendChild(flat);
+      } else {
+        panel.appendChild(buildColumns(columnMap, seen));
+      }
+      wrap.appendChild(panel);
+    });
+    el.appendChild(wrap);
+  } else {
+    // Legacy flat column layout if server did not emit panels
+    el.appendChild(buildColumns(categoryMap || {}, seen));
+  }
+
+  // Any uncategorized command -> trailing Other panel
+  const leftover = Object.keys(commandByName).sort().filter(n => !seen.has(n));
+  if (leftover.length) {
+    const panel = document.createElement('section');
+    panel.className = 'panel';
+    panel.dataset.panel = 'Other';
+    const h = document.createElement('h2');
+    h.className = 'panel-header';
+    h.textContent = 'Other';
+    panel.appendChild(h);
+    panel.appendChild(buildColumns({ 'Other': leftover }, seen));
+    const wrap = el.querySelector('.pipeline-panels') || el;
+    wrap.appendChild(panel);
+  }
+}
+
+const searchToggle = document.getElementById('searchToggle');
+const searchBar = document.getElementById('searchBar');
+const searchInput = document.getElementById('searchInput');
+const searchGo = document.getElementById('searchGo');
+const searchResults = document.getElementById('searchResults');
+searchToggle.addEventListener('change', () => {
+  searchBar.style.display = searchToggle.checked ? '' : 'none';
+  if (!searchToggle.checked) clearSearch(); else searchInput.focus();
+});
+function searchModeIsAI() {
+  return document.querySelector('input[name="searchMode"]:checked').value === 'ai';
+}
+document.querySelectorAll('input[name="searchMode"]').forEach(r => {
+  r.addEventListener('change', () => {
+    searchGo.style.display = searchModeIsAI() ? '' : 'none';
+    searchResults.innerHTML = '';
+    if (!searchModeIsAI()) applyFuzzyFilter();
+  });
+});
+searchInput.addEventListener('input', () => {
+  if (!searchModeIsAI()) applyFuzzyFilter();
+});
+searchInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && searchModeIsAI()) askAI();
+});
+searchGo.addEventListener('click', askAI);
+
+function applyFuzzyFilter() {
+  const q = searchInput.value.trim().toLowerCase();
+  searchResults.innerHTML = '';
+  document.querySelectorAll('.cmd-card').forEach(card => {
+    const name = card.dataset.name;
+    const c = commandByName[name];
+    const hay = (name + ' ' + (c.help || '')).toLowerCase();
+    card.dataset.hidden = (!q || hay.includes(q)) ? 'false' : 'true';
+  });
+}
+
+async function askAI() {
+  const q = searchInput.value.trim();
+  if (!q) return;
+  searchResults.innerHTML = '<div class="muted">searching...</div>';
+  try {
+    const r = await fetch('/api/admin/search?q=' + encodeURIComponent(q) + '&top_k=5');
+    if (!r.ok) throw new Error(r.status);
+    const data = await r.json();
+    searchResults.innerHTML = '';
+    (data.matches || []).forEach(m => {
+      const hit = document.createElement('div');
+      hit.className = 'hit';
+      const name = document.createElement('span'); name.className = 'name'; name.textContent = m.name;
+      const sc = document.createElement('span'); sc.className = 'score'; sc.textContent = '[' + m.score + ']';
+      const desc = document.createElement('div'); desc.className = 'desc'; desc.textContent = m.description || '';
+      hit.appendChild(name); hit.appendChild(sc); hit.appendChild(desc);
+      hit.addEventListener('click', () => {
+        searchToggle.checked = false; searchBar.style.display = 'none';
+        clearSearch(); openForm(m.name);
+      });
+      searchResults.appendChild(hit);
+    });
+    if ((data.matches || []).length === 0) {
+      searchResults.innerHTML = '<div class="muted">no matches</div>';
+    }
+  } catch (e) {
+    searchResults.innerHTML = '<div class="muted">search failed: ' + e.message + '</div>';
+  }
+}
+
+function clearSearch() {
+  searchInput.value = '';
+  searchResults.innerHTML = '';
+  document.querySelectorAll('.cmd-card').forEach(c => c.dataset.hidden = 'false');
+}
+
+/* ===== FORM ===== */
+let currentCmd = null;
+function openForm(name) {
+  const c = commandByName[name];
+  if (!c) return;
+  currentCmd = c;
+  document.getElementById('formName').textContent = name;
+  document.getElementById('formHelp').textContent = c.help || '';
+  const body = document.getElementById('formBody');
+  body.innerHTML = '';
+  c.arguments.forEach(arg => body.appendChild(buildFieldNode(arg)));
+  if (c.arguments.length === 0) {
+    const n = document.createElement('div');
+    n.className = 'muted';
+    n.textContent = 'No arguments. Press Run to execute.';
+    body.appendChild(n);
+  }
+  setMode('form');
+}
+
+function buildFieldNode(arg) {
+  const wrap = document.createElement('div');
+  wrap.className = 'field';
+  const isBool = arg.type === 'bool';
+  if (isBool) wrap.classList.add('checkbox');
+  const label = document.createElement('label');
+  const nm = document.createElement('span'); nm.textContent = arg.name;
+  label.appendChild(nm);
+  if (arg.positional) {
+    const p = document.createElement('span'); p.className = 'pos'; p.textContent = 'positional';
+    label.appendChild(p);
+  }
+  if (arg.flag) {
+    const f = document.createElement('span'); f.className = 'flag'; f.textContent = arg.flag;
+    label.appendChild(f);
+  }
+  if (arg.required) {
+    const r = document.createElement('span'); r.className = 'req'; r.textContent = '*';
+    label.appendChild(r);
+  }
+  let input;
+  if (isBool) {
+    input = document.createElement('input');
+    input.type = 'checkbox';
+    if (arg.default === true) input.checked = true;
+    wrap.appendChild(input);
+    wrap.appendChild(label);
+  } else {
+    wrap.appendChild(label);
+    if (arg.choices) {
+      input = document.createElement('select');
+      if (!arg.required) {
+        const opt = document.createElement('option');
+        opt.value = ''; opt.textContent = '(default)';
+        input.appendChild(opt);
+      }
+      arg.choices.forEach(ch => {
+        const opt = document.createElement('option');
+        opt.value = ch; opt.textContent = ch;
+        if (arg.default === ch) opt.selected = true;
+        input.appendChild(opt);
+      });
+    } else if (arg.action === 'append' || (arg.nargs && ['+', '*'].includes(arg.nargs))) {
+      input = document.createElement('textarea');
+      input.placeholder = 'one value per line';
+    } else if (arg.type === 'int' || arg.type === 'float') {
+      input = document.createElement('input');
+      input.type = 'number';
+      if (arg.default !== null && arg.default !== undefined)
+        input.placeholder = 'default: ' + arg.default;
+    } else {
+      input = document.createElement('input');
+      input.type = 'text';
+      if (arg.default !== null && arg.default !== undefined && arg.default !== '')
+        input.placeholder = 'default: ' + arg.default;
+    }
+    wrap.appendChild(input);
+  }
+  input.dataset.argName = arg.name;
+  input.dataset.argPositional = arg.positional ? '1' : '0';
+  input.dataset.argFlag = arg.flag || '';
+  input.dataset.argAction = arg.action || 'store';
+  input.dataset.argNargs = arg.nargs || '';
+  input.dataset.argType = arg.type || '';
+  if (arg.help) {
+    const hint = document.createElement('div');
+    hint.className = 'hint';
+    hint.textContent = arg.help;
+    wrap.appendChild(hint);
+  }
+  return wrap;
+}
+
+function collectArgv() {
+  const positional = [];
+  const optional = [];
+  currentCmd.arguments.forEach(arg => {
+    const el = document.querySelector('#formBody [data-arg-name="' + arg.name + '"]');
+    if (!el) return;
+    const isBool = arg.type === 'bool';
+    const val = isBool ? el.checked : el.value.trim();
+    if (isBool) {
+      if (val) optional.push(arg.flag);
+    } else if (arg.action === 'append' || (arg.nargs && ['+', '*'].includes(arg.nargs))) {
+      if (val) {
+        const lines = val.split('\n').map(s => s.trim()).filter(Boolean);
+        if (arg.positional) lines.forEach(l => positional.push(l));
+        else lines.forEach(l => { optional.push(arg.flag); optional.push(l); });
+      }
+    } else {
+      if (val !== '') {
+        if (arg.positional) positional.push(val);
+        else { optional.push(arg.flag); optional.push(val); }
+      }
+    }
+  });
+  return positional.concat(optional);
+}
+
+/* ===== RUN ===== */
+let currentRun = null;
+let ws = null;
+
+async function runCurrentForm() {
+  if (!currentCmd) return;
+  const argvTail = collectArgv();
+  const cmd = currentCmd.name;
+  const run = {
+    id: 'r_' + Date.now(),
+    ts: Date.now(),
+    command: cmd,
+    argv: argvTail,
+    output: '',
+    status: 'running',
+    returncode: null,
+  };
+  currentRun = run;
+  document.getElementById('runCmd').textContent = 'cli.py ' + cmd + ' ' + argvTail.join(' ');
+  document.getElementById('runOutput').textContent = '';
+  setRunStatus('running', 'running');
+  setMode('run');
+
+  let ticket;
+  try {
+    const tr = await fetch('/api/admin/ws-ticket');
+    if (!tr.ok) throw new Error('ticket ' + tr.status);
+    ticket = (await tr.json()).ticket;
+  } catch (e) {
+    appendOutput('[ticket error: ' + e.message + ']\n');
+    run.status = 'error';
+    setRunStatus('error', 'error');
+    renderActionBar();
+    return;
+  }
+
+  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  ws = new WebSocket(proto + '//' + location.host + '/api/admin/ws/run');
+  ws.onopen = () => ws.send(JSON.stringify({ type: 'auth', ticket }));
+  ws.onmessage = async (evt) => {
+    let d; try { d = JSON.parse(evt.data); } catch { return; }
+    if (d.type === 'auth_ok') {
+      ws.send(JSON.stringify({ type: 'run', command: cmd, argv: argvTail }));
+    } else if (d.type === 'start') {
+      appendOutput('$ ' + (d.argv || []).join(' ') + '\n\n');
+    } else if (d.type === 'line') {
+      appendOutput(d.text);
+    } else if (d.type === 'done') {
+      run.returncode = d.returncode;
+      run.status = 'done';
+      setRunStatus('done-' + d.returncode,
+        d.returncode === 0 ? 'done' : 'exit ' + d.returncode);
+      run.output = document.getElementById('runOutput').textContent;
+      runs.unshift(run);
+      if (runs.length > 200) runs = runs.slice(0, 200);
+      await saveRuns();
+      renderPills();
+      renderActionBar();
+    } else if (d.type === 'error') {
+      appendOutput('[error: ' + d.text + ']\n');
+      run.status = 'error';
+      setRunStatus('error', 'error');
+      renderActionBar();
+    }
+  };
+  ws.onerror = () => appendOutput('[ws error]\n');
+  ws.onclose = () => { ws = null; };
+}
+
+function stopCurrentRun() {
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({ type: 'stop' }));
+  }
+}
+
+function appendOutput(text) {
+  const el = document.getElementById('runOutput');
+  el.textContent += text;
+  const area = el.parentElement;
+  area.scrollTop = area.scrollHeight;
+}
+
+function setRunStatus(s, label) {
+  const el = document.getElementById('runStatus');
+  el.dataset.s = s; el.textContent = label;
+}
+
+/* ===== VIEW ===== */
+function viewRun(id) {
+  const r = runs.find(x => x.id === id);
+  if (!r) return;
+  document.getElementById('viewCmd').textContent = 'cli.py ' + r.command + ' ' + (r.argv || []).join(' ');
+  const st = document.getElementById('viewStatus');
+  if (r.status === 'done') {
+    st.dataset.s = 'done-' + r.returncode;
+    st.textContent = r.returncode === 0 ? 'done' : 'exit ' + r.returncode;
+  } else {
+    st.dataset.s = r.status;
+    st.textContent = r.status;
+  }
+  document.getElementById('viewOutput').textContent = r.output || '';
+  document.getElementById('viewRerun').onclick = () => openForm(r.command);
+  setMode('view');
+}
+
+document.getElementById('formBack').addEventListener('click', () => setMode('pick'));
+document.getElementById('viewBack').addEventListener('click', () => setMode('pick'));
+
+/* ===== Pills ===== */
+function renderPills() {
+  const el = document.getElementById('pills');
+  el.innerHTML = '';
+  runs.slice(0, 30).forEach(r => {
+    const pill = document.createElement('button');
+    pill.className = 'pill';
+    if (r.status === 'done') pill.dataset.rc = String(r.returncode);
+    const time = new Date(r.ts).toLocaleTimeString();
+    pill.title = 'cli.py ' + r.command + ' ' + (r.argv || []).join(' ');
+    const txt = document.createTextNode(r.command + ' @ ' + time);
+    const close = document.createElement('span');
+    close.className = 'close'; close.title = 'Remove'; close.textContent = 'x';
+    pill.appendChild(txt); pill.appendChild(close);
+    pill.addEventListener('click', (e) => {
+      if (e.target.classList.contains('close')) {
+        e.stopPropagation();
+        runs = runs.filter(x => x.id !== r.id);
+        saveRuns(); renderPills();
+      } else {
+        viewRun(r.id);
+      }
+    });
+    el.appendChild(pill);
+  });
+  const neu = document.createElement('button');
+  neu.className = 'pill';
+  neu.textContent = '+ New';
+  neu.addEventListener('click', () => setMode('pick'));
+  el.appendChild(neu);
+}
+
+function setStatus(msg) { document.getElementById('statusMsg').textContent = msg; }
+
+/* ===== Init ===== */
+(async () => {
+  runs = await loadRuns();
+  renderPills();
+  await loadSchema();
+  setMode('pick');
+})();
+</script>
+</body>
+</html>

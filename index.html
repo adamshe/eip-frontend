@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Council</title>
+<style>
+:root {
+  --bg: #2b2b2b; --bg-card: #363636; --bg-input: #3d3d3d; --bg-chip: #454545;
+  --border: #4a4a4a; --border-soft: #3e3e3e;
+  --text: #ffffff; --text-dim: #d0d0d0; --text-muted: #9a9a9a;
+  --accent: #e8855e; --accent-hover: #f09770; --accent-bg: rgba(232, 133, 94, .18);
+  --tone-primary: #7cb369; --tone-peer: #5ba0d8; --tone-stress: #d66a5b; --tone-final: #7cb369;
+  --r: 10px; --rl: 14px;
+  --shadow: 0 2px 8px rgba(0,0,0,.35), 0 4px 16px rgba(0,0,0,.25);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.55 ui-sans-serif, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased; height: 100%; overflow: hidden; }
+.app { max-width: 1680px; margin: 0 auto; padding: 12px 20px 8px;
+  height: 100vh; height: 100dvh;
+  display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+header.topbar { flex: 0 0 auto; display: flex; align-items: center; gap: 14px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+header.topbar h1 { font: 600 22px/1 ui-sans-serif; letter-spacing: -0.01em; margin: 0; color: var(--text); }
+header.topbar .spacer { flex: 1; }
+.input-row select { background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 6px 10px; font-size: 13px; outline: none; }
+.input-row select:focus { border-color: var(--accent); }
+.pills { display: flex; gap: 6px; overflow-x: auto; flex: 1; min-width: 0; scrollbar-width: thin; }
+.pills::-webkit-scrollbar { height: 6px; }
+.pills::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.pill { background: var(--bg-card); color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: 999px;
+  padding: 4px 12px; font-size: 12px; cursor: pointer; white-space: nowrap;
+  max-width: 160px; overflow: hidden; text-overflow: ellipsis;
+  transition: background 160ms, color 160ms, border-color 160ms; flex-shrink: 0; }
+.pill:hover { color: var(--text); border-color: var(--text-muted); }
+.pill.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
+.pill .close { margin-left: 6px; opacity: 0.5; cursor: pointer; }
+.pill .close:hover { opacity: 1; color: var(--tone-stress); }
+.q-bar { flex: 0 0 auto; display: flex; align-items: center; gap: 10px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 8px 12px; font-size: 13px; }
+.q-bar .q-label { color: var(--text-muted); font-size: 11px; letter-spacing: .05em;
+  text-transform: uppercase; flex-shrink: 0; }
+.q-bar .q-text { flex: 1; color: var(--text-dim);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.q-bar .q-meta { color: var(--text-muted); font-size: 11px; flex-shrink: 0; }
+.q-bar button.resend { background: transparent; color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 4px 10px; font-size: 11px; cursor: pointer; }
+.q-bar button.resend:hover { color: var(--accent); border-color: var(--accent); }
+.q-bar.empty { display: none; }
+.panels-wrap { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 10px; }
+.panels-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  flex: 1 1 50%; min-height: 0; }
+.panels-bottom { display: grid; grid-template-columns: 1fr; flex: 1 1 50%; min-height: 0; }
+@media (max-width: 900px) {
+  .panels-top { grid-template-columns: 1fr; flex: 1 1 auto; }
+  .panels-bottom { flex: 0 0 auto; min-height: 200px; }
+  .app { overflow-y: auto; height: auto; min-height: 100vh; min-height: 100dvh; }
+  html, body { overflow: auto; }
+}
+.panel { background: var(--bg-card); border: 1px solid var(--border);
+  border-top: 3px solid var(--border); border-radius: var(--rl); padding: 10px 14px;
+  height: 100%; min-height: 0; display: flex; flex-direction: column;
+  transition: border-color 200ms, box-shadow 200ms;
+  box-shadow: var(--shadow); position: relative; }
+.panel[data-role=primary]   { border-top-color: var(--tone-primary); }
+.panel[data-role=peer]      { border-top-color: var(--tone-peer); }
+.panel[data-role=stress]    { border-top-color: var(--tone-stress); }
+.panel[data-role=final]     { border-top-color: var(--tone-final); }
+.panel[data-status=start] { border-color: var(--accent);
+  animation: panel-breathe 2s infinite ease-in-out; }
+.panel[data-status=done] { border-color: var(--tone-final);
+  animation: panel-settle 1.6s ease-out 1; }
+.panel[data-status=error] { border-color: var(--tone-stress);
+  animation: panel-alert 0.8s ease-out 1; }
+@keyframes panel-breathe {
+  0%, 100% { box-shadow: 0 0 0 1px var(--accent-bg), var(--shadow); }
+  50%      { box-shadow: 0 0 0 4px var(--accent-bg), 0 4px 20px rgba(232,133,94,.25); }
+}
+@keyframes panel-settle {
+  0%   { box-shadow: 0 0 0 4px rgba(124,179,105,.35), 0 0 24px rgba(124,179,105,.40); }
+  60%  { box-shadow: 0 0 0 2px rgba(124,179,105,.18), 0 0 12px rgba(124,179,105,.20); }
+  100% { box-shadow: var(--shadow); }
+}
+@keyframes panel-alert {
+  0%   { box-shadow: 0 0 0 4px rgba(214,106,91,.35), 0 0 20px rgba(214,106,91,.40); }
+  100% { box-shadow: var(--shadow); }
+}
+.panel[data-status=start]::before,
+.panel[data-typing=true]::before {
+  content: ''; position: absolute; inset: -1px; border-radius: var(--rl); padding: 2px;
+  background: conic-gradient(from var(--flow-angle, 0deg),
+    transparent 0%, transparent 40%,
+    rgba(232,133,94,.3) 48%, rgba(232,133,94,.9) 52%, #fff6ee 55%,
+    rgba(232,133,94,.9) 58%, rgba(232,133,94,.3) 62%,
+    transparent 70%, transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: flow-rotate 3.5s linear infinite;
+  pointer-events: none; z-index: 0;
+  filter: drop-shadow(0 0 8px rgba(232,133,94,.6)) drop-shadow(0 0 18px rgba(232,133,94,.3));
+}
+@property --flow-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes flow-rotate { 0% { --flow-angle: 0deg; } 100% { --flow-angle: 360deg; } }
+.panel-head { flex: 0 0 auto; display: flex; align-items: center; gap: 8px;
+  margin-bottom: 6px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-soft);
+  cursor: pointer; user-select: none; }
+.panel-head h3 { font-size: 13px; font-weight: 600; margin: 0; color: var(--text); flex: 1; }
+.chevron { font-size: 11px; color: var(--text-muted); transition: transform 200ms;
+  width: 12px; display: inline-block; }
+.panel[data-collapsed="true"] .chevron { transform: rotate(-90deg); }
+.panel[data-collapsed="true"] .panel-body { display: none; }
+.panel[data-collapsed="true"] { min-height: auto; height: auto; }
+.status { font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); padding: 2px 8px; border-radius: 999px;
+  background: var(--bg-chip); }
+.status[data-s=start] { color: var(--accent); background: var(--accent-bg); animation: pulse 1.4s infinite ease-in-out; }
+.status[data-s=done] { color: var(--tone-final); background: rgba(124,179,105,.18); }
+.status[data-s=error] { color: var(--tone-stress); background: rgba(214,106,91,.18); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+.copy-btn { background: transparent; border: 1px solid var(--border);
+  color: var(--text-muted); padding: 2px 8px; border-radius: 6px;
+  font-size: 10px; cursor: pointer; transition: all 120ms; }
+.copy-btn:hover { color: var(--text); border-color: var(--text-dim); }
+.copy-btn[data-copied="true"] { color: var(--tone-final); border-color: var(--tone-final); }
+.copy-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.panel-body { flex: 1; min-height: 0; overflow-y: auto; padding-right: 4px; }
+.panel-body::-webkit-scrollbar { width: 8px; }
+.panel-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.panel-body::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+pre { margin: 0; font: 12px/1.55 ui-monospace, 'SF Mono', Consolas, monospace;
+  color: var(--text); white-space: pre-wrap; word-break: break-word; }
+.placeholder { color: var(--text-muted); font-style: italic; font-size: 12px; }
+.cursor-blink { display: inline-block; width: 10px; height: 1.05em;
+  background: var(--accent); margin-left: 2px; vertical-align: text-bottom;
+  animation: cursor-blink .9s steps(2, jump-none) infinite; }
+@keyframes cursor-blink { 50% { opacity: 0; } }
+.cursor-pulse { display: inline-block; width: 10px; height: 1.05em;
+  background: var(--accent); margin-left: 2px; vertical-align: text-bottom;
+  animation: cursor-pulse 1.4s ease-in-out infinite; }
+@keyframes cursor-pulse {
+  0%, 100% { opacity: .3; }
+  50%      { opacity: 1; }
+}
+.panel-body pre.typing { position: relative; }
+.input-area { flex: 0 0 auto; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--rl); padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 8px;
+  box-shadow: var(--shadow); }
+.input-area textarea { background: var(--bg-input); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r); padding: 10px 12px;
+  font: 14px/1.5 inherit; outline: none; resize: vertical;
+  min-height: 80px; max-height: 200px; width: 100%;
+  transition: border 120ms, box-shadow 120ms; }
+.input-area textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg); }
+.input-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.input-row button { font-size: 14px; font-weight: 600; cursor: pointer;
+  border-radius: var(--r); padding: 8px 18px; border: none;
+  transition: background 120ms, opacity 120ms; }
+.btn-primary { background: var(--accent); color: #1a1a1a; }
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+.btn-primary:disabled { opacity: .4; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+.btn-ghost:hover { color: var(--text); border-color: var(--text-dim); }
+.chat-popup { position: fixed; left: 20px; right: 20px; bottom: 12px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--rl);
+  box-shadow: 0 -8px 32px rgba(0,0,0,.4), 0 0 0 1px var(--border-soft);
+  z-index: 500; display: flex; flex-direction: column;
+  max-height: 25vh; transition: max-height 280ms cubic-bezier(.2,.85,.3,1); }
+.chat-popup.collapsed { max-height: 36px; }
+.chat-handle { flex: 0 0 auto; padding: 8px 14px;
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer; user-select: none;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--text-dim); font-size: 12px; }
+.chat-popup.collapsed .chat-handle { border-bottom: none; }
+.chat-handle .title { flex: 1; font-weight: 500; }
+.chat-handle .hint { color: var(--text-muted); font-size: 11px; }
+.chat-handle .chev { transition: transform 200ms; }
+.chat-popup:not(.collapsed) .chat-handle .chev { transform: rotate(180deg); }
+.chat-body { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.chat-popup.collapsed .chat-body { display: none; }
+.chat-history { flex: 1; overflow-y: auto; padding: 10px 14px; font-size: 13px; line-height: 1.5; }
+.chat-history::-webkit-scrollbar { width: 8px; }
+.chat-history::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.chat-msg { margin-bottom: 10px; }
+.chat-msg .role { font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 2px; }
+.chat-msg.user .role { color: var(--accent); }
+.chat-msg.analyst .role { color: var(--tone-primary); }
+.chat-msg.error .role { color: var(--tone-stress); }
+.chat-msg .content { white-space: pre-wrap; color: var(--text); }
+.chat-input-row { flex: 0 0 auto; display: flex; gap: 8px; padding: 8px 10px 10px;
+  border-top: 1px solid var(--border-soft); }
+.chat-input-row input { flex: 1; background: var(--bg-input); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 8px 10px; font-size: 13px; outline: none; }
+.chat-input-row input:focus { border-color: var(--accent); }
+.chat-input-row button { font-size: 13px; font-weight: 600; padding: 6px 14px;
+  border-radius: var(--r); cursor: pointer; border: none;
+  background: var(--accent); color: #1a1a1a; }
+.chat-input-row button:disabled { opacity: 0.4; cursor: not-allowed; }
+.chat-nocontext { color: var(--text-muted); font-style: italic;
+  padding: 20px; text-align: center; font-size: 12px; }
+.app-footer { flex: 0 0 auto; padding: 4px 0 0; margin-bottom: 43px;
+  display: flex; flex-direction: row; flex-wrap: wrap;
+  align-items: center; justify-content: center; gap: 4px 10px;
+  color: var(--text-muted); font-size: 10px; line-height: 1.3; text-align: center; }
+.app-footer a { color: inherit; text-decoration: none; }
+.app-footer .sep { color: var(--border); }
+.app-footer .word { --i: 0; display: inline;
+  color: var(--text-muted); cursor: default;
+  transition: color 220ms; }
+.app-footer a .word { cursor: pointer; }
+.app-footer .word.hot {
+  color: #fff6ee;
+  animation: word-breathe 3.2s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+@keyframes word-breathe {
+  0%, 100% {
+    text-shadow: 0 0 1px rgba(255,255,255,.4),
+                 0 0 2px rgba(232,133,94,.25);
+    filter: drop-shadow(0 0 0 rgba(232,133,94,0));
+  }
+  50% {
+    text-shadow: 0 0 4px rgba(255,255,255,1),
+                 0 0 10px rgba(255,218,185,.9),
+                 0 0 22px rgba(232,133,94,.85),
+                 0 0 44px rgba(232,133,94,.55),
+                 0 0 72px rgba(232,133,94,.32),
+                 0 0 110px rgba(232,133,94,.15);
+    filter: drop-shadow(0 0 18px rgba(232,133,94,.5));
+  }
+}
+.debug-log { display: none; }
+body.debug-enabled .debug-log { display: inline; }
+body:not(.debug-enabled) .debug-sep { display: none; }
+.debug-log summary { list-style: none; cursor: pointer; color: var(--text-muted);
+  transition: color 200ms; }
+.debug-log summary:hover { color: var(--text-dim); }
+.debug-log summary::-webkit-details-marker { display: none; }
+.debug-log summary::before { content: '>'; display: inline-block;
+  margin-right: 4px; transition: transform 200ms; transform-origin: center; }
+.debug-log[open] summary::before { transform: rotate(90deg); }
+/* Ensure summary stays clickable above #debug overlay (which is z-index 1000).
+   Without this, small viewports where #debug's fixed box overlaps footer
+   summary position make toggling fail because clicks hit #debug instead. */
+.debug-log summary { position: relative; z-index: 1001; }
+#debug { display: none; }
+.debug-log[open] #debug { display: block; position: fixed;
+  left: 24px; right: 24px; bottom: 52px; height: 50vh;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--rl);
+  box-shadow: 0 -8px 32px rgba(0,0,0,.35), 0 0 0 1px var(--border-soft);
+  padding: 16px 20px; font-size: 11px; line-height: 1.55;
+  overflow-y: auto; color: var(--text-dim); white-space: pre-wrap;
+  text-align: left; z-index: 1000;
+  animation: popup-rise 260ms cubic-bezier(.2,.85,.3,1); }
+/* Explicit close control inside the overlay -- independent click target,
+   works even if summary click path has any event-capture interference. */
+.debug-log[open] .debug-close { display: block; position: fixed;
+  bottom: calc(52px + 50vh - 32px); right: 32px; z-index: 1002;
+  background: var(--bg-chip); color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 2px 10px; font-size: 11px; cursor: pointer;
+  transition: color 120ms, border-color 120ms; }
+.debug-log[open] .debug-close:hover { color: var(--text); border-color: var(--text-dim); }
+.debug-close { display: none; }
+@keyframes popup-rise { from { opacity: 0; transform: translateY(24px) scale(.98); }
+  to { opacity: 1; transform: none; } }
+
+/* Client mode (default, no .debug-enabled on body): hide the 3 top
+   panels, let the Final/Analysis Report panel take the full panel area. */
+body:not(.debug-enabled) .panels-top { display: none; }
+body:not(.debug-enabled) .panels-bottom { flex: 1 1 100%; }
+
+/* Chat / QuickChat interactions hide Advise/Medical mode + subtype selectors
+   (chat is a single-model reply, no domain routing needed). Also always hide
+   the 3 top panels regardless of debug state -- chat doesn't run Trinity. */
+body[data-interaction="chat"] #mode, body[data-interaction="chat"] #sub-type,
+body[data-interaction="quickchat"] #mode, body[data-interaction="quickchat"] #sub-type {
+  display: none;
+}
+body[data-interaction="chat"] .panels-top,
+body[data-interaction="quickchat"] .panels-top { display: none; }
+body[data-interaction="chat"] .panels-bottom,
+body[data-interaction="quickchat"] .panels-bottom { flex: 1 1 100%; }
+
+/* Thinking timer next to the final panel title: ticks live while a turn
+   is in flight (both Chat mode and Analysis mode). Helps the user know
+   the system is alive during long Opus replies. */
+.thinking-timer { font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: 11px; color: var(--accent); margin-left: 6px;
+  letter-spacing: .02em; animation: pulse 1.4s infinite ease-in-out; }
+
+/* Client-mode thinking animation on the Analysis Report panel while
+   a run is in flight: cycles "thinking." -> "thinking.." -> "thinking..."
+   every 1.2s. Replaces the generic "thinking" + cursor-pulse placeholder. */
+@keyframes thinking-dots {
+  0%, 33%   { content: "thinking."; }
+  34%, 66%  { content: "thinking.."; }
+  67%, 100% { content: "thinking..."; }
+}
+body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-body .placeholder {
+  display: none;
+}
+body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-body::before {
+  content: "thinking.";
+  animation: thinking-dots 1.2s steps(3, end) infinite;
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 14px;
+  display: block;
+  padding: 4px 0;
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <h1 data-i18n="topbar.title">AI Council</h1>
+    <nav class="pills" id="pills"></nav>
+  </header>
+  <div class="q-bar empty" id="qBar">
+    <span class="q-label" data-i18n="qbar.label">Q</span>
+    <span class="q-text" id="qText"></span>
+    <span class="q-meta" id="qMeta"></span>
+    <button class="resend" id="resendBtn" data-i18n="btn.resend" style="display:none">Resend to input</button>
+  </div>
+  <section class="panels-wrap">
+    <div class="panels-top">
+      <div class="panel" data-role="primary" data-status="idle" data-collapsed="false">
+        <div class="panel-head">
+          <span class="chevron">v</span><h3 data-i18n="panel.primary">Analysis</h3>
+          <span class="status" data-s="idle" data-i18n="status.idle">idle</span>
+          <button class="copy-btn" data-i18n="btn.copy" disabled>Copy</button>
+        </div>
+        <div class="panel-body"><span class="placeholder" data-i18n="placeholder.waiting">Waiting...</span></div>
+      </div>
+      <div class="panel" data-role="peer" data-status="idle" data-collapsed="false">
+        <div class="panel-head">
+          <span class="chevron">v</span><h3 data-i18n="panel.peer">Peer Review A</h3>
+          <span class="status" data-s="idle" data-i18n="status.idle">idle</span>
+          <button class="copy-btn" data-i18n="btn.copy" disabled>Copy</button>
+        </div>
+        <div class="panel-body"><span class="placeholder" data-i18n="placeholder.waiting">Waiting...</span></div>
+      </div>
+      <div class="panel" data-role="stress" data-status="idle" data-collapsed="false">
+        <div class="panel-head">
+          <span class="chevron">v</span><h3 data-i18n="panel.stress">Peer Review B</h3>
+          <span class="status" data-s="idle" data-i18n="status.idle">idle</span>
+          <button class="copy-btn" data-i18n="btn.copy" disabled>Copy</button>
+        </div>
+        <div class="panel-body"><span class="placeholder" data-i18n="placeholder.waiting">Waiting...</span></div>
+      </div>
+    </div>
+    <div class="panels-bottom">
+      <div class="panel" data-role="final" data-status="idle" data-collapsed="false">
+        <div class="panel-head">
+          <span class="chevron">v</span><h3 data-i18n="panel.final">Analysis Report</h3>
+          <span class="thinking-timer" id="thinkingTimer" style="display:none"></span>
+          <span class="status" data-s="idle" data-i18n="status.idle">idle</span>
+          <button class="copy-btn" data-i18n="btn.copy" disabled>Copy</button>
+        </div>
+        <div class="panel-body"><span class="placeholder" data-i18n="placeholder.waiting">Waiting...</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="input-area">
+    <textarea id="input" data-i18n-placeholder="placeholder.input.advise" placeholder="Describe the question: legal, investment, business, geopolitical..."></textarea>
+    <div class="input-row">
+      <select id="interaction" title="Interaction mode">
+        <option value="analysis" selected>Analysis</option>
+        <option value="chat">Chat</option>
+        <option value="quickchat">QuickChat</option>
+      </select>
+      <select id="mode" title="Mode">
+        <option value="advise">Advise</option>
+        <option value="medical">Medical</option>
+      </select>
+      <select id="sub-type" title="Type / Specialty"></select>
+      <select id="lang" title="Language">
+        <option value="zh">Chinese</option>
+        <option value="en">English</option>
+      </select>
+      <button id="submit" class="btn-primary" data-i18n="btn.submit">Submit (Ctrl+Enter)</button>
+      <button id="stop" class="btn-ghost" data-i18n="btn.stop" style="display:none">Stop</button>
+    </div>
+  </section>
+  <footer class="app-footer">
+    <span data-i18n="footer.line1">AI Council by Empire Integration Partners LLC</span>
+    <span class="sep">|</span>
+    <span data-i18n="footer.line2">Powered by our proprietary AI engine</span>
+    <span class="sep">|</span>
+    <span data-i18n="footer.line3">Analysis only -- decisions belong to the principal</span>
+    <span class="sep">|</span>
+    <a href="mailto:support@empireintegration.com?subject=AI%20Council%20Feedback" data-i18n="footer.feedback">Feedback</a>
+    <span class="sep">|</span>
+    <span>(C) 2026 Empire Integration Partners LLC</span>
+    <span class="sep debug-sep">|</span>
+    <details class="debug-log" id="debugLog">
+      <summary data-i18n="footer.debug_log">Debug log</summary>
+      <button class="debug-close" id="debugClose" type="button" data-i18n="btn.close">close</button>
+      <pre id="debug"></pre>
+    </details>
+  </footer>
+</div>
+<aside class="chat-popup collapsed" id="chatPopup">
+  <div class="chat-handle" id="chatHandle">
+    <span class="title" data-i18n="chat.handle_title">Follow-up with analyst</span>
+    <span class="hint" data-i18n="chat.handle_hint">(available after a report completes)</span>
+    <span class="chev">v</span>
+  </div>
+  <div class="chat-body">
+    <div class="chat-history" id="chatHistory">
+      <div class="chat-nocontext" id="chatNoCtx" data-i18n="chat.nocontext.initial">Submit a question above first. Once Analysis Report is ready, you can ask follow-ups here.</div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" data-i18n-placeholder="placeholder.chat" placeholder="Ask a follow-up question about the report..." disabled />
+      <button id="chatSend" data-i18n="btn.send" disabled>Send</button>
+    </div>
+  </div>
+</aside>
+<script>
+// --- i18n ---
+const I18N_LANG_KEY = 'eip_ui_lang';
+const I18N = {
+  zh: {
+    'topbar.title': 'AI \u8bae\u4f1a',
+    'panel.primary': '\u5206\u6790',
+    'panel.peer': '\u540c\u884c\u8bc4\u5ba1 A',
+    'panel.stress': '\u540c\u884c\u8bc4\u5ba1 B',
+    'panel.final': '\u5206\u6790\u62a5\u544a',
+    'panel.final.chat': '\u804a\u5929',
+    'panel.final.quickchat': '\u5feb\u901f\u804a\u5929',
+    'status.idle': '\u7a7a\u95f2',
+    'status.start': '\u601d\u8003\u4e2d...',
+    'status.thinking': '\u601d\u8003\u4e2d...',
+    'status.done': '\u5b8c\u6210',
+    'status.error': '\u9519\u8bef',
+    'btn.submit': '\u63d0\u4ea4 (Ctrl+Enter)',
+    'btn.stop': '\u505c\u6b62',
+    'btn.copy': '\u590d\u5236',
+    'btn.copied': '\u5df2\u590d\u5236',
+    'btn.send': '\u53d1\u9001',
+    'btn.new': '+ \u65b0\u5efa',
+    'btn.resend': '\u91cd\u65b0\u53d1\u9001\u5230\u8f93\u5165\u6846',
+    'btn.copy_failed': '\u590d\u5236\u5931\u8d25',
+    'btn.close': '\u5173\u95ed',
+    'placeholder.input.advise': '\u63cf\u8ff0\u95ee\u9898: \u6cd5\u5f8b / \u6295\u8d44 / \u5546\u4e1a / \u5730\u7f18...',
+    'placeholder.input.medical': '\u63cf\u8ff0\u75c7\u72b6\u3001\u75c5\u53f2\u3001\u5316\u9a8c\u3001\u5f71\u50cf...',
+    'placeholder.chat': '\u5c31\u672c\u62a5\u544a\u63d0\u4e00\u4e2a\u8ddf\u8fdb\u95ee\u9898...',
+    'placeholder.thinking': '\u601d\u8003\u4e2d',
+    'placeholder.waiting': '\u7b49\u5f85...',
+    'qbar.label': '\u95ee',
+    'chat.handle_title': '\u4e0e\u5206\u6790\u5e08\u8ddf\u8fdb',
+    'chat.handle_hint': '(\u62a5\u544a\u5b8c\u6210\u540e\u53ef\u7528)',
+    'chat.nocontext.initial': '\u5148\u5728\u4e0a\u65b9\u63d0\u4ea4\u4e00\u4e2a\u95ee\u9898\u3002\u5206\u6790\u62a5\u544a\u751f\u6210\u540e\u53ef\u5728\u6b64\u8fdb\u884c\u8ddf\u8fdb\u3002',
+    'chat.nocontext.disabled': '\u672c\u8bae\u7a0b\u5c1a\u65e0\u5206\u6790\u62a5\u544a\uff0c\u804a\u5929\u5df2\u7981\u7528\u3002',
+    'chat.nocontext.ready': '\u5c31\u7eea\uff0c\u53ef\u5c31\u672c\u62a5\u544a\u63d0\u95ee\u3002',
+    'chat.msg.user': '\u7528\u6237',
+    'chat.msg.analyst': '\u5206\u6790\u5e08',
+    'chat.msg.error': '\u9519\u8bef',
+    'chat.analyst.thinking': '\u601d\u8003\u4e2d...',
+    'chat.analyst.error.unavailable': '\u5206\u6790\u5e08\u4e0d\u53ef\u7528',
+    'footer.line1': 'AI \u8bae\u4f1a by Empire Integration Partners LLC',
+    'footer.line2': '\u7531\u6211\u4eec\u4e13\u6709 AI \u5f15\u64ce\u9a71\u52a8',
+    'footer.line3': '\u4ec5\u4f9b\u5206\u6790\u53c2\u8003\uff0c\u88c1\u51b3\u6743\u5728\u51b3\u7b56\u8005',
+    'footer.feedback': '\u53cd\u9988',
+    'footer.debug_log': '\u8c03\u8bd5\u65e5\u5fd7',
+    'mode.advise': '\u548b\u8be2',
+    'mode.medical': '\u533b\u7597',
+    'advise_type.general': '\u901a\u7528',
+    'advise_type.legal': '\u6cd5\u5f8b',
+    'advise_type.investment': '\u80a1\u7968 / \u6295\u8d44',
+    'advise_type.business': '\u5546\u4e1a',
+    'advise_type.geopolitical': '\u5730\u7f18 / \u6218\u7565',
+    'medical_specialty.general': '\u5185\u79d1 (\u9ed8\u8ba4)',
+    'medical_specialty.cardiology': '\u5fc3\u8840\u7ba1',
+    'medical_specialty.dentistry': '\u7259\u79d1',
+    'medical_specialty.dermatology': '\u76ae\u80a4\u79d1',
+    'medical_specialty.emergency': '\u6025\u8bca',
+    'medical_specialty.gastroenterology': '\u6d88\u5316\u79d1',
+    'medical_specialty.neurology': '\u795e\u7ecf\u79d1',
+    'medical_specialty.obgyn': '\u5987\u4ea7\u79d1',
+    'medical_specialty.oncology': '\u80bf\u7626\u79d1',
+    'medical_specialty.orthopedics': '\u9aa8\u79d1',
+    'medical_specialty.pediatrics': '\u513f\u79d1',
+    'medical_specialty.psychiatry': '\u7cbe\u795e\u79d1',
+    'medical_specialty.pulmonology': '\u547c\u5438\u79d1',
+  },
+  en: {
+    'topbar.title': 'AI Council',
+    'panel.primary': 'Analysis',
+    'panel.peer': 'Peer Review A',
+    'panel.stress': 'Peer Review B',
+    'panel.final': 'Analysis Report',
+    'panel.final.chat': 'Chat',
+    'panel.final.quickchat': 'QuickChat',
+    'status.idle': 'idle',
+    'status.start': 'thinking...',
+    'status.thinking': 'thinking...',
+    'status.done': 'done',
+    'status.error': 'error',
+    'btn.submit': 'Submit (Ctrl+Enter)',
+    'btn.stop': 'Stop',
+    'btn.copy': 'Copy',
+    'btn.copied': 'Copied',
+    'btn.send': 'Send',
+    'btn.new': '+ New',
+    'btn.resend': 'Resend to input',
+    'btn.close': 'close',
+    'btn.copy_failed': 'Failed',
+    'placeholder.input.advise': 'Describe the question: legal, investment, business, geopolitical...',
+    'placeholder.input.medical': 'Describe symptoms, history, labs, imaging...',
+    'placeholder.chat': 'Ask a follow-up question about the report...',
+    'placeholder.thinking': 'thinking',
+    'placeholder.waiting': 'Waiting...',
+    'qbar.label': 'Q',
+    'chat.handle_title': 'Follow-up with analyst',
+    'chat.handle_hint': '(available after a report completes)',
+    'chat.nocontext.initial': 'Submit a question above first. Once Analysis Report is ready, you can ask follow-ups here.',
+    'chat.nocontext.disabled': 'This meeting has no Analysis Report yet. Chat disabled.',
+    'chat.nocontext.ready': 'Ready. Ask about this report.',
+    'chat.msg.user': 'user',
+    'chat.msg.analyst': 'analyst',
+    'chat.msg.error': 'error',
+    'chat.analyst.thinking': 'thinking...',
+    'chat.analyst.error.unavailable': 'analyst unavailable',
+    'footer.line1': 'AI Council by Empire Integration Partners LLC',
+    'footer.line2': 'Powered by our proprietary AI engine',
+    'footer.line3': 'Analysis only -- decisions belong to the principal',
+    'footer.feedback': 'Feedback',
+    'footer.debug_log': 'Debug log',
+    'mode.advise': 'Advise',
+    'mode.medical': 'Medical',
+    'advise_type.general': 'General',
+    'advise_type.legal': 'Legal',
+    'advise_type.investment': 'Stock / Investment',
+    'advise_type.business': 'Business',
+    'advise_type.geopolitical': 'Geopolitical / Strategy',
+    'medical_specialty.general': 'Internal medicine',
+    'medical_specialty.cardiology': 'Cardiology',
+    'medical_specialty.dentistry': 'Dentistry',
+    'medical_specialty.dermatology': 'Dermatology',
+    'medical_specialty.emergency': 'Emergency',
+    'medical_specialty.gastroenterology': 'Gastroenterology',
+    'medical_specialty.neurology': 'Neurology',
+    'medical_specialty.obgyn': 'OB/GYN',
+    'medical_specialty.oncology': 'Oncology',
+    'medical_specialty.orthopedics': 'Orthopedics',
+    'medical_specialty.pediatrics': 'Pediatrics',
+    'medical_specialty.psychiatry': 'Psychiatry',
+    'medical_specialty.pulmonology': 'Pulmonology',
+  },
+};
+
+function currentLang() {
+  return (langEl && langEl.value) || 'zh';
+}
+
+function t(key) {
+  const lang = currentLang();
+  return (I18N[lang] && I18N[lang][key]) || (I18N.zh[key]) || key;
+}
+
+function applyLang() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    el.title = t(el.dataset.i18nTitle);
+  });
+  if (typeof fillSubType === 'function') fillSubType();
+  if (typeof renderPills === 'function') renderPills();
+  if (typeof applyInteractionMode === 'function') applyInteractionMode();
+  if (typeof rebuildFooterGlow === 'function') rebuildFooterGlow();
+}
+// --- end i18n ---
+
+const ADVISE_TYPES = [
+  ['general', 'advise_type.general'],
+  ['legal', 'advise_type.legal'],
+  ['investment', 'advise_type.investment'],
+  ['business', 'advise_type.business'],
+  ['geopolitical', 'advise_type.geopolitical'],
+];
+const MEDICAL_SPECIALTIES = [
+  ['', 'medical_specialty.general'],
+  ['cardiology', 'medical_specialty.cardiology'],
+  ['dentistry', 'medical_specialty.dentistry'],
+  ['dermatology', 'medical_specialty.dermatology'],
+  ['emergency', 'medical_specialty.emergency'],
+  ['gastroenterology', 'medical_specialty.gastroenterology'],
+  ['neurology', 'medical_specialty.neurology'],
+  ['obgyn', 'medical_specialty.obgyn'],
+  ['oncology', 'medical_specialty.oncology'],
+  ['orthopedics', 'medical_specialty.orthopedics'],
+  ['pediatrics', 'medical_specialty.pediatrics'],
+  ['psychiatry', 'medical_specialty.psychiatry'],
+  ['pulmonology', 'medical_specialty.pulmonology'],
+];
+const PHASE_TO_ROLE = { creator: 'primary', overseer: 'peer', adversary: 'stress', final: 'final' };
+const ROLES = ['primary', 'peer', 'stress', 'final'];
+const STORAGE_KEY = 'eip_meetings_v1';
+const USER_SID_KEY = 'eip_user_session_id';
+
+// Stable per-tab UUID used by server to route all endpoints to the same
+// persistent Claude subprocess. Generated once on first use, kept across
+// reloads within the tab via sessionStorage.
+function getUserSessionId() {
+  let uid = sessionStorage.getItem(USER_SID_KEY);
+  if (!uid) {
+    uid = 'u_' + Date.now() + '_' + Math.random().toString(36).slice(2, 12);
+    sessionStorage.setItem(USER_SID_KEY, uid);
+  }
+  return uid;
+}
+
+const $ = (s) => document.querySelector(s);
+const debugEl = document.getElementById('debug');
+function dbg(msg) {
+  const t = new Date().toLocaleTimeString();
+  debugEl.textContent += '[' + t + '] ' + msg + '\n';
+  debugEl.scrollTop = debugEl.scrollHeight;
+}
+// Chat-path LLM call log. Trinity path gets llm_call meta from advise.py;
+// chat turns go through ws_chat -> session.turn() directly, no meta event,
+// so client emits its own breadcrumb. Format mirrors Trinity's log line.
+function dbgLLM(phase, role, model, ccSid) {
+  const sid = ccSid ? ' sess=' + String(ccSid).slice(0, 8) : '';
+  const modelId = model === 'haiku' ? 'claude-haiku-4-5'
+    : model === 'opus' ? 'claude-opus-4-7' : (model || 'unknown');
+  dbg('LLM: [' + phase + '] claude ' + modelId + sid + ' (role=' + role + ')');
+}
+
+// Meetings persist across tabs and sessions (paid-token reports are expensive).
+// user_session_id stays in sessionStorage -- it binds to a server Claude subprocess
+// that the idle reaper may kill, so a persisted UUID would point to a dead session.
+//
+// Reports are encrypted at rest with AES-GCM-256. Key is a non-extractable CryptoKey
+// stored in IndexedDB -- DevTools Application panel shows only base64 ciphertext,
+// and the key material cannot be dumped. Protects against casual browser-storage
+// inspection; does not attempt to stop someone running JS in the devtools console.
+const VAULT_DB = 'eip_vault', VAULT_STORE = 'keys', VAULT_KEY = 'report_key';
+function _idbOpen() {
+  return new Promise((res, rej) => {
+    const r = indexedDB.open(VAULT_DB, 1);
+    r.onupgradeneeded = () => r.result.createObjectStore(VAULT_STORE);
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  });
+}
+function _idbGet(db, k) {
+  return new Promise((res, rej) => {
+    const r = db.transaction(VAULT_STORE, 'readonly').objectStore(VAULT_STORE).get(k);
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  });
+}
+function _idbPut(db, k, v) {
+  return new Promise((res, rej) => {
+    const tx = db.transaction(VAULT_STORE, 'readwrite');
+    tx.objectStore(VAULT_STORE).put(v, k);
+    tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error);
+  });
+}
+let _keyPromise = null;
+function _ensureKey() {
+  if (_keyPromise) return _keyPromise;
+  _keyPromise = (async () => {
+    const db = await _idbOpen();
+    let k = await _idbGet(db, VAULT_KEY);
+    if (!k) {
+      k = await crypto.subtle.generateKey(
+        { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+      );
+      await _idbPut(db, VAULT_KEY, k);
+    }
+    return k;
+  })();
+  return _keyPromise;
+}
+function _b64enc(bytes) {
+  let s = ''; for (let i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+  return btoa(s);
+}
+function _b64dec(str) {
+  const s = atob(str); const out = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
+  return out;
+}
+async function _encryptJSON(key, obj) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const pt = new TextEncoder().encode(JSON.stringify(obj));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, pt));
+  const blob = new Uint8Array(iv.length + ct.length);
+  blob.set(iv, 0); blob.set(ct, iv.length);
+  return _b64enc(blob);
+}
+async function _decryptJSON(key, b64) {
+  const blob = _b64dec(b64);
+  const pt = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: blob.slice(0, 12) }, key, blob.slice(12)
+  );
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+
+// Load-failure protection: if decrypt fails, BACK UP the unreadable ciphertext
+// to a timestamped key AND set _meetingsLoadOk=false so subsequent saveMeetings
+// refuses to overwrite. Honors "never lose reports unless user deletes" rule.
+let _meetingsLoadOk = false;
+async function loadMeetings() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) { _meetingsLoadOk = true; return []; }
+  try {
+    const key = await _ensureKey();
+    // Legacy plaintext migration: JSON array -> re-encrypted in place.
+    if (raw.startsWith('[')) {
+      const parsed = JSON.parse(raw);
+      localStorage.setItem(STORAGE_KEY, await _encryptJSON(key, parsed));
+      _meetingsLoadOk = true;
+      return parsed;
+    }
+    const parsed = await _decryptJSON(key, raw);
+    _meetingsLoadOk = true;
+    return parsed;
+  } catch (e) {
+    dbg('load meetings FAILED: ' + (e.message || e));
+    // Snapshot the unreadable ciphertext so future save cannot wipe it.
+    try {
+      const backupKey = STORAGE_KEY + '_backup_' + Date.now();
+      localStorage.setItem(backupKey, raw);
+      dbg('backed up unreadable ciphertext to localStorage["' + backupKey + '"]');
+    } catch (_) { /* quota full? nothing we can do */ }
+    _meetingsLoadOk = false;
+    return [];
+  }
+}
+async function saveMeetings(list) {
+  if (!_meetingsLoadOk) {
+    // Load failed -> refuse to overwrite. Ciphertext is preserved in a backup
+    // key; user must resolve (restore key or clear data explicitly) before
+    // new saves happen. This enforces "never lose reports unless user deletes".
+    dbg('saveMeetings BLOCKED: load failed, refusing to overwrite storage');
+    return;
+  }
+  try {
+    const key = await _ensureKey();
+    localStorage.setItem(STORAGE_KEY, await _encryptJSON(key, list));
+  } catch (e) {
+    dbg('save meetings failed: ' + (e.message || e));
+  }
+}
+function newMeeting(mode, subtype, lang, question) {
+  return { id: 'm_' + Date.now(), timestamp: Date.now(),
+    mode, subtype, lang, question,
+    cc_session_id: null,   // filled from the server's meta event on first spawn
+    phases: { primary:{status:'idle',content:''}, peer:{status:'idle',content:''},
+              stress:{status:'idle',content:''}, final:{status:'idle',content:''} },
+    chat: [] };
+}
+function meetingTitle(m) {
+  // Prefix MM/DD so pill bar is scannable by date; full timestamp still
+  // rendered in qBar on viewMeeting via toLocaleString().
+  const d = new Date(m.timestamp || Date.now());
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const text = (m.question || '').trim().slice(0, 36) || 'Empty';
+  return mm + '/' + dd + ' ' + text;
+}
+
+let meetings = [];   // populated by async init at script bottom
+let currentId = null;
+
+const modeEl = $('#mode'), subEl = $('#sub-type'), langEl = $('#lang');
+// Restore persisted lang preference before first applyLang() call
+(function() {
+  const saved = localStorage.getItem(I18N_LANG_KEY);
+  if (saved && ['zh', 'en'].includes(saved)) langEl.value = saved;
+})();
+langEl.addEventListener('change', () => {
+  localStorage.setItem(I18N_LANG_KEY, langEl.value);
+  applyLang();
+});
+const interactionEl = $('#interaction');
+const inputEl = $('#input'), submitBtn = $('#submit'), stopBtn = $('#stop');
+
+// Reflect interaction state onto <body> so CSS can hide mode/subtype + top
+// panels in chat modes. Panel h3 flips per selection.
+//   analysis  -> "Analysis Report"
+//   chat      -> "Chat"           (structured, high-quality, full Opus style)
+//   quickchat -> "QuickChat"      (brief, conversational, brevity-wrapped on server)
+function applyInteractionMode() {
+  const v = interactionEl.value;
+  document.body.dataset.interaction = v;
+  const finalTitleEl = document.querySelector('.panel[data-role="final"] h3');
+  if (finalTitleEl) {
+    finalTitleEl.textContent = v === 'chat' ? t('panel.final.chat')
+      : v === 'quickchat' ? t('panel.final.quickchat')
+      : t('panel.final');
+  }
+}
+interactionEl.addEventListener('change', applyInteractionMode);
+applyInteractionMode();
+const pillsEl = $('#pills');
+const qBar = $('#qBar'), qText = $('#qText'), qMeta = $('#qMeta'), resendBtn = $('#resendBtn');
+const chatPopup = $('#chatPopup'), chatHandle = $('#chatHandle');
+const chatHistory = $('#chatHistory'), chatNoCtx = $('#chatNoCtx');
+const chatInput = $('#chatInput'), chatSend = $('#chatSend');
+
+function fillSubType() {
+  const isMed = modeEl.value === 'medical';
+  const opts = isMed ? MEDICAL_SPECIALTIES : ADVISE_TYPES;
+  subEl.innerHTML = opts.map(([v, k]) => '<option value="' + v + '">' + t(k) + '</option>').join('');
+  inputEl.placeholder = isMed
+    ? t('placeholder.input.medical')
+    : t('placeholder.input.advise');
+}
+modeEl.addEventListener('change', fillSubType);
+fillSubType();
+
+function renderPills() {
+  pillsEl.innerHTML = '';
+  meetings.forEach(m => {
+    const b = document.createElement('button');
+    b.className = 'pill' + (currentId === m.id ? ' active' : '');
+    b.title = m.question;
+    b.dataset.id = m.id;
+    b.innerHTML = meetingTitle(m) + '<span class="close" title="Remove">x</span>';
+    b.addEventListener('click', (e) => {
+      if (e.target.classList.contains('close')) {
+        e.stopPropagation();
+        meetings = meetings.filter(x => x.id !== m.id);
+        saveMeetings(meetings);
+        if (currentId === m.id) { currentId = null; renderLive(); }
+        renderPills();
+      } else { viewMeeting(m.id); }
+    });
+    pillsEl.appendChild(b);
+  });
+  const live = document.createElement('button');
+  live.className = 'pill' + (currentId === null ? ' active' : '');
+  live.innerHTML = t('btn.new');
+  live.addEventListener('click', () => { currentId = null; renderLive(); renderPills(); });
+  pillsEl.appendChild(live);
+}
+
+// role -> { cancelled, timer, paused, step } for in-flight typewriter
+const panelAnims = {};
+function cancelPanelAnim(role) {
+  const a = panelAnims[role];
+  if (!a) return;
+  a.cancelled = true;
+  if (a.timer) clearTimeout(a.timer);
+  const p = document.querySelector('.panel[data-role="' + role + '"]');
+  if (p) {
+    p.removeAttribute('data-typing');
+    const pre = p.querySelector('pre.typing');
+    if (pre) pre.classList.remove('typing');
+  }
+  delete panelAnims[role];
+}
+
+// Reveal char-by-char at fast human typing speed, with rhythm pauses
+// aligned to natural boundaries: period (sentence end), comma (clause),
+// newline (paragraph). Blinking cursor at tail while typing.
+const TYPE_MS = 40;            // per-char base delay
+const PERIOD_PAUSE_MS = 1000;  // after . 。
+const COMMA_PAUSE_MS = 200;    // after , ， ; ； : ：
+const NEWLINE_PAUSE_MS = 500;  // after \n  (paragraph breath)
+const PERIOD_RE = /[.。]/;
+const COMMA_RE  = /[,，;；:：]/;
+
+function typewriterReveal(role, fullText) {
+  cancelPanelAnim(role);
+  const p = document.querySelector('.panel[data-role="' + role + '"]');
+  if (!p) return;
+  const body = p.querySelector('.panel-body');
+  body.innerHTML = '<pre class="typing"></pre>';
+  const pre = body.querySelector('pre');
+  // Text node + cursor span as pre's children. Cursor stays inline,
+  // flows with text, sits immediately after the last revealed char.
+  const textNode = document.createTextNode('');
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-blink';
+  pre.appendChild(textNode);
+  pre.appendChild(cursor);
+  const total = fullText.length;
+  if (total === 0) { cursor.remove(); return; }
+  const state = { cancelled: false, timer: null, paused: false, step: null };
+  panelAnims[role] = state;
+  p.setAttribute('data-typing', 'true');   // flowing border stays while we type
+  let idx = 0;
+  function step() {
+    if (state.cancelled || state.paused) return;
+    if (idx >= total) {
+      cursor.remove();
+      pre.classList.remove('typing');
+      p.removeAttribute('data-typing');
+      delete panelAnims[role];
+      return;
+    }
+    const ch = fullText[idx];
+    idx++;
+    textNode.data = fullText.slice(0, idx);
+    body.scrollTop = body.scrollHeight;
+    let delay = TYPE_MS;
+    if (PERIOD_RE.test(ch))      delay = PERIOD_PAUSE_MS;
+    else if (ch === '\n')        delay = NEWLINE_PAUSE_MS;
+    else if (COMMA_RE.test(ch))  delay = COMMA_PAUSE_MS;
+    state.timer = setTimeout(step, delay);
+  }
+  state.step = step;
+  step();
+}
+
+// Append mode: type new text INTO the existing pre (keeps prior content).
+// Used for follow-up Q&A answers that extend the Final Rec panel.
+// onDone callback fires when reveal completes (or immediately if text empty).
+function typewriterAppend(role, appendText, onDone) {
+  cancelPanelAnim(role);
+  const p = document.querySelector('.panel[data-role="' + role + '"]');
+  if (!p) { if (onDone) onDone(); return; }
+  const body = p.querySelector('.panel-body');
+  const pre = body.querySelector('pre');
+  if (!pre) { if (onDone) onDone(); return; }
+  const textNode = document.createTextNode('');
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-blink';
+  pre.appendChild(textNode);
+  pre.appendChild(cursor);
+  const total = appendText.length;
+  if (total === 0) {
+    cursor.remove();
+    if (onDone) onDone();
+    return;
+  }
+  pre.classList.add('typing');
+  p.setAttribute('data-typing', 'true');
+  const state = { cancelled: false, timer: null, paused: false, step: null };
+  panelAnims[role] = state;
+  let idx = 0;
+  function step() {
+    if (state.cancelled || state.paused) return;
+    if (idx >= total) {
+      cursor.remove();
+      pre.classList.remove('typing');
+      p.removeAttribute('data-typing');
+      delete panelAnims[role];
+      if (onDone) onDone();
+      return;
+    }
+    const ch = appendText[idx];
+    idx++;
+    textNode.data = appendText.slice(0, idx);
+    body.scrollTop = body.scrollHeight;
+    let delay = TYPE_MS;
+    if (PERIOD_RE.test(ch))      delay = PERIOD_PAUSE_MS;
+    else if (ch === '\n')        delay = NEWLINE_PAUSE_MS;
+    else if (COMMA_RE.test(ch))  delay = COMMA_PAUSE_MS;
+    state.timer = setTimeout(step, delay);
+  }
+  state.step = step;
+  step();
+}
+
+// Pause all typewriters while tab hidden (save CPU/battery). Resume on visible.
+document.addEventListener('visibilitychange', () => {
+  const hidden = document.hidden;
+  Object.values(panelAnims).forEach(a => {
+    if (!a || a.cancelled) return;
+    if (hidden) {
+      if (a.timer) { clearTimeout(a.timer); a.timer = null; }
+      a.paused = true;
+    } else if (a.paused && a.step) {
+      a.paused = false;
+      a.step();
+    }
+  });
+});
+
+// Live thinking-time ticker next to the final panel title. Shows MM:SS
+// elapsed while status=start, freezes at total on done/error, hides on idle.
+let _thinkTimer = null;
+let _thinkStart = 0;
+function _fmtElapsed(ms) {
+  const s = Math.floor(ms / 1000);
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+function startThinkingTimer() {
+  const el = document.getElementById('thinkingTimer');
+  if (!el) return;
+  _thinkStart = Date.now();
+  el.style.display = '';
+  el.textContent = '00:00';
+  if (_thinkTimer) clearInterval(_thinkTimer);
+  _thinkTimer = setInterval(() => {
+    el.textContent = _fmtElapsed(Date.now() - _thinkStart);
+  }, 1000);
+}
+function stopThinkingTimer(freeze) {
+  if (_thinkTimer) { clearInterval(_thinkTimer); _thinkTimer = null; }
+  const el = document.getElementById('thinkingTimer');
+  if (!el) return;
+  if (freeze) {
+    el.textContent = _fmtElapsed(Date.now() - _thinkStart) + ' total';
+    el.style.animation = 'none';   // stop pulse once frozen
+  } else {
+    el.style.display = 'none';
+    el.style.animation = '';
+  }
+}
+
+function setPanel(role, status, content, animate) {
+  const p = document.querySelector('.panel[data-role="' + role + '"]');
+  if (!p) return;
+  p.dataset.status = status;
+  const s = p.querySelector('.status');
+  s.dataset.s = status;
+  const STATUS_I18N = { start: 'status.thinking', done: 'status.done', error: 'status.error', idle: 'status.idle' };
+  const statusKey = STATUS_I18N[status];
+  s.textContent = statusKey ? t(statusKey) : status;
+  // Drive the MM:SS ticker only for the final panel (the one the user
+  // watches in client mode; Trinity side panels don't need their own).
+  if (role === 'final') {
+    if (status === 'start') startThinkingTimer();
+    else if (status === 'done' || status === 'error') stopThinkingTimer(true);
+    else if (status === 'idle') stopThinkingTimer(false);
+  }
+  const body = p.querySelector('.panel-body');
+  if (content) {
+    cancelPanelAnim(role);
+    if (animate) {
+      typewriterReveal(role, content);
+    } else {
+      body.innerHTML = '<pre></pre>';
+      body.querySelector('pre').textContent = content;
+    }
+    const btn = p.querySelector('.copy-btn');
+    if (btn) btn.disabled = false;
+  } else if (status === 'start') {
+    cancelPanelAnim(role);
+    // data-i18n preserved on the dynamically-created span so applyLang()
+    // can re-translate it if the user switches language while the panel
+    // is in start/idle state (otherwise the text Claude wrote here stays
+    // in the prior language forever).
+    body.innerHTML = '<span class="placeholder" data-i18n="placeholder.thinking">' + t('placeholder.thinking') + '</span><span class="cursor-pulse"></span>';
+  } else if (status === 'idle') {
+    cancelPanelAnim(role);
+    body.innerHTML = '<span class="placeholder" data-i18n="placeholder.waiting">' + t('placeholder.waiting') + '</span>';
+    const btn = p.querySelector('.copy-btn');
+    if (btn) { btn.disabled = true; btn.textContent = t('btn.copy'); btn.dataset.copied = 'false'; }
+  }
+}
+function resetPanels() { ROLES.forEach(r => setPanel(r, 'idle', '')); }
+// Final Rec panel shows the base final content plus any Q&A follow-ups
+// accumulated in m.chat. Used on render and as the pre-submit baseline.
+function buildFinalRecDisplay(m) {
+  let text = m.phases.final.content || '';
+  if (m.chat && m.chat.length > 0) {
+    let lastUser = null;
+    m.chat.forEach(turn => {
+      if (turn.role === 'user') {
+        lastUser = turn.content;
+      } else if (turn.role === 'analyst' && lastUser !== null) {
+        text += '\n\n----\n\nQ: ' + lastUser + '\n\nA: ' + turn.content;
+        lastUser = null;
+      }
+    });
+  }
+  return text;
+}
+function renderMeeting(m) {
+  ROLES.forEach(r => {
+    const ph = m.phases[r];
+    const content = (r === 'final') ? buildFinalRecDisplay(m) : ph.content;
+    setPanel(r, ph.status, content);
+  });
+  qBar.classList.remove('empty');
+  qText.textContent = m.question;
+  // Chat meetings have mode='chat' and no subtype; label accordingly.
+  let typeLabel;
+  if (m.mode === 'chat') typeLabel = t('panel.final.chat');
+  else if (m.mode === 'quickchat') typeLabel = t('panel.final.quickchat');
+  else if (m.mode === 'medical')
+    typeLabel = t(MEDICAL_SPECIALTIES.find(x => x[0] === (m.subtype||''))?.[1] || 'mode.medical');
+  else typeLabel = t(ADVISE_TYPES.find(x => x[0] === m.subtype)?.[1] || 'mode.advise');
+  const time = new Date(m.timestamp).toLocaleString();
+  qMeta.textContent = typeLabel + ' - ' + m.lang.toUpperCase() + ' - ' + time;
+  resendBtn.style.display = 'inline-block';
+  // Swap the final panel title based on meeting type so old chat meetings
+  // read as "Chat" and old Analysis meetings read as "Analysis Report".
+  const finalTitleEl = document.querySelector('.panel[data-role="final"] h3');
+  if (finalTitleEl) finalTitleEl.textContent = m.mode === 'chat' ? t('panel.final.chat')
+    : m.mode === 'quickchat' ? t('panel.final.quickchat')
+    : t('panel.final');
+  loadChatForMeeting(m);
+}
+function renderLive() {
+  resetPanels();
+  qBar.classList.add('empty');
+  qText.textContent = ''; qMeta.textContent = '';
+  resendBtn.style.display = 'none';
+  chatHistory.innerHTML = '';
+  chatNoCtx.style.display = 'block';
+  chatHistory.appendChild(chatNoCtx);
+  chatInput.disabled = true; chatSend.disabled = true;
+  // Restore panel title to whatever interaction mode the user currently has
+  // selected (renderMeeting may have swapped it to 'Chat' for an old chat meeting).
+  if (typeof applyInteractionMode === 'function') applyInteractionMode();
+}
+function viewMeeting(id) {
+  const m = meetings.find(x => x.id === id);
+  if (!m) return;
+  // Auto-sync dropdown to the pill's mode so the UI reflects what the
+  // backend will do on the next submit (Edge 2 alpha from the spec).
+  if (['analysis', 'chat', 'quickchat'].includes(m.mode)) {
+    interactionEl.value = m.mode;
+    applyInteractionMode();
+  } else if (m.mode === 'advise' || m.mode === 'medical') {
+    // Legacy pills created before the three-mode design use 'advise' /
+    // 'medical' as the mode label. Treat them as Analysis visually.
+    interactionEl.value = 'analysis';
+    applyInteractionMode();
+  }
+  currentId = id; renderMeeting(m); renderPills();
+}
+
+let ws = null;
+let liveMeeting = null;
+// Follow-up mode state: chat WS is shared with popup; these fields
+// track when the next chat response should be routed to Final Rec panel.
+let chatTurnTarget = null;        // 'panel' | null  (null = popup default)
+let pendingFollowupQ = null;      // queued Q to send once chat session ready
+let pendingFollowupMeeting = null;
+
+// Router: Final Rec has a done report -> follow-up Q&A; otherwise -> new
+// topic. New topic branches on interaction mode: 'chat' goes to ws_chat
+// (lightweight Opus subprocess), 'analysis' goes to Trinity via ws_advise.
+function submitCouncil() {
+  if (!inputEl.value.trim() || ws || submitBtn.disabled) return;
+  const question = inputEl.value.trim();
+  const m = currentId ? meetings.find(x => x.id === currentId) : null;
+  // Chat / QuickChat: if the current pill is one of these modes, append
+  // a new turn to its thread (resuming its cc_session_id). Otherwise,
+  // fall through to the fresh-session branches below.
+  if (m && (m.mode === 'chat' || m.mode === 'quickchat')) {
+    continueChatTurn(m, question);
+    return;
+  }
+  const hasReport = m && m.phases.final.content && m.phases.final.status === 'done';
+  if (hasReport && m.mode !== 'chat' && m.mode !== 'quickchat') {
+    submitFollowup(m, question);
+  } else if (interactionEl.value === 'chat') {
+    startChatMode(question, 'opus');
+  } else if (interactionEl.value === 'quickchat') {
+    startChatMode(question, 'haiku');
+  } else {
+    startNewTrinity(question);
+  }
+}
+
+// Chat mode: one round-trip via ws_chat (persistent Opus subprocess).
+// Fills the final panel with the reply, saves as a meeting so the
+// follow-up popup works the same way it does for Analysis meetings.
+function startChatMode(question, model) {
+  const mode = model === 'haiku' ? 'quickchat' : 'chat';
+  currentId = null; renderLive(); renderPills();
+  const lang = langEl.value;
+  inputEl.value = '';
+  liveMeeting = newMeeting(mode, null, lang, question);
+  qBar.classList.remove('empty');
+  qText.textContent = question;
+  qMeta.textContent = (model === 'haiku' ? 'QuickChat' : 'Chat') + ' -- ' + lang.toUpperCase();
+  resendBtn.style.display = 'none';
+  submitBtn.disabled = true; stopBtn.style.display = 'inline-block';
+  setPanel('final', 'start', '');
+  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const url = proto + '//' + location.host + '/api/ws/chat';
+  const uid = getUserSessionId();
+  dbg('WS ' + url + ' (chat mode)');
+  ws = new WebSocket(url);
+  ws.onopen = () => ws.send(JSON.stringify({
+    type: 'init', user_session_id: uid, report_context: '', lang, model,
+  }));
+  ws.onmessage = (evt) => {
+    let d; try { d = JSON.parse(evt.data); } catch { return; }
+    if (d.type === 'init_ack') {
+      if (d.cc_session_id && liveMeeting) {
+        liveMeeting.cc_session_id = d.cc_session_id;
+        dbg('chat captured cc_session_id=' + d.cc_session_id);
+      }
+      dbgLLM('chat_first', model === 'haiku' ? 'quickchat' : 'chat',
+             model, d.cc_session_id || (liveMeeting && liveMeeting.cc_session_id));
+      ws.send(JSON.stringify({
+        type: 'turn', user_session_id: uid,
+        session_id: d.session_id, message: question,
+      }));
+    } else if (d.type === 'turn_result' || d.status) {
+      if (d.status === 'ok' && d.content) {
+        liveMeeting.phases.final = { status: 'done', content: d.content };
+        setPanel('final', 'done', d.content, true);
+      } else {
+        const msg = d.reason || 'chat error';
+        liveMeeting.phases.final = { status: 'error', content: msg };
+        setPanel('final', 'error', msg);
+      }
+      try { ws.close(1000, 'chat turn complete'); } catch {}
+    }
+  };
+  ws.onerror = () => {
+    setPanel('final', 'error', 'WebSocket error');
+    if (liveMeeting) liveMeeting.phases.final.status = 'error';
+  };
+  ws.onclose = () => {
+    dbg('chat WS close');
+    ws = null; submitBtn.disabled = false; stopBtn.style.display = 'none';
+    if (liveMeeting) {
+      const hasContent = !!liveMeeting.phases.final.content;
+      if (hasContent) {
+        meetings.unshift(liveMeeting);
+        saveMeetings(meetings).catch(e => dbg('save failed: ' + e));
+        currentId = liveMeeting.id;
+        renderPills();
+        if (liveMeeting.phases.final.status === 'done') {
+          chatNoCtx.style.display = 'none';
+          chatInput.disabled = false; chatSend.disabled = false;
+        }
+      }
+      liveMeeting = null;
+    }
+  };
+}
+
+// Continue an existing Chat / QuickChat pill: send next turn with the
+// pill's cc_session_id so the server spawns --resume. Appends "Q\nA"
+// to the thread rendered in the final panel.
+function continueChatTurn(m, question) {
+  inputEl.value = '';
+  submitBtn.disabled = true; stopBtn.style.display = 'inline-block';
+  // Append Q to the thread (visually)
+  const priorText = m.phases.final.content || '';
+  const separator = priorText ? '\n\n----\n\n' : '';
+  const newQ = 'Q: ' + question + '\n\nA: ';
+  m.phases.final = { status: 'start', content: priorText + separator + newQ };
+  setPanel('final', 'start', m.phases.final.content, false);
+  qText.textContent = question;
+  qMeta.textContent = (m.mode === 'quickchat' ? 'QuickChat' : 'Chat')
+    + ' -- ' + (m.lang || 'zh').toUpperCase();
+
+  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const url = proto + '//' + location.host + '/api/ws/chat';
+  const uid = getUserSessionId();
+  const model = m.mode === 'quickchat' ? 'haiku' : 'opus';
+  dbg('WS ' + url + ' (continue ' + m.mode + ', resume=' + m.cc_session_id + ')');
+  ws = new WebSocket(url);
+  ws.onopen = () => ws.send(JSON.stringify({
+    type: 'init', user_session_id: uid, report_context: '', lang: m.lang,
+    model, resume_cc_session_id: m.cc_session_id,
+  }));
+  ws.onmessage = (evt) => {
+    let d; try { d = JSON.parse(evt.data); } catch { return; }
+    if (d.type === 'init_ack') {
+      if (d.cc_session_id) m.cc_session_id = d.cc_session_id;
+      dbgLLM('chat_resume', m.mode || 'chat', model, m.cc_session_id);
+      ws.send(JSON.stringify({
+        type: 'turn', user_session_id: uid,
+        session_id: d.session_id, message: question,
+      }));
+    } else if (d.type === 'turn_result' || d.status) {
+      if (d.status === 'ok' && d.content) {
+        // Append the new answer onto the existing <pre> rather than
+        // rewriting the whole panel. setPanel(..., animate=true) would
+        // wipe the pre and retype the ENTIRE thread from idx=0 each
+        // turn (Q1+A1+sep+Q2+A2...). typewriterAppend only types the
+        // new chunk on top of the prior text already in the DOM.
+        const finalText = m.phases.final.content + d.content;
+        m.phases.final = { status: 'done', content: finalText };
+        // Update status pill + copy button state directly; leave pre alone.
+        const p = document.querySelector('.panel[data-role="final"]');
+        if (p) {
+          p.dataset.status = 'done';
+          const sp = p.querySelector('.status');
+          if (sp) { sp.dataset.s = 'done'; sp.textContent = t('status.done'); }
+          const cb = p.querySelector('.copy-btn');
+          if (cb) cb.disabled = false;
+        }
+        typewriterAppend('final', d.content);
+      } else {
+        // Error path: also append (same reasoning). Error text is short,
+        // no animation buyback lost -- but we still skip the wipe.
+        const msg = d.reason || 'chat error';
+        const tail = '[error: ' + msg + ']';
+        m.phases.final = { status: 'error', content: m.phases.final.content + tail };
+        const p = document.querySelector('.panel[data-role="final"]');
+        if (p) {
+          p.dataset.status = 'error';
+          const sp = p.querySelector('.status');
+          if (sp) { sp.dataset.s = 'error'; sp.textContent = t('status.error'); }
+        }
+        typewriterAppend('final', tail);
+      }
+      try { ws.close(1000, 'chat turn complete'); } catch {}
+    }
+  };
+  ws.onerror = () => {
+    setPanel('final', 'error', 'WebSocket error');
+    // Defensive: unlock submit button in case onclose does not fire.
+    submitBtn.disabled = false; stopBtn.style.display = 'none';
+  };
+  ws.onclose = () => {
+    dbg('chat WS close');
+    ws = null; submitBtn.disabled = false; stopBtn.style.display = 'none';
+    saveMeetings(meetings).catch(e => dbg('save failed: ' + e));
+    renderPills();
+  };
+}
+
+function submitFollowup(m, question) {
+  // Ensure Final Rec panel shows the full baseline (cancel any running typewriter)
+  cancelPanelAnim('final');
+  const finalPanel = document.querySelector('.panel[data-role="final"]');
+  const body = finalPanel.querySelector('.panel-body');
+  body.innerHTML = '<pre></pre>';
+  const pre = body.querySelector('pre');
+  pre.textContent = buildFinalRecDisplay(m);
+
+  // Save user turn; append Q + thinking cursor
+  m.chat = m.chat || [];
+  m.chat.push({ role: 'user', content: question });
+  saveMeetings(meetings);
+  pre.appendChild(document.createTextNode('\n\n----\n\nQ: ' + question + '\n\nA: '));
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-pulse';
+  pre.appendChild(cursor);
+  body.scrollTop = body.scrollHeight;
+
+  // Enable copy button since content exists
+  const copyBtn = finalPanel.querySelector('.copy-btn');
+  if (copyBtn) copyBtn.disabled = false;
+
+  inputEl.value = '';
+  submitBtn.disabled = true;
+  stopBtn.style.display = 'none';
+  chatTurnTarget = 'panel';
+  pendingFollowupQ = question;
+  pendingFollowupMeeting = m;
+
+  if (chatMeetingId !== m.id || !chatWs || chatWs.readyState !== WebSocket.OPEN) {
+    openChatWs(m);   // session init; onmessage handler consumes pendingFollowupQ
+  } else if (chatSessionId) {
+    dbgLLM('followup', 'followup',
+           m.mode === 'quickchat' ? 'haiku' : 'opus', m.cc_session_id);
+    chatWs.send(JSON.stringify({
+      type: 'turn',
+      user_session_id: getUserSessionId(),
+      session_id: chatSessionId,
+      message: question,
+    }));
+    pendingFollowupQ = null;
+    pendingFollowupMeeting = null;
+  }
+  // else: chat WS open but session not init'd yet -> init_ack handler sends
+}
+
+function handleFollowupResponse(d) {
+  const m = pendingFollowupMeeting || (chatMeetingId ? meetings.find(x => x.id === chatMeetingId) : null);
+  pendingFollowupMeeting = null;
+  const finalPanel = document.querySelector('.panel[data-role="final"]');
+  const body = finalPanel.querySelector('.panel-body');
+  const pre = body.querySelector('pre');
+  if (!pre) { submitBtn.disabled = false; return; }
+  // Remove the pulse cursor that was showing "thinking" between Q: and A:
+  const pulseCursor = pre.querySelector('.cursor-pulse');
+  if (pulseCursor) pulseCursor.remove();
+
+  if (d.status === 'ok' && d.content) {
+    if (m) {
+      m.chat = m.chat || [];
+      m.chat.push({ role: 'analyst', content: d.content });
+      saveMeetings(meetings);
+    }
+    // Typewriter reveal into the existing pre (append mode, keeps Q block above)
+    typewriterAppend('final', d.content, () => {
+      submitBtn.disabled = false;
+      inputEl.focus();
+    });
+  } else {
+    pre.appendChild(document.createTextNode('[error: ' + (d.reason || t('chat.analyst.error.unavailable')) + ']'));
+    body.scrollTop = body.scrollHeight;
+    submitBtn.disabled = false;
+    inputEl.focus();
+  }
+}
+
+function startNewTrinity(question) {
+  currentId = null; renderLive(); renderPills();
+  const mode = modeEl.value;
+  const subtype = subEl.value || (mode === 'medical' ? '' : 'general');
+  const lang = langEl.value;
+  inputEl.value = '';
+  liveMeeting = newMeeting(mode, subtype, lang, question);
+  qBar.classList.remove('empty');
+  qText.textContent = question;
+  qMeta.textContent = mode + ' / ' + (subtype || 'general') + ' / ' + lang.toUpperCase();
+  resendBtn.style.display = 'none';
+  const path = mode === 'medical' ? '/api/ws/medical' : '/api/ws/advise';
+  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const url = proto + '//' + location.host + path;
+  const uid = getUserSessionId();
+  const debug = document.body.classList.contains('debug-enabled');
+  const body = mode === 'medical'
+    ? { symptoms: question, specialty: subtype || null, lang, user_session_id: uid, debug }
+    : { description: question, eval_type: subtype || 'general', lang, user_session_id: uid, debug };
+  submitBtn.disabled = true; stopBtn.style.display = 'inline-block';
+  dbg('WS ' + url);
+  ws = new WebSocket(url);
+  ws.onopen = () => { dbg('open'); ws.send(JSON.stringify(body)); };
+  ws.onmessage = (evt) => {
+    try {
+      const d = JSON.parse(evt.data);
+      // Meta events carry backend metadata (cc_session_id for pill resume).
+      // They don't map to a panel role -- handle and return.
+      if (d.phase === 'meta') {
+        if (d.status === 'session_id' && d.cc_session_id && liveMeeting) {
+          liveMeeting.cc_session_id = d.cc_session_id;
+          dbg('captured cc_session_id=' + d.cc_session_id);
+        } else if (d.status === 'llm_call' && d.content) {
+          // Parse llm_call metadata: {phase, role, provider, model, session_id}.
+          // Server emits this before each LLM call so debug log shows
+          // which model handled each Trinity phase AND (for Claude-
+          // persistent subprocess calls) the cc_session_id it ran in.
+          try {
+            const m = JSON.parse(d.content);
+            const sid = m.session_id ? ' sess=' + m.session_id.slice(0, 8) : '';
+            dbg('LLM: [' + m.phase + '] ' + m.provider + ' ' + m.model + sid + ' (role=' + m.role + ')');
+          } catch {
+            dbg('LLM: ' + d.content);
+          }
+        }
+        return;
+      }
+      const role = PHASE_TO_ROLE[d.phase];
+      if (!role) return;
+      if (d.status === 'delta') {
+        // Snapshot protocol: content is cumulative scrubbed text.
+        // Replace panel body instantly (no animation); keep status 'start'
+        // so the thinking pulse/border stays until 'done' arrives.
+        liveMeeting.phases[role] = { status: 'start', content: d.content };
+        setPanel(role, 'start', d.content || '', false);
+        return;
+      }
+      const body = d.content || (d.status === 'error' ? d.error : '') || '';
+      // If delta stream already rendered content into the panel, don't
+      // typewriter-replay on 'done' -- it wipes the pre and retypes from
+      // idx=0, producing the "restart in the middle" artifact. Claude
+      // Creator + Synthesis emit deltas (persistent session token stream);
+      // Gemini / Grok do not (safe_call returns whole text), so those
+      // phases still need the typewriter to reveal for the first time.
+      const hadDeltas = liveMeeting.phases[role].status === 'start'
+        && liveMeeting.phases[role].content
+        && liveMeeting.phases[role].content.length > 0;
+      liveMeeting.phases[role] = { status: d.status,
+        content: body || liveMeeting.phases[role].content };
+      setPanel(role, d.status, body, !hadDeltas);
+      dbg(d.phase + ' ' + d.status + ' ' + body.length);
+    } catch (e) { dbg('parse ' + e.message); }
+  };
+  ws.onerror = (e) => { dbg('error ' + (e.message || 'ws'));
+    setPanel('final', 'error', 'WebSocket error'); };
+  ws.onclose = () => {
+    dbg('close');
+    ws = null; submitBtn.disabled = false; stopBtn.style.display = 'none';
+    if (liveMeeting) {
+      const hasContent = ROLES.some(r => liveMeeting.phases[r].content);
+      if (hasContent) {
+        meetings.unshift(liveMeeting);
+        saveMeetings(meetings);
+        currentId = liveMeeting.id;
+        renderPills();
+        if (liveMeeting.phases.final.content) {
+          chatNoCtx.style.display = 'none';
+          chatInput.disabled = false; chatSend.disabled = false;
+        }
+      }
+      liveMeeting = null;
+    }
+  };
+}
+submitBtn.addEventListener('click', submitCouncil);
+stopBtn.addEventListener('click', () => { if (ws) ws.close(1000, 'user stop'); });
+inputEl.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') submitCouncil();
+});
+resendBtn.addEventListener('click', () => {
+  const m = meetings.find(x => x.id === currentId);
+  if (!m) return;
+  inputEl.value = m.question;
+  modeEl.value = m.mode;
+  fillSubType();
+  subEl.value = m.subtype || '';
+  langEl.value = m.lang;
+  inputEl.focus();
+  currentId = null; renderLive(); renderPills();
+});
+
+document.querySelectorAll('.panel-head').forEach(head => {
+  head.addEventListener('click', (e) => {
+    if (e.target.closest('.copy-btn')) return;
+    const panel = head.closest('.panel');
+    panel.dataset.collapsed = panel.dataset.collapsed === 'true' ? 'false' : 'true';
+  });
+});
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    const panel = btn.closest('.panel');
+    const pre = panel.querySelector('.panel-body pre');
+    if (!pre || !pre.textContent) return;
+    try {
+      await navigator.clipboard.writeText(pre.textContent);
+      btn.dataset.copied = 'true';
+      btn.textContent = t('btn.copied');
+      setTimeout(() => { btn.dataset.copied = 'false'; btn.textContent = t('btn.copy'); }, 1500);
+    } catch {
+      btn.textContent = t('btn.copy_failed');
+      setTimeout(() => { btn.textContent = t('btn.copy'); }, 1500);
+    }
+  });
+});
+
+// Chat: persistent WS per meeting view.
+// Protocol: client sends {type:'init',report_context,lang} once,
+// then {type:'turn', session_id, message} per follow-up.
+// Server holds history + context; client only ships the new turn.
+let chatWs = null;
+let chatSessionId = null;
+let chatMeetingId = null;          // which meeting this WS is bound to
+let chatPendingThinking = null;    // DOM node of in-flight "thinking..."
+
+chatHandle.addEventListener('click', () => { chatPopup.classList.toggle('collapsed'); });
+
+function closeChatWs() {
+  if (chatWs) { try { chatWs.close(1000); } catch {} }
+  chatWs = null; chatSessionId = null; chatMeetingId = null;
+}
+
+function openChatWs(m) {
+  closeChatWs();
+  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const url = proto + '//' + location.host + '/api/ws/chat';
+  chatMeetingId = m.id;
+  // Local ref: closures below use `ws` (the specific socket this function
+  // created) instead of the module-level `chatWs`. Fixes the race where
+  // rapid pill-switching ran closeChatWs() -> chatWs=null before the old
+  // ws's onopen fired, causing `chatWs.send` to NPE on null. Each callback
+  // also bails if it's been superseded (module chatWs no longer == ws).
+  const ws = new WebSocket(url);
+  chatWs = ws;
+  ws.onopen = () => {
+    if (chatWs !== ws) return;   // superseded by a later open; stale WS
+    dbg('chat WS open, init session');
+    ws.send(JSON.stringify({
+      type: 'init',
+      user_session_id: getUserSessionId(),
+      report_context: m.phases.final.content,
+      lang: m.lang,
+    }));
+  };
+  ws.onmessage = (evt) => {
+    if (chatWs !== ws) return;
+    let d; try { d = JSON.parse(evt.data); } catch { return; }
+    if (d.type === 'init_ack') {
+      chatSessionId = d.session_id;
+      dbg('chat session ' + chatSessionId);
+      chatInput.disabled = false; chatSend.disabled = false;
+      // Flush queued follow-up from main submit (set before openChatWs)
+      if (pendingFollowupQ) {
+        dbgLLM('followup', 'followup',
+               m && m.mode === 'quickchat' ? 'haiku' : 'opus',
+               (m && m.cc_session_id) || d.cc_session_id);
+        ws.send(JSON.stringify({
+          type: 'turn',
+          user_session_id: getUserSessionId(),
+          session_id: chatSessionId,
+          message: pendingFollowupQ,
+        }));
+        pendingFollowupQ = null;
+      }
+      return;
+    }
+    if (d.type === 'turn_result' || d.status) {
+      if (chatPendingThinking) { chatPendingThinking.remove(); chatPendingThinking = null; }
+      // Route: main submit -> Final Rec panel; popup send -> chat history
+      if (chatTurnTarget === 'panel') {
+        chatTurnTarget = null;
+        handleFollowupResponse(d);
+        return;
+      }
+      if (d.status === 'ok' && d.content) {
+        renderChatMsg('analyst', d.content);
+        const mm = meetings.find(x => x.id === chatMeetingId);
+        if (mm) {
+          mm.chat = mm.chat || [];
+          mm.chat.push({ role: 'analyst', content: d.content });
+          saveMeetings(meetings);
+        }
+      } else {
+        renderChatMsg('error', d.reason || t('chat.analyst.error.unavailable'));
+      }
+      chatInput.disabled = false; chatSend.disabled = false;
+      chatInput.focus();
+    }
+  };
+  ws.onerror = () => {
+    if (chatWs !== ws) return;
+    dbg('chat WS error');
+    if (chatPendingThinking) { chatPendingThinking.remove(); chatPendingThinking = null; }
+    if (chatTurnTarget === 'panel') {
+      chatTurnTarget = null;
+      handleFollowupResponse({ status: 'error', reason: 'WebSocket error' });
+    } else {
+      renderChatMsg('error', 'WebSocket error -- chat unavailable');
+      chatInput.disabled = true; chatSend.disabled = true;
+    }
+  };
+  ws.onclose = () => {
+    dbg('chat WS closed');
+    // Only clear module state if WE are still the current WS; otherwise
+    // another openChatWs already replaced us and cleared/reset correctly.
+    if (chatWs === ws) { chatWs = null; chatSessionId = null; }
+  };
+}
+
+function loadChatForMeeting(m) {
+  chatHistory.innerHTML = '';
+  // Switching meeting -> close old WS
+  if (chatMeetingId && chatMeetingId !== m.id) closeChatWs();
+  const hasFinal = m.phases.final.content && m.phases.final.status === 'done';
+  if (!hasFinal) {
+    chatNoCtx.style.display = 'block';
+    chatNoCtx.textContent = t('chat.nocontext.disabled');
+    chatHistory.appendChild(chatNoCtx);
+    chatInput.disabled = true; chatSend.disabled = true;
+    closeChatWs();
+    return;
+  }
+  // Render stored history (visual only; server session is fresh on each connect)
+  if (!m.chat || m.chat.length === 0) {
+    const hint = document.createElement('div');
+    hint.className = 'chat-nocontext';
+    hint.textContent = t('chat.nocontext.ready');
+    chatHistory.appendChild(hint);
+  } else {
+    m.chat.forEach(c => renderChatMsg(c.role, c.content));
+  }
+  // Open one WS for this meeting; stays alive until switch/close
+  chatInput.disabled = true; chatSend.disabled = true;   // wait for init_ack
+  openChatWs(m);
+}
+
+function renderChatMsg(role, content) {
+  const d = document.createElement('div');
+  d.className = 'chat-msg ' + role;
+  const roleLabel = t('chat.msg.' + role) || role;
+  d.innerHTML = '<div class="role">' + roleLabel + '</div><div class="content"></div>';
+  d.querySelector('.content').textContent = content;
+  chatHistory.appendChild(d);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+  return d;
+}
+
+function sendChat() {
+  const msg = chatInput.value.trim();
+  if (!msg || !currentId || !chatWs || !chatSessionId) return;
+  if (chatWs.readyState !== WebSocket.OPEN) return;
+  const m = meetings.find(x => x.id === currentId);
+  if (!m) return;
+  const hint = chatHistory.querySelector('.chat-nocontext');
+  if (hint) hint.remove();
+  renderChatMsg('user', msg);
+  m.chat = m.chat || [];
+  m.chat.push({ role: 'user', content: msg });
+  saveMeetings(meetings);
+  chatInput.value = '';
+  chatInput.disabled = true; chatSend.disabled = true;
+  // Placeholder "thinking" node
+  chatPendingThinking = document.createElement('div');
+  chatPendingThinking.className = 'chat-msg analyst';
+  chatPendingThinking.innerHTML = '<div class="role">' + t('chat.msg.analyst') + '</div><div class="content"><em style="color:var(--text-muted)">' + t('chat.analyst.thinking') + '</em></div>';
+  chatHistory.appendChild(chatPendingThinking);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+  {
+    const _mm = meetings.find(x => x.id === chatMeetingId);
+    dbgLLM('chat_popup', 'followup',
+           _mm && _mm.mode === 'quickchat' ? 'haiku' : 'opus',
+           _mm && _mm.cc_session_id);
+  }
+  chatWs.send(JSON.stringify({
+    type: 'turn',
+    user_session_id: getUserSessionId(),
+    session_id: chatSessionId,
+    message: msg,
+  }));
+}
+chatSend.addEventListener('click', sendChat);
+chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(); });
+window.addEventListener('beforeunload', closeChatWs);
+
+(function initDebug() {
+  const KEY = 'eip_debug';
+  const params = new URLSearchParams(location.search);
+  if (params.has('debug')) localStorage.setItem(KEY, params.get('debug') === '1' ? '1' : '0');
+  const apply = () => document.body.classList.toggle('debug-enabled', localStorage.getItem(KEY) === '1');
+  apply();
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+      e.preventDefault();
+      localStorage.setItem(KEY, localStorage.getItem(KEY) === '1' ? '0' : '1');
+      apply();
+    }
+  });
+  // Explicit close control: directly removes the `open` attribute on the
+  // <details>, bypassing any click-path interference with the native summary
+  // toggle. Belt-and-suspenders on the summary-click path.
+  const debugLog = document.getElementById('debugLog');
+  const debugClose = document.getElementById('debugClose');
+  if (debugLog && debugClose) {
+    debugClose.addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      debugLog.open = false;
+    });
+  }
+})();
+
+// Footer: split each non-sep item into per-word spans, then drive a
+// mouse-proximity spotlight -- nearest word glows brightest, intensity
+// falls off with distance. Called on init and on lang change to rebuild
+// word spans after i18n text has been applied.
+let _footerGlowBound = false;
+function rebuildFooterGlow() {
+  const targets = document.querySelectorAll(
+    '.app-footer > span:not(.sep), .app-footer > a, .app-footer .debug-log summary'
+  );
+  targets.forEach(el => {
+    const text = el.textContent;
+    el.textContent = '';
+    text.split(/(\s+)/).forEach(part => {
+      if (!part) return;
+      if (/^\s+$/.test(part)) {
+        el.appendChild(document.createTextNode(part));
+      } else {
+        const w = document.createElement('span');
+        w.className = 'word';
+        w.textContent = part;
+        el.appendChild(w);
+      }
+    });
+  });
+
+  const footer = document.querySelector('.app-footer');
+  if (!footer) return;
+  const words = footer.querySelectorAll('.word');
+  const RADIUS = 90;  // pixels of influence around cursor
+
+  function update(e) {
+    const mx = e.clientX, my = e.clientY;
+    words.forEach(w => {
+      const r = w.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const d = Math.hypot(mx - cx, my - cy);
+      const i = Math.max(0, 1 - d / RADIUS);
+      w.style.setProperty('--i', i.toFixed(3));
+      w.classList.toggle('hot', i > 0.55);
+    });
+  }
+  function clear() {
+    words.forEach(w => { w.style.setProperty('--i', 0); w.classList.remove('hot'); });
+  }
+  if (!_footerGlowBound) {
+    footer.addEventListener('mousemove', update);
+    footer.addEventListener('mouseleave', clear);
+    _footerGlowBound = true;
+  } else {
+    // Re-bind on rebuilt DOM so new word spans are captured in closure
+    footer.removeEventListener('mousemove', update);
+    footer.removeEventListener('mouseleave', clear);
+    footer.addEventListener('mousemove', update);
+    footer.addEventListener('mouseleave', clear);
+  }
+}
+rebuildFooterGlow();
+
+(async () => {
+  meetings = await loadMeetings();
+  renderPills();
+  renderLive();
+  applyLang();
+})();
+</script>
+</body>
+</html>
