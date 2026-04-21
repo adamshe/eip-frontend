@@ -25,6 +25,14 @@ header.topbar { flex: 0 0 auto; display: flex; align-items: center; gap: 14px;
   padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 header.topbar h1 { font: 600 22px/1 ui-sans-serif; letter-spacing: -0.01em; margin: 0; color: var(--text); }
 header.topbar .spacer { flex: 1; }
+.api-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+  color: var(--text-dim); padding: 4px 8px; border: 1px solid var(--border);
+  border-radius: 999px; background: var(--bg-card); }
+.api-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #888; }
+.api-status-dot[data-state="online"] { background: #34a853; box-shadow: 0 0 4px #34a85366; }
+.api-status-dot[data-state="offline"] { background: #ea4335; }
+.api-status-dot[data-state="unknown"] { background: #fbbc05; }
+#submit:disabled { opacity: 0.5; cursor: not-allowed; }
 .input-row select { background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
   border-radius: var(--r); padding: 6px 10px; font-size: 13px; outline: none; }
 .input-row select:focus { border-color: var(--accent); }
@@ -324,6 +332,10 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
 <div class="app">
   <header class="topbar">
     <h1 data-i18n="topbar.title">AI Council</h1>
+    <span class="api-status" id="apiStatus" title="Backend API status">
+      <span class="api-status-dot" data-state="unknown"></span>
+      <span class="api-status-label" data-i18n="api.status.checking">Checking</span>
+    </span>
     <nav class="pills" id="pills"></nav>
   </header>
   <div class="q-bar empty" id="qBar">
@@ -473,6 +485,11 @@ const I18N = {
     'footer.line3': '\u4ec5\u4f9b\u5206\u6790\u53c2\u8003\uff0c\u88c1\u51b3\u6743\u5728\u51b3\u7b56\u8005',
     'footer.feedback': '\u53cd\u9988',
     'footer.debug_log': '\u8c03\u8bd5\u65e5\u5fd7',
+    'api.status.online': '\u5728\u7ebf',
+    'api.status.offline': '\u79bb\u7ebf',
+    'api.status.checking': '\u68c0\u67e5\u4e2d',
+    'api.status.unknown': '\u672a\u77e5',
+    'api.offline.tooltip': '\u540e\u7aef API \u79bb\u7ebf\uff0c\u5f85\u6062\u590d\u540e\u91cd\u8bd5',
     'mode.advise': '\u548b\u8be2',
     'mode.medical': '\u533b\u7597',
     'advise_type.general': '\u901a\u7528',
@@ -537,6 +554,11 @@ const I18N = {
     'footer.line3': 'Analysis only -- decisions belong to the principal',
     'footer.feedback': 'Feedback',
     'footer.debug_log': 'Debug log',
+    'api.status.online': 'Online',
+    'api.status.offline': 'Offline',
+    'api.status.checking': 'Checking',
+    'api.status.unknown': 'Unknown',
+    'api.offline.tooltip': 'Backend API offline; retry once restored',
     'mode.advise': 'Advise',
     'mode.medical': 'Medical',
     'advise_type.general': 'General',
@@ -627,6 +649,19 @@ function getUserSessionId() {
 
 const $ = (s) => document.querySelector(s);
 const debugEl = document.getElementById('debug');
+
+// Routing rule (see handoff 2026-04-21):
+//   ai.empireintegration.com / lo.empireintegration.com / localhost -> same origin
+//   ui-*.empireintegration.com (GitHub Pages UI) -> api-*.empireintegration.com
+// The ui-/api- swap keeps static UI on GH Pages while backend stays on uvicorn.
+function resolveApiHost() {
+  const h = location.hostname;
+  if (h.startsWith('ui-')) return 'api-' + h.slice(3);
+  return location.host;
+}
+const API_HOST = resolveApiHost();
+const HTTP_BASE = location.protocol + '//' + API_HOST;
+const WS_BASE = (location.protocol === 'https:' ? 'wss:' : 'ws:') + '//' + API_HOST;
 function dbg(msg) {
   const t = new Date().toLocaleTimeString();
   debugEl.textContent += '[' + t + '] ' + msg + '\n';
@@ -1146,6 +1181,10 @@ let pendingFollowupMeeting = null;
 // (lightweight Opus subprocess), 'analysis' goes to Trinity via ws_advise.
 function submitCouncil() {
   if (!inputEl.value.trim() || ws || submitBtn.disabled) return;
+  if (apiOnline === false) {
+    dbg('submit blocked: backend offline');
+    return;
+  }
   const question = inputEl.value.trim();
   const m = currentId ? meetings.find(x => x.id === currentId) : null;
   // Chat / QuickChat: if the current pill is one of these modes, append
@@ -1182,8 +1221,7 @@ function startChatMode(question, model) {
   resendBtn.style.display = 'none';
   submitBtn.disabled = true; stopBtn.style.display = 'inline-block';
   setPanel('final', 'start', '');
-  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
-  const url = proto + '//' + location.host + '/api/ws/chat';
+  const url = WS_BASE + '/api/ws/chat';
   const uid = getUserSessionId();
   dbg('WS ' + url + ' (chat mode)');
   ws = new WebSocket(url);
@@ -1255,8 +1293,7 @@ function continueChatTurn(m, question) {
   qMeta.textContent = (m.mode === 'quickchat' ? 'QuickChat' : 'Chat')
     + ' -- ' + (m.lang || 'zh').toUpperCase();
 
-  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
-  const url = proto + '//' + location.host + '/api/ws/chat';
+  const url = WS_BASE + '/api/ws/chat';
   const uid = getUserSessionId();
   const model = m.mode === 'quickchat' ? 'haiku' : 'opus';
   dbg('WS ' + url + ' (continue ' + m.mode + ', resume=' + m.cc_session_id + ')');
@@ -1412,8 +1449,7 @@ function startNewTrinity(question) {
   qMeta.textContent = mode + ' / ' + (subtype || 'general') + ' / ' + lang.toUpperCase();
   resendBtn.style.display = 'none';
   const path = mode === 'medical' ? '/api/ws/medical' : '/api/ws/advise';
-  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
-  const url = proto + '//' + location.host + path;
+  const url = WS_BASE + path;
   const uid = getUserSessionId();
   const debug = document.body.classList.contains('debug-enabled');
   const body = mode === 'medical'
@@ -1554,8 +1590,7 @@ function closeChatWs() {
 
 function openChatWs(m) {
   closeChatWs();
-  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
-  const url = proto + '//' + location.host + '/api/ws/chat';
+  const url = WS_BASE + '/api/ws/chat';
   chatMeetingId = m.id;
   // Local ref: closures below use `ws` (the specific socket this function
   // created) instead of the module-level `chatWs`. Fixes the race where
@@ -1805,6 +1840,48 @@ rebuildFooterGlow();
   renderLive();
   applyLang();
 })();
+
+// Backend API online/offline indicator + submit button gate.
+// Polls GET ${HTTP_BASE}/api/health every 30s. On offline, disables submit
+// and sets a tooltip. WS onerror handlers also flip this flag to offline as
+// a last-known-bad signal (no wait for next poll).
+let apiOnline = null;
+const apiStatusEl = document.getElementById('apiStatus');
+const apiStatusDot = apiStatusEl.querySelector('.api-status-dot');
+const apiStatusLabel = apiStatusEl.querySelector('.api-status-label');
+
+function setApiStatus(state) {
+  apiOnline = (state === 'online');
+  apiStatusDot.dataset.state = state;
+  const key = 'api.status.' + state;
+  apiStatusLabel.dataset.i18n = key;
+  apiStatusLabel.textContent = t(key);
+  submitBtn.disabled = !apiOnline;
+  submitBtn.title = apiOnline ? '' : t('api.offline.tooltip');
+  apiStatusEl.title = apiOnline
+    ? (API_HOST + ' online')
+    : t('api.offline.tooltip') + ' (' + API_HOST + ')';
+}
+
+async function pollApiHealth() {
+  try {
+    const res = await fetch(HTTP_BASE + '/api/health',
+      { cache: 'no-store', credentials: 'omit' });
+    setApiStatus(res.ok ? 'online' : 'offline');
+  } catch (e) {
+    setApiStatus('offline');
+    dbg('health poll failed: ' + (e && e.message ? e.message : e));
+  }
+}
+setApiStatus('checking');
+pollApiHealth();
+setInterval(pollApiHealth, 30000);
+
+// When the page tab becomes visible again, re-poll immediately instead of
+// waiting up to 30s -- user likely just switched back and wants fresh state.
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) pollApiHealth();
+});
 </script>
 </body>
 </html>
