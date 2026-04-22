@@ -48,6 +48,17 @@ header.topbar .spacer { flex: 1; }
 .pill.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
 .pill .close { margin-left: 6px; opacity: 0.5; cursor: pointer; }
 .pill .close:hover { opacity: 1; color: var(--tone-stress); }
+/* Custom pill tooltip -- shows full question instantly on hover, no 1-2s
+   browser title delay. Positioned below the pill so it does not clip the
+   top of the page. Pre-wrap preserves newlines in the user's question. */
+.pill { position: relative; }
+.pill .pill-tooltip { display: none; position: absolute; top: calc(100% + 6px);
+  left: 0; z-index: 100; background: var(--bg-card); color: var(--text);
+  border: 1px solid var(--border-soft); border-radius: var(--r);
+  padding: 8px 10px; font-size: 12px; line-height: 1.45; font-weight: 400;
+  max-width: 520px; min-width: 180px; white-space: pre-wrap;
+  box-shadow: var(--shadow); pointer-events: none; }
+.pill:hover .pill-tooltip { display: block; }
 .q-bar { flex: 0 0 auto; display: flex; align-items: center; gap: 10px;
   background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r);
   padding: 8px 12px; font-size: 13px; }
@@ -877,9 +888,12 @@ function renderPills() {
   meetings.forEach(m => {
     const b = document.createElement('button');
     b.className = 'pill' + (currentId === m.id ? ' active' : '');
-    b.title = m.question;
     b.dataset.id = m.id;
+    const tip = document.createElement('span');
+    tip.className = 'pill-tooltip';
+    tip.textContent = m.question || '';
     b.innerHTML = meetingTitle(m) + '<span class="close" title="Remove">x</span>';
+    b.appendChild(tip);
     b.addEventListener('click', (e) => {
       if (e.target.classList.contains('close')) {
         e.stopPropagation();
