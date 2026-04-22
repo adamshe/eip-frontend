@@ -143,6 +143,7 @@ header.topbar .spacer { flex: 1; }
   cursor: pointer; transition: all 0.15s; }
 .retry-btn:hover { background: rgba(214,106,91,.18); }
 .retry-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.panel[data-status="done"] .retry-btn,
 .panel[data-status="error"] .retry-btn { display: inline-block; }
 .panel-body { flex: 1; min-height: 0; overflow-y: auto; padding-right: 4px; }
 .panel-body::-webkit-scrollbar { width: 8px; }
