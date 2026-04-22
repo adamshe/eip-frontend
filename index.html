@@ -970,7 +970,9 @@ function typewriterReveal(role, fullText) {
     const ch = fullText[idx];
     idx++;
     textNode.data = fullText.slice(0, idx);
-    body.scrollTop = body.scrollHeight;
+    // Batch scroll to every 8 chars (or final) to cut forced-reflow cost
+    // ~8x. Human eye does not notice the 8-char lag at 60fps.
+    if (idx % 8 === 0 || idx >= total) body.scrollTop = body.scrollHeight;
     let delay = TYPE_MS;
     if (PERIOD_RE.test(ch))      delay = PERIOD_PAUSE_MS;
     else if (ch === '\n')        delay = NEWLINE_PAUSE_MS;
@@ -1020,7 +1022,9 @@ function typewriterAppend(role, appendText, onDone) {
     const ch = appendText[idx];
     idx++;
     textNode.data = appendText.slice(0, idx);
-    body.scrollTop = body.scrollHeight;
+    // See typewriterReveal: batch scroll every 8 chars for the same reflow
+    // cost reduction.
+    if (idx % 8 === 0 || idx >= appendText.length) body.scrollTop = body.scrollHeight;
     let delay = TYPE_MS;
     if (PERIOD_RE.test(ch))      delay = PERIOD_PAUSE_MS;
     else if (ch === '\n')        delay = NEWLINE_PAUSE_MS;
