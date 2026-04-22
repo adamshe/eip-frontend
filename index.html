@@ -1292,6 +1292,14 @@ function continueChatTurn(m, question) {
   qText.textContent = question;
   qMeta.textContent = (m.mode === 'quickchat' ? 'QuickChat' : 'Chat')
     + ' -- ' + (m.lang || 'zh').toUpperCase();
+  // Add pulse cursor at the tail so streaming deltas have a visible anchor.
+  const cPre = document.querySelector('.panel[data-role="final"] pre');
+  if (cPre) {
+    const pc = document.createElement('span');
+    pc.className = 'cursor-pulse';
+    cPre.appendChild(pc);
+  }
+  chatStreamedBuffer = '';
 
   const url = WS_BASE + '/api/ws/chat';
   const uid = getUserSessionId();
@@ -1311,16 +1319,16 @@ function continueChatTurn(m, question) {
         type: 'turn', user_session_id: uid,
         session_id: d.session_id, message: question,
       }));
+    } else if (d.type === 'turn_delta') {
+      handleChatTurnDelta(d.text || '');
+      return;
     } else if (d.type === 'turn_result' || d.status) {
+      // Clean up pulse cursor, deltas anchored there are done streaming.
+      const rpre = document.querySelector('.panel[data-role="final"] pre');
+      if (rpre) { const pc = rpre.querySelector('.cursor-pulse'); if (pc) pc.remove(); }
       if (d.status === 'ok' && d.content) {
-        // Append the new answer onto the existing <pre> rather than
-        // rewriting the whole panel. setPanel(..., animate=true) would
-        // wipe the pre and retype the ENTIRE thread from idx=0 each
-        // turn (Q1+A1+sep+Q2+A2...). typewriterAppend only types the
-        // new chunk on top of the prior text already in the DOM.
         const finalText = m.phases.final.content + d.content;
         m.phases.final = { status: 'done', content: finalText };
-        // Update status pill + copy button state directly; leave pre alone.
         const p = document.querySelector('.panel[data-role="final"]');
         if (p) {
           p.dataset.status = 'done';
@@ -1329,7 +1337,22 @@ function continueChatTurn(m, question) {
           const cb = p.querySelector('.copy-btn');
           if (cb) cb.disabled = false;
         }
-        typewriterAppend('final', d.content);
+        // If deltas streamed and match scrubbed content, the text is
+        // already on screen (no action). If mismatch or no streaming,
+        // ensure final text is correct: append the delta between
+        // streamed-buffer tail and d.content, or typewriter if empty.
+        if (chatStreamedBuffer) {
+          if (chatStreamedBuffer !== d.content && rpre) {
+            // Replace streamed tail with scrubbed content
+            const streamedLen = chatStreamedBuffer.length;
+            const current = rpre.textContent;
+            const base = current.slice(0, current.length - streamedLen);
+            rpre.textContent = base + d.content;
+          }
+          chatStreamedBuffer = '';
+        } else {
+          typewriterAppend('final', d.content);
+        }
       } else {
         // Error path: also append (same reasoning). Error text is short,
         // no animation buyback lost -- but we still skip the wipe.
@@ -1389,6 +1412,7 @@ function submitFollowup(m, question) {
   chatTurnTarget = 'panel';
   pendingFollowupQ = question;
   pendingFollowupMeeting = m;
+  chatStreamedBuffer = '';
 
   if (chatMeetingId !== m.id || !chatWs || chatWs.readyState !== WebSocket.OPEN) {
     openChatWs(m);   // session init; onmessage handler consumes pendingFollowupQ
@@ -1424,14 +1448,26 @@ function handleFollowupResponse(d) {
       m.chat.push({ role: 'analyst', content: d.content });
       saveMeetings(meetings);
     }
-    // Typewriter reveal into the existing pre (append mode, keeps Q block above)
-    typewriterAppend('final', d.content, () => {
+    if (chatStreamedBuffer) {
+      // Deltas already rendered into pre. Reconcile with authoritative
+      // (scrubbed) content if scrub changed it; otherwise leave as-is.
+      if (chatStreamedBuffer !== d.content) {
+        rebuildFinalPreFromChat(m);
+      }
+      chatStreamedBuffer = '';
       submitBtn.disabled = false;
       inputEl.focus();
-    });
+    } else {
+      // No streaming -- fallback path, animate from scratch
+      typewriterAppend('final', d.content, () => {
+        submitBtn.disabled = false;
+        inputEl.focus();
+      });
+    }
   } else {
     pre.appendChild(document.createTextNode('[error: ' + (d.reason || t('chat.analyst.error.unavailable')) + ']'));
     body.scrollTop = body.scrollHeight;
+    chatStreamedBuffer = '';
     submitBtn.disabled = false;
     inputEl.focus();
   }
@@ -1580,6 +1616,44 @@ let chatWs = null;
 let chatSessionId = null;
 let chatMeetingId = null;          // which meeting this WS is bound to
 let chatPendingThinking = null;    // DOM node of in-flight "thinking..."
+// Accumulates text from streaming turn_delta events. Reset at each turn
+// start (submitFollowup / continueChatTurn / sendChat). Non-empty at
+// turn_result time means deltas streamed successfully; frontend then
+// skips the typewriter-from-scratch animation.
+let chatStreamedBuffer = '';
+
+// Append a streamed delta into the final panel pre, preserving the pulse
+// cursor at the tail so the user sees live typing.
+function handleChatTurnDelta(text) {
+  const pre = document.querySelector('.panel[data-role="final"] pre');
+  if (!pre) return;
+  const pc = pre.querySelector('.cursor-pulse');
+  if (pc) pc.remove();
+  pre.appendChild(document.createTextNode(text));
+  chatStreamedBuffer += text;
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-pulse';
+  pre.appendChild(cursor);
+  const body = pre.parentElement;
+  if (body) body.scrollTop = body.scrollHeight;
+}
+
+// On turn_result when deltas were streamed, rebuild the panel text from
+// the meeting's baseline + m.chat history to get the authoritative
+// (scrubbed) content. Replaces whatever was streamed with the canonical
+// version. Safe visually since scrub rarely changes chat text.
+function rebuildFinalPreFromChat(m) {
+  const pre = document.querySelector('.panel[data-role="final"] pre');
+  if (!pre || !m) return;
+  let text = buildFinalRecDisplay(m);
+  for (const t of (m.chat || [])) {
+    if (t.role === 'user') text += '\n\n----\n\nQ: ' + t.content + '\n\nA: ';
+    else text += t.content;
+  }
+  pre.textContent = text;
+  const body = pre.parentElement;
+  if (body) body.scrollTop = body.scrollHeight;
+}
 
 chatHandle.addEventListener('click', () => { chatPopup.classList.toggle('collapsed'); });
 
@@ -1607,6 +1681,7 @@ function openChatWs(m) {
       user_session_id: getUserSessionId(),
       report_context: m.phases.final.content,
       lang: m.lang,
+      resume_cc_session_id: m.cc_session_id || null,
     }));
   };
   ws.onmessage = (evt) => {
@@ -1629,6 +1704,10 @@ function openChatWs(m) {
         }));
         pendingFollowupQ = null;
       }
+      return;
+    }
+    if (d.type === 'turn_delta' && chatTurnTarget === 'panel') {
+      handleChatTurnDelta(d.text || '');
       return;
     }
     if (d.type === 'turn_result' || d.status) {
