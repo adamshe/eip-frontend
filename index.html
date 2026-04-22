@@ -138,6 +138,12 @@ header.topbar .spacer { flex: 1; }
 .copy-btn:hover { color: var(--text); border-color: var(--text-dim); }
 .copy-btn[data-copied="true"] { color: var(--tone-final); border-color: var(--tone-final); }
 .copy-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.retry-btn { display: none; background: transparent; border: 1px solid var(--tone-stress);
+  color: var(--tone-stress); border-radius: var(--r); padding: 2px 10px; font-size: 11px;
+  cursor: pointer; transition: all 0.15s; }
+.retry-btn:hover { background: rgba(214,106,91,.18); }
+.retry-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.panel[data-status="error"] .retry-btn { display: inline-block; }
 .panel-body { flex: 1; min-height: 0; overflow-y: auto; padding-right: 4px; }
 .panel-body::-webkit-scrollbar { width: 8px; }
 .panel-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
@@ -358,6 +364,7 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
         <div class="panel-head">
           <span class="chevron">v</span><h3 data-i18n="panel.peer">Peer Review A</h3>
           <span class="status" data-s="idle" data-i18n="status.idle">idle</span>
+          <button class="retry-btn" data-i18n="btn.retry" data-phase="overseer">Retry</button>
           <button class="copy-btn" data-i18n="btn.copy" disabled>Copy</button>
         </div>
         <div class="panel-body"><span class="placeholder" data-i18n="placeholder.waiting">Waiting...</span></div>
@@ -366,6 +373,7 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
         <div class="panel-head">
           <span class="chevron">v</span><h3 data-i18n="panel.stress">Peer Review B</h3>
           <span class="status" data-s="idle" data-i18n="status.idle">idle</span>
+          <button class="retry-btn" data-i18n="btn.retry" data-phase="adversary">Retry</button>
           <button class="copy-btn" data-i18n="btn.copy" disabled>Copy</button>
         </div>
         <div class="panel-body"><span class="placeholder" data-i18n="placeholder.waiting">Waiting...</span></div>
@@ -458,6 +466,7 @@ const I18N = {
     'btn.submit': '\u63d0\u4ea4 (Ctrl+Enter)',
     'btn.stop': '\u505c\u6b62',
     'btn.copy': '\u590d\u5236',
+    'btn.retry': '\u91cd\u8bd5',
     'btn.copied': '\u5df2\u590d\u5236',
     'btn.send': '\u53d1\u9001',
     'btn.new': '+ \u65b0\u5efa',
@@ -527,6 +536,7 @@ const I18N = {
     'btn.submit': 'Submit (Ctrl+Enter)',
     'btn.stop': 'Stop',
     'btn.copy': 'Copy',
+    'btn.retry': 'Retry',
     'btn.copied': 'Copied',
     'btn.send': 'Send',
     'btn.new': '+ New',
@@ -1095,6 +1105,63 @@ function setPanel(role, status, content, animate) {
   }
 }
 function resetPanels() { ROLES.forEach(r => setPanel(r, 'idle', '')); }
+
+// Single-phase retry: re-runs overseer / adversary on the backend with
+// the current meeting's Creator output + user question. Backend endpoint
+// is stateless (POST /api/phase/retry); no WS / Session involved.
+async function retryPhase(role, phaseName) {
+  const m = liveMeeting || (currentId ? meetings.find(x => x.id === currentId) : null);
+  if (!m) return;
+  const creatorText = m.phases.primary && m.phases.primary.content || '';
+  const userQ = m.question || inputEl.value || '';
+  if (!creatorText || !userQ) {
+    dbg('retry abort: missing creator or user_q');
+    return;
+  }
+  const panel = document.querySelector('.panel[data-role="' + role + '"]');
+  const btn = panel ? panel.querySelector('.retry-btn') : null;
+  if (btn) { btn.disabled = true; btn.textContent = t('placeholder.thinking'); }
+  setPanel(role, 'start', '');
+  try {
+    const res = await fetch(HTTP_BASE + '/api/phase/retry', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        user_session_id: getUserSessionId(),
+        phase_name: phaseName,
+        eval_type: m.subtype || 'general',
+        lang: m.lang || 'zh',
+        user_q: userQ,
+        creator_content: creatorText,
+        debug: localStorage.getItem('eip_debug') === '1',
+      }),
+    });
+    const d = await res.json();
+    if (res.ok && d.status === 'ok' && d.content) {
+      m.phases[role] = { status: 'done', content: d.content };
+      saveMeetings(meetings).catch(e => dbg('save failed: ' + e));
+      setPanel(role, 'done', d.content, true);
+    } else {
+      const reason = d.reason || d.detail || 'retry failed';
+      m.phases[role] = { status: 'error', content: reason };
+      setPanel(role, 'error', reason);
+    }
+  } catch (e) {
+    setPanel(role, 'error', 'retry error: ' + (e.message || e));
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = t('btn.retry'); }
+  }
+}
+
+// Delegate clicks on any .retry-btn to retryPhase (button carries
+// data-phase = backend phase name).
+document.addEventListener('click', (ev) => {
+  const btn = ev.target.closest && ev.target.closest('.retry-btn');
+  if (!btn) return;
+  const panel = btn.closest('.panel');
+  if (!panel) return;
+  retryPhase(panel.dataset.role, btn.dataset.phase);
+});
 // Final Rec panel shows the base final content plus any Q&A follow-ups
 // accumulated in m.chat. Used on render and as the pre-submit baseline.
 function buildFinalRecDisplay(m) {
