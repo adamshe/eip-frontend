@@ -46,10 +46,7 @@ header.topbar .spacer { flex: 1; }
   transition: background 160ms, color 160ms, border-color 160ms; flex-shrink: 0; }
 .pill:hover { color: var(--text); border-color: var(--text-muted); }
 .pill.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
-.pill .close { margin-left: 6px; opacity: 0; pointer-events: none;
-  cursor: pointer; transition: opacity 140ms; }
-.pill:hover .close { opacity: 0.55; pointer-events: auto; }
-.pill .close:hover { opacity: 1; color: var(--tone-stress); }
+/* Pill 'x' removed -- delete now lives inside the tooltip. */
 /* Custom pill tooltip -- shows full question instantly on hover, no 1-2s
    browser title delay. Mounted on document.body (not as pill child) to
    escape .pill overflow:hidden and .pills overflow-x:auto clipping.
@@ -57,10 +54,21 @@ header.topbar .spacer { flex: 1; }
 .pill-tooltip-float { display: none; position: fixed; z-index: 1000;
   background: var(--bg-card); color: var(--text);
   border: 1px solid var(--border-soft); border-radius: var(--r);
-  padding: 8px 10px; font-size: 12px; line-height: 1.45; font-weight: 400;
-  max-width: 520px; min-width: 180px; white-space: pre-wrap;
-  box-shadow: var(--shadow); pointer-events: auto; user-select: text;
-  -webkit-user-select: text; cursor: text; }
+  padding: 0; font-size: 12px; line-height: 1.45; font-weight: 400;
+  max-width: 520px; min-width: 220px;
+  box-shadow: var(--shadow); pointer-events: auto; }
+.pill-tip-bar { display: flex; gap: 6px; padding: 6px 8px;
+  border-bottom: 1px solid var(--border-soft); background: var(--bg);
+  border-top-left-radius: var(--r); border-top-right-radius: var(--r); }
+.pill-tip-btn { background: transparent; color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 2px 10px; font-size: 11px; cursor: pointer;
+  transition: color 140ms, border-color 140ms, background 140ms; }
+.pill-tip-btn:hover { color: var(--accent); border-color: var(--accent); }
+.pill-tip-btn.danger:hover { color: var(--tone-stress);
+  border-color: var(--tone-stress); }
+.pill-tip-body { padding: 8px 10px; white-space: pre-wrap;
+  user-select: text; -webkit-user-select: text; cursor: text; }
 .q-bar { flex: 0 0 auto; display: flex; align-items: center; gap: 10px;
   background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r);
   padding: 8px 12px; font-size: 13px; }
@@ -480,6 +488,8 @@ const I18N = {
     'btn.submit': '\u63d0\u4ea4 (Ctrl+Enter)',
     'btn.stop': '\u505c\u6b62',
     'btn.copy': '\u590d\u5236',
+    'btn.copied': '\u5df2\u590d\u5236',
+    'btn.delete': '\u5220\u9664',
     'btn.retry': '\u91cd\u8bd5',
     'btn.copied': '\u5df2\u590d\u5236',
     'btn.send': '\u53d1\u9001',
@@ -550,6 +560,8 @@ const I18N = {
     'btn.submit': 'Submit (Ctrl+Enter)',
     'btn.stop': 'Stop',
     'btn.copy': 'Copy',
+    'btn.copied': 'Copied',
+    'btn.delete': 'Delete',
     'btn.retry': 'Retry',
     'btn.copied': 'Copied',
     'btn.send': 'Send',
@@ -911,12 +923,57 @@ function _getPillTip() {
   document.body.appendChild(_pillTip);
   return _pillTip;
 }
-function _attachPillTooltip(btn, text) {
+function _buildPillTipContent(tip, text, meetingId) {
+  tip.innerHTML = '';
+  const bar = document.createElement('div');
+  bar.className = 'pill-tip-bar';
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'pill-tip-btn';
+  copyBtn.textContent = t('btn.copy');
+  copyBtn.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (_) {
+      // Fallback for insecure contexts / old browsers.
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (_) {}
+      ta.remove();
+    }
+    copyBtn.textContent = t('btn.copied');
+    setTimeout(() => { copyBtn.textContent = t('btn.copy'); }, 1200);
+  });
+  bar.appendChild(copyBtn);
+  if (meetingId) {
+    const delBtn = document.createElement('button');
+    delBtn.className = 'pill-tip-btn danger';
+    delBtn.textContent = t('btn.delete');
+    delBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      meetings = meetings.filter(x => x.id !== meetingId);
+      saveMeetings(meetings);
+      if (currentId === meetingId) { currentId = null; renderLive(); }
+      _pillTipCancelHide();
+      if (_pillTip) _pillTip.style.display = 'none';
+      renderPills();
+    });
+    bar.appendChild(delBtn);
+  }
+  const body = document.createElement('div');
+  body.className = 'pill-tip-body';
+  body.textContent = text;
+  tip.appendChild(bar);
+  tip.appendChild(body);
+}
+
+function _attachPillTooltip(btn, text, meetingId) {
   if (!text) return;
   btn.addEventListener('mouseenter', () => {
     _pillTipCancelHide();
     const tip = _getPillTip();
-    tip.textContent = text;
+    _buildPillTipContent(tip, text, meetingId);
     tip.style.display = 'block';
     const r = btn.getBoundingClientRect();
     tip.style.top = (r.bottom + 6) + 'px';
@@ -939,17 +996,9 @@ function renderPills() {
     const b = document.createElement('button');
     b.className = 'pill' + (currentId === m.id ? ' active' : '');
     b.dataset.id = m.id;
-    b.innerHTML = meetingTitle(m) + '<span class="close" title="Remove">x</span>';
-    _attachPillTooltip(b, m.question || '');
-    b.addEventListener('click', (e) => {
-      if (e.target.classList.contains('close')) {
-        e.stopPropagation();
-        meetings = meetings.filter(x => x.id !== m.id);
-        saveMeetings(meetings);
-        if (currentId === m.id) { currentId = null; renderLive(); }
-        renderPills();
-      } else { viewMeeting(m.id); }
-    });
+    b.textContent = meetingTitle(m);
+    _attachPillTooltip(b, m.question || '', m.id);
+    b.addEventListener('click', () => { viewMeeting(m.id); });
     pillsEl.appendChild(b);
   });
   const live = document.createElement('button');
