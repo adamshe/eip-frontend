@@ -1048,7 +1048,12 @@ function cancelPanelAnim(role) {
 // Reveal char-by-char at fast human typing speed, with rhythm pauses
 // aligned to natural boundaries: period (sentence end), comma (clause),
 // newline (paragraph). Blinking cursor at tail while typing.
-const TYPE_MS = 40;            // per-char base delay
+const TYPE_MS = 40;            // per-tick base delay (one tick = BATCH chars)
+const TYPE_BATCH = 20;         // chars revealed per tick -- cuts DOM mutation
+                               // frequency 20x vs per-char, which iOS Safari
+                               // kills the tab on for long reports. Tick rate
+                               // stays the same, so perceived speed jumps but
+                               // eye still reads it as streaming.
 const PERIOD_PAUSE_MS = 1000;  // after . 。
 const COMMA_PAUSE_MS = 200;    // after , ， ; ； : ：
 const NEWLINE_PAUSE_MS = 500;  // after \n  (paragraph breath)
@@ -1084,16 +1089,16 @@ function typewriterReveal(role, fullText) {
       delete panelAnims[role];
       return;
     }
-    const ch = fullText[idx];
-    idx++;
+    idx = Math.min(idx + TYPE_BATCH, total);
     textNode.data = fullText.slice(0, idx);
-    // Batch scroll to every 8 chars (or final) to cut forced-reflow cost
-    // ~8x. Human eye does not notice the 8-char lag at 60fps.
-    if (idx % 8 === 0 || idx >= total) body.scrollTop = body.scrollHeight;
+    body.scrollTop = body.scrollHeight;
+    // Delay keyed on the LAST char of this batch -- if it's punctuation or
+    // a newline, give the reader a beat before the next batch.
+    const lastCh = fullText[idx - 1];
     let delay = TYPE_MS;
-    if (PERIOD_RE.test(ch))      delay = PERIOD_PAUSE_MS;
-    else if (ch === '\n')        delay = NEWLINE_PAUSE_MS;
-    else if (COMMA_RE.test(ch))  delay = COMMA_PAUSE_MS;
+    if (PERIOD_RE.test(lastCh))      delay = PERIOD_PAUSE_MS;
+    else if (lastCh === '\n')        delay = NEWLINE_PAUSE_MS;
+    else if (COMMA_RE.test(lastCh))  delay = COMMA_PAUSE_MS;
     state.timer = setTimeout(step, delay);
   }
   state.step = step;
@@ -1136,16 +1141,14 @@ function typewriterAppend(role, appendText, onDone) {
       if (onDone) onDone();
       return;
     }
-    const ch = appendText[idx];
-    idx++;
+    idx = Math.min(idx + TYPE_BATCH, total);
     textNode.data = appendText.slice(0, idx);
-    // See typewriterReveal: batch scroll every 8 chars for the same reflow
-    // cost reduction.
-    if (idx % 8 === 0 || idx >= appendText.length) body.scrollTop = body.scrollHeight;
+    body.scrollTop = body.scrollHeight;
+    const lastCh = appendText[idx - 1];
     let delay = TYPE_MS;
-    if (PERIOD_RE.test(ch))      delay = PERIOD_PAUSE_MS;
-    else if (ch === '\n')        delay = NEWLINE_PAUSE_MS;
-    else if (COMMA_RE.test(ch))  delay = COMMA_PAUSE_MS;
+    if (PERIOD_RE.test(lastCh))      delay = PERIOD_PAUSE_MS;
+    else if (lastCh === '\n')        delay = NEWLINE_PAUSE_MS;
+    else if (COMMA_RE.test(lastCh))  delay = COMMA_PAUSE_MS;
     state.timer = setTimeout(step, delay);
   }
   state.step = step;
@@ -2041,11 +2044,27 @@ chatSend.addEventListener('click', sendChat);
 chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(); });
 window.addEventListener('beforeunload', closeChatWs);
 
-(function initDebug() {
+(async function initDebug() {
   const KEY = 'eip_debug';
-  const params = new URLSearchParams(location.search);
-  if (params.has('debug')) localStorage.setItem(KEY, params.get('debug') === '1' ? '1' : '0');
+  // SHA-256 of the PIN. PIN itself is NOT in this file. URL carries
+  // ?debug=<pin>; we hash it and compare. Mismatch -> debug disabled.
+  const PIN_HASH = 'e0786231482674ee2bc7996f458e2a5d3c91f466b84a10582f0223b52000c91d';
   const apply = () => document.body.classList.toggle('debug-enabled', localStorage.getItem(KEY) === '1');
+  const params = new URLSearchParams(location.search);
+  if (params.has('debug')) {
+    const v = params.get('debug') || '';
+    let ok = false;
+    try {
+      if (window.crypto && crypto.subtle) {
+        const buf = new TextEncoder().encode(v);
+        const digest = await crypto.subtle.digest('SHA-256', buf);
+        const hex = Array.from(new Uint8Array(digest))
+          .map(b => b.toString(16).padStart(2, '0')).join('');
+        ok = (hex === PIN_HASH);
+      }
+    } catch (_) { ok = false; }
+    localStorage.setItem(KEY, ok ? '1' : '0');
+  }
   apply();
   document.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
