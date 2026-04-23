@@ -538,6 +538,35 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
     </div>
   </div>
 </aside>
+<div class="about-modal" id="aboutModal" data-open="false" aria-hidden="true">
+  <div class="about-backdrop" id="aboutBackdrop"></div>
+  <div class="about-panel" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <button class="about-close" id="aboutClose" type="button" aria-label="Close">x</button>
+    <h2 id="aboutTitle" data-i18n="about.title">Adam She -- Principal, Empire Integration Partners</h2>
+    <p class="about-tagline" data-i18n="about.tagline">Solution-driven IT consultancy. Language-agnostic.</p>
+    <p class="about-lead" data-i18n="about.lead">One senior brain from whiteboard to production. The design survives the compiler because the designer is the committer.</p>
+    <h3 data-i18n="about.s1_title">What We Deliver</h3>
+    <ul>
+      <li data-i18n="about.s1_l1">AI solution architecture</li>
+      <li data-i18n="about.s1_l2">Software modernization</li>
+      <li data-i18n="about.s1_l3">Performance engineering</li>
+      <li data-i18n="about.s1_l4">Full-stack delivery</li>
+    </ul>
+    <h3 data-i18n="about.s2_title">Where We Have Been Applied</h3>
+    <ul>
+      <li data-i18n="about.s2_l1">Federal proposal intelligence</li>
+      <li data-i18n="about.s2_l2">Commercial due diligence</li>
+      <li data-i18n="about.s2_l3">Clinical triage support</li>
+      <li data-i18n="about.s2_l4">Investment and geopolitical analysis</li>
+    </ul>
+    <h3 data-i18n="about.s3_title">Why Retain Us</h3>
+    <p class="about-retain" data-i18n="about.s3_body">Most firms sell architects who draw or engineers who code. We are both in one head.</p>
+    <div class="about-cta">
+      <a class="cta-primary" href="mailto:support@empireintegration.com?subject=Engagement%20Inquiry" data-i18n="about.cta_hire">Work with us</a>
+      <a class="cta-secondary" href="mailto:support@empireintegration.com?subject=AI%20Council%20Feedback" data-i18n="about.cta_feedback">Send feedback</a>
+    </div>
+  </div>
+</div>
 <script>
 // --- i18n ---
 const I18N_LANG_KEY = 'eip_ui_lang';
@@ -2338,34 +2367,5 @@ document.addEventListener('visibilitychange', () => {
   });
 })();
 </script>
-<div class="about-modal" id="aboutModal" data-open="false" aria-hidden="true">
-  <div class="about-backdrop" id="aboutBackdrop"></div>
-  <div class="about-panel" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
-    <button class="about-close" id="aboutClose" type="button" aria-label="Close">x</button>
-    <h2 id="aboutTitle" data-i18n="about.title">Adam She -- Principal, Empire Integration Partners</h2>
-    <p class="about-tagline" data-i18n="about.tagline">Solution-driven IT consultancy. Language-agnostic.</p>
-    <p class="about-lead" data-i18n="about.lead">One senior brain from whiteboard to production. The design survives the compiler because the designer is the committer.</p>
-    <h3 data-i18n="about.s1_title">What We Deliver</h3>
-    <ul>
-      <li data-i18n="about.s1_l1">AI solution architecture</li>
-      <li data-i18n="about.s1_l2">Software modernization</li>
-      <li data-i18n="about.s1_l3">Performance engineering</li>
-      <li data-i18n="about.s1_l4">Full-stack delivery</li>
-    </ul>
-    <h3 data-i18n="about.s2_title">Where We Have Been Applied</h3>
-    <ul>
-      <li data-i18n="about.s2_l1">Federal proposal intelligence</li>
-      <li data-i18n="about.s2_l2">Commercial due diligence</li>
-      <li data-i18n="about.s2_l3">Clinical triage support</li>
-      <li data-i18n="about.s2_l4">Investment and geopolitical analysis</li>
-    </ul>
-    <h3 data-i18n="about.s3_title">Why Retain Us</h3>
-    <p class="about-retain" data-i18n="about.s3_body">Most firms sell architects who draw or engineers who code. We are both in one head.</p>
-    <div class="about-cta">
-      <a class="cta-primary" href="mailto:support@empireintegration.com?subject=Engagement%20Inquiry" data-i18n="about.cta_hire">Work with us</a>
-      <a class="cta-secondary" href="mailto:support@empireintegration.com?subject=AI%20Council%20Feedback" data-i18n="about.cta_feedback">Send feedback</a>
-    </div>
-  </div>
-</div>
 </body>
 </html>
