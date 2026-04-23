@@ -46,7 +46,9 @@ header.topbar .spacer { flex: 1; }
   transition: background 160ms, color 160ms, border-color 160ms; flex-shrink: 0; }
 .pill:hover { color: var(--text); border-color: var(--text-muted); }
 .pill.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
-.pill .close { margin-left: 6px; opacity: 0.5; cursor: pointer; }
+.pill .close { margin-left: 6px; opacity: 0; pointer-events: none;
+  cursor: pointer; transition: opacity 140ms; }
+.pill:hover .close { opacity: 0.55; pointer-events: auto; }
 .pill .close:hover { opacity: 1; color: var(--tone-stress); }
 /* Custom pill tooltip -- shows full question instantly on hover, no 1-2s
    browser title delay. Mounted on document.body (not as pill child) to
@@ -57,7 +59,8 @@ header.topbar .spacer { flex: 1; }
   border: 1px solid var(--border-soft); border-radius: var(--r);
   padding: 8px 10px; font-size: 12px; line-height: 1.45; font-weight: 400;
   max-width: 520px; min-width: 180px; white-space: pre-wrap;
-  box-shadow: var(--shadow); pointer-events: none; }
+  box-shadow: var(--shadow); pointer-events: auto; user-select: text;
+  -webkit-user-select: text; cursor: text; }
 .q-bar { flex: 0 0 auto; display: flex; align-items: center; gap: 10px;
   background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r);
   padding: 8px 12px; font-size: 13px; }
@@ -883,18 +886,35 @@ modeEl.addEventListener('change', fillSubType);
 fillSubType();
 
 // Singleton tooltip element mounted on body -- escapes pill/pills overflow
-// clipping. Reused across all pills; content swapped on hover.
+// clipping. Reused across all pills; content swapped on hover. Hover-intent
+// delay keeps tooltip open when cursor crosses from pill into the tooltip
+// body, so the text is selectable/copyable.
 let _pillTip = null;
+let _pillTipHideTimer = null;
+const _PILL_TIP_HIDE_MS = 180;
+function _pillTipHideSoon() {
+  if (_pillTipHideTimer) clearTimeout(_pillTipHideTimer);
+  _pillTipHideTimer = setTimeout(() => {
+    if (_pillTip) _pillTip.style.display = 'none';
+    _pillTipHideTimer = null;
+  }, _PILL_TIP_HIDE_MS);
+}
+function _pillTipCancelHide() {
+  if (_pillTipHideTimer) { clearTimeout(_pillTipHideTimer); _pillTipHideTimer = null; }
+}
 function _getPillTip() {
   if (_pillTip) return _pillTip;
   _pillTip = document.createElement('div');
   _pillTip.className = 'pill-tooltip-float';
+  _pillTip.addEventListener('mouseenter', _pillTipCancelHide);
+  _pillTip.addEventListener('mouseleave', _pillTipHideSoon);
   document.body.appendChild(_pillTip);
   return _pillTip;
 }
 function _attachPillTooltip(btn, text) {
   if (!text) return;
   btn.addEventListener('mouseenter', () => {
+    _pillTipCancelHide();
     const tip = _getPillTip();
     tip.textContent = text;
     tip.style.display = 'block';
@@ -908,13 +928,12 @@ function _attachPillTooltip(btn, text) {
     if (left + tipW > maxRight) left = Math.max(8, maxRight - tipW);
     tip.style.left = left + 'px';
   });
-  btn.addEventListener('mouseleave', () => {
-    if (_pillTip) _pillTip.style.display = 'none';
-  });
+  btn.addEventListener('mouseleave', _pillTipHideSoon);
 }
 
 function renderPills() {
   pillsEl.innerHTML = '';
+  _pillTipCancelHide();
   if (_pillTip) _pillTip.style.display = 'none';
   meetings.forEach(m => {
     const b = document.createElement('button');
