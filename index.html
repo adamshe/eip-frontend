@@ -2004,12 +2004,33 @@ function rebuildFooterGlow() {
 }
 rebuildFooterGlow();
 
+// Defensive init: any failure during async bootstrap (e.g. iOS Safari
+// Private Browsing denying IndexedDB / crypto.subtle quirks) must not
+// crash the tab. Wrap each step so one failure does not cascade.
+// Also expose ?safe=1 URL param to skip encrypted-storage path entirely
+// and run with in-memory meetings only -- useful as an emergency bypass
+// when a vault read crashes the page repeatedly on a given device.
 (async () => {
-  meetings = await loadMeetings();
-  renderPills();
-  renderLive();
-  applyLang();
-})();
+  const urlSafeMode = new URLSearchParams(location.search).has('safe');
+  try {
+    if (urlSafeMode) {
+      dbg('safe mode: skipping encrypted localStorage load');
+      meetings = [];
+    } else {
+      meetings = await loadMeetings();
+    }
+  } catch (e) {
+    console.error('[init] loadMeetings failed:', e);
+    dbg('init loadMeetings: ' + (e && e.message || e));
+    meetings = [];
+  }
+  try { renderPills(); } catch (e) { console.error('[init] renderPills:', e); }
+  try { renderLive(); } catch (e) { console.error('[init] renderLive:', e); }
+  try { applyLang(); } catch (e) { console.error('[init] applyLang:', e); }
+})().catch(e => {
+  console.error('[init] fatal:', e);
+  try { dbg('init fatal: ' + (e && e.message || e)); } catch (_) {}
+});
 
 // Backend API online/offline indicator + submit button gate.
 // Polls GET ${HTTP_BASE}/api/health every 30s. On offline, disables submit
