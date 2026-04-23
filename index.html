@@ -62,11 +62,15 @@ header.topbar .spacer { flex: 1; }
   border-top-left-radius: var(--r); border-top-right-radius: var(--r); }
 .pill-tip-btn { background: transparent; color: var(--text-dim);
   border: 1px solid var(--border); border-radius: 4px;
-  padding: 2px 10px; font-size: 11px; cursor: pointer;
+  padding: 3px 8px; cursor: pointer; display: inline-flex;
+  align-items: center; justify-content: center; height: 24px;
   transition: color 140ms, border-color 140ms, background 140ms; }
+.pill-tip-btn svg { display: block; }
 .pill-tip-btn:hover { color: var(--accent); border-color: var(--accent); }
 .pill-tip-btn.danger:hover { color: var(--tone-stress);
   border-color: var(--tone-stress); }
+.pill-tip-btn.copied { color: var(--tone-final);
+  border-color: var(--tone-final); }
 .pill-tip-body { padding: 8px 10px; white-space: pre-wrap;
   user-select: text; -webkit-user-select: text; cursor: text; }
 .q-bar { flex: 0 0 auto; display: flex; align-items: center; gap: 10px;
@@ -488,8 +492,6 @@ const I18N = {
     'btn.submit': '\u63d0\u4ea4 (Ctrl+Enter)',
     'btn.stop': '\u505c\u6b62',
     'btn.copy': '\u590d\u5236',
-    'btn.copied': '\u5df2\u590d\u5236',
-    'btn.delete': '\u5220\u9664',
     'btn.retry': '\u91cd\u8bd5',
     'btn.copied': '\u5df2\u590d\u5236',
     'btn.send': '\u53d1\u9001',
@@ -560,8 +562,6 @@ const I18N = {
     'btn.submit': 'Submit (Ctrl+Enter)',
     'btn.stop': 'Stop',
     'btn.copy': 'Copy',
-    'btn.copied': 'Copied',
-    'btn.delete': 'Delete',
     'btn.retry': 'Retry',
     'btn.copied': 'Copied',
     'btn.send': 'Send',
@@ -923,40 +923,57 @@ function _getPillTip() {
   document.body.appendChild(_pillTip);
   return _pillTip;
 }
+// Inline SVG icons -- stroke:currentColor makes them track theme + hover.
+// Feather-style 14x14. No i18n needed; title attr for screen readers.
+const _SVG_COPY  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+const _SVG_CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+const _SVG_TRASH = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
+
 function _buildPillTipContent(tip, text, meetingId) {
   tip.innerHTML = '';
   const bar = document.createElement('div');
   bar.className = 'pill-tip-bar';
   const copyBtn = document.createElement('button');
   copyBtn.className = 'pill-tip-btn';
-  copyBtn.textContent = t('btn.copy');
+  copyBtn.setAttribute('aria-label', 'Copy');
+  copyBtn.title = 'Copy';
+  copyBtn.innerHTML = _SVG_COPY;
   copyBtn.addEventListener('click', async (e) => {
     e.stopPropagation();
     try {
       await navigator.clipboard.writeText(text);
     } catch (_) {
-      // Fallback for insecure contexts / old browsers.
       const ta = document.createElement('textarea');
       ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
       document.body.appendChild(ta); ta.select();
       try { document.execCommand('copy'); } catch (_) {}
       ta.remove();
     }
-    copyBtn.textContent = t('btn.copied');
-    setTimeout(() => { copyBtn.textContent = t('btn.copy'); }, 1200);
+    copyBtn.innerHTML = _SVG_CHECK;
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.innerHTML = _SVG_COPY;
+      copyBtn.classList.remove('copied');
+    }, 1200);
   });
   bar.appendChild(copyBtn);
   if (meetingId) {
     const delBtn = document.createElement('button');
     delBtn.className = 'pill-tip-btn danger';
-    delBtn.textContent = t('btn.delete');
+    delBtn.setAttribute('aria-label', 'Delete');
+    delBtn.title = 'Delete';
+    delBtn.innerHTML = _SVG_TRASH;
     delBtn.addEventListener('click', (e) => {
       e.stopPropagation();
+      // Remove from state, hide tooltip, drop its DOM, then re-render pills.
       meetings = meetings.filter(x => x.id !== meetingId);
       saveMeetings(meetings);
       if (currentId === meetingId) { currentId = null; renderLive(); }
       _pillTipCancelHide();
-      if (_pillTip) _pillTip.style.display = 'none';
+      if (_pillTip) {
+        _pillTip.style.display = 'none';
+        _pillTip.innerHTML = '';
+      }
       renderPills();
     });
     bar.appendChild(delBtn);
