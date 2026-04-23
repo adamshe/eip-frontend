@@ -1570,6 +1570,11 @@ function startNewTrinity(question) {
   qText.textContent = question;
   qMeta.textContent = mode + ' / ' + (subtype || 'general') + ' / ' + lang.toUpperCase();
   resendBtn.style.display = 'none';
+  // Flip Creator panel to "thinking" immediately on submit so the user sees
+  // the pipeline is live before the WS open + server's first phase event
+  // (which can take ~1s through cloudflared + Claude subprocess spawn).
+  liveMeeting.phases.primary.status = 'start';
+  setPanel('primary', 'start', '');
   const path = mode === 'medical' ? '/api/ws/medical' : '/api/ws/advise';
   const url = WS_BASE + path;
   const uid = getUserSessionId();
