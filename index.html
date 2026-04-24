@@ -1815,11 +1815,17 @@ function startNewTrinity(question) {
   qText.textContent = question;
   qMeta.textContent = mode + ' / ' + (subtype || 'general') + ' / ' + lang.toUpperCase();
   resendBtn.style.display = 'none';
-  // Flip Creator panel to "thinking" immediately on submit so the user sees
-  // the pipeline is live before the WS open + server's first phase event
-  // (which can take ~1s through cloudflared + Claude subprocess spawn).
+  // Flip Creator AND Final panels to "thinking" immediately on submit. The
+  // three top panels (primary / peer / stress) are hidden in non-debug mode
+  // via CSS, so on mobile clients the user only sees the final panel --
+  // if we flip primary alone, it stays "Waiting..." from the user's POV
+  // until synthesis fires, which feels broken. Flipping both covers both
+  // modes. Final will get re-flipped to start again when real synthesis
+  // begins; setPanel is idempotent.
   liveMeeting.phases.primary.status = 'start';
   setPanel('primary', 'start', '');
+  liveMeeting.phases.final.status = 'start';
+  setPanel('final', 'start', '');
   const path = mode === 'medical' ? '/api/ws/medical' : '/api/ws/advise';
   const url = WS_BASE + path;
   const uid = getUserSessionId();
