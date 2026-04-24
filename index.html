@@ -941,6 +941,12 @@ function _wsClose(label, ws, e) {
     dbg(label + ' close code=' + code
         + ' reason="' + String(reason).slice(0, 80) + '"'
         + ' clean=' + clean + ' readyState=' + rs);
+    // Silent auto-report on abnormal close (anything other than a clean
+    // 1000 close initiated by client or server completion). Normal 1000
+    // closes are the happy path, no report needed.
+    if (e && e.code != null && e.code !== 1000) {
+      _reportWsIssue('close', label, ws, e);
+    }
   } catch {}
 }
 function _wsError(label, ws, e) {
@@ -948,6 +954,50 @@ function _wsError(label, ws, e) {
     const rs = ws ? ws.readyState : '?';
     const msg = (e && e.message) ? String(e.message).slice(0, 120) : '';
     dbg(label + ' error readyState=' + rs + ' msg="' + msg + '"');
+    // onerror always gets reported -- the event itself is the signal.
+    _reportWsIssue('error', label, ws, e);
+  } catch {}
+}
+
+// User-facing UI messages stay short and non-scary. Detailed diagnostics
+// (close code, reason, readyState, userAgent, network state, etc.) go
+// to POST /api/client_error so we can figure out root cause from the
+// server log without the user having to open DevTools / Web Inspector.
+function _wsUiError(_label, _ws, _e) {
+  return 'Connection error. Please retry.';
+}
+function _wsUiClose(_label, _ws, _e) {
+  return 'Connection closed unexpectedly. Please retry.';
+}
+
+// Silent diagnostics POST. `kind` is 'error' or 'close'. Uses
+// fetch({keepalive:true}) so iOS Safari lets it complete even if the
+// page is being unloaded / backgrounded. Failure is silent -- if the
+// POST itself fails there is nothing useful to do about it.
+function _reportWsIssue(kind, label, ws, e) {
+  try {
+    const body = {
+      kind: kind,
+      label: label,
+      timestamp: Date.now(),
+      readyState: ws ? ws.readyState : null,
+      code: (e && e.code != null) ? e.code : null,
+      reason: (e && e.reason) ? String(e.reason).slice(0, 200) : null,
+      wasClean: (e && e.wasClean != null) ? e.wasClean : null,
+      errMsg: (e && e.message) ? String(e.message).slice(0, 200) : null,
+      userAgent: navigator.userAgent,
+      platform: navigator.platform || null,
+      online: (typeof navigator.onLine === 'boolean') ? navigator.onLine : null,
+      visibilityState: document.visibilityState || null,
+      pageUrl: location.href.slice(0, 300),
+      wsUrl: (ws && ws.url) ? String(ws.url).slice(0, 200) : null,
+    };
+    fetch(HTTP_BASE + '/api/client_error', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+      keepalive: true,
+    }).catch(() => {});
   } catch {}
 }
 function dbg(msg) {
@@ -1725,7 +1775,7 @@ function startChatMode(question, model) {
   };
   ws.onerror = (e) => {
     _wsError('chat-init', ws, e);
-    setPanel('final', 'error', 'WebSocket error');
+    setPanel('final', 'error', _wsUiError('chat-init', ws, e));
     if (liveMeeting) liveMeeting.phases.final.status = 'error';
   };
   ws.onclose = (e) => {
@@ -1843,7 +1893,7 @@ function continueChatTurn(m, question) {
   };
   ws.onerror = (e) => {
     _wsError('chat-resume', ws, e);
-    setPanel('final', 'error', 'WebSocket error');
+    setPanel('final', 'error', _wsUiError('chat-resume', ws, e));
     // Defensive: unlock submit button in case onclose does not fire.
     submitBtn.disabled = false; stopBtn.style.display = 'none';
   };
@@ -2031,7 +2081,7 @@ function startNewTrinity(question) {
   };
   ws.onerror = (e) => {
     _wsError('trinity', ws, e);
-    setPanel('final', 'error', 'WebSocket error');
+    setPanel('final', 'error', _wsUiError('trinity', ws, e));
   };
   ws.onclose = (e) => {
     _wsClose('trinity', ws, e);
@@ -2236,11 +2286,12 @@ function openChatWs(m) {
     if (chatWs !== ws) return;
     _wsError('chat-popup', ws, e);
     if (chatPendingThinking) { chatPendingThinking.remove(); chatPendingThinking = null; }
+    const uiMsg = _wsUiError('chat-popup', ws, e);
     if (chatTurnTarget === 'panel') {
       chatTurnTarget = null;
-      handleFollowupResponse({ status: 'error', reason: 'WebSocket error' });
+      handleFollowupResponse({ status: 'error', reason: uiMsg });
     } else {
-      renderChatMsg('error', 'WebSocket error -- chat unavailable');
+      renderChatMsg('error', uiMsg);
       chatInput.disabled = true; chatSend.disabled = true;
     }
   };
