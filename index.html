@@ -443,6 +443,15 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
   width: min(340px, calc(100vw - 32px));
   padding: 24px 28px; animation: about-in 200ms ease-out; }
+/* Gate mode: this is a landing-page lock, not a dismissible dialog.
+   The close button, cancel button, and backdrop dismissal are hidden /
+   disabled via JS. Backdrop is fully opaque so the background UI is
+   neither readable nor tantalizing. */
+.about-modal[data-gate="true"] .about-backdrop { background: rgba(10, 10, 14, 0.95); }
+.about-modal[data-gate="true"] .about-close { display: none; }
+.about-modal[data-gate="true"] .login-cancel { display: none; }
+.about-modal[data-gate="true"] .login-cta { justify-content: center; }
+.about-modal[data-gate="true"] .login-cta .login-submit { flex: 0 1 auto; min-width: 180px; }
 .login-panel h3 { margin: 0 0 4px 0; font-size: 14px; color: var(--text);
   font-weight: 600; }
 .login-panel .login-tagline { margin: 0 0 16px 0; font-size: 11px;
@@ -2503,6 +2512,7 @@ function renderAuthBox() {
     logout.addEventListener('click', () => {
       clearAuthSession();
       renderAuthBox();
+      openLoginGate();
     });
     box.appendChild(greet);
     box.appendChild(logout);
@@ -2514,13 +2524,14 @@ function renderAuthBox() {
     box.appendChild(btn);
   }
 }
-function openLoginModal() {
+function _openLoginModal(gate) {
   const m = document.getElementById('loginModal');
   if (!m) return;
   document.getElementById('loginUsername').value = '';
   document.getElementById('loginPassword').value = '';
   document.getElementById('loginErr').textContent = '';
   m.dataset.open = 'true';
+  m.dataset.gate = gate ? 'true' : 'false';
   m.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
   setTimeout(() => {
@@ -2528,10 +2539,24 @@ function openLoginModal() {
     if (u) u.focus();
   }, 30);
 }
+function openLoginModal() { _openLoginModal(false); }
+function openLoginGate() { _openLoginModal(true); }
 function closeLoginModal() {
   const m = document.getElementById('loginModal');
   if (!m) return;
+  // Gate mode must only close via successful login, never via ESC /
+  // backdrop / close button. Guard at the function boundary.
+  if (m.dataset.gate === 'true') return;
   m.dataset.open = 'false';
+  m.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+function forceCloseLoginModal() {
+  // Used only after successful login -- bypasses the gate guard.
+  const m = document.getElementById('loginModal');
+  if (!m) return;
+  m.dataset.open = 'false';
+  m.dataset.gate = 'false';
   m.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
@@ -2552,7 +2577,7 @@ async function submitLogin() {
     const body = await res.json().catch(() => ({}));
     if (res.ok && body.status === 'ok' && body.token) {
       setAuthSession(body.token, body.username, body.daily_quota || 0);
-      closeLoginModal();
+      forceCloseLoginModal();
       renderAuthBox();
     } else {
       errEl.textContent = body.reason || t('login.err.invalid');
@@ -2584,6 +2609,10 @@ async function submitLogin() {
     if (e.key === 'Escape' && m.dataset.open === 'true') closeLoginModal();
   });
   renderAuthBox();
+  // Landing-page gate: if the user has no auth token, block the entire
+  // app behind a non-dismissable sign-in form. Logout drops back into
+  // the gate.
+  if (!getAuthToken()) openLoginGate();
 })();
 
 // About modal: footer "About" button opens a pitch + contact popup. ESC
