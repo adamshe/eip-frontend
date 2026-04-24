@@ -424,6 +424,49 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
   transition: color 120ms, text-decoration-color 120ms; }
 .about-trigger:hover { color: var(--accent);
   text-decoration-color: var(--accent); }
+/* Auth box in header: right-aligned, small badge-like controls.
+   Unauthenticated: single Login button. Authenticated: "Hi, <user>" +
+   Logout. Reuses about-modal overlay for the sign-in dialog. */
+.auth-box { font-size: 12px; color: var(--text-muted); flex-shrink: 0;
+  margin-left: auto; display: inline-flex; align-items: center; gap: 8px; }
+.auth-box button { background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); border-radius: 4px; padding: 3px 10px;
+  font-size: 11px; cursor: pointer;
+  transition: color 140ms, border-color 140ms; }
+.auth-box button:hover { color: var(--accent); border-color: var(--accent); }
+.auth-box .auth-user { color: var(--text); font-weight: 600; }
+.login-panel { position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-card); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--rl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  width: min(340px, calc(100vw - 32px));
+  padding: 24px 28px; animation: about-in 200ms ease-out; }
+.login-panel h3 { margin: 0 0 4px 0; font-size: 14px; color: var(--text);
+  font-weight: 600; }
+.login-panel .login-tagline { margin: 0 0 16px 0; font-size: 11px;
+  color: var(--text-muted); letter-spacing: 0.04em; }
+.login-panel label { display: block; font-size: 10px; color: var(--text-muted);
+  margin: 10px 0 4px 0; text-transform: uppercase; letter-spacing: 0.08em;
+  font-weight: 600; }
+.login-panel input { width: 100%; background: var(--bg); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 8px 10px; font-size: 13px; font-family: inherit;
+  box-sizing: border-box; }
+.login-panel input:focus { outline: none; border-color: var(--accent); }
+.login-err { margin: 10px 0 0 0; font-size: 12px; color: var(--tone-stress);
+  min-height: 16px; }
+.login-cta { display: flex; gap: 8px; margin-top: 16px; }
+.login-cta button { flex: 1; padding: 8px 14px; border-radius: var(--r);
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: filter 140ms, color 140ms, border-color 140ms; }
+.login-submit { background: var(--accent); color: #fff;
+  border: 1px solid var(--accent); }
+.login-submit:hover:not(:disabled) { filter: brightness(1.12); }
+.login-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.login-cancel { background: transparent; color: var(--text-dim);
+  border: 1px solid var(--border); }
+.login-cancel:hover { color: var(--accent); border-color: var(--accent); }
 </style>
 </head>
 <body>
@@ -435,6 +478,7 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
       <span class="api-status-label" data-i18n="api.status.checking">Checking</span>
     </span>
     <nav class="pills" id="pills"></nav>
+    <span class="auth-box" id="authBox"></span>
   </header>
   <div class="q-bar empty" id="qBar">
     <span class="q-label" data-i18n="qbar.label">Q</span>
@@ -567,6 +611,23 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
     </div>
   </div>
 </div>
+<div class="about-modal" id="loginModal" data-open="false" aria-hidden="true">
+  <div class="about-backdrop" id="loginBackdrop"></div>
+  <div class="login-panel" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <button class="about-close" id="loginClose" type="button" aria-label="Close">x</button>
+    <h3 id="loginTitle" data-i18n="login.title">Sign in</h3>
+    <p class="login-tagline" data-i18n="login.tagline">Named users get a per-account daily quota.</p>
+    <label data-i18n="login.username_label">Username</label>
+    <input id="loginUsername" type="text" autocomplete="username" autocapitalize="off" spellcheck="false">
+    <label data-i18n="login.password_label">Password</label>
+    <input id="loginPassword" type="password" autocomplete="current-password">
+    <p class="login-err" id="loginErr"></p>
+    <div class="login-cta">
+      <button class="login-cancel" id="loginCancel" type="button" data-i18n="login.cancel">Cancel</button>
+      <button class="login-submit" id="loginSubmit" type="button" data-i18n="login.submit">Sign in</button>
+    </div>
+  </div>
+</div>
 <script>
 // --- i18n ---
 const I18N_LANG_KEY = 'eip_ui_lang';
@@ -631,6 +692,17 @@ const I18N = {
     'about.s3_body': '\u591a\u6570\u516c\u53f8\u5356\u7684\u662f\u753b\u56fe\u7684\u67b6\u6784\u5e08\u6216\u5199\u4ee3\u7801\u7684\u5de5\u7a0b\u5e08, \u6211\u4eec\u628a\u4e24\u4ef6\u4e8b\u88c5\u8fdb\u4e00\u4e2a\u8111\u888b\u3002\u4ee5\u6280\u672f\u65e0\u5173\u4e3a\u539f\u5219: \u95ee\u9898\u914d\u4ec0\u4e48\u6808\u5c31\u4e0a\u4ec0\u4e48\u6808, \u4e0d\u63a8\u9500\u5355\u4e00\u4ea7\u54c1\u7ebf\u3002\u524d\u6cbf AI \u7cfb\u7edf\u7684\u7814\u7a76\u6210\u679c\u6301\u7eed\u53cd\u54fa\u751f\u4ea7\u4ea4\u4ed8 -- \u6d1e\u89c1\u5355\u5411\u6d41\u5165\u5b9e\u6218\u9879\u76ee, \u4e0d\u662f\u53cd\u8fc7\u6765\u3002\u670d\u52a1\u4e8e"\u4e00\u4e2a\u4eba\u9876\u5341\u4e8c\u4eba"\u7684\u9ad8\u98ce\u9669\u8054\u90a6\u4e0e\u5546\u4e1a\u9879\u76ee\u3002',
     'about.cta_hire': '\u6d3d\u8c08\u5408\u4f5c ->',
     'about.cta_feedback': '\u53d1\u9001\u53cd\u9988',
+    'login.button': '\u767b\u5f55',
+    'login.hi': '\u6b22\u8fce',
+    'login.logout': '\u767b\u51fa',
+    'login.title': '\u767b\u5f55',
+    'login.tagline': '\u6ce8\u518c\u7528\u6237\u6bcf\u65e5\u914d\u989d\u72ec\u7acb',
+    'login.username_label': '\u7528\u6237\u540d',
+    'login.password_label': '\u5bc6\u7801',
+    'login.cancel': '\u53d6\u6d88',
+    'login.submit': '\u767b\u5f55',
+    'login.err.invalid': '\u7528\u6237\u540d\u6216\u5bc6\u7801\u9519\u8bef',
+    'login.err.network': '\u7f51\u7edc\u9519\u8bef, \u8bf7\u91cd\u8bd5',
     'footer.debug_log': '\u8c03\u8bd5\u65e5\u5fd7',
     'api.status.online': '\u5728\u7ebf',
     'api.status.offline': '\u79bb\u7ebf',
@@ -718,6 +790,17 @@ const I18N = {
     'about.s3_body': 'Most firms sell architects who draw or engineers who code. We are both in one head, language-agnostic by principle: we pick the stack the problem deserves, not the stack we want to sell. Research in frontier AI systems continuously informs production delivery -- insights flow into live engagements, not the other way around. Built for high-stakes federal and commercial programs where a single senior operator out-executes a team.',
     'about.cta_hire': 'Work with us ->',
     'about.cta_feedback': 'Send feedback',
+    'login.button': 'Login',
+    'login.hi': 'Hi,',
+    'login.logout': 'Logout',
+    'login.title': 'Sign in',
+    'login.tagline': 'Named users have their own daily quota.',
+    'login.username_label': 'Username',
+    'login.password_label': 'Password',
+    'login.cancel': 'Cancel',
+    'login.submit': 'Sign in',
+    'login.err.invalid': 'Invalid username or password',
+    'login.err.network': 'Network error, try again',
     'footer.debug_log': 'Debug log',
     'api.status.online': 'Online',
     'api.status.offline': 'Offline',
@@ -769,6 +852,7 @@ function applyLang() {
   if (typeof fillSubType === 'function') fillSubType();
   if (typeof renderPills === 'function') renderPills();
   if (typeof applyInteractionMode === 'function') applyInteractionMode();
+  if (typeof renderAuthBox === 'function') renderAuthBox();
   if (typeof rebuildFooterGlow === 'function') rebuildFooterGlow();
 }
 // --- end i18n ---
@@ -1413,6 +1497,7 @@ async function retryPhase(role, phaseName) {
         user_q: userQ,
         creator_content: creatorText,
         debug: localStorage.getItem('eip_debug') === '1',
+        auth_token: getAuthToken(),
       }),
     });
     const d = await res.json();
@@ -1845,9 +1930,10 @@ function startNewTrinity(question) {
   const url = WS_BASE + path;
   const uid = getUserSessionId();
   const debug = document.body.classList.contains('debug-enabled');
+  const authTok = getAuthToken();
   const body = mode === 'medical'
-    ? { symptoms: question, specialty: subtype || null, lang, user_session_id: uid, debug }
-    : { description: question, eval_type: subtype || 'general', lang, user_session_id: uid, debug };
+    ? { symptoms: question, specialty: subtype || null, lang, user_session_id: uid, debug, auth_token: authTok }
+    : { description: question, eval_type: subtype || 'general', lang, user_session_id: uid, debug, auth_token: authTok };
   submitBtn.disabled = true; stopBtn.style.display = 'inline-block';
   dbg('WS ' + url);
   ws = new WebSocket(url);
@@ -2368,6 +2454,136 @@ setInterval(pollApiHealth, 30000);
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) pollApiHealth();
 });
+
+// --- Auth state & login modal ---
+// Named users get a per-account daily quota; anonymous clients share the
+// global IP quota. Token lives in localStorage (server issues a short
+// opaque UUID; server restart invalidates, users relogin). Password is
+// never stored client-side -- only the token.
+const AUTH_TOKEN_KEY = 'eip_auth_token';
+const AUTH_USER_KEY = 'eip_auth_user';
+const AUTH_QUOTA_KEY = 'eip_auth_daily_quota';
+
+function getAuthToken() {
+  try { return localStorage.getItem(AUTH_TOKEN_KEY) || null; } catch { return null; }
+}
+function getAuthUser() {
+  try { return localStorage.getItem(AUTH_USER_KEY) || null; } catch { return null; }
+}
+function setAuthSession(token, user, quota) {
+  try {
+    localStorage.setItem(AUTH_TOKEN_KEY, token);
+    localStorage.setItem(AUTH_USER_KEY, user);
+    localStorage.setItem(AUTH_QUOTA_KEY, String(quota));
+  } catch {}
+}
+function clearAuthSession() {
+  try {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_USER_KEY);
+    localStorage.removeItem(AUTH_QUOTA_KEY);
+  } catch {}
+}
+function renderAuthBox() {
+  const box = document.getElementById('authBox');
+  if (!box) return;
+  box.innerHTML = '';
+  const u = getAuthUser();
+  if (u) {
+    const greet = document.createElement('span');
+    greet.textContent = t('login.hi') + ' ';
+    const who = document.createElement('span');
+    who.className = 'auth-user';
+    who.textContent = u;
+    greet.appendChild(who);
+    const logout = document.createElement('button');
+    logout.type = 'button';
+    logout.textContent = t('login.logout');
+    logout.addEventListener('click', () => {
+      clearAuthSession();
+      renderAuthBox();
+    });
+    box.appendChild(greet);
+    box.appendChild(logout);
+  } else {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = t('login.button');
+    btn.addEventListener('click', openLoginModal);
+    box.appendChild(btn);
+  }
+}
+function openLoginModal() {
+  const m = document.getElementById('loginModal');
+  if (!m) return;
+  document.getElementById('loginUsername').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginErr').textContent = '';
+  m.dataset.open = 'true';
+  m.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    const u = document.getElementById('loginUsername');
+    if (u) u.focus();
+  }, 30);
+}
+function closeLoginModal() {
+  const m = document.getElementById('loginModal');
+  if (!m) return;
+  m.dataset.open = 'false';
+  m.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+async function submitLogin() {
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  if (!username || !password) return;
+  const submitBtn = document.getElementById('loginSubmit');
+  const errEl = document.getElementById('loginErr');
+  submitBtn.disabled = true;
+  errEl.textContent = '';
+  try {
+    const res = await fetch(HTTP_BASE + '/api/auth/login', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (res.ok && body.status === 'ok' && body.token) {
+      setAuthSession(body.token, body.username, body.daily_quota || 0);
+      closeLoginModal();
+      renderAuthBox();
+    } else {
+      errEl.textContent = body.reason || t('login.err.invalid');
+    }
+  } catch (_) {
+    errEl.textContent = t('login.err.network');
+  } finally {
+    submitBtn.disabled = false;
+  }
+}
+(function initLoginModal() {
+  const m = document.getElementById('loginModal');
+  if (!m) return;
+  const bd = document.getElementById('loginBackdrop');
+  const cl = document.getElementById('loginClose');
+  const sb = document.getElementById('loginSubmit');
+  const cn = document.getElementById('loginCancel');
+  if (bd) bd.addEventListener('click', closeLoginModal);
+  if (cl) cl.addEventListener('click', closeLoginModal);
+  if (sb) sb.addEventListener('click', submitLogin);
+  if (cn) cn.addEventListener('click', closeLoginModal);
+  ['loginUsername', 'loginPassword'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') submitLogin();
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && m.dataset.open === 'true') closeLoginModal();
+  });
+  renderAuthBox();
+})();
 
 // About modal: footer "About" button opens a pitch + contact popup. ESC
 // and backdrop click close it. Focus is not trapped (one-screen modal,
