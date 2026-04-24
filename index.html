@@ -1185,7 +1185,7 @@ const NEWLINE_PAUSE_MS = 500;  // after \n  (paragraph breath)
 const PERIOD_RE = /[.。]/;
 const COMMA_RE  = /[,，;；:：]/;
 
-function typewriterReveal(role, fullText) {
+function typewriterReveal(role, fullText, onDone) {
   cancelPanelAnim(role);
   const p = document.querySelector('.panel[data-role="' + role + '"]');
   if (!p) return;
@@ -1200,7 +1200,7 @@ function typewriterReveal(role, fullText) {
   pre.appendChild(textNode);
   pre.appendChild(cursor);
   const total = fullText.length;
-  if (total === 0) { cursor.remove(); return; }
+  if (total === 0) { cursor.remove(); if (onDone) onDone(); return; }
   const state = { cancelled: false, timer: null, paused: false, step: null };
   panelAnims[role] = state;
   p.setAttribute('data-typing', 'true');   // flowing border stays while we type
@@ -1212,6 +1212,7 @@ function typewriterReveal(role, fullText) {
       pre.classList.remove('typing');
       p.removeAttribute('data-typing');
       delete panelAnims[role];
+      if (onDone) onDone();
       return;
     }
     idx = Math.min(idx + TYPE_BATCH, total);
@@ -1347,10 +1348,15 @@ function setPanel(role, status, content, animate) {
   if (content) {
     cancelPanelAnim(role);
     if (animate) {
-      typewriterReveal(role, content);
+      // Final panel typewriter completion is the single re-enable point for
+      // the submit button -- user must see "the content is fully out" before
+      // being able to submit again. For other roles no callback.
+      const done = role === 'final' ? _onFinalTypewriterDone : null;
+      typewriterReveal(role, content, done);
     } else {
       body.innerHTML = '<pre></pre>';
       body.querySelector('pre').textContent = content;
+      if (role === 'final') _onFinalTypewriterDone();
     }
     const btn = p.querySelector('.copy-btn');
     if (btn) btn.disabled = false;
@@ -1369,6 +1375,15 @@ function setPanel(role, status, content, animate) {
   }
 }
 function resetPanels() { ROLES.forEach(r => setPanel(r, 'idle', '')); }
+
+// Re-enables submit once the final panel's typewriter has fully revealed
+// the synthesis. Called from typewriterReveal's onDone AND from ws.onclose
+// when final is not animating (error / no-content paths).
+function _onFinalTypewriterDone() {
+  if (ws) return;  // WS still open -- defer until ws.onclose fires
+  submitBtn.disabled = false;
+  stopBtn.style.display = 'none';
+}
 
 // Single-phase retry: re-runs overseer / adversary on the backend with
 // the current meeting's Creator output + user question. Backend endpoint
@@ -1891,7 +1906,15 @@ function startNewTrinity(question) {
     setPanel('final', 'error', 'WebSocket error'); };
   ws.onclose = () => {
     dbg('close');
-    ws = null; submitBtn.disabled = false; stopBtn.style.display = 'none';
+    ws = null;
+    // If the final panel is still running its typewriter reveal, leave the
+    // submit button disabled -- typewriterReveal's onDone will re-enable it
+    // once the content is fully visible. Only auto-reenable when there is
+    // nothing left to animate (error path before any final content arrived).
+    if (!panelAnims.final) {
+      submitBtn.disabled = false;
+      stopBtn.style.display = 'none';
+    }
     if (liveMeeting) {
       const hasContent = ROLES.some(r => liveMeeting.phases[r].content);
       if (hasContent) {
