@@ -921,6 +921,35 @@ function resolveApiHost() {
 const API_HOST = resolveApiHost();
 const HTTP_BASE = location.protocol + '//' + API_HOST;
 const WS_BASE = (location.protocol === 'https:' ? 'wss:' : 'ws:') + '//' + API_HOST;
+
+// WS diagnostics. Production issues on iPhone 14 report "WebSocket error"
+// with no detail. Capture CloseEvent.code / reason / wasClean and the
+// readyState at error time so the next user-reported failure has ground
+// truth instead of a bare "error" log line.
+//
+// Common close codes to watch:
+//   1000 normal       1001 going away (tab close/reload/backgrounded iOS)
+//   1005 no status    1006 abnormal (network kill, tunnel drop, NAT rebind)
+//   1011 server err   1012 service restart
+//   1013 try again later (cloudflared backpressure)
+function _wsClose(label, ws, e) {
+  try {
+    const code = (e && e.code != null) ? e.code : '?';
+    const reason = (e && e.reason) || '';
+    const clean = (e && e.wasClean != null) ? e.wasClean : '?';
+    const rs = ws ? ws.readyState : '?';
+    dbg(label + ' close code=' + code
+        + ' reason="' + String(reason).slice(0, 80) + '"'
+        + ' clean=' + clean + ' readyState=' + rs);
+  } catch {}
+}
+function _wsError(label, ws, e) {
+  try {
+    const rs = ws ? ws.readyState : '?';
+    const msg = (e && e.message) ? String(e.message).slice(0, 120) : '';
+    dbg(label + ' error readyState=' + rs + ' msg="' + msg + '"');
+  } catch {}
+}
 function dbg(msg) {
   const t = new Date().toLocaleTimeString();
   debugEl.textContent += '[' + t + '] ' + msg + '\n';
@@ -1694,12 +1723,13 @@ function startChatMode(question, model) {
       try { ws.close(1000, 'chat turn complete'); } catch {}
     }
   };
-  ws.onerror = () => {
+  ws.onerror = (e) => {
+    _wsError('chat-init', ws, e);
     setPanel('final', 'error', 'WebSocket error');
     if (liveMeeting) liveMeeting.phases.final.status = 'error';
   };
-  ws.onclose = () => {
-    dbg('chat WS close');
+  ws.onclose = (e) => {
+    _wsClose('chat-init', ws, e);
     ws = null; submitBtn.disabled = false; stopBtn.style.display = 'none';
     if (liveMeeting) {
       const hasContent = !!liveMeeting.phases.final.content;
@@ -1811,15 +1841,16 @@ function continueChatTurn(m, question) {
       try { ws.close(1000, 'chat turn complete'); } catch {}
     }
   };
-  ws.onerror = () => {
+  ws.onerror = (e) => {
+    _wsError('chat-resume', ws, e);
     setPanel('final', 'error', 'WebSocket error');
     // Defensive: unlock submit button in case onclose does not fire.
     submitBtn.disabled = false; stopBtn.style.display = 'none';
   };
-  ws.onclose = () => {
-    dbg('chat WS close');
+  ws.onclose = (e) => {
+    _wsClose('chat-resume', ws, e);
     ws = null; submitBtn.disabled = false; stopBtn.style.display = 'none';
-    saveMeetings(meetings).catch(e => dbg('save failed: ' + e));
+    saveMeetings(meetings).catch(err => dbg('save failed: ' + err));
     renderPills();
   };
 }
@@ -1998,10 +2029,12 @@ function startNewTrinity(question) {
       dbg(d.phase + ' ' + d.status + ' ' + body.length);
     } catch (e) { dbg('parse ' + e.message); }
   };
-  ws.onerror = (e) => { dbg('error ' + (e.message || 'ws'));
-    setPanel('final', 'error', 'WebSocket error'); };
-  ws.onclose = () => {
-    dbg('close');
+  ws.onerror = (e) => {
+    _wsError('trinity', ws, e);
+    setPanel('final', 'error', 'WebSocket error');
+  };
+  ws.onclose = (e) => {
+    _wsClose('trinity', ws, e);
     ws = null;
     // If the final panel is still running its typewriter reveal, leave the
     // submit button disabled -- typewriterReveal's onDone will re-enable it
@@ -2199,9 +2232,9 @@ function openChatWs(m) {
       chatInput.focus();
     }
   };
-  ws.onerror = () => {
+  ws.onerror = (e) => {
     if (chatWs !== ws) return;
-    dbg('chat WS error');
+    _wsError('chat-popup', ws, e);
     if (chatPendingThinking) { chatPendingThinking.remove(); chatPendingThinking = null; }
     if (chatTurnTarget === 'panel') {
       chatTurnTarget = null;
@@ -2211,8 +2244,8 @@ function openChatWs(m) {
       chatInput.disabled = true; chatSend.disabled = true;
     }
   };
-  ws.onclose = () => {
-    dbg('chat WS closed');
+  ws.onclose = (e) => {
+    _wsClose('chat-popup', ws, e);
     // Only clear module state if WE are still the current WS; otherwise
     // another openChatWs already replaced us and cleared/reset correctly.
     if (chatWs === ws) { chatWs = null; chatSessionId = null; }
