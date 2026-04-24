@@ -424,11 +424,12 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
   transition: color 120ms, text-decoration-color 120ms; }
 .about-trigger:hover { color: var(--accent);
   text-decoration-color: var(--accent); }
-/* Auth box in header: right-aligned, small badge-like controls.
-   Unauthenticated: single Login button. Authenticated: "Hi, <user>" +
-   Logout. Reuses about-modal overlay for the sign-in dialog. */
-.auth-box { font-size: 12px; color: var(--text-muted); flex-shrink: 0;
-  margin-left: auto; display: inline-flex; align-items: center; gap: 8px; }
+/* Auth box: fixed top-right of the viewport so it never loses a flex
+   fight with the pills rail. Small badge-like controls. Unauthenticated:
+   Login button. Authenticated: "Hi, <user>" + Logout. */
+.auth-box { position: fixed; top: 14px; right: 16px; z-index: 50;
+  font-size: 12px; color: var(--text-muted);
+  display: inline-flex; align-items: center; gap: 8px; }
 .auth-box button { background: transparent; border: 1px solid var(--border);
   color: var(--text-dim); border-radius: 4px; padding: 3px 10px;
   font-size: 11px; cursor: pointer;
