@@ -424,11 +424,12 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
   transition: color 120ms, text-decoration-color 120ms; }
 .about-trigger:hover { color: var(--accent);
   text-decoration-color: var(--accent); }
-/* Auth box: fixed top-right of the viewport so it never loses a flex
-   fight with the pills rail. Small badge-like controls. Unauthenticated:
-   Login button. Authenticated: "Hi, <user>" + Logout. */
-.auth-box { position: fixed; top: 14px; right: 16px; z-index: 50;
-  font-size: 12px; color: var(--text-muted);
+/* Top-right fixed container: anchors the P2P toggle and auth box in a
+   single layout context so they never overlap. Both children flow
+   inline-flex inside this single fixed wrapper -- old-Chrome safe. */
+.topright-fixed { position: fixed; top: 14px; right: 16px; z-index: 50;
+  display: inline-flex; align-items: center; gap: 8px; }
+.auth-box { font-size: 12px; color: var(--text-muted);
   display: inline-flex; align-items: center; gap: 8px; }
 .auth-box button { background: transparent; border: 1px solid var(--border);
   color: var(--text-dim); border-radius: 4px; padding: 3px 10px;
@@ -580,8 +581,10 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
       <span class="api-status-label" data-i18n="api.status.checking">Checking</span>
     </span>
     <nav class="pills" id="pills"></nav>
-    <button id="p2pToggle" type="button" class="p2p-toggle" hidden data-i18n="p2p.toggle">P2P</button>
-    <span class="auth-box" id="authBox"></span>
+    <div class="topright-fixed">
+      <button id="p2pToggle" type="button" class="p2p-toggle" hidden data-i18n="p2p.toggle">P2P</button>
+      <span class="auth-box" id="authBox"></span>
+    </div>
   </header>
   <div class="q-bar empty" id="qBar">
     <span class="q-label" data-i18n="qbar.label">Q</span>
