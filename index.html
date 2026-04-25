@@ -477,6 +477,98 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
 .login-cancel { background: transparent; color: var(--text-dim);
   border: 1px solid var(--border); }
 .login-cancel:hover { color: var(--accent); border-color: var(--accent); }
+/* --- P2P chat panel (fixed dock, top-right) --------------------------- */
+.p2p-toggle { background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); border-radius: 4px; padding: 3px 10px;
+  font-size: 11px; cursor: pointer;
+  transition: color 140ms, border-color 140ms; }
+.p2p-toggle:hover { color: var(--accent); border-color: var(--accent); }
+.p2p-toggle[data-unread="true"] { color: var(--accent); border-color: var(--accent);
+  font-weight: 700; }
+.p2p-panel { position: fixed; top: 70px; right: 16px; width: 320px;
+  max-height: calc(100vh - 100px);
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--rl);
+  box-shadow: 0 12px 40px rgba(0,0,0,.45), 0 0 0 1px var(--border-soft);
+  z-index: 600; display: flex; flex-direction: column;
+  font-size: 13px; color: var(--text); overflow: hidden; }
+.p2p-panel[hidden] { display: none; }
+.p2p-header { flex: 0 0 auto; display: flex; align-items: center;
+  padding: 10px 12px; gap: 10px;
+  border-bottom: 1px solid var(--border-soft); }
+.p2p-header h3 { margin: 0; flex: 1; font-size: 13px; font-weight: 600;
+  color: var(--text); }
+.p2p-header button { background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); width: 22px; height: 22px; border-radius: 4px;
+  cursor: pointer; padding: 0; line-height: 1;
+  font-size: 12px; }
+.p2p-header button:hover { color: var(--accent); border-color: var(--accent); }
+.p2p-status { flex: 0 0 auto; padding: 4px 12px; font-size: 11px;
+  color: var(--text-muted); border-bottom: 1px solid var(--border-soft);
+  letter-spacing: 0.04em; min-height: 16px; }
+.p2p-status[data-state="connected"] { color: var(--tone-primary); }
+.p2p-status[data-state="error"] { color: var(--tone-stress); }
+.p2p-online { flex: 1; min-height: 0; display: flex; flex-direction: column;
+  overflow: hidden; }
+.p2p-section-title { flex: 0 0 auto; padding: 8px 12px 4px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted); font-weight: 600; }
+.p2p-online ul { list-style: none; margin: 0; padding: 0 8px 8px;
+  overflow-y: auto; }
+.p2p-online li { padding: 6px 10px; border-radius: var(--r);
+  cursor: pointer; transition: background 120ms;
+  display: flex; align-items: center; gap: 8px;
+  color: var(--text-dim); }
+.p2p-online li:hover { background: var(--bg-chip); color: var(--text); }
+.p2p-online li[data-unread="true"] { color: var(--accent); font-weight: 600; }
+.p2p-online li::before { content: ''; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--tone-primary); flex: 0 0 auto; }
+.p2p-online li.empty { color: var(--text-muted); font-style: italic;
+  cursor: default; }
+.p2p-online li.empty:hover { background: transparent; }
+.p2p-online li.empty::before { display: none; }
+.p2p-chat { flex: 1; min-height: 0; display: flex; flex-direction: column;
+  overflow: hidden; }
+.p2p-peer-bar { flex: 0 0 auto; display: flex; align-items: center;
+  gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border-soft);
+  background: var(--bg-input); }
+.p2p-peer-bar #p2pPeerName { flex: 1; font-weight: 600; color: var(--text); }
+.p2p-peer-bar button { background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); border-radius: 4px; padding: 2px 8px;
+  font-size: 11px; cursor: pointer; }
+.p2p-peer-bar button:hover { color: var(--accent); border-color: var(--accent); }
+.p2p-msgs { flex: 1; min-height: 0; overflow-y: auto;
+  padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+.p2p-msgs::-webkit-scrollbar { width: 6px; }
+.p2p-msgs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.p2p-msg { max-width: 85%; padding: 6px 10px; border-radius: 10px;
+  word-wrap: break-word; white-space: pre-wrap; line-height: 1.4;
+  font-size: 12.5px; }
+.p2p-msg.outgoing { align-self: flex-end; background: var(--accent-bg);
+  color: var(--text); border: 1px solid var(--accent);
+  border-bottom-right-radius: 2px; }
+.p2p-msg.incoming { align-self: flex-start; background: var(--bg-chip);
+  color: var(--text); border: 1px solid var(--border-soft);
+  border-bottom-left-radius: 2px; }
+.p2p-msg.system { align-self: center; background: transparent;
+  color: var(--text-muted); font-style: italic; font-size: 11px;
+  border: none; padding: 2px 6px; }
+.p2p-input-row { flex: 0 0 auto; display: flex; gap: 6px;
+  padding: 8px 10px; border-top: 1px solid var(--border-soft); }
+.p2p-input-row input { flex: 1; background: var(--bg-input); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 6px 10px; font-size: 12.5px; outline: none; }
+.p2p-input-row input:focus { border-color: var(--accent); }
+.p2p-input-row input:disabled { opacity: 0.5; }
+.p2p-input-row button { font-size: 12px; font-weight: 600;
+  padding: 5px 12px; border-radius: var(--r); cursor: pointer;
+  border: 1px solid var(--accent); background: var(--accent);
+  color: #1a1a1a; }
+.p2p-input-row button:disabled { opacity: 0.4; cursor: not-allowed; }
+@media (max-width: 720px) {
+  .p2p-panel { width: calc(100vw - 20px); right: 10px;
+    top: 60px; max-height: calc(100vh - 80px); }
+}
 </style>
 </head>
 <body>
@@ -488,6 +580,7 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
       <span class="api-status-label" data-i18n="api.status.checking">Checking</span>
     </span>
     <nav class="pills" id="pills"></nav>
+    <button id="p2pToggle" type="button" class="p2p-toggle" hidden data-i18n="p2p.toggle">P2P</button>
     <span class="auth-box" id="authBox"></span>
   </header>
   <div class="q-bar empty" id="qBar">
@@ -592,13 +685,35 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
     </div>
   </div>
 </aside>
+<aside class="p2p-panel" id="p2pPanel" hidden>
+  <header class="p2p-header">
+    <h3 data-i18n="p2p.title">P2P Chat</h3>
+    <button id="p2pClose" type="button" aria-label="Close">x</button>
+  </header>
+  <div class="p2p-status" id="p2pStatus" data-state="idle" data-i18n="p2p.disconnected">Disconnected</div>
+  <div class="p2p-online" id="p2pOnline">
+    <div class="p2p-section-title" data-i18n="p2p.online">Online</div>
+    <ul id="p2pOnlineList"></ul>
+  </div>
+  <div class="p2p-chat" id="p2pChat" hidden>
+    <div class="p2p-peer-bar">
+      <span id="p2pPeerName"></span>
+      <button id="p2pBack" type="button" data-i18n="p2p.back">back</button>
+    </div>
+    <div class="p2p-msgs" id="p2pMsgs"></div>
+    <div class="p2p-input-row">
+      <input id="p2pInput" type="text" maxlength="4000" disabled />
+      <button id="p2pSend" type="button" disabled data-i18n="btn.send">Send</button>
+    </div>
+  </div>
+</aside>
 <div class="about-modal" id="aboutModal" data-open="false" aria-hidden="true">
   <div class="about-backdrop" id="aboutBackdrop"></div>
   <div class="about-panel" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
     <button class="about-close" id="aboutClose" type="button" aria-label="Close">x</button>
-    <h2 id="aboutTitle" data-i18n="about.title">Adam She -- Principal, Empire Integration Partners</h2>
-    <p class="about-tagline" data-i18n="about.tagline">Solution-driven IT consultancy. Language-agnostic.</p>
-    <p class="about-lead" data-i18n="about.lead">One senior brain from whiteboard to production. The design survives the compiler because the designer is the committer.</p>
+    <h2 id="aboutTitle" data-i18n="about.title">Adam He -- Principal, Empire Integration Partners</h2>
+    <p class="about-tagline" data-i18n="about.tagline">AI and software engineering architect. Solution Builder. Meta-programming.</p>
+    <p class="about-lead" data-i18n="about.lead">One senior brain from whiteboard to production. Meta programming first -- thinking about how thinking gets compiled into systems. The design survives the compiler because the designer is the committer.</p>
     <h3 data-i18n="about.s1_title">What We Deliver</h3>
     <ul>
       <li data-i18n="about.s1_l1">AI solution architecture</li>
@@ -685,9 +800,9 @@ const I18N = {
     'footer.line2': '\u7531\u6211\u4eec\u4e13\u6709 AI \u5f15\u64ce\u9a71\u52a8',
     'footer.line3': '\u4ec5\u4f9b\u5206\u6790\u53c2\u8003\uff0c\u88c1\u51b3\u6743\u5728\u51b3\u7b56\u8005',
     'footer.feedback': '\u5173\u4e8e\u6211\u4eec',
-    'about.title': 'Adam She -- Principal, Empire Integration Partners',
-    'about.tagline': '\u4ee5\u89e3\u51b3\u65b9\u6848\u4e3a\u7eb2\u7684 IT \u54a8\u8be2, \u4e0d\u7ed1\u5b9a\u6280\u672f\u6808',
-    'about.lead': '\u4e00\u4e2a\u4eba\u4ece\u767d\u677f\u5230\u751f\u4ea7\u7ebf: \u8bbe\u8ba1\u625b\u5f97\u4f4f\u7f16\u8bd1\u5668, \u56e0\u4e3a\u52a8\u624b\u63d0\u4ea4\u7684\u5c31\u662f\u753b\u67b6\u6784\u7684\u90a3\u4e2a\u4eba\u3002',
+    'about.title': 'Adam He -- Principal, Empire Integration Partners',
+    'about.tagline': 'AI \u548c\u8f6f\u4ef6\u5de5\u7a0b\u67b6\u6784\u5e08, Solution Builder. Meta programming.',
+    'about.lead': '\u4e00\u4e2a\u4eba\u4ece\u767d\u677f\u5230\u751f\u4ea7\u7ebf. \u5148 meta programming -- \u601d\u8003\u601d\u8003\u5982\u4f55\u88ab\u7f16\u8bd1\u6210\u7cfb\u7edf. \u8bbe\u8ba1\u625b\u5f97\u4f4f\u7f16\u8bd1\u5668, \u56e0\u4e3a\u52a8\u624b\u63d0\u4ea4\u7684\u5c31\u662f\u753b\u67b6\u6784\u7684\u90a3\u4e2a\u4eba\u3002',
     'about.s1_title': '\u6211\u4eec\u4ea4\u4ed8\u4ec0\u4e48',
     'about.s1_l1': 'AI \u89e3\u51b3\u65b9\u6848\u67b6\u6784 -- \u591a\u667a\u80fd\u4f53\u534f\u4f5c\u3001\u5bf9\u6297\u5f0f\u63a8\u7406\u5f15\u64ce\u3001\u68c0\u7d22\u4e0e\u7efc\u5408\u7ba1\u7ebf\u3002',
     'about.s1_l2': '\u8f6f\u4ef6\u73b0\u4ee3\u5316 -- Java / Python / .NET / Spring \u9057\u7559\u7cfb\u7edf\u8fc1\u79fb, API-first \u91cd\u8bbe\u8ba1, \u53ef\u89c2\u6d4b\u751f\u4ea7\u7ea7\u57fa\u7840\u8bbe\u65bd\u3002',
@@ -739,6 +854,18 @@ const I18N = {
     'medical_specialty.pediatrics': '\u513f\u79d1',
     'medical_specialty.psychiatry': '\u7cbe\u795e\u79d1',
     'medical_specialty.pulmonology': '\u547c\u5438\u79d1',
+    'p2p.toggle': 'P2P',
+    'p2p.title': 'P2P \u804a\u5929',
+    'p2p.online': '\u5728\u7ebf',
+    'p2p.online.empty': '\u6682\u65e0\u5176\u4ed6\u7528\u6237\u5728\u7ebf',
+    'p2p.back': '\u8fd4\u56de',
+    'p2p.connecting': '\u8fde\u63a5\u4e2d...',
+    'p2p.connected': '\u5df2\u8fde\u63a5',
+    'p2p.disconnected': '\u5df2\u65ad\u5f00 (\u91cd\u8fde\u4e2d)',
+    'p2p.error': '\u8fde\u63a5\u5931\u8d25',
+    'p2p.peer_offline': '\u5bf9\u65b9\u79bb\u7ebf',
+    'p2p.placeholder': '\u8f93\u5165\u6d88\u606f...',
+    'p2p.peer_left': '\u5bf9\u65b9\u4e0b\u7ebf',
   },
   en: {
     'topbar.title': 'AI Council',
@@ -783,9 +910,9 @@ const I18N = {
     'footer.line2': 'Powered by our proprietary AI engine',
     'footer.line3': 'Analysis only -- decisions belong to the principal',
     'footer.feedback': 'About',
-    'about.title': 'Adam She -- Principal, Empire Integration Partners',
-    'about.tagline': 'Solution-driven IT consultancy. Language-agnostic.',
-    'about.lead': 'One senior brain from whiteboard to production. The design survives the compiler because the designer is the committer.',
+    'about.title': 'Adam He -- Principal, Empire Integration Partners',
+    'about.tagline': 'AI and software engineering architect. Solution Builder. Meta-programming.',
+    'about.lead': 'One senior brain from whiteboard to production. Meta programming first -- thinking about how thinking gets compiled into systems. The design survives the compiler because the designer is the committer.',
     'about.s1_title': 'What We Deliver',
     'about.s1_l1': 'AI solution architecture -- multi-agent orchestration, adversarial reasoning engines, retrieval and synthesis pipelines.',
     'about.s1_l2': 'Software modernization -- legacy Java / Python / .NET / Spring migrations, API-first redesigns, observability-grade infrastructure.',
@@ -837,6 +964,18 @@ const I18N = {
     'medical_specialty.pediatrics': 'Pediatrics',
     'medical_specialty.psychiatry': 'Psychiatry',
     'medical_specialty.pulmonology': 'Pulmonology',
+    'p2p.toggle': 'P2P',
+    'p2p.title': 'P2P Chat',
+    'p2p.online': 'Online',
+    'p2p.online.empty': 'No other users online',
+    'p2p.back': 'back',
+    'p2p.connecting': 'Connecting...',
+    'p2p.connected': 'Connected',
+    'p2p.disconnected': 'Disconnected (reconnecting)',
+    'p2p.error': 'Connection failed',
+    'p2p.peer_offline': 'Peer offline',
+    'p2p.placeholder': 'Type a message...',
+    'p2p.peer_left': 'Peer disconnected',
   },
 };
 
@@ -2529,15 +2668,78 @@ function setApiStatus(state) {
     : t('api.offline.tooltip') + ' (' + API_HOST + ')';
 }
 
+// Health poll with retry: transient CORS / network drops (Cloudflare edge
+// blip, HTTP/2 stale connection, Firefox preflight hiccup) should not
+// flip the UI to offline. Try up to 3 times with 0.5s / 1s backoff; only
+// after all three fail do we mark offline AND POST a detailed error
+// report so we can diagnose recurring failures server-side.
 async function pollApiHealth() {
-  try {
-    const res = await fetch(HTTP_BASE + '/api/health',
-      { cache: 'no-store', credentials: 'omit' });
-    setApiStatus(res.ok ? 'online' : 'offline');
-  } catch (e) {
-    setApiStatus('offline');
-    dbg('health poll failed: ' + (e && e.message ? e.message : e));
+  const MAX_TRIES = 3;
+  const t0 = (typeof performance !== 'undefined' && performance.now)
+    ? performance.now() : Date.now();
+  let lastErr = null;
+  for (let i = 0; i < MAX_TRIES; i++) {
+    try {
+      const res = await fetch(HTTP_BASE + '/api/health',
+        { cache: 'no-store', credentials: 'omit' });
+      if (res.ok) {
+        setApiStatus('online');
+        return;
+      }
+      lastErr = { name: 'HttpError', message: 'HTTP ' + res.status };
+    } catch (e) {
+      lastErr = {
+        name: (e && e.name) ? String(e.name) : 'Error',
+        message: (e && e.message) ? String(e.message) : String(e),
+      };
+    }
+    if (i < MAX_TRIES - 1) {
+      await new Promise(r => setTimeout(r, 500 * (i + 1)));
+    }
   }
+  // All retries failed: mark offline and report diagnostics silently.
+  setApiStatus('offline');
+  const t1 = (typeof performance !== 'undefined' && performance.now)
+    ? performance.now() : Date.now();
+  dbg('health poll failed after ' + MAX_TRIES + ' tries: ' + lastErr.message);
+  _reportHealthIssue(lastErr, MAX_TRIES, Math.round(t1 - t0));
+}
+
+// Silent diagnostics POST -- same contract as _reportWsIssue but
+// kind="health" and with fetch-specific extras (httpPath, tries,
+// durationMs, errName). Failure is silent; nothing useful to do if the
+// diagnostic POST itself fails.
+function _reportHealthIssue(errInfo, tries, durationMs) {
+  try {
+    const body = {
+      kind: 'health',
+      label: 'api_health_poll',
+      timestamp: Date.now(),
+      readyState: null,
+      code: null,
+      reason: null,
+      wasClean: null,
+      errMsg: errInfo && errInfo.message
+        ? String(errInfo.message).slice(0, 200) : null,
+      errName: errInfo && errInfo.name
+        ? String(errInfo.name).slice(0, 100) : null,
+      userAgent: navigator.userAgent,
+      platform: navigator.platform || null,
+      online: (typeof navigator.onLine === 'boolean') ? navigator.onLine : null,
+      visibilityState: document.visibilityState || null,
+      pageUrl: location.href.slice(0, 300),
+      wsUrl: null,
+      httpPath: (HTTP_BASE + '/api/health').slice(0, 250),
+      tries: tries,
+      durationMs: durationMs,
+    };
+    fetch(HTTP_BASE + '/api/client_error', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {}
 }
 setApiStatus('checking');
 pollApiHealth();
@@ -2583,6 +2785,7 @@ function renderAuthBox() {
   if (!box) return;
   box.innerHTML = '';
   const u = getAuthUser();
+  const p2pBtn = document.getElementById('p2pToggle');
   if (u) {
     const greet = document.createElement('span');
     greet.textContent = t('login.hi') + ' ';
@@ -2594,18 +2797,21 @@ function renderAuthBox() {
     logout.type = 'button';
     logout.textContent = t('login.logout');
     logout.addEventListener('click', () => {
+      if (typeof p2pTeardown === 'function') p2pTeardown();
       clearAuthSession();
       renderAuthBox();
       openLoginGate();
     });
     box.appendChild(greet);
     box.appendChild(logout);
+    if (p2pBtn) p2pBtn.hidden = false;
   } else {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.textContent = t('login.button');
     btn.addEventListener('click', openLoginModal);
     box.appendChild(btn);
+    if (p2pBtn) p2pBtn.hidden = true;
   }
 }
 function _openLoginModal(gate) {
@@ -2724,6 +2930,291 @@ async function submitLogin() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.dataset.open === 'true') close();
   });
+})();
+
+// --- P2P chat (named users only) ---------------------------------------
+// Razor: in-memory state, no history persistence, no rooms. Connects to
+// /api/ws/p2p with the auth token; backend rejects bad tokens at handshake
+// (close code 4401) so a logged-out user never sees a connected state.
+//
+// Protocol (mirrors src/backend/trinity_api/p2p_hub.py):
+//   send: {type:'msg', to: <peer>, text: '...'}
+//   recv: {type:'msg', from, to, text, ts, echo?}     -- echo=true means our own send round-tripped
+//   recv: {type:'peer_offline', to, ts}              -- target was not online
+//
+// Reconnect: exponential backoff 1s / 3s / 9s. After 3 failed attempts we
+// stop trying and surface "error" status; user can click P2P toggle to
+// retry by re-opening.
+let p2pWs = null;
+let p2pState = 'idle'; // idle | connecting | connected | error
+let p2pPanelOpen = false;
+let p2pCurrentPeer = null;
+let p2pReconnectAttempts = 0;
+let p2pReconnectTimer = null;
+let p2pOnlinePollTimer = null;
+// Threads keyed by peer username -> array of {kind:'in'|'out'|'sys', text, ts}
+const p2pThreads = {};
+const p2pUnread = new Set();
+
+function p2pSetStatus(state, key) {
+  p2pState = state;
+  const el = document.getElementById('p2pStatus');
+  if (!el) return;
+  el.dataset.state = state;
+  el.textContent = t(key);
+}
+
+function p2pUpdateToggleBadge() {
+  const btn = document.getElementById('p2pToggle');
+  if (!btn) return;
+  btn.dataset.unread = p2pUnread.size > 0 ? 'true' : 'false';
+  btn.textContent = p2pUnread.size > 0
+    ? t('p2p.toggle') + ' (' + p2pUnread.size + ')'
+    : t('p2p.toggle');
+}
+
+function p2pRenderOnline(list) {
+  const ul = document.getElementById('p2pOnlineList');
+  if (!ul) return;
+  ul.innerHTML = '';
+  if (!list || list.length === 0) {
+    const li = document.createElement('li');
+    li.className = 'empty';
+    li.textContent = t('p2p.online.empty');
+    ul.appendChild(li);
+    return;
+  }
+  list.forEach(name => {
+    const li = document.createElement('li');
+    li.textContent = name;
+    if (p2pUnread.has(name)) li.dataset.unread = 'true';
+    li.addEventListener('click', () => p2pOpenChat(name));
+    ul.appendChild(li);
+  });
+}
+
+async function p2pPollOnline() {
+  const tok = getAuthToken();
+  if (!tok) return;
+  try {
+    const res = await fetch(HTTP_BASE + '/api/p2p/online', {
+      headers: { 'Authorization': 'Bearer ' + tok },
+    });
+    if (!res.ok) return;
+    const body = await res.json();
+    p2pRenderOnline(body.online || []);
+  } catch (_) {}
+}
+
+function p2pAppendMsg(peer, kind, text, ts) {
+  if (!p2pThreads[peer]) p2pThreads[peer] = [];
+  p2pThreads[peer].push({ kind, text, ts: ts || Date.now() });
+  if (p2pCurrentPeer === peer) p2pRenderThread(peer);
+}
+
+function p2pRenderThread(peer) {
+  const wrap = document.getElementById('p2pMsgs');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  const thread = p2pThreads[peer] || [];
+  thread.forEach(m => {
+    const div = document.createElement('div');
+    if (m.kind === 'sys') {
+      div.className = 'p2p-msg system';
+    } else if (m.kind === 'out') {
+      div.className = 'p2p-msg outgoing';
+    } else {
+      div.className = 'p2p-msg incoming';
+    }
+    div.textContent = m.text;
+    wrap.appendChild(div);
+  });
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+function p2pOpenChat(peer) {
+  p2pCurrentPeer = peer;
+  p2pUnread.delete(peer);
+  p2pUpdateToggleBadge();
+  document.getElementById('p2pOnline').hidden = true;
+  const chat = document.getElementById('p2pChat');
+  chat.hidden = false;
+  document.getElementById('p2pPeerName').textContent = peer;
+  const inp = document.getElementById('p2pInput');
+  const snd = document.getElementById('p2pSend');
+  inp.placeholder = t('p2p.placeholder');
+  const wsReady = p2pWs && p2pWs.readyState === 1;
+  inp.disabled = !wsReady;
+  snd.disabled = !wsReady;
+  p2pRenderThread(peer);
+  // Re-render online list so the unread badge for this peer clears.
+  p2pPollOnline();
+  if (wsReady) inp.focus();
+}
+
+function p2pBackToList() {
+  p2pCurrentPeer = null;
+  document.getElementById('p2pChat').hidden = true;
+  document.getElementById('p2pOnline').hidden = false;
+  p2pPollOnline();
+}
+
+function p2pSend() {
+  const inp = document.getElementById('p2pInput');
+  if (!inp) return;
+  const text = (inp.value || '').trim();
+  if (!text || !p2pCurrentPeer) return;
+  if (!p2pWs || p2pWs.readyState !== 1) return;
+  if (text.length > 4000) return;
+  try {
+    p2pWs.send(JSON.stringify({ type: 'msg', to: p2pCurrentPeer, text }));
+    inp.value = '';
+  } catch (e) {
+    dbg('p2p send failed: ' + (e && e.message));
+  }
+}
+
+function p2pHandleFrame(frame) {
+  if (!frame || typeof frame !== 'object') return;
+  if (frame.type === 'msg') {
+    const peer = frame.echo ? frame.to : frame.from;
+    const kind = frame.echo ? 'out' : 'in';
+    p2pAppendMsg(peer, kind, frame.text || '', frame.ts);
+    if (!frame.echo && p2pCurrentPeer !== peer) {
+      p2pUnread.add(peer);
+      p2pUpdateToggleBadge();
+      // Refresh list so the badge appears next to the sender.
+      p2pPollOnline();
+    }
+  } else if (frame.type === 'peer_offline') {
+    const peer = frame.to;
+    p2pAppendMsg(peer, 'sys', t('p2p.peer_offline'), frame.ts);
+  }
+}
+
+function p2pConnect() {
+  const tok = getAuthToken();
+  if (!tok) return;
+  if (p2pWs && (p2pWs.readyState === 0 || p2pWs.readyState === 1)) return;
+  p2pSetStatus('connecting', 'p2p.connecting');
+  const url = WS_BASE + '/api/ws/p2p?token=' + encodeURIComponent(tok);
+  let ws;
+  try {
+    ws = new WebSocket(url);
+  } catch (e) {
+    dbg('p2p ws ctor failed: ' + (e && e.message));
+    p2pScheduleReconnect();
+    return;
+  }
+  p2pWs = ws;
+  ws.onopen = () => {
+    p2pReconnectAttempts = 0;
+    p2pSetStatus('connected', 'p2p.connected');
+    const inp = document.getElementById('p2pInput');
+    const snd = document.getElementById('p2pSend');
+    if (p2pCurrentPeer) {
+      if (inp) inp.disabled = false;
+      if (snd) snd.disabled = false;
+    }
+    p2pPollOnline();
+  };
+  ws.onmessage = (ev) => {
+    let frame;
+    try { frame = JSON.parse(ev.data); } catch { return; }
+    p2pHandleFrame(frame);
+  };
+  ws.onerror = (e) => {
+    _wsError('p2p', ws, e);
+    p2pSetStatus('error', 'p2p.error');
+  };
+  ws.onclose = (e) => {
+    _wsClose('p2p', ws, e);
+    const inp = document.getElementById('p2pInput');
+    const snd = document.getElementById('p2pSend');
+    if (inp) inp.disabled = true;
+    if (snd) snd.disabled = true;
+    if (e && e.code === 4401) {
+      // Auth rejected -- do not retry, user must re-login.
+      p2pSetStatus('error', 'p2p.error');
+      return;
+    }
+    if (p2pPanelOpen) p2pScheduleReconnect();
+  };
+}
+
+function p2pScheduleReconnect() {
+  if (p2pReconnectAttempts >= 3) {
+    p2pSetStatus('error', 'p2p.error');
+    return;
+  }
+  const delays = [1000, 3000, 9000];
+  const wait = delays[p2pReconnectAttempts] || 9000;
+  p2pReconnectAttempts += 1;
+  p2pSetStatus('idle', 'p2p.disconnected');
+  if (p2pReconnectTimer) clearTimeout(p2pReconnectTimer);
+  p2pReconnectTimer = setTimeout(() => {
+    if (p2pPanelOpen && getAuthToken()) p2pConnect();
+  }, wait);
+}
+
+function p2pOpen() {
+  if (!getAuthToken()) return;
+  p2pPanelOpen = true;
+  document.getElementById('p2pPanel').hidden = false;
+  if (!p2pCurrentPeer) p2pBackToList();
+  p2pConnect();
+  p2pPollOnline();
+  if (p2pOnlinePollTimer) clearInterval(p2pOnlinePollTimer);
+  p2pOnlinePollTimer = setInterval(p2pPollOnline, 5000);
+}
+
+function p2pClose() {
+  p2pPanelOpen = false;
+  document.getElementById('p2pPanel').hidden = true;
+  if (p2pOnlinePollTimer) {
+    clearInterval(p2pOnlinePollTimer);
+    p2pOnlinePollTimer = null;
+  }
+  if (p2pReconnectTimer) {
+    clearTimeout(p2pReconnectTimer);
+    p2pReconnectTimer = null;
+  }
+  if (p2pWs) {
+    try { p2pWs.close(1000, 'panel closed'); } catch {}
+    p2pWs = null;
+  }
+}
+
+function p2pTeardown() {
+  // Called on logout: drop everything including in-memory threads.
+  p2pClose();
+  p2pCurrentPeer = null;
+  p2pUnread.clear();
+  Object.keys(p2pThreads).forEach(k => delete p2pThreads[k]);
+  p2pUpdateToggleBadge();
+}
+
+(function initP2P() {
+  const toggle = document.getElementById('p2pToggle');
+  const closeBtn = document.getElementById('p2pClose');
+  const back = document.getElementById('p2pBack');
+  const sendBtn = document.getElementById('p2pSend');
+  const input = document.getElementById('p2pInput');
+  if (!toggle) return;
+  toggle.addEventListener('click', () => {
+    if (p2pPanelOpen) p2pClose(); else p2pOpen();
+  });
+  if (closeBtn) closeBtn.addEventListener('click', p2pClose);
+  if (back) back.addEventListener('click', p2pBackToList);
+  if (sendBtn) sendBtn.addEventListener('click', p2pSend);
+  if (input) {
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        p2pSend();
+      }
+    });
+  }
 })();
 </script>
 </body>
