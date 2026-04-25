@@ -3000,6 +3000,16 @@ async function p2pPollOnline() {
     const res = await fetch(HTTP_BASE + '/api/p2p/online', {
       headers: { 'Authorization': 'Bearer ' + tok },
     });
+    if (res.status === 401) {
+      // Token rejected (server restart wiped sessions, or expired).
+      // Drop the stale token and prompt re-login. Sessions persistence
+      // (auth.py:_SESSIONS_FILE) should make this rare, but the
+      // self-heal stays for the cases where the file is wiped or 12h
+      // TTL expires.
+      try { localStorage.removeItem(AUTH_TOKEN_KEY); } catch {}
+      try { openLoginGate(); } catch {}
+      return;
+    }
     if (!res.ok) return;
     const body = await res.json();
     p2pRenderOnline(body.online || []);
@@ -3134,8 +3144,12 @@ function p2pConnect() {
     if (inp) inp.disabled = true;
     if (snd) snd.disabled = true;
     if (e && e.code === 4401) {
-      // Auth rejected -- do not retry, user must re-login.
+      // Auth rejected -- token stale (e.g. sessions file wiped or TTL
+      // expired). Drop the token and prompt re-login. No retry: the WS
+      // would just close again until a fresh token is in localStorage.
       p2pSetStatus('error', 'p2p.error');
+      try { localStorage.removeItem(AUTH_TOKEN_KEY); } catch {}
+      try { openLoginGate(); } catch {}
       return;
     }
     if (p2pPanelOpen) p2pScheduleReconnect();
