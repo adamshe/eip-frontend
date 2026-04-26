@@ -520,6 +520,11 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
   font-size: 11px; cursor: pointer;
   transition: color 140ms, border-color 140ms; }
 .p2p-toggle:hover { color: var(--accent); border-color: var(--accent); }
+@keyframes p2pPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent); }
+  50%      { box-shadow: 0 0 6px 2px var(--accent); }
+}
+.p2p-toggle[data-unread="true"] { animation: p2pPulse 1.6s ease-in-out infinite; }
 .p2p-toggle[data-unread="true"] { color: var(--accent); border-color: var(--accent);
   font-weight: 700; }
 .p2p-panel { position: fixed; top: 70px; right: 16px; width: 320px;
@@ -2922,6 +2927,7 @@ document.addEventListener('visibilitychange', () => {
 const AUTH_TOKEN_KEY = 'eip_auth_token';
 const AUTH_USER_KEY = 'eip_auth_user';
 const AUTH_QUOTA_KEY = 'eip_auth_daily_quota';
+const AUTH_ADMIN_KEY = 'eip_auth_is_admin';
 
 function getAuthToken() {
   try { return localStorage.getItem(AUTH_TOKEN_KEY) || null; } catch { return null; }
@@ -2929,11 +2935,15 @@ function getAuthToken() {
 function getAuthUser() {
   try { return localStorage.getItem(AUTH_USER_KEY) || null; } catch { return null; }
 }
-function setAuthSession(token, user, quota) {
+function getAuthIsAdmin() {
+  try { return localStorage.getItem(AUTH_ADMIN_KEY) === 'true'; } catch { return false; }
+}
+function setAuthSession(token, user, quota, isAdmin) {
   try {
     localStorage.setItem(AUTH_TOKEN_KEY, token);
     localStorage.setItem(AUTH_USER_KEY, user);
     localStorage.setItem(AUTH_QUOTA_KEY, String(quota));
+    localStorage.setItem(AUTH_ADMIN_KEY, isAdmin === true ? 'true' : 'false');
   } catch {}
 }
 function clearAuthSession() {
@@ -2941,6 +2951,7 @@ function clearAuthSession() {
     localStorage.removeItem(AUTH_TOKEN_KEY);
     localStorage.removeItem(AUTH_USER_KEY);
     localStorage.removeItem(AUTH_QUOTA_KEY);
+    localStorage.removeItem(AUTH_ADMIN_KEY);
   } catch {}
 }
 function renderAuthBox() {
@@ -3029,9 +3040,12 @@ async function submitLogin() {
     });
     const body = await res.json().catch(() => ({}));
     if (res.ok && body.status === 'ok' && body.token) {
-      setAuthSession(body.token, body.username, body.daily_quota || 0);
+      setAuthSession(body.token, body.username, body.daily_quota || 0, body.is_admin === true);
       forceCloseLoginModal();
       renderAuthBox();
+      // Open the persistent p2p WS now -- DMs land in p2pThreads
+      // even before the user opens the P2P panel for the first time.
+      try { p2pConnect(); } catch (_) {}
     } else {
       errEl.textContent = body.reason || t('login.err.invalid');
     }
@@ -3098,8 +3112,14 @@ async function submitLogin() {
   renderAuthBox();
   // Landing-page gate: if the user has no auth token, block the entire
   // app behind a non-dismissable sign-in form. Logout drops back into
-  // the gate.
-  if (!getAuthToken()) openLoginGate();
+  // the gate. If a token IS present (session restored from
+  // localStorage), open the persistent p2p WS so DMs route in while
+  // the panel is still closed.
+  if (!getAuthToken()) {
+    openLoginGate();
+  } else {
+    try { p2pConnect(); } catch (_) {}
+  }
 })();
 
 // About modal: footer "About" button opens a pitch + contact popup. ESC
@@ -3349,8 +3369,24 @@ function p2pHandleFrame(frame) {
     if (!frame.echo && p2pCurrentPeer !== peer) {
       p2pUnread.add(peer);
       p2pUpdateToggleBadge();
-      // Refresh list so the badge appears next to the sender.
-      p2pPollOnline();
+      // Asymmetric incoming behavior:
+      //   non-admin (user side) receiving from admin -> auto-pop the
+      //     panel + auto-switch to that admin's thread. Users can
+      //     only DM admins anyway, so an inbound msg always means
+      //     the admin reached out and wants the user to see it.
+      //   admin side -> never auto-pop; just glow the toggle and
+      //     the unread badge in the online list. Admin chooses when
+      //     to switch contexts.
+      if (!getAuthIsAdmin()) {
+        if (!p2pPanelOpen) {
+          try { p2pOpen(); } catch (_) {}
+        }
+        try { p2pOpenChat(peer); } catch (_) {}
+      } else {
+        // Admin side: keep current view, refresh online list so the
+        // unread badge appears next to the sender there.
+        if (p2pPanelOpen) p2pPollOnline();
+      }
     }
   } else if (frame.type === 'peer_offline') {
     const peer = frame.to;
@@ -3436,7 +3472,12 @@ function p2pConnect() {
       // start the rapid count fresh.
       p2pRapidCloseCount = 0;
     }
-    if (p2pPanelOpen) p2pScheduleReconnect();
+    // Reconnect as long as we are authenticated, not just when the
+    // panel is open. Persistent WS is what keeps "open it later --
+    // messages will be there" working: an admin DM that arrives while
+    // the panel is hidden still routes to a live socket and lands
+    // in p2pThreads, ready to render when the user clicks P2P.
+    if (getAuthToken()) p2pScheduleReconnect();
   };
 }
 
@@ -3491,12 +3532,24 @@ function p2pOpen() {
 }
 
 function p2pClose() {
+  // Hide panel + stop the online-list HTTP poll, but KEEP the WS
+  // alive so DMs received while the panel is hidden still land in
+  // p2pThreads. Reopening the panel later just unhides the existing
+  // state -- no reconnect, no missed messages. The 30s ws ping
+  // continues so Cloudflare / NAT do not idle-kill the socket.
+  // Logout (p2pTeardown) is the only path that actually closes WS.
   p2pPanelOpen = false;
   document.getElementById('p2pPanel').hidden = true;
   if (p2pOnlinePollTimer) {
     clearInterval(p2pOnlinePollTimer);
     p2pOnlinePollTimer = null;
   }
+}
+
+function p2pTeardown() {
+  // Called on logout: drop everything including in-memory threads
+  // AND close the WS (p2pClose deliberately keeps it alive).
+  p2pClose();
   if (p2pReconnectTimer) {
     clearTimeout(p2pReconnectTimer);
     p2pReconnectTimer = null;
@@ -3506,14 +3559,9 @@ function p2pClose() {
     p2pPingTimer = null;
   }
   if (p2pWs) {
-    try { p2pWs.close(1000, 'panel closed'); } catch {}
+    try { p2pWs.close(1000, 'logout'); } catch {}
     p2pWs = null;
   }
-}
-
-function p2pTeardown() {
-  // Called on logout: drop everything including in-memory threads.
-  p2pClose();
   p2pCurrentPeer = null;
   p2pUnread.clear();
   Object.keys(p2pThreads).forEach(k => delete p2pThreads[k]);
