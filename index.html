@@ -815,9 +815,9 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
     <h3 id="loginTitle" data-i18n="login.title">Sign in</h3>
     <p class="login-tagline" data-i18n="login.tagline">Named users get a per-account daily quota.</p>
     <form id="loginForm" onsubmit="event.preventDefault(); return false;">
-      <label data-i18n="login.username_label">Username</label>
+      <label for="loginUsername" data-i18n="login.username_label">Username</label>
       <input id="loginUsername" type="text" autocomplete="username" autocapitalize="off" spellcheck="false">
-      <label data-i18n="login.password_label">Password</label>
+      <label for="loginPassword" data-i18n="login.password_label">Password</label>
       <input id="loginPassword" type="password" autocomplete="current-password">
       <p class="login-err" id="loginErr"></p>
       <div class="login-cta">
