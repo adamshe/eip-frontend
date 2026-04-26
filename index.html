@@ -3275,13 +3275,18 @@ async function submitLogin() {
 // the backend has zero in-flight Trinity / chat / medical streams, or a
 // pulsing "Busy: N" badge while jobs are running. Lets the operator know
 // if a uvicorn restart will truncate a report mid-stream.
-let _restartPollTimer = null;
+// var (not let) so the temporal-dead-zone does not bite: renderAuthBox
+// fires during initLoginModal at script-eval time, BEFORE the let-line
+// would have been reached, and reads _restartCache via _applyRestartColor.
+// var is hoisted + initialized to undefined, so the existing falsy guard
+// inside _applyRestartColor handles it cleanly.
+var _restartPollTimer = null;
 // Cache last restart-safe result so renderAuthBox can immediately
 // repaint the color after rebuilding the auth-user span (otherwise
 // the greeting goes uncolored for up to one poll cycle each time
 // the auth box re-renders -- regression after the Restart button
 // was added).
-let _restartCache = null;  // {kind:'safe'|'busy'|'err', title:string} | null
+var _restartCache = null;  // {kind:'safe'|'busy'|'err', title:string} | null
 function _applyRestartColor() {
   const el = document.querySelector('.auth-user');
   if (!el) return;
