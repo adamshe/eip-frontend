@@ -1540,7 +1540,8 @@ function _safeMdFilename(m) {
     .replace(/_+/g, '_')
     .replace(/^_+|_+$/g, '');
   if (!slug) slug = 'pill';
-  return ymd + '_' + slug + '.md';
+  const user = (getAuthUser() || 'anon').replace(/[\\\/:*?"<>|]/g, '_');
+  return user + '_' + ymd + '_' + slug + '.md';
 }
 function _downloadMd(meeting) {
   const md = _buildMeetingMd(meeting);
