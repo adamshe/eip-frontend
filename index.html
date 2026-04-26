@@ -3341,6 +3341,8 @@ async function pollRestartStatus() {
       };
     }
     _applyRestartColor();
+    // First successful poll -- relax to 10s cadence.
+    _restartPollSwitchToSlow();
   } catch (e) {
     _restartCache = { kind: 'err', title: 'restart-status network error' };
     console.warn('restart-status network error:', e && e.message);
@@ -3349,7 +3351,26 @@ async function pollRestartStatus() {
 }
 function startRestartPolling() {
   if (_restartPollTimer) clearInterval(_restartPollTimer);
+  // Show a "checking" placeholder immediately so the greeting is not
+  // a blank no-color span between page load (or post-restart reload)
+  // and the first successful poll. _applyRestartColor paints
+  // dim-italic for kind='err', visible-but-muted, with the title
+  // tooltip explaining we are checking.
+  if (!_restartCache) {
+    _restartCache = { kind: 'err', title: 'checking restart status...' };
+    _applyRestartColor();
+  }
+  // Adaptive cadence: 3s while we have not yet seen a healthy
+  // response (first poll after page load, recovery after a backend
+  // restart, etc.) and 10s once the indicator has settled. The 3s
+  // window covers the post-restart bring-up reliably; once we are in
+  // safe/busy state we drop to 10s to keep request volume low.
   pollRestartStatus();
+  _restartPollTimer = setInterval(pollRestartStatus, 3000);
+}
+function _restartPollSwitchToSlow() {
+  if (!_restartPollTimer) return;
+  clearInterval(_restartPollTimer);
   _restartPollTimer = setInterval(pollRestartStatus, 10000);
 }
 function stopRestartPolling() {
