@@ -477,7 +477,33 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
 .login-panel input:focus { outline: none; border-color: var(--accent); }
 .login-err { margin: 10px 0 0 0; font-size: 12px; color: var(--tone-stress);
   min-height: 16px; }
+.meetings-warn { display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px; background: var(--bg-card);
+  border-bottom: 1px solid var(--tone-stress);
+  color: var(--text); font-size: 12px; }
+.meetings-warn[hidden] { display: none; }
+.meetings-warn-icon { color: var(--tone-stress); font-weight: bold; }
+.meetings-warn-msg { flex: 1; }
+.meetings-warn-action { background: var(--accent-bg); color: var(--accent);
+  border: 1px solid var(--accent); border-radius: var(--r);
+  padding: 4px 10px; font-size: 11px; cursor: pointer; }
+.meetings-warn-action:hover { background: var(--accent); color: var(--bg); }
+.meetings-warn-close { background: transparent; border: none;
+  color: var(--text-dim); cursor: pointer; padding: 2px 6px;
+  font-size: 14px; }
+.meetings-warn-close:hover { color: var(--text); }
 .login-cta { display: flex; gap: 8px; margin-top: 16px; }
+.login-demo-request { margin: 14px 0 0 0; font-size: 12px;
+  color: var(--text-dim); text-align: center; }
+.login-demo-request a { color: var(--accent); cursor: pointer;
+  text-decoration: underline; text-decoration-color: var(--border);
+  text-underline-offset: 3px; }
+.login-demo-request a:hover { text-decoration-color: var(--accent); }
+.login-demo-toast { margin: 6px 0 0 0; font-size: 11px;
+  color: var(--accent); text-align: center;
+  min-height: 14px; opacity: 0;
+  transition: opacity 200ms; }
+.login-demo-toast[data-show="true"] { opacity: 1; }
 .login-cta button { flex: 1; padding: 8px 14px; border-radius: var(--r);
   font-size: 12px; font-weight: 600; cursor: pointer;
   transition: filter 140ms, color 140ms, border-color 140ms; }
@@ -596,6 +622,12 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
       <span class="auth-box" id="authBox"></span>
     </div>
   </header>
+  <div class="meetings-warn" id="meetingsWarn" hidden role="alert">
+    <span class="meetings-warn-icon">[!]</span>
+    <span class="meetings-warn-msg" id="meetingsWarnMsg" data-i18n="meetings.warn_default">Saved sessions could not be loaded on this device.</span>
+    <button class="meetings-warn-action" id="meetingsWarnDownload" type="button" data-i18n="meetings.warn_download">Download backup</button>
+    <button class="meetings-warn-close" id="meetingsWarnDismiss" type="button" aria-label="Dismiss">x</button>
+  </div>
   <div class="q-bar empty" id="qBar">
     <span class="q-label" data-i18n="qbar.label">Q</span>
     <span class="q-text" id="qText"></span>
@@ -767,6 +799,12 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
         <button class="login-cancel" id="loginCancel" type="button" data-i18n="login.cancel">Cancel</button>
         <button class="login-submit" id="loginSubmit" type="button" data-i18n="login.submit">Sign in</button>
       </div>
+      <p class="login-demo-request">
+        <span data-i18n="login.demo_prompt">No account?</span>
+        <a href="mailto:support@empireintegration.com?subject=Demo%20Access%20Request&amp;body=Hi%2C%20please%20send%20me%20demo%20user%2Fpassword%20to%20try%20EIP."
+           id="loginDemoRequest" data-i18n="login.demo_request">Request demo access</a>
+      </p>
+      <p class="login-demo-toast" id="loginDemoToast" data-show="false"></p>
     </form>
   </div>
 </div>
@@ -843,8 +881,14 @@ const I18N = {
     'login.password_label': '\u5bc6\u7801',
     'login.cancel': '\u53d6\u6d88',
     'login.submit': '\u767b\u5f55',
+    'login.demo_prompt': '\u6ca1\u8d26\u53f7?',
+    'login.demo_request': '\u7533\u8bf7 demo \u8bbf\u95ee',
     'login.err.invalid': '\u7528\u6237\u540d\u6216\u5bc6\u7801\u9519\u8bef',
     'login.err.network': '\u7f51\u7edc\u9519\u8bef, \u8bf7\u91cd\u8bd5',
+    'meetings.warn_default': '\u672c\u8bbe\u5907\u4fdd\u5b58\u7684\u4f1a\u8bdd\u65e0\u6cd5\u8bfb\u53d6. \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
+    'meetings.warn_with_backup': '\u672c\u8bbe\u5907\u4fdd\u5b58\u7684\u4f1a\u8bdd\u65e0\u6cd5\u8bfb\u53d6 ({n} \u4efd\u52a0\u5bc6\u5907\u4efd\u4fdd\u7559). \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
+    'meetings.warn_no_backup': '\u672c\u8bbe\u5907\u65e0\u4fdd\u5b58\u7684\u4f1a\u8bdd. \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
+    'meetings.warn_download': '\u4e0b\u8f7d\u5907\u4efd',
     'footer.debug_log': '\u8c03\u8bd5\u65e5\u5fd7',
     'api.status.online': '\u5728\u7ebf',
     'api.status.offline': '\u79bb\u7ebf',
@@ -953,8 +997,14 @@ const I18N = {
     'login.password_label': 'Password',
     'login.cancel': 'Cancel',
     'login.submit': 'Sign in',
+    'login.demo_prompt': 'No account?',
+    'login.demo_request': 'Request demo access',
     'login.err.invalid': 'Invalid username or password',
     'login.err.network': 'Network error, try again',
+    'meetings.warn_default': 'Saved sessions on this device could not be loaded. Data is device-local, not synced across devices.',
+    'meetings.warn_with_backup': 'Saved sessions on this device could not be loaded ({n} encrypted backups preserved). Data is device-local, not synced across devices.',
+    'meetings.warn_no_backup': 'No saved sessions on this device. Data is device-local, not synced across devices.',
+    'meetings.warn_download': 'Download backup',
     'footer.debug_log': 'Debug log',
     'api.status.online': 'Online',
     'api.status.offline': 'Offline',
@@ -2641,8 +2691,61 @@ rebuildFooterGlow();
 // Also expose ?safe=1 URL param to skip encrypted-storage path entirely
 // and run with in-memory meetings only -- useful as an emergency bypass
 // when a vault read crashes the page repeatedly on a given device.
+// Make decrypt failure visible: when loadMeetings flips _meetingsLoadOk
+// to false, show a banner so the user is not silently staring at an
+// empty pill bar. Honors SOUL principle "never lose reports unless user
+// deletes" by surfacing the failure + offering a backup download.
+function _showMeetingsWarn() {
+  const banner = document.getElementById('meetingsWarn');
+  if (!banner) return;
+  const backups = Object.keys(localStorage).filter(
+    k => k.startsWith(STORAGE_KEY + '_backup_')
+  );
+  const msgEl = document.getElementById('meetingsWarnMsg');
+  const dlBtn = document.getElementById('meetingsWarnDownload');
+  if (msgEl) {
+    let key;
+    if (backups.length > 0) {
+      key = 'meetings.warn_with_backup';
+    } else {
+      key = 'meetings.warn_no_backup';
+    }
+    const tpl = t(key);
+    msgEl.textContent = tpl.replace('{n}', String(backups.length));
+  }
+  if (dlBtn) dlBtn.hidden = backups.length === 0;
+  banner.hidden = false;
+}
+function _downloadMeetingsBackup() {
+  const keys = Object.keys(localStorage).filter(
+    k => k === STORAGE_KEY || k.startsWith(STORAGE_KEY + '_backup_')
+  );
+  const dump = {};
+  keys.forEach(k => { dump[k] = localStorage.getItem(k); });
+  const blob = new Blob([JSON.stringify(dump, null, 2)],
+    { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'eip_meetings_backup_' + Date.now() + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+(function initMeetingsWarn() {
+  const dl = document.getElementById('meetingsWarnDownload');
+  const dm = document.getElementById('meetingsWarnDismiss');
+  if (dl) dl.addEventListener('click', _downloadMeetingsBackup);
+  if (dm) dm.addEventListener('click', () => {
+    const b = document.getElementById('meetingsWarn');
+    if (b) b.hidden = true;
+  });
+})();
+
 (async () => {
   const urlSafeMode = new URLSearchParams(location.search).has('safe');
+  let loadErrored = false;
   try {
     if (urlSafeMode) {
       dbg('safe mode: skipping encrypted localStorage load');
@@ -2654,6 +2757,15 @@ rebuildFooterGlow();
     console.error('[init] loadMeetings failed:', e);
     dbg('init loadMeetings: ' + (e && e.message || e));
     meetings = [];
+    loadErrored = true;
+  }
+  // Surface decrypt-failure as a visible banner. _meetingsLoadOk flips
+  // false inside loadMeetings on decrypt error; loadErrored covers the
+  // outer-catch unexpected-throw path.
+  if (loadErrored || _meetingsLoadOk === false) {
+    try { _showMeetingsWarn(); } catch (e) {
+      console.error('[init] _showMeetingsWarn:', e);
+    }
   }
   try { renderPills(); } catch (e) { console.error('[init] renderPills:', e); }
   try { renderLive(); } catch (e) { console.error('[init] renderLive:', e); }
@@ -2906,6 +3018,40 @@ async function submitLogin() {
   if (cl) cl.addEventListener('click', closeLoginModal);
   if (sb) sb.addEventListener('click', submitLogin);
   if (cn) cn.addEventListener('click', closeLoginModal);
+  // Demo access request: mailto fires natively for users with mail
+  // client; copy + toast is the working fallback for browsers with
+  // no default handler (Chrome on Windows, etc.). Mirrors the about
+  // modal CTA pattern.
+  const dr = document.getElementById('loginDemoRequest');
+  const dt = document.getElementById('loginDemoToast');
+  const _demoEmail = 'support@empireintegration.com';
+  const _showDemoToast = (msg) => {
+    if (!dt) return;
+    dt.textContent = msg;
+    dt.dataset.show = 'true';
+    setTimeout(() => { dt.dataset.show = 'false'; }, 2500);
+  };
+  const _copyDemoEmail = async () => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(_demoEmail);
+        _showDemoToast(_demoEmail + ' copied');
+        return;
+      }
+    } catch (_) {}
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = _demoEmail;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      _showDemoToast(_demoEmail + ' copied');
+    } catch (_) {
+      _showDemoToast(_demoEmail);
+    }
+  };
+  if (dr) dr.addEventListener('click', () => { _copyDemoEmail(); });
   ['loginUsername', 'loginPassword'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('keydown', (e) => {
@@ -3227,12 +3373,14 @@ function p2pConnect() {
 }
 
 function p2pScheduleReconnect() {
-  if (p2pReconnectAttempts >= 3) {
-    p2pSetStatus('error', 'p2p.error');
-    return;
-  }
-  const delays = [1000, 3000, 9000];
-  const wait = delays[p2pReconnectAttempts] || 9000;
+  // Backoff schedule: 1s, 3s, 9s, then cap at 30s. No max attempts --
+  // idle disconnects (Cloudflare ~100s, NAT translation aging,
+  // 15 min mobile bg) are normal life events, not failures. Keep
+  // trying as long as the panel is open. visibilitychange handler
+  // below also forces an immediate retry when the tab refocuses,
+  // skipping the backoff wait.
+  const delays = [1000, 3000, 9000, 30000];
+  const wait = delays[p2pReconnectAttempts] || 30000;
   p2pReconnectAttempts += 1;
   p2pSetStatus('idle', 'p2p.disconnected');
   if (p2pReconnectTimer) clearTimeout(p2pReconnectTimer);
@@ -3240,6 +3388,25 @@ function p2pScheduleReconnect() {
     if (p2pPanelOpen && getAuthToken()) p2pConnect();
   }, wait);
 }
+
+// Tab refocus is a strong signal that the user expects the chat to
+// be live -- but only kick a reconnect when the socket is actually
+// gone. readyState 0 (CONNECTING) and 1 (OPEN) both mean "leave it
+// alone"; firing p2pConnect() while a handshake is in flight would
+// race with hub.register on the server and produce the open<->close
+// thrash that the previous loop fix was supposed to prevent.
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'visible') return;
+  if (!p2pPanelOpen) return;
+  if (!getAuthToken()) return;
+  if (p2pWs && p2pWs.readyState <= 1) return;
+  if (p2pReconnectTimer) {
+    clearTimeout(p2pReconnectTimer);
+    p2pReconnectTimer = null;
+  }
+  p2pReconnectAttempts = 0;
+  p2pConnect();
+});
 
 function p2pOpen() {
   if (!getAuthToken()) return;
@@ -3249,7 +3416,10 @@ function p2pOpen() {
   p2pConnect();
   p2pPollOnline();
   if (p2pOnlinePollTimer) clearInterval(p2pOnlinePollTimer);
-  p2pOnlinePollTimer = setInterval(p2pPollOnline, 5000);
+  // 30s matches /api/health poll cadence. Presence transitions arrive
+  // over the live WS so the poll is just a slow reconciler, not the
+  // primary signal -- 5s was 12 reqs/min for a near-static list.
+  p2pOnlinePollTimer = setInterval(p2pPollOnline, 30000);
 }
 
 function p2pClose() {
