@@ -715,8 +715,8 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
   <div class="about-panel" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
     <button class="about-close" id="aboutClose" type="button" aria-label="Close">x</button>
     <h2 id="aboutTitle" data-i18n="about.title">Naughty Lao Ban</h2>
-    <p class="about-tagline" data-i18n="about.tagline">Underpaid tech geek. Plan: build AGI. This site: the prototype.</p>
-    <p class="about-lead" data-i18n="about.lead">I am an underpaid tech geek who got tired of waiting for AGI, so I started building one. The roadmap is clear in my head. This site is the visible tip -- a few domains live in the dropdown: legal adversary, investment thesis, business strategy, geopolitical foresight, medical triage. If your decision is too high-stakes for a Slack thread, drop me a line. I reply between AGI sprints, possibly during coffee. Reasonable rates. Unreasonable convictions.</p>
+    <p class="about-tagline" data-i18n="about.tagline">Underpaid tech geek. Tired of waiting for AGI, building one.</p>
+    <p class="about-lead" data-i18n="about.lead">Roadmap is in my head; this site is just the opening. Four things: legal adversary, medical diagnosis, investment analysis, geopolitical insight. Try it. Email me.</p>
     <h3 data-i18n="about.s1_title">What We Deliver</h3>
     <ul>
       <li data-i18n="about.s1_l1">AI solution architecture</li>
@@ -727,9 +727,9 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
     <h3 data-i18n="about.s2_title">Where We Have Been Applied</h3>
     <ul>
       <li data-i18n="about.s2_l1">Legal adversary analysis</li>
-      <li data-i18n="about.s2_l2">Commercial due diligence</li>
-      <li data-i18n="about.s2_l3">Clinical triage support</li>
-      <li data-i18n="about.s2_l4">Investment and geopolitical analysis</li>
+      <li data-i18n="about.s2_l2">Medical diagnosis support</li>
+      <li data-i18n="about.s2_l3">Investment analysis</li>
+      <li data-i18n="about.s2_l4">Geopolitical insight</li>
     </ul>
     <h3 data-i18n="about.s3_title">Why Retain Us</h3>
     <p class="about-retain" data-i18n="about.s3_body">Most firms sell architects who draw or engineers who code. We are both in one head.</p>
@@ -805,9 +805,9 @@ const I18N = {
     'footer.line2': '\u7531\u6211\u4eec\u4e13\u6709 AI \u5f15\u64ce\u9a71\u52a8',
     'footer.line3': '\u4ec5\u4f9b\u5206\u6790\u53c2\u8003\uff0c\u88c1\u51b3\u6743\u5728\u51b3\u7b56\u8005',
     'footer.feedback': '\u5173\u4e8e\u6211\u4eec',
-    'about.title': 'Naughty Lao Ban',
-    'about.tagline': '\u88ab\u4f4e\u4f30\u7684\u6280\u672f\u5b85. \u8ba1\u5212: \u9020 AGI. \u8fd9\u4e2a\u7f51\u7ad9: \u539f\u578b.',
-    'about.lead': '\u6211\u662f\u4e2a\u88ab\u4f4e\u4f30\u7684\u6280\u672f\u5b85, \u7b49\u4e0d\u53ca AGI \u4e86, \u5e72\u8106\u81ea\u5df1\u9020. \u8def\u7ebf\u56fe\u6211\u8111\u5b50\u91cc\u6e05\u695a\u5f97\u5f88. \u8fd9\u7f51\u7ad9\u53ea\u662f\u9732\u51fa\u6765\u7684\u51b0\u5c71\u4e00\u89d2, \u4e0b\u62c9\u5217\u8868\u91cc\u51e0\u4e2a\u57df\u4e0a\u7ebf: \u6cd5\u5f8b\u5bf9\u6297, \u6295\u8d44\u5206\u6790, \u5546\u4e1a\u7b56\u7565, \u5730\u7f18\u6d1e\u5bdf, \u533b\u7597\u5206\u8bca. \u4f60\u7684\u51b3\u7b56\u592a\u91cd\u8981\u4e0d\u80fd\u653e Slack? \u5199\u90ae\u4ef6\u7ed9\u6211. AGI \u51b2\u523a\u95f4\u9699\u6211\u4f1a\u56de, \u4e5f\u53ef\u80fd\u5728\u559d\u5496\u5561\u65f6. \u4ef7\u94b1\u5408\u7406, \u91ce\u5fc3\u4e0d\u5408\u7406.',
+    'about.title': '\u7fd8\u811a\u8001\u677f',
+    'about.tagline': '\u88ab\u4f4e\u4f30\u7684\u6280\u672f\u5b85. \u7b49 AGI \u7b49\u70e6\u4e86, \u81ea\u5df1\u5e72.',
+    'about.lead': '\u8def\u7ebf\u56fe\u5728\u8111\u5b50\u91cc, \u8fd9\u7f51\u7ad9\u53ea\u662f\u4e2a\u5f00\u5934. \u56db\u4ef6\u4e8b: \u6cd5\u5f8b\u5bf9\u6297, \u533b\u751f\u8bca\u65ad, \u6295\u8d44\u5206\u6790, \u5730\u7f18\u6d1e\u5bdf. \u53ef\u4ee5\u8bd5\u7528, \u8bf7\u53d1\u90ae\u4ef6.',
     'about.s1_title': '\u6211\u4eec\u4ea4\u4ed8\u4ec0\u4e48',
     'about.s1_l1': 'AI \u89e3\u51b3\u65b9\u6848\u67b6\u6784 -- \u591a\u667a\u80fd\u4f53\u534f\u4f5c\u3001\u5bf9\u6297\u5f0f\u63a8\u7406\u5f15\u64ce\u3001\u68c0\u7d22\u4e0e\u7efc\u5408\u7ba1\u7ebf\u3002',
     'about.s1_l2': '\u8f6f\u4ef6\u73b0\u4ee3\u5316 -- Java / Python / .NET / Spring \u9057\u7559\u7cfb\u7edf\u8fc1\u79fb, API-first \u91cd\u8bbe\u8ba1, \u53ef\u89c2\u6d4b\u751f\u4ea7\u7ea7\u57fa\u7840\u8bbe\u65bd\u3002',
@@ -815,9 +815,9 @@ const I18N = {
     'about.s1_l4': '\u5168\u6808\u4ea4\u4ed8 -- Python (FastAPI, Django)\u3001Java (Spring Boot)\u3001.NET (C#, ASP.NET Core)\u3001TypeScript / React\u3001\u5bb9\u5668\u5316\u90e8\u7f72\u3001\u534f\u8bae\u5c42\u96c6\u6210 (JSON-RPC, SSE, WebSocket, gRPC)\u3002',
     'about.s2_title': '\u5df2\u843d\u5730\u573a\u666f',
     'about.s2_l1': '\u6cd5\u5f8b\u5bf9\u6297\u5206\u6790 -- \u5bf9\u6297\u8bc4\u5206, \u8bc1\u636e\u94fe\u5ba1\u67e5, \u98ce\u9669\u6982\u7387\u5206\u6790.',
-    'about.s2_l2': '\u5546\u4e1a\u5c3d\u8c03 -- \u591a\u6e90\u4e8b\u5b9e\u9a8c\u8bc1\u4e0e\u53cd\u5411\u8bba\u8bc1\u7efc\u5408\u3002',
-    'about.s2_l3': '\u4e34\u5e8a\u5206\u8bca\u8f85\u52a9 -- \u7ed3\u6784\u5316\u9274\u522b\u8bca\u65ad\u4e0e\u8bc1\u636e\u5206\u7ea7\u3002',
-    'about.s2_l4': '\u6295\u8d44\u4e0e\u5730\u7f18\u5206\u6790 -- \u4f53\u5236\u62d0\u70b9\u4fe1\u53f7\u3001\u975e\u5bf9\u79f0\u8d54\u7387\u8bc6\u522b\u3002',
+    'about.s2_l2': '\u533b\u751f\u8bca\u65ad\u8f85\u52a9 -- \u7ed3\u6784\u5316\u9274\u522b\u8bca\u65ad\u4e0e\u8bc1\u636e\u5206\u7ea7.',
+    'about.s2_l3': '\u6295\u8d44\u5206\u6790 -- \u4f53\u5236\u62d0\u70b9\u4fe1\u53f7, \u975e\u5bf9\u79f0\u8d54\u7387\u8bc6\u522b.',
+    'about.s2_l4': '\u5730\u7f18\u6d1e\u5bdf -- \u591a\u65b9\u5229\u76ca\u7ed3\u6784\u4e0e\u65f6\u95f4\u7a97\u53e3\u5206\u6790.',
     'about.s3_title': '\u4e3a\u4ec0\u4e48\u7559\u6211\u4eec',
     'about.s3_body': '\u591a\u6570\u516c\u53f8\u5356\u7684\u662f\u753b\u56fe\u7684\u67b6\u6784\u5e08\u6216\u5199\u4ee3\u7801\u7684\u5de5\u7a0b\u5e08, \u6211\u4eec\u628a\u4e24\u4ef6\u4e8b\u88c5\u8fdb\u4e00\u4e2a\u8111\u888b. \u4ee5\u6280\u672f\u65e0\u5173\u4e3a\u539f\u5219: \u95ee\u9898\u914d\u4ec0\u4e48\u6808\u5c31\u4e0a\u4ec0\u4e48\u6808, \u4e0d\u63a8\u9500\u5355\u4e00\u4ea7\u54c1\u7ebf. \u524d\u6cbf AI \u7cfb\u7edf\u7684\u7814\u7a76\u6210\u679c\u6301\u7eed\u53cd\u54fa\u751f\u4ea7\u4ea4\u4ed8 -- \u6d1e\u89c1\u5355\u5411\u6d41\u5165\u5b9e\u6218\u9879\u76ee, \u4e0d\u662f\u53cd\u8fc7\u6765. \u670d\u52a1\u4e8e"\u4e00\u4e2a\u4eba\u9876\u5341\u4e8c\u4eba" \u7684\u9ad8\u98ce\u9669\u5546\u4e1a\u4e0e\u6218\u7565\u9879\u76ee.',
     'about.cta_hire': '\u6d3d\u8c08\u5408\u4f5c ->',
@@ -916,8 +916,8 @@ const I18N = {
     'footer.line3': 'Analysis only -- decisions belong to the principal',
     'footer.feedback': 'About',
     'about.title': 'Naughty Lao Ban',
-    'about.tagline': 'Underpaid tech geek. Plan: build AGI. This site: the prototype.',
-    'about.lead': 'I am an underpaid tech geek who got tired of waiting for AGI, so I started building one. The roadmap is clear in my head. This site is the visible tip -- a few domains live in the dropdown: legal adversary, investment thesis, business strategy, geopolitical foresight, medical triage. If your decision is too high-stakes for a Slack thread, drop me a line. I reply between AGI sprints, possibly during coffee. Reasonable rates. Unreasonable convictions.',
+    'about.tagline': 'Underpaid tech geek. Tired of waiting for AGI, building one.',
+    'about.lead': 'Roadmap is in my head; this site is just the opening. Four things: legal adversary, medical diagnosis, investment analysis, geopolitical insight. Try it. Email me.',
     'about.s1_title': 'What We Deliver',
     'about.s1_l1': 'AI solution architecture -- multi-agent orchestration, adversarial reasoning engines, retrieval and synthesis pipelines.',
     'about.s1_l2': 'Software modernization -- legacy Java / Python / .NET / Spring migrations, API-first redesigns, observability-grade infrastructure.',
@@ -925,9 +925,9 @@ const I18N = {
     'about.s1_l4': 'Full-stack delivery -- Python (FastAPI, Django), Java (Spring Boot), .NET (C#, ASP.NET Core), TypeScript / React, containerized deployment, protocol-level integrations (JSON-RPC, SSE, WebSocket, gRPC).',
     'about.s2_title': 'Where We Have Been Applied',
     'about.s2_l1': 'Legal adversary analysis -- adversarial scoring, evidence chain review, risk-probability analysis.',
-    'about.s2_l2': 'Commercial due diligence -- multi-source fact verification and counter-argument synthesis.',
-    'about.s2_l3': 'Clinical triage support -- structured differential diagnosis with evidence grading.',
-    'about.s2_l4': 'Investment and geopolitical analysis -- regime-transition signals and asymmetric-payoff detection.',
+    'about.s2_l2': 'Medical diagnosis support -- structured differential diagnosis with evidence grading.',
+    'about.s2_l3': 'Investment analysis -- regime-transition signals and asymmetric-payoff detection.',
+    'about.s2_l4': 'Geopolitical insight -- multi-actor interest mapping and time-window analysis.',
     'about.s3_title': 'Why Retain Us',
     'about.s3_body': 'Most firms sell architects who draw or engineers who code. We are both in one head, language-agnostic by principle: we pick the stack the problem deserves, not the stack we want to sell. Research in frontier AI systems continuously informs production delivery -- insights flow into live engagements, not the other way around. Built for high-stakes commercial and strategic programs where a single senior operator out-executes a team.',
     'about.cta_hire': 'Work with us ->',
