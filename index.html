@@ -2957,6 +2957,12 @@ let p2pCurrentPeer = null;
 let p2pReconnectAttempts = 0;
 let p2pReconnectTimer = null;
 let p2pOnlinePollTimer = null;
+// Cloudflare's WS proxy idle-closes connections with zero frames in either
+// direction at ~100s. Without traffic the socket dies, ws.onclose fires,
+// reconnect succeeds, idle again, repeat. Send a {type:'ping'} every 30s
+// while open; the server ignores non-'msg' frames (routes.py), so this is
+// purely a keep-alive pulse on the TCP/CF path.
+let p2pPingTimer = null;
 // Threads keyed by peer username -> array of {kind:'in'|'out'|'sys', text, ts}
 const p2pThreads = {};
 const p2pUnread = new Set();
@@ -3132,6 +3138,12 @@ function p2pConnect() {
       if (snd) snd.disabled = false;
     }
     p2pPollOnline();
+    if (p2pPingTimer) clearInterval(p2pPingTimer);
+    p2pPingTimer = setInterval(() => {
+      if (p2pWs && p2pWs.readyState === 1) {
+        try { p2pWs.send(JSON.stringify({ type: 'ping' })); } catch {}
+      }
+    }, 30000);
   };
   ws.onmessage = (ev) => {
     let frame;
@@ -3144,6 +3156,7 @@ function p2pConnect() {
   };
   ws.onclose = (e) => {
     _wsClose('p2p', ws, e);
+    if (p2pPingTimer) { clearInterval(p2pPingTimer); p2pPingTimer = null; }
     const inp = document.getElementById('p2pInput');
     const snd = document.getElementById('p2pSend');
     if (inp) inp.disabled = true;
@@ -3197,6 +3210,10 @@ function p2pClose() {
   if (p2pReconnectTimer) {
     clearTimeout(p2pReconnectTimer);
     p2pReconnectTimer = null;
+  }
+  if (p2pPingTimer) {
+    clearInterval(p2pPingTimer);
+    p2pPingTimer = null;
   }
   if (p2pWs) {
     try { p2pWs.close(1000, 'panel closed'); } catch {}
