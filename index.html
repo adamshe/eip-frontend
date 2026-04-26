@@ -418,6 +418,16 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
   border: 1px solid var(--border); }
 .about-cta .cta-secondary:hover { color: var(--accent);
   border-color: var(--accent); }
+.about-email-display { margin: 12px 0 0 0; font-size: 12px;
+  color: var(--text-dim); text-align: center;
+  font-family: monospace; cursor: pointer;
+  user-select: all; }
+.about-email-display:hover { color: var(--accent); }
+.about-email-toast { margin: 6px 0 0 0; font-size: 11px;
+  color: var(--accent); text-align: center;
+  min-height: 14px; opacity: 0;
+  transition: opacity 200ms; }
+.about-email-toast[data-show="true"] { opacity: 1; }
 .about-trigger { background: transparent; border: none; color: inherit;
   font: inherit; cursor: pointer; padding: 0; text-decoration: underline;
   text-decoration-color: var(--border); text-underline-offset: 3px;
@@ -715,8 +725,8 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
   <div class="about-panel" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
     <button class="about-close" id="aboutClose" type="button" aria-label="Close">x</button>
     <h2 id="aboutTitle" data-i18n="about.title">Naughty Lao Ban</h2>
-    <p class="about-tagline" data-i18n="about.tagline">Underpaid tech geek. Tired of waiting for AGI, building one.</p>
-    <p class="about-lead" data-i18n="about.lead">Roadmap is in my head; this site is just the opening. Four things: legal adversary, medical diagnosis, investment analysis, geopolitical insight. Try it. Email me.</p>
+    <p class="about-tagline" data-i18n="about.tagline">Unknown senior engineer. Goal: narrow AGI.</p>
+    <p class="about-lead" data-i18n="about.lead">Roadmap is clear. This site is the DEMO. Current focus: legal analysis, medical diagnosis, investment analysis, geopolitical insight. Try it; reach out to support@empireintegration.com.</p>
     <h3 data-i18n="about.s1_title">What We Deliver</h3>
     <ul>
       <li data-i18n="about.s1_l1">AI solution architecture</li>
@@ -726,7 +736,7 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
     </ul>
     <h3 data-i18n="about.s2_title">Where We Have Been Applied</h3>
     <ul>
-      <li data-i18n="about.s2_l1">Legal adversary analysis</li>
+      <li data-i18n="about.s2_l1">Legal analysis</li>
       <li data-i18n="about.s2_l2">Medical diagnosis support</li>
       <li data-i18n="about.s2_l3">Investment analysis</li>
       <li data-i18n="about.s2_l4">Geopolitical insight</li>
@@ -734,9 +744,11 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
     <h3 data-i18n="about.s3_title">Why Retain Us</h3>
     <p class="about-retain" data-i18n="about.s3_body">Most firms sell architects who draw or engineers who code. We are both in one head.</p>
     <div class="about-cta">
-      <a class="cta-primary" href="mailto:support@empireintegration.com?subject=Engagement%20Inquiry" data-i18n="about.cta_hire">Work with us</a>
-      <a class="cta-secondary" href="mailto:support@empireintegration.com?subject=AI%20Council%20Feedback" data-i18n="about.cta_feedback">Send feedback</a>
+      <a class="cta-primary" href="mailto:support@empireintegration.com?subject=Engagement%20Inquiry" id="ctaHire" data-i18n="about.cta_hire">Work with us</a>
+      <a class="cta-secondary" href="mailto:support@empireintegration.com?subject=AI%20Council%20Feedback" id="ctaFeedback" data-i18n="about.cta_feedback">Send feedback</a>
     </div>
+    <p class="about-email-display" id="aboutEmailDisplay">support@empireintegration.com</p>
+    <p class="about-email-toast" id="aboutEmailToast"></p>
   </div>
 </div>
 <div class="about-modal" id="loginModal" data-open="false" aria-hidden="true">
@@ -806,15 +818,15 @@ const I18N = {
     'footer.line3': '\u4ec5\u4f9b\u5206\u6790\u53c2\u8003\uff0c\u88c1\u51b3\u6743\u5728\u51b3\u7b56\u8005',
     'footer.feedback': '\u5173\u4e8e\u6211\u4eec',
     'about.title': '\u7fd8\u811a\u8001\u677f',
-    'about.tagline': '\u88ab\u4f4e\u4f30\u7684\u6280\u672f\u5b85. \u7b49 AGI \u7b49\u70e6\u4e86, \u81ea\u5df1\u5e72.',
-    'about.lead': '\u8def\u7ebf\u56fe\u5728\u8111\u5b50\u91cc, \u8fd9\u7f51\u7ad9\u53ea\u662f\u4e2a\u5f00\u5934. \u56db\u4ef6\u4e8b: \u6cd5\u5f8b\u5bf9\u6297, \u533b\u751f\u8bca\u65ad, \u6295\u8d44\u5206\u6790, \u5730\u7f18\u6d1e\u5bdf. \u53ef\u4ee5\u8bd5\u7528, \u8bf7\u53d1\u90ae\u4ef6.',
+    'about.tagline': '\u975e\u8457\u540d\u9ad8\u7ea7\u5de5\u7a0b\u5e08, \u76ee\u6807\u72ed\u4e49 AGI.',
+    'about.lead': '\u6e05\u6670\u8def\u7ebf\u56fe, \u8fd9\u7f51\u7ad9 DEMO. \u73b0\u9636\u6bb5\u4e3b\u63a8: \u6cd5\u5f8b\u5206\u6790, \u533b\u751f\u8bca\u65ad, \u6295\u8d44\u5206\u6790, \u5730\u7f18\u6d1e\u5bdf. \u6b22\u8fce\u8bd5\u7528\u5782\u8be2 support@empireintegration.com.',
     'about.s1_title': '\u6211\u4eec\u4ea4\u4ed8\u4ec0\u4e48',
     'about.s1_l1': 'AI \u89e3\u51b3\u65b9\u6848\u67b6\u6784 -- \u591a\u667a\u80fd\u4f53\u534f\u4f5c\u3001\u5bf9\u6297\u5f0f\u63a8\u7406\u5f15\u64ce\u3001\u68c0\u7d22\u4e0e\u7efc\u5408\u7ba1\u7ebf\u3002',
     'about.s1_l2': '\u8f6f\u4ef6\u73b0\u4ee3\u5316 -- Java / Python / .NET / Spring \u9057\u7559\u7cfb\u7edf\u8fc1\u79fb, API-first \u91cd\u8bbe\u8ba1, \u53ef\u89c2\u6d4b\u751f\u4ea7\u7ea7\u57fa\u7840\u8bbe\u65bd\u3002',
     'about.s1_l3': '\u6027\u80fd\u5de5\u7a0b -- \u4ece UI reflow \u5230 syscall\u3001\u5185\u5b58\u3001\u7f13\u5b58\u4e00\u81f4\u6027\u3001\u6570\u636e\u5e93\u6267\u884c\u8ba1\u5212\u7684\u5168\u6808 profiling\u3002',
     'about.s1_l4': '\u5168\u6808\u4ea4\u4ed8 -- Python (FastAPI, Django)\u3001Java (Spring Boot)\u3001.NET (C#, ASP.NET Core)\u3001TypeScript / React\u3001\u5bb9\u5668\u5316\u90e8\u7f72\u3001\u534f\u8bae\u5c42\u96c6\u6210 (JSON-RPC, SSE, WebSocket, gRPC)\u3002',
     'about.s2_title': '\u5df2\u843d\u5730\u573a\u666f',
-    'about.s2_l1': '\u6cd5\u5f8b\u5bf9\u6297\u5206\u6790 -- \u5bf9\u6297\u8bc4\u5206, \u8bc1\u636e\u94fe\u5ba1\u67e5, \u98ce\u9669\u6982\u7387\u5206\u6790.',
+    'about.s2_l1': '\u6cd5\u5f8b\u5206\u6790 -- \u98ce\u9669\u8bc4\u5206, \u8bc1\u636e\u94fe\u5ba1\u67e5, \u6982\u7387\u5206\u6790.',
     'about.s2_l2': '\u533b\u751f\u8bca\u65ad\u8f85\u52a9 -- \u7ed3\u6784\u5316\u9274\u522b\u8bca\u65ad\u4e0e\u8bc1\u636e\u5206\u7ea7.',
     'about.s2_l3': '\u6295\u8d44\u5206\u6790 -- \u4f53\u5236\u62d0\u70b9\u4fe1\u53f7, \u975e\u5bf9\u79f0\u8d54\u7387\u8bc6\u522b.',
     'about.s2_l4': '\u5730\u7f18\u6d1e\u5bdf -- \u591a\u65b9\u5229\u76ca\u7ed3\u6784\u4e0e\u65f6\u95f4\u7a97\u53e3\u5206\u6790.',
@@ -916,15 +928,15 @@ const I18N = {
     'footer.line3': 'Analysis only -- decisions belong to the principal',
     'footer.feedback': 'About',
     'about.title': 'Naughty Lao Ban',
-    'about.tagline': 'Underpaid tech geek. Tired of waiting for AGI, building one.',
-    'about.lead': 'Roadmap is in my head; this site is just the opening. Four things: legal adversary, medical diagnosis, investment analysis, geopolitical insight. Try it. Email me.',
+    'about.tagline': 'Unknown senior engineer. Goal: narrow AGI.',
+    'about.lead': 'Roadmap is clear. This site is the DEMO. Current focus: legal analysis, medical diagnosis, investment analysis, geopolitical insight. Try it; reach out to support@empireintegration.com.',
     'about.s1_title': 'What We Deliver',
     'about.s1_l1': 'AI solution architecture -- multi-agent orchestration, adversarial reasoning engines, retrieval and synthesis pipelines.',
     'about.s1_l2': 'Software modernization -- legacy Java / Python / .NET / Spring migrations, API-first redesigns, observability-grade infrastructure.',
     'about.s1_l3': 'Performance engineering -- profiling from UI reflow down to syscalls, memory, cache coherence, and DB execution plans.',
     'about.s1_l4': 'Full-stack delivery -- Python (FastAPI, Django), Java (Spring Boot), .NET (C#, ASP.NET Core), TypeScript / React, containerized deployment, protocol-level integrations (JSON-RPC, SSE, WebSocket, gRPC).',
     'about.s2_title': 'Where We Have Been Applied',
-    'about.s2_l1': 'Legal adversary analysis -- adversarial scoring, evidence chain review, risk-probability analysis.',
+    'about.s2_l1': 'Legal analysis -- risk scoring, evidence chain review, probability analysis.',
     'about.s2_l2': 'Medical diagnosis support -- structured differential diagnosis with evidence grading.',
     'about.s2_l3': 'Investment analysis -- regime-transition signals and asymmetric-payoff detection.',
     'about.s2_l4': 'Geopolitical insight -- multi-actor interest mapping and time-window analysis.',
@@ -2935,6 +2947,46 @@ async function submitLogin() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.dataset.open === 'true') close();
   });
+  // Click handler on cta buttons + email display: copy email to
+  // clipboard + show toast. mailto: link still fires natively for
+  // users with a configured mail client. For users without one
+  // (Chrome with no default handler), copy + visible email is the
+  // working fallback.
+  const _email = 'support@empireintegration.com';
+  const _toast = document.getElementById('aboutEmailToast');
+  const _showToast = (msg) => {
+    if (!_toast) return;
+    _toast.textContent = msg;
+    _toast.dataset.show = 'true';
+    setTimeout(() => { _toast.dataset.show = 'false'; }, 2500);
+  };
+  const _copyEmail = async () => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(_email);
+        _showToast(_email + ' copied');
+        return;
+      }
+    } catch (_) {}
+    // Fallback: textarea select + execCommand (older browsers)
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = _email;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      _showToast(_email + ' copied');
+    } catch (_) {
+      _showToast(_email);
+    }
+  };
+  ['ctaHire', 'ctaFeedback'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('click', () => { _copyEmail(); });
+  });
+  const emailDisplay = document.getElementById('aboutEmailDisplay');
+  if (emailDisplay) emailDisplay.addEventListener('click', _copyEmail);
 })();
 
 // --- P2P chat (named users only) ---------------------------------------
