@@ -1337,19 +1337,24 @@ async function loadMeetings() {
 // not the metadata, so it must survive reload.
 function _stripMeetingForSave(m) { return m; }
 function _hydrateMeeting(m) {
-  // Re-attach the empty phases / chat shell expected by the renderers.
-  // Loaded meetings have no content (saveMeetings stripped it); the
-  // shell ensures meeting.phases.primary.status etc. are not undefined
-  // when the user clicks an old pill.
+  // Per-role default ensures every ROLE in {primary, peer, stress, final}
+  // has {status, content} on load, even if the saved meeting has only
+  // some of them (legacy stripped pills, partial saves, older schemas).
+  // Without this, renderMeeting would throw on m.phases.primary.status
+  // for any meeting saved before phases were populated for all 4 roles.
+  const phases = (m && m.phases) || {};
+  const ensured = {};
+  ['primary', 'peer', 'stress', 'final'].forEach(r => {
+    const ph = phases[r] || {};
+    ensured[r] = {
+      status: ph.status || 'idle',
+      content: typeof ph.content === 'string' ? ph.content : '',
+    };
+  });
   return {
-    ...m,
-    phases: m.phases || {
-      primary: {status:'idle', content:''},
-      peer:    {status:'idle', content:''},
-      stress:  {status:'idle', content:''},
-      final:   {status:'idle', content:''},
-    },
-    chat: m.chat || [],
+    ...(m || {}),
+    phases: ensured,
+    chat: Array.isArray(m && m.chat) ? m.chat : [],
   };
 }
 async function saveMeetings(list) {
@@ -1363,9 +1368,21 @@ async function saveMeetings(list) {
   try {
     const stripped = list.map(_stripMeetingForSave);
     const key = await _ensureKey();
-    localStorage.setItem(STORAGE_KEY, await _encryptJSON(key, stripped));
+    const blob = await _encryptJSON(key, stripped);
+    localStorage.setItem(STORAGE_KEY, blob);
+    // Diagnostic log -- catches "save succeeded but content empty" bugs
+    // by tracking total content size persisted.
+    const phaseBytes = list.reduce((acc, m) => {
+      const ph = m && m.phases || {};
+      return acc + ['primary','peer','stress','final'].reduce(
+        (a, r) => a + ((ph[r] && ph[r].content || '').length), 0);
+    }, 0);
+    dbg('saveMeetings OK n=' + list.length +
+        ' phaseChars=' + phaseBytes +
+        ' blobLen=' + blob.length);
   } catch (e) {
     dbg('save meetings failed: ' + (e.message || e));
+    if (typeof console !== 'undefined') console.error('saveMeetings:', e);
   }
 }
 function newMeeting(mode, subtype, lang, question) {
