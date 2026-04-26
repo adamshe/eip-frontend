@@ -1475,6 +1475,78 @@ function _getPillTip() {
 const _SVG_COPY  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 const _SVG_CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 const _SVG_TRASH = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
+const _SVG_DOWNLOAD = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+
+// Build a single meeting as Markdown for "save md" download. Pulls from
+// the in-memory meeting object (phase content + chat thread are not
+// persisted in localStorage post b9f0ef0; user must save before tab
+// reload if they want a permanent copy).
+function _buildMeetingMd(m) {
+  if (!m) return '';
+  const lines = [];
+  const title = (m.question || '').slice(0, 80) || 'EIP analysis';
+  lines.push('# ' + title);
+  lines.push('');
+  const ts = m.timestamp ? new Date(m.timestamp).toISOString() : '';
+  lines.push('- Date: ' + ts);
+  if (m.mode) lines.push('- Mode: ' + m.mode +
+    (m.subtype ? ' / ' + m.subtype : ''));
+  if (m.lang) lines.push('- Lang: ' + m.lang);
+  lines.push('');
+  lines.push('## Question');
+  lines.push('');
+  lines.push(m.question || '');
+  lines.push('');
+  const phaseLabels = [
+    ['primary', 'Primary (Creator)'],
+    ['peer',    'Peer review'],
+    ['stress',  'Stress test'],
+    ['final',   'Final synthesis'],
+  ];
+  const ph = m.phases || {};
+  phaseLabels.forEach(([key, label]) => {
+    const c = (ph[key] && ph[key].content) || '';
+    if (!c.trim()) return;
+    lines.push('## ' + label);
+    lines.push('');
+    lines.push(c);
+    lines.push('');
+  });
+  if (Array.isArray(m.chat) && m.chat.length > 0) {
+    lines.push('## Chat thread');
+    lines.push('');
+    m.chat.forEach(turn => {
+      const role = turn && turn.role ? turn.role : 'msg';
+      const text = turn && turn.text ? turn.text : '';
+      lines.push('**' + role + ':** ' + text);
+      lines.push('');
+    });
+  }
+  return lines.join('\n');
+}
+function _safeMdFilename(m) {
+  const ts = m.timestamp ? new Date(m.timestamp) : new Date();
+  const ymd = ts.toISOString().slice(0, 10);
+  let slug = (m.question || 'pill').slice(0, 40)
+    .replace(/[\\\/:*?"<>|]/g, '')
+    .replace(/\s+/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^_+|_+$/g, '');
+  if (!slug) slug = 'pill';
+  return ymd + '_' + slug + '.md';
+}
+function _downloadMd(meeting) {
+  const md = _buildMeetingMd(meeting);
+  const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = _safeMdFilename(meeting);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
 function _buildPillTipContent(tip, text, meetingId) {
   tip.innerHTML = '';
@@ -1505,6 +1577,17 @@ function _buildPillTipContent(tip, text, meetingId) {
   });
   bar.appendChild(copyBtn);
   if (meetingId) {
+    const dlBtn = document.createElement('button');
+    dlBtn.className = 'pill-tip-btn';
+    dlBtn.setAttribute('aria-label', 'Save as Markdown');
+    dlBtn.title = 'Save as Markdown';
+    dlBtn.innerHTML = _SVG_DOWNLOAD;
+    dlBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const m = meetings.find(x => x.id === meetingId);
+      if (m) _downloadMd(m);
+    });
+    bar.appendChild(dlBtn);
     const delBtn = document.createElement('button');
     delBtn.className = 'pill-tip-btn danger';
     delBtn.setAttribute('aria-label', 'Delete');
