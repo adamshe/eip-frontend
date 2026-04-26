@@ -924,6 +924,7 @@ const I18N = {
     'p2p.connected': '\u5df2\u8fde\u63a5',
     'p2p.disconnected': '\u5df2\u65ad\u5f00 (\u91cd\u8fde\u4e2d)',
     'p2p.error': '\u8fde\u63a5\u5931\u8d25',
+    'p2p.replaced': '\u53e6\u4e00\u5904\u5df2\u767b\u5f55, \u8bf7\u5173\u95ed\u5176\u4ed6\u6807\u7b7e\u6216\u8bbe\u5907\u540e\u5237\u65b0',
     'p2p.peer_offline': '\u5bf9\u65b9\u79bb\u7ebf',
     'p2p.placeholder': '\u8f93\u5165\u6d88\u606f...',
     'p2p.peer_left': '\u5bf9\u65b9\u4e0b\u7ebf',
@@ -1040,6 +1041,7 @@ const I18N = {
     'p2p.connected': 'Connected',
     'p2p.disconnected': 'Disconnected (reconnecting)',
     'p2p.error': 'Connection failed',
+    'p2p.replaced': 'Logged in elsewhere -- close other tabs/devices then refresh',
     'p2p.peer_offline': 'Peer offline',
     'p2p.placeholder': 'Type a message...',
     'p2p.peer_left': 'Peer disconnected',
@@ -3154,6 +3156,19 @@ let p2pPanelOpen = false;
 let p2pCurrentPeer = null;
 let p2pReconnectAttempts = 0;
 let p2pReconnectTimer = null;
+// Rapid open->close detection. Server-side hub.register kicks the
+// previous socket of the same user with code 1000 "replaced" (see
+// p2p_hub.py:36-44). When the user has another tab / device logged
+// in as the same account, the two clients ping-pong each other:
+// each connect kicks the other, both reschedule, infinite loop. We
+// distinguish this from a normal idle close by lifespan: <3s means
+// the socket never settled in long enough for a real conversation.
+// After 5 such rapid cycles we stop and show a clear error so the
+// user knows to close the other session.
+let p2pSocketOpenedAt = 0;
+let p2pRapidCloseCount = 0;
+const _P2P_RAPID_THRESHOLD_MS = 3000;
+const _P2P_RAPID_MAX = 5;
 let p2pOnlinePollTimer = null;
 // Cloudflare's WS proxy idle-closes connections with zero frames in either
 // direction at ~100s. Without traffic the socket dies, ws.onclose fires,
@@ -3328,6 +3343,7 @@ function p2pConnect() {
   p2pWs = ws;
   ws.onopen = () => {
     p2pReconnectAttempts = 0;
+    p2pSocketOpenedAt = Date.now();
     p2pSetStatus('connected', 'p2p.connected');
     const inp = document.getElementById('p2pInput');
     const snd = document.getElementById('p2pSend');
@@ -3367,6 +3383,26 @@ function p2pConnect() {
       try { localStorage.removeItem(AUTH_TOKEN_KEY); } catch {}
       try { openLoginGate(); } catch {}
       return;
+    }
+    // Rapid replace detection: if this socket was alive for less than
+    // _P2P_RAPID_THRESHOLD_MS, treat as evidence of a replace race
+    // (another tab/device for the same user). Cap at _P2P_RAPID_MAX
+    // before giving up.
+    const lifeMs = p2pSocketOpenedAt > 0
+      ? Date.now() - p2pSocketOpenedAt : 0;
+    p2pSocketOpenedAt = 0;
+    if (lifeMs > 0 && lifeMs < _P2P_RAPID_THRESHOLD_MS) {
+      p2pRapidCloseCount += 1;
+      dbg('p2p rapid close #' + p2pRapidCloseCount +
+          ' (life=' + lifeMs + 'ms, code=' + (e && e.code) + ')');
+      if (p2pRapidCloseCount >= _P2P_RAPID_MAX) {
+        p2pSetStatus('error', 'p2p.replaced');
+        return;
+      }
+    } else if (lifeMs >= _P2P_RAPID_THRESHOLD_MS) {
+      // Long-lived socket that just dropped -- normal idle close,
+      // start the rapid count fresh.
+      p2pRapidCloseCount = 0;
     }
     if (p2pPanelOpen) p2pScheduleReconnect();
   };
