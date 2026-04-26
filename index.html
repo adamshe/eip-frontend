@@ -1497,11 +1497,18 @@ function _buildMeetingMd(m) {
   lines.push('');
   lines.push(m.question || '');
   lines.push('');
-  const phaseLabels = [
+  // Asymmetric MD scope: admin gets all four review panels (Creator
+  // draft, peer review, stress test, final synthesis); non-admin
+  // gets only the final analysis the user-facing UI is built around.
+  // Both sides keep the followup chat thread.
+  const isAdmin = getAuthIsAdmin();
+  const phaseLabels = isAdmin ? [
     ['primary', 'Primary (Creator)'],
     ['peer',    'Peer review'],
     ['stress',  'Stress test'],
     ['final',   'Final synthesis'],
+  ] : [
+    ['final',   'Final analysis'],
   ];
   const ph = m.phases || {};
   phaseLabels.forEach(([key, label]) => {
