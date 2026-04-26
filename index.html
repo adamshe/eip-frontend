@@ -901,6 +901,13 @@ const I18N = {
     'login.demo_request': '\u7533\u8bf7 demo \u8bbf\u95ee',
     'login.err.invalid': '\u7528\u6237\u540d\u6216\u5bc6\u7801\u9519\u8bef',
     'login.err.network': '\u7f51\u7edc\u9519\u8bef, \u8bf7\u91cd\u8bd5',
+    'admin.restart': '\u91cd\u542f\u540e\u7aef',
+    'admin.restart_title': 'admin: \u91cd\u542f uvicorn \u8fdb\u7a0b',
+    'admin.restart_confirm': '\u786e\u8ba4\u91cd\u542f\u540e\u7aef? \u4ec5\u5728\u65e0\u4efb\u52a1\u8fd0\u884c\u65f6\u5141\u8bb8.',
+    'admin.restart_blocked': '\u540e\u7aef\u6709\u4efb\u52a1\u8fd0\u884c\u4e2d, \u62d2\u7edd\u91cd\u542f:',
+    'admin.restart_unauth': '\u6743\u9650\u9519\u8bef, \u8bf7\u91cd\u65b0\u767b\u5f55',
+    'admin.restart_failed': '\u91cd\u542f\u5931\u8d25:',
+    'admin.restart_in_progress': '\u6b63\u5728\u91cd\u542f\u540e\u7aef, 6 \u79d2\u540e\u9875\u9762\u81ea\u52a8\u5237\u65b0',
     'meetings.warn_default': '\u672c\u8bbe\u5907\u4fdd\u5b58\u7684\u4f1a\u8bdd\u65e0\u6cd5\u8bfb\u53d6. \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
     'meetings.warn_with_backup': '\u672c\u8bbe\u5907\u4fdd\u5b58\u7684\u4f1a\u8bdd\u65e0\u6cd5\u8bfb\u53d6 ({n} \u4efd\u52a0\u5bc6\u5907\u4efd\u4fdd\u7559). \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
     'meetings.warn_no_backup': '\u672c\u8bbe\u5907\u65e0\u4fdd\u5b58\u7684\u4f1a\u8bdd. \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
@@ -1017,6 +1024,13 @@ const I18N = {
     'login.demo_request': 'Request demo access',
     'login.err.invalid': 'Invalid username or password',
     'login.err.network': 'Network error, try again',
+    'admin.restart': 'Restart backend',
+    'admin.restart_title': 'admin: restart uvicorn process',
+    'admin.restart_confirm': 'Restart backend? Only allowed when no jobs are running.',
+    'admin.restart_blocked': 'Restart blocked:',
+    'admin.restart_unauth': 'Unauthorized -- please re-login',
+    'admin.restart_failed': 'Restart failed:',
+    'admin.restart_in_progress': 'Backend restarting, page will reload in 6s',
     'meetings.warn_default': 'Saved sessions on this device could not be loaded. Data is device-local, not synced across devices.',
     'meetings.warn_with_backup': 'Saved sessions on this device could not be loaded ({n} encrypted backups preserved). Data is device-local, not synced across devices.',
     'meetings.warn_no_backup': 'No saved sessions on this device. Data is device-local, not synced across devices.',
@@ -3092,6 +3106,14 @@ function renderAuthBox() {
       openLoginGate();
     });
     box.appendChild(greet);
+    if (getAuthIsAdmin()) {
+      const restartBtn = document.createElement('button');
+      restartBtn.type = 'button';
+      restartBtn.textContent = t('admin.restart');
+      restartBtn.title = t('admin.restart_title');
+      restartBtn.addEventListener('click', adminRestart);
+      box.appendChild(restartBtn);
+    }
     box.appendChild(logout);
     if (p2pBtn) p2pBtn.hidden = false;
   } else {
@@ -3311,6 +3333,47 @@ function stopRestartPolling() {
   if (el) {
     el.dataset.restartSafe = '';
     el.removeAttribute('title');
+  }
+}
+
+// Admin button -> request a clean restart. Server refuses with 409 if
+// any job is in flight (busy gate) so this cannot truncate a report.
+// Manual Ctrl+C path remains unchanged: console-side stop drops the
+// restart flag and the bat loop exits.
+async function adminRestart() {
+  if (!getAuthIsAdmin()) return;
+  if (!confirm(t('admin.restart_confirm'))) return;
+  const tok = getAuthToken();
+  if (!tok) return;
+  try {
+    const res = await fetch(HTTP_BASE + '/api/admin/restart', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + tok },
+    });
+    if (res.status === 409) {
+      const body = await res.json().catch(() => ({}));
+      alert(t('admin.restart_blocked') + '\n' +
+        (body.detail || 'jobs in flight'));
+      return;
+    }
+    if (res.status === 401) {
+      alert(t('admin.restart_unauth'));
+      return;
+    }
+    if (!res.ok) {
+      alert(t('admin.restart_failed') + ' HTTP ' + res.status);
+      return;
+    }
+    // Success: server is dying within ~500ms, bat will relaunch in ~2s,
+    // give it 6s of slack then reload to pick up new build.
+    const el = document.querySelector('.auth-user');
+    if (el) {
+      el.dataset.restartSafe = 'err';
+      el.title = t('admin.restart_in_progress');
+    }
+    setTimeout(() => window.location.reload(), 6000);
+  } catch (e) {
+    alert(t('admin.restart_failed') + ' ' + (e && e.message || ''));
   }
 }
 
