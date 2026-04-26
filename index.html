@@ -480,6 +480,20 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
 .login-panel input:focus { outline: none; border-color: var(--accent); }
 .login-err { margin: 10px 0 0 0; font-size: 12px; color: var(--tone-stress);
   min-height: 16px; }
+.restart-status { display: none; align-items: center; gap: 5px;
+  margin-left: 8px; padding: 2px 8px; border-radius: var(--r);
+  font-size: 11px; line-height: 1.4;
+  border: 1px solid var(--border); }
+.restart-status.show { display: inline-flex; }
+.restart-status[data-safe="true"] {
+  color: var(--tone-final); border-color: var(--tone-final); }
+.restart-status[data-safe="false"] {
+  color: var(--tone-stress); border-color: var(--tone-stress);
+  animation: rsPulse 1.6s ease-in-out infinite; }
+@keyframes rsPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--tone-stress); }
+  50%      { box-shadow: 0 0 5px 1px var(--tone-stress); }
+}
 .meetings-warn { display: flex; align-items: center; gap: 10px;
   padding: 8px 14px; background: var(--bg-card);
   border-bottom: 1px solid var(--tone-stress);
@@ -624,6 +638,7 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
       <span class="api-status-dot" data-state="unknown"></span>
       <span class="api-status-label" data-i18n="api.status.checking">Checking</span>
     </span>
+    <span class="restart-status" id="restartStatus" data-safe="" title="Backend restart safety (admin)"></span>
     <nav class="pills" id="pills"></nav>
     <div class="topright-fixed">
       <button id="p2pToggle" type="button" class="p2p-toggle" hidden data-i18n="p2p.toggle">P2P</button>
@@ -893,6 +908,8 @@ const I18N = {
     'login.demo_request': '\u7533\u8bf7 demo \u8bbf\u95ee',
     'login.err.invalid': '\u7528\u6237\u540d\u6216\u5bc6\u7801\u9519\u8bef',
     'login.err.network': '\u7f51\u7edc\u9519\u8bef, \u8bf7\u91cd\u8bd5',
+    'restart.safe': '\u53ef\u91cd\u542f',
+    'restart.busy': '\u8fd0\u884c\u4e2d',
     'meetings.warn_default': '\u672c\u8bbe\u5907\u4fdd\u5b58\u7684\u4f1a\u8bdd\u65e0\u6cd5\u8bfb\u53d6. \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
     'meetings.warn_with_backup': '\u672c\u8bbe\u5907\u4fdd\u5b58\u7684\u4f1a\u8bdd\u65e0\u6cd5\u8bfb\u53d6 ({n} \u4efd\u52a0\u5bc6\u5907\u4efd\u4fdd\u7559). \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
     'meetings.warn_no_backup': '\u672c\u8bbe\u5907\u65e0\u4fdd\u5b58\u7684\u4f1a\u8bdd. \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
@@ -1010,6 +1027,8 @@ const I18N = {
     'login.demo_request': 'Request demo access',
     'login.err.invalid': 'Invalid username or password',
     'login.err.network': 'Network error, try again',
+    'restart.safe': 'Safe',
+    'restart.busy': 'Busy',
     'meetings.warn_default': 'Saved sessions on this device could not be loaded. Data is device-local, not synced across devices.',
     'meetings.warn_with_backup': 'Saved sessions on this device could not be loaded ({n} encrypted backups preserved). Data is device-local, not synced across devices.',
     'meetings.warn_no_backup': 'No saved sessions on this device. Data is device-local, not synced across devices.',
@@ -3080,6 +3099,7 @@ function renderAuthBox() {
     logout.textContent = t('login.logout');
     logout.addEventListener('click', () => {
       if (typeof p2pTeardown === 'function') p2pTeardown();
+      try { stopRestartPolling(); } catch (_) {}
       clearAuthSession();
       renderAuthBox();
       openLoginGate();
@@ -3154,6 +3174,10 @@ async function submitLogin() {
       // Open the persistent p2p WS now -- DMs land in p2pThreads
       // even before the user opens the P2P panel for the first time.
       try { p2pConnect(); } catch (_) {}
+      // Admin-only: start polling backend restart safety.
+      if (body.is_admin === true) {
+        try { startRestartPolling(); } catch (_) {}
+      }
     } else {
       errEl.textContent = body.reason || t('login.err.invalid');
     }
@@ -3227,8 +3251,65 @@ async function submitLogin() {
     openLoginGate();
   } else {
     try { p2pConnect(); } catch (_) {}
+    if (getAuthIsAdmin()) {
+      try { startRestartPolling(); } catch (_) {}
+    }
   }
 })();
+
+// --- Restart-safe indicator (admin only) -------------------------------
+// Polls /api/restart-status every 10s, paints a green "Safe" badge when
+// the backend has zero in-flight Trinity / chat / medical streams, or a
+// pulsing "Busy: N" badge while jobs are running. Lets the operator know
+// if a uvicorn restart will truncate a report mid-stream.
+let _restartPollTimer = null;
+async function pollRestartStatus() {
+  if (!getAuthIsAdmin()) return;
+  const tok = getAuthToken();
+  if (!tok) return;
+  const el = document.getElementById('restartStatus');
+  if (!el) return;
+  try {
+    const res = await fetch(HTTP_BASE + '/api/restart-status', {
+      headers: { 'Authorization': 'Bearer ' + tok },
+    });
+    if (res.status === 401) {
+      stopRestartPolling();
+      return;
+    }
+    if (!res.ok) return;
+    const body = await res.json();
+    el.classList.add('show');
+    if (body.safe_to_restart) {
+      el.dataset.safe = 'true';
+      el.textContent = t('restart.safe');
+    } else {
+      el.dataset.safe = 'false';
+      const age = body.oldest_age_s || 0;
+      el.textContent = t('restart.busy') + ': ' +
+        (body.active_count || 0) + ' (' + age + 's)';
+    }
+  } catch (_) {
+    // Network blip -- leave existing state, do not flicker.
+  }
+}
+function startRestartPolling() {
+  if (_restartPollTimer) clearInterval(_restartPollTimer);
+  pollRestartStatus();
+  _restartPollTimer = setInterval(pollRestartStatus, 10000);
+}
+function stopRestartPolling() {
+  if (_restartPollTimer) {
+    clearInterval(_restartPollTimer);
+    _restartPollTimer = null;
+  }
+  const el = document.getElementById('restartStatus');
+  if (el) {
+    el.classList.remove('show');
+    el.dataset.safe = '';
+    el.textContent = '';
+  }
+}
 
 // About modal: footer "About" button opens a pitch + contact popup. ESC
 // and backdrop click close it. Focus is not trapped (one-screen modal,
