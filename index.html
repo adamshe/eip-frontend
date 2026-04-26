@@ -766,7 +766,6 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
   <div class="p2p-chat" id="p2pChat" hidden>
     <div class="p2p-peer-bar">
       <span id="p2pPeerName"></span>
-      <button id="p2pBack" type="button" data-i18n="p2p.back">back</button>
     </div>
     <div class="p2p-msgs" id="p2pMsgs"></div>
     <div class="p2p-input-row">
@@ -944,7 +943,6 @@ const I18N = {
     'p2p.title': 'P2P \u804a\u5929',
     'p2p.online': '\u5728\u7ebf',
     'p2p.online.empty': '\u6682\u65e0\u5176\u4ed6\u7528\u6237\u5728\u7ebf',
-    'p2p.back': '\u8fd4\u56de',
     'p2p.connecting': '\u8fde\u63a5\u4e2d...',
     'p2p.connected': '\u5df2\u8fde\u63a5',
     'p2p.disconnected': '\u5df2\u65ad\u5f00 (\u91cd\u8fde\u4e2d)',
@@ -1063,7 +1061,6 @@ const I18N = {
     'p2p.title': 'P2P Chat',
     'p2p.online': 'Online',
     'p2p.online.empty': 'No other users online',
-    'p2p.back': 'back',
     'p2p.connecting': 'Connecting...',
     'p2p.connected': 'Connected',
     'p2p.disconnected': 'Disconnected (reconnecting)',
@@ -3511,7 +3508,8 @@ function p2pOpenChat(peer) {
   p2pCurrentPeer = peer;
   p2pUnread.delete(peer);
   p2pUpdateToggleBadge();
-  document.getElementById('p2pOnline').hidden = true;
+  // Online list stays visible alongside the chat so the user can
+  // switch peers by clicking another name -- no separate back step.
   const chat = document.getElementById('p2pChat');
   chat.hidden = false;
   document.getElementById('p2pPeerName').textContent = peer;
@@ -3527,6 +3525,10 @@ function p2pOpenChat(peer) {
   if (wsReady) inp.focus();
 }
 
+// No "back" button anymore -- the user switches peers by clicking
+// another name in the always-visible online list. This helper is
+// still used to reset to the no-peer-selected state when the panel
+// first opens without a previously-active peer.
 function p2pBackToList() {
   p2pCurrentPeer = null;
   document.getElementById('p2pChat').hidden = true;
@@ -3760,7 +3762,7 @@ function p2pTeardown() {
 (function initP2P() {
   const toggle = document.getElementById('p2pToggle');
   const closeBtn = document.getElementById('p2pClose');
-  const back = document.getElementById('p2pBack');
+  const back = null;  // p2p back button removed -- switch peers via list click
   const sendBtn = document.getElementById('p2pSend');
   const input = document.getElementById('p2pInput');
   if (!toggle) return;
