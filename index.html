@@ -490,6 +490,9 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
 .restart-status[data-safe="false"] {
   color: var(--tone-stress); border-color: var(--tone-stress);
   animation: rsPulse 1.6s ease-in-out infinite; }
+.restart-status[data-safe="err"] {
+  color: var(--text-dim); border-color: var(--text-dim);
+  font-style: italic; }
 @keyframes rsPulse {
   0%, 100% { box-shadow: 0 0 0 0 var(--tone-stress); }
   50%      { box-shadow: 0 0 5px 1px var(--tone-stress); }
@@ -3266,17 +3269,37 @@ async function pollRestartStatus() {
   if (!tok) return;
   const el = document.getElementById('restartStatus');
   if (!el) return;
+  // Always show the badge for admins so missing-endpoint / wrong-cache
+  // failures are visible, not silently empty. Initial state shows "?";
+  // a successful poll repaints to safe / busy.
+  el.classList.add('show');
+  if (!el.dataset.safe) {
+    el.dataset.safe = '';
+    el.textContent = '?';
+  }
   try {
     const res = await fetch(HTTP_BASE + '/api/restart-status', {
       headers: { 'Authorization': 'Bearer ' + tok },
     });
     if (res.status === 401) {
+      el.dataset.safe = 'err';
+      el.textContent = '401 (re-login)';
+      console.warn('restart-status 401 -- token lacks admin flag, re-login');
       stopRestartPolling();
       return;
     }
-    if (!res.ok) return;
+    if (res.status === 404) {
+      el.dataset.safe = 'err';
+      el.textContent = '404 (restart uvicorn)';
+      console.warn('restart-status 404 -- backend has no /api/restart-status route, uvicorn restart needed');
+      return;
+    }
+    if (!res.ok) {
+      el.dataset.safe = 'err';
+      el.textContent = 'HTTP ' + res.status;
+      return;
+    }
     const body = await res.json();
-    el.classList.add('show');
     if (body.safe_to_restart) {
       el.dataset.safe = 'true';
       el.textContent = t('restart.safe');
@@ -3286,8 +3309,10 @@ async function pollRestartStatus() {
       el.textContent = t('restart.busy') + ': ' +
         (body.active_count || 0) + ' (' + age + 's)';
     }
-  } catch (_) {
-    // Network blip -- leave existing state, do not flicker.
+  } catch (e) {
+    el.dataset.safe = 'err';
+    el.textContent = 'NET';
+    console.warn('restart-status network error:', e && e.message);
   }
 }
 function startRestartPolling() {
