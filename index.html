@@ -3116,6 +3116,10 @@ function renderAuthBox() {
     }
     box.appendChild(logout);
     if (p2pBtn) p2pBtn.hidden = false;
+    // Re-apply cached restart color now that the .auth-user span has
+    // been freshly created. Without this the greeting goes uncolored
+    // until the next 10s poll tick.
+    if (typeof _applyRestartColor === 'function') _applyRestartColor();
   } else {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -3272,6 +3276,25 @@ async function submitLogin() {
 // pulsing "Busy: N" badge while jobs are running. Lets the operator know
 // if a uvicorn restart will truncate a report mid-stream.
 let _restartPollTimer = null;
+// Cache last restart-safe result so renderAuthBox can immediately
+// repaint the color after rebuilding the auth-user span (otherwise
+// the greeting goes uncolored for up to one poll cycle each time
+// the auth box re-renders -- regression after the Restart button
+// was added).
+let _restartCache = null;  // {kind:'safe'|'busy'|'err', title:string} | null
+function _applyRestartColor() {
+  const el = document.querySelector('.auth-user');
+  if (!el) return;
+  if (!_restartCache) {
+    el.dataset.restartSafe = '';
+    el.removeAttribute('title');
+    return;
+  }
+  el.dataset.restartSafe = _restartCache.kind === 'safe'
+    ? 'true' : (_restartCache.kind === 'busy' ? 'false' : 'err');
+  if (_restartCache.title) el.title = _restartCache.title;
+  else el.removeAttribute('title');
+}
 async function pollRestartStatus() {
   if (!getAuthIsAdmin()) return;
   const tok = getAuthToken();
@@ -3279,44 +3302,44 @@ async function pollRestartStatus() {
   // Color the admin's own "Hi, adam" username: green safe / orange busy.
   // No separate badge -- saves topbar real estate and puts the cue
   // exactly where the operator already looks before deciding to restart.
-  const el = document.querySelector('.auth-user');
-  if (!el) return;
   try {
     const res = await fetch(HTTP_BASE + '/api/restart-status', {
       headers: { 'Authorization': 'Bearer ' + tok },
     });
     if (res.status === 401) {
-      el.dataset.restartSafe = 'err';
-      el.title = 'restart-status 401 -- re-login';
+      _restartCache = { kind: 'err', title: 'restart-status 401 -- re-login' };
       console.warn('restart-status 401 -- token lacks admin flag, re-login');
+      _applyRestartColor();
       stopRestartPolling();
       return;
     }
     if (res.status === 404) {
-      el.dataset.restartSafe = 'err';
-      el.title = 'restart-status 404 -- uvicorn restart needed';
+      _restartCache = { kind: 'err', title: 'restart-status 404 -- uvicorn restart needed' };
       console.warn('restart-status 404 -- backend route missing, uvicorn restart needed');
+      _applyRestartColor();
       return;
     }
     if (!res.ok) {
-      el.dataset.restartSafe = 'err';
-      el.title = 'restart-status HTTP ' + res.status;
+      _restartCache = { kind: 'err', title: 'restart-status HTTP ' + res.status };
+      _applyRestartColor();
       return;
     }
     const body = await res.json();
     if (body.safe_to_restart) {
-      el.dataset.restartSafe = 'true';
-      el.title = 'safe to restart uvicorn (no jobs in flight)';
+      _restartCache = { kind: 'safe', title: 'safe to restart uvicorn (no jobs in flight)' };
     } else {
-      el.dataset.restartSafe = 'false';
       const age = body.oldest_age_s || 0;
-      el.title = 'jobs running: ' + (body.active_count || 0) +
-        ' (oldest ' + age + 's) -- do not restart';
+      _restartCache = {
+        kind: 'busy',
+        title: 'jobs running: ' + (body.active_count || 0) +
+          ' (oldest ' + age + 's) -- do not restart',
+      };
     }
+    _applyRestartColor();
   } catch (e) {
-    el.dataset.restartSafe = 'err';
-    el.title = 'restart-status network error';
+    _restartCache = { kind: 'err', title: 'restart-status network error' };
     console.warn('restart-status network error:', e && e.message);
+    _applyRestartColor();
   }
 }
 function startRestartPolling() {
@@ -3329,11 +3352,8 @@ function stopRestartPolling() {
     clearInterval(_restartPollTimer);
     _restartPollTimer = null;
   }
-  const el = document.querySelector('.auth-user');
-  if (el) {
-    el.dataset.restartSafe = '';
-    el.removeAttribute('title');
-  }
+  _restartCache = null;
+  _applyRestartColor();
 }
 
 // Admin button -> request a clean restart. Server refuses with 409 if
