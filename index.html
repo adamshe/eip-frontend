@@ -3300,10 +3300,19 @@ function _applyRestartColor() {
   if (_restartCache.title) el.title = _restartCache.title;
   else el.removeAttribute('title');
 }
+var _restartPollInFlight = false;
 async function pollRestartStatus() {
   if (!getAuthIsAdmin()) return;
   const tok = getAuthToken();
   if (!tok) return;
+  // setInterval tick can race a still-in-flight fetch during uvicorn
+  // cold-start when responses are slow. Without this guard the cold-
+  // start window stacks 4-6 concurrent fetches that all 401 in unison
+  // before the first response triggers stopRestartPolling. Skip ticks
+  // while a fetch is outstanding so we get exactly one in-flight at a
+  // time.
+  if (_restartPollInFlight) return;
+  _restartPollInFlight = true;
   // Color the admin's own "Hi, adam" username: green safe / orange busy.
   // No separate badge -- saves topbar real estate and puts the cue
   // exactly where the operator already looks before deciding to restart.
@@ -3312,8 +3321,32 @@ async function pollRestartStatus() {
       headers: { 'Authorization': 'Bearer ' + tok },
     });
     if (res.status === 401) {
-      _restartCache = { kind: 'err', title: 'restart-status 401 -- re-login' };
-      console.warn('restart-status 401 -- token lacks admin flag, re-login');
+      // 401 means the backend does not recognize this token. The
+      // common case is uvicorn restart: in-memory _sessions dict
+      // cleared, browser still holds old token. Local session is
+      // dead -- clear it and bounce to the login modal so the user
+      // has an actionable path instead of a stuck red indicator.
+      _restartCache = { kind: 'err', title: 'restart-status 401 -- token unknown, re-login' };
+      console.warn('restart-status 401 -- token unknown, clearing session and reopening login');
+      _applyRestartColor();
+      stopRestartPolling();
+      try {
+        if (typeof p2pTeardown === 'function') p2pTeardown();
+        clearAuthSession();
+        renderAuthBox();
+        openLoginGate();
+      } catch (_) {}
+      return;
+    }
+    if (res.status === 403) {
+      // 403 means the token is valid but the user is not admin. This
+      // should be unreachable -- both startRestartPolling call sites
+      // gate on getAuthIsAdmin() / body.is_admin -- but if it does
+      // happen (localStorage is_admin flag drifted out of sync with
+      // the server users.json record) just stop polling silently
+      // without kicking the user out of the rest of the app.
+      _restartCache = { kind: 'err', title: 'restart-status 403 -- not admin' };
+      console.warn('restart-status 403 -- token valid but user not admin, stopping poll');
       _applyRestartColor();
       stopRestartPolling();
       return;
@@ -3347,6 +3380,8 @@ async function pollRestartStatus() {
     _restartCache = { kind: 'err', title: 'restart-status network error' };
     console.warn('restart-status network error:', e && e.message);
     _applyRestartColor();
+  } finally {
+    _restartPollInFlight = false;
   }
 }
 function startRestartPolling() {
