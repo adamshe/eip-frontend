@@ -703,7 +703,6 @@ body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-b
       <select id="mode" title="Mode">
         <option value="advise">Advise</option>
         <option value="medical">Medical</option>
-        <option value="bazi">Bazi</option>
       </select>
       <select id="sub-type" title="Type / Specialty"></select>
       <select id="lang" title="Language">
@@ -854,7 +853,6 @@ const I18N = {
     'btn.close': '\u5173\u95ed',
     'placeholder.input.advise': '\u63cf\u8ff0\u95ee\u9898: \u6cd5\u5f8b / \u6295\u8d44 / \u5546\u4e1a / \u5730\u7f18...',
     'placeholder.input.medical': '\u63cf\u8ff0\u75c7\u72b6\u3001\u75c5\u53f2\u3001\u5316\u9a8c\u3001\u5f71\u50cf...',
-    'placeholder.input.bazi': '\u63d0\u4f9b\u51fa\u751f\u4fe1\u606f: \u59d3\u540d / \u9633\u5386\u6216\u519c\u5386\u751f\u65e5 / \u65f6\u8fb0 / \u6027\u522b / \u51fa\u751f\u5730',
     'placeholder.chat': '\u5c31\u672c\u62a5\u544a\u63d0\u4e00\u4e2a\u8ddf\u8fdb\u95ee\u9898...',
     'placeholder.thinking': '\u601d\u8003\u4e2d',
     'placeholder.waiting': '\u7b49\u5f85...',
@@ -922,13 +920,12 @@ const I18N = {
     'api.offline.tooltip': '\u540e\u7aef API \u79bb\u7ebf\uff0c\u5f85\u6062\u590d\u540e\u91cd\u8bd5',
     'mode.advise': '\u548b\u8be2',
     'mode.medical': '\u533b\u7597',
-    'mode.bazi': '\u516b\u5b57',
-    'bazi_type.default': '\u547d\u7406\u6392\u76d8',
     'advise_type.general': '\u901a\u7528',
     'advise_type.legal': '\u6cd5\u5f8b',
     'advise_type.investment': '\u80a1\u7968 / \u6295\u8d44',
     'advise_type.business': '\u5546\u4e1a',
     'advise_type.geopolitical': '\u5730\u7f18 / \u6218\u7565',
+    'advise_type.bazi': '\u516b\u5b57 / \u547d\u7406',
     'medical_specialty.general': '\u5185\u79d1 (\u9ed8\u8ba4)',
     'medical_specialty.cardiology': '\u5fc3\u8840\u7ba1',
     'medical_specialty.dentistry': '\u7259\u79d1',
@@ -980,7 +977,6 @@ const I18N = {
     'btn.copy_failed': 'Failed',
     'placeholder.input.advise': 'Describe the question: legal, investment, business, geopolitical...',
     'placeholder.input.medical': 'Describe symptoms, history, labs, imaging...',
-    'placeholder.input.bazi': 'Birth info: name / solar or lunar date / hour / gender / location',
     'placeholder.chat': 'Ask a follow-up question about the report...',
     'placeholder.thinking': 'thinking',
     'placeholder.waiting': 'Waiting...',
@@ -1048,13 +1044,12 @@ const I18N = {
     'api.offline.tooltip': 'Backend API offline; retry once restored',
     'mode.advise': 'Advise',
     'mode.medical': 'Medical',
-    'mode.bazi': 'Bazi',
-    'bazi_type.default': 'Birth chart',
     'advise_type.general': 'General',
     'advise_type.legal': 'Legal',
     'advise_type.investment': 'Stock / Investment',
     'advise_type.business': 'Business',
     'advise_type.geopolitical': 'Geopolitical / Strategy',
+    'advise_type.bazi': 'Bazi / Birth chart',
     'medical_specialty.general': 'Internal medicine',
     'medical_specialty.cardiology': 'Cardiology',
     'medical_specialty.dentistry': 'Dentistry',
@@ -1116,6 +1111,7 @@ const ADVISE_TYPES = [
   ['investment', 'advise_type.investment'],
   ['business', 'advise_type.business'],
   ['geopolitical', 'advise_type.geopolitical'],
+  ['bazi', 'advise_type.bazi'],
 ];
 const MEDICAL_SPECIALTIES = [
   ['', 'medical_specialty.general'],
@@ -1131,9 +1127,6 @@ const MEDICAL_SPECIALTIES = [
   ['pediatrics', 'medical_specialty.pediatrics'],
   ['psychiatry', 'medical_specialty.psychiatry'],
   ['pulmonology', 'medical_specialty.pulmonology'],
-];
-const BAZI_TYPES = [
-  ['bazi', 'bazi_type.default'],
 ];
 const PHASE_TO_ROLE = { creator: 'primary', overseer: 'peer', adversary: 'stress', final: 'final' };
 const ROLES = ['primary', 'peer', 'stress', 'final'];
@@ -1476,13 +1469,11 @@ const chatHistory = $('#chatHistory'), chatNoCtx = $('#chatNoCtx');
 const chatInput = $('#chatInput'), chatSend = $('#chatSend');
 
 function fillSubType() {
-  const m = modeEl.value;
-  const opts = m === 'medical' ? MEDICAL_SPECIALTIES
-    : m === 'bazi' ? BAZI_TYPES
-    : ADVISE_TYPES;
+  const isMed = modeEl.value === 'medical';
+  const opts = isMed ? MEDICAL_SPECIALTIES : ADVISE_TYPES;
   subEl.innerHTML = opts.map(([v, k]) => '<option value="' + v + '">' + t(k) + '</option>').join('');
-  inputEl.placeholder = m === 'medical' ? t('placeholder.input.medical')
-    : m === 'bazi' ? t('placeholder.input.bazi')
+  inputEl.placeholder = isMed
+    ? t('placeholder.input.medical')
     : t('placeholder.input.advise');
 }
 modeEl.addEventListener('change', fillSubType);
@@ -2031,8 +2022,6 @@ function renderMeeting(m) {
   else if (m.mode === 'quickchat') typeLabel = t('panel.final.quickchat');
   else if (m.mode === 'medical')
     typeLabel = t(MEDICAL_SPECIALTIES.find(x => x[0] === (m.subtype||''))?.[1] || 'mode.medical');
-  else if (m.mode === 'bazi')
-    typeLabel = t(BAZI_TYPES.find(x => x[0] === (m.subtype||''))?.[1] || 'mode.bazi');
   else typeLabel = t(ADVISE_TYPES.find(x => x[0] === m.subtype)?.[1] || 'mode.advise');
   const time = new Date(m.timestamp).toLocaleString();
   qMeta.textContent = typeLabel + ' - ' + m.lang.toUpperCase() + ' - ' + time;
