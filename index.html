@@ -338,6 +338,13 @@ body[data-interaction="quickchat"] .panels-top { display: none; }
 body[data-interaction="chat"] .panels-bottom,
 body[data-interaction="quickchat"] .panels-bottom { flex: 1 1 100%; }
 
+/* BigIdea mode (admin-only Investment Scanner): single-source pipeline,
+   no Trinity 4-reviewer mapping. Hide sub-type + 3 reviewer panels; let
+   the final panel hold the full pipeline stdout + alert markdown. */
+body[data-mode="bigidea"] #sub-type { display: none; }
+body[data-mode="bigidea"] .panels-top { display: none; }
+body[data-mode="bigidea"] .panels-bottom { flex: 1 1 100%; }
+
 /* Thinking timer next to the final panel title: ticks live while a turn
    is in flight (both Chat mode and Analysis mode). Helps the user know
    the system is alive during long Opus replies. */
@@ -920,6 +927,8 @@ const I18N = {
     'api.offline.tooltip': '\u540e\u7aef API \u79bb\u7ebf\uff0c\u5f85\u6062\u590d\u540e\u91cd\u8bd5',
     'mode.advise': '\u548b\u8be2',
     'mode.medical': '\u533b\u7597',
+    'mode.bigidea': '\u80a1\u5e02\u673a\u4f1a',
+    'placeholder.input.bigidea': 'Tickers (\u53ef\u9009, \u9017\u53f7\u5206\u9694): NVDA,AMD,MU\u3002\u7559\u7a7a = \u5168\u626b\u63cf\u3002',
     'advise_type.general': '\u901a\u7528',
     'advise_type.legal': '\u6cd5\u5f8b',
     'advise_type.investment': '\u80a1\u7968 / \u6295\u8d44',
@@ -1044,6 +1053,8 @@ const I18N = {
     'api.offline.tooltip': 'Backend API offline; retry once restored',
     'mode.advise': 'Advise',
     'mode.medical': 'Medical',
+    'mode.bigidea': 'BigIdea',
+    'placeholder.input.bigidea': 'Tickers (optional, comma-separated): NVDA,AMD,MU. Empty = full scan.',
     'advise_type.general': 'General',
     'advise_type.legal': 'Legal',
     'advise_type.investment': 'Stock / Investment',
@@ -1469,15 +1480,47 @@ const chatHistory = $('#chatHistory'), chatNoCtx = $('#chatNoCtx');
 const chatInput = $('#chatInput'), chatSend = $('#chatSend');
 
 function fillSubType() {
-  const isMed = modeEl.value === 'medical';
-  const opts = isMed ? MEDICAL_SPECIALTIES : ADVISE_TYPES;
+  const mode = modeEl.value;
+  const isMed = mode === 'medical';
+  const isBig = mode === 'bigidea';
+  // BigIdea has no sub-type taxonomy -- single CLI pipeline. CSS hides
+  // the select; clearing options also prevents stale ADVISE_TYPES values
+  // from leaking into submit when the user toggles back later.
+  const opts = isBig ? [] : (isMed ? MEDICAL_SPECIALTIES : ADVISE_TYPES);
   subEl.innerHTML = opts.map(([v, k]) => '<option value="' + v + '">' + t(k) + '</option>').join('');
-  inputEl.placeholder = isMed
-    ? t('placeholder.input.medical')
-    : t('placeholder.input.advise');
+  inputEl.placeholder = isBig
+    ? t('placeholder.input.bigidea')
+    : isMed
+      ? t('placeholder.input.medical')
+      : t('placeholder.input.advise');
+  // Drive the body[data-mode] CSS hooks for panel hiding.
+  document.body.dataset.mode = mode;
 }
 modeEl.addEventListener('change', fillSubType);
 fillSubType();
+
+// Admin-gated dynamic option: BigIdea reveals proprietary scan signals,
+// so we only expose the dropdown entry when the logged-in user has
+// is_admin=true. Toggle re-runs on every auth state change (login /
+// logout / token expiry) by being invoked from renderAuthBox().
+function _toggleBigIdeaModeOption() {
+  if (!modeEl) return;
+  const has = !!modeEl.querySelector('option[value="bigidea"]');
+  const wantShow = (typeof getAuthIsAdmin === 'function') && getAuthIsAdmin();
+  if (wantShow && !has) {
+    const opt = document.createElement('option');
+    opt.value = 'bigidea';
+    opt.textContent = t('mode.bigidea');
+    opt.setAttribute('data-i18n', 'mode.bigidea');
+    modeEl.appendChild(opt);
+  } else if (!wantShow && has) {
+    modeEl.querySelector('option[value="bigidea"]').remove();
+    if (modeEl.value === 'bigidea') {
+      modeEl.value = 'advise';
+      fillSubType();
+    }
+  }
+}
 
 // Singleton tooltip element mounted on body -- escapes pill/pills overflow
 // clipping. Reused across all pills; content swapped on hover. Hover-intent
@@ -2393,14 +2436,23 @@ function startNewTrinity(question) {
   setPanel('primary', 'start', '');
   liveMeeting.phases.final.status = 'start';
   setPanel('final', 'start', '');
-  const path = mode === 'medical' ? '/api/ws/medical' : '/api/ws/advise';
+  const path = mode === 'bigidea'
+    ? '/api/ws/bigidea'
+    : mode === 'medical'
+      ? '/api/ws/medical'
+      : '/api/ws/advise';
   const url = WS_BASE + path;
   const uid = getUserSessionId();
   const debug = document.body.classList.contains('debug-enabled');
   const authTok = getAuthToken();
-  const body = mode === 'medical'
-    ? { symptoms: question, specialty: subtype || null, lang, user_session_id: uid, debug, auth_token: authTok }
-    : { description: question, eval_type: subtype || 'general', lang, user_session_id: uid, debug, auth_token: authTok };
+  // BigIdea reuses the question textarea as a comma-separated tickers
+  // field (placeholder is swapped in fillSubType). Empty value means
+  // "full watchlist scan" -- backend defaults to var/output/watchlist.txt.
+  const body = mode === 'bigidea'
+    ? { tickers: question, path: 'a,b', lang, user_session_id: uid, debug, auth_token: authTok }
+    : mode === 'medical'
+      ? { symptoms: question, specialty: subtype || null, lang, user_session_id: uid, debug, auth_token: authTok }
+      : { description: question, eval_type: subtype || 'general', lang, user_session_id: uid, debug, auth_token: authTok };
   submitBtn.disabled = true; stopBtn.style.display = 'inline-block';
   dbg('WS ' + url);
   ws = new WebSocket(url);
@@ -3117,6 +3169,11 @@ function renderAuthBox() {
       restartBtn.addEventListener('click', adminRestart);
       box.appendChild(restartBtn);
     }
+    // Admin-only: inject the "股市机会" option into the #mode dropdown
+    // when the logged-in user is admin; remove on logout. Same gating
+    // as the restart button above, but applied to the input selector
+    // rather than the header. Defined in fillSubType section.
+    try { _toggleBigIdeaModeOption(); } catch (_) {}
     box.appendChild(logout);
     if (p2pBtn) p2pBtn.hidden = false;
     // Re-apply cached restart color now that the .auth-user span has
@@ -3130,6 +3187,9 @@ function renderAuthBox() {
     btn.addEventListener('click', openLoginModal);
     box.appendChild(btn);
     if (p2pBtn) p2pBtn.hidden = true;
+    // Logout path -- ensure the admin-only BigIdea option is stripped
+    // so a previously-admin browser session doesn't leak it post-logout.
+    try { _toggleBigIdeaModeOption(); } catch (_) {}
   }
 }
 function _openLoginModal(gate) {
