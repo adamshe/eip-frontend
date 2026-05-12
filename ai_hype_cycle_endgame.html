@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>AI Hype Cycle 主要矛盾 + LLM 收入算法 + 合理 CAPEX + END GAME (2026-05-11)</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #1a2129;
+    --border: #2a3540;
+    --text: #d8dee9;
+    --muted: #8b95a1;
+    --accent: #ffb454;
+    --red: #e06c75;
+    --green: #98c379;
+    --blue: #61afef;
+    --yellow: #e5c07b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
+    line-height: 1.65;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px 32px;
+    font-size: 15px;
+  }
+  header {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+  h1 {
+    color: var(--accent);
+    font-size: 26px;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  h2 {
+    color: var(--accent);
+    font-size: 20px;
+    margin: 36px 0 12px 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    color: var(--blue);
+    font-size: 16px;
+    margin: 22px 0 8px 0;
+  }
+  h4 {
+    color: var(--yellow);
+    font-size: 14px;
+    margin: 16px 0 6px 0;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin: 14px 0;
+  }
+  .tldr {
+    background: linear-gradient(135deg, #1a2129, #1f2a35);
+    border-left: 4px solid var(--accent);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #232c38;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .red { color: var(--red); }
+  .green { color: var(--green); }
+  .yellow { color: var(--yellow); }
+  .blue { color: var(--blue); }
+  .muted { color: var(--muted); font-size: 13px; }
+  code {
+    background: #232c38;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: 13px;
+    color: var(--yellow);
+  }
+  .formula {
+    background: #0a0e13;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: 13.5px;
+    color: var(--green);
+    margin: 12px 0;
+    overflow-x: auto;
+    white-space: pre;
+    line-height: 1.7;
+  }
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; }
+  .prob {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+  .prob-low { background: #2a3540; color: var(--muted); }
+  .prob-mid { background: #3a3520; color: var(--yellow); }
+  .prob-high { background: #3a2520; color: var(--red); }
+  .scenario {
+    border-left: 3px solid var(--border);
+    padding-left: 16px;
+    margin: 14px 0;
+  }
+  .scenario.s-soft { border-left-color: var(--green); }
+  .scenario.s-crash { border-left-color: var(--red); }
+  .scenario.s-bifurc { border-left-color: var(--blue); }
+  .verdict {
+    background: #1f2a1f;
+    border: 1px solid #2a4530;
+    border-left: 4px solid var(--green);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 18px 0;
+  }
+  .verdict h3 { color: var(--green); margin-top: 0; }
+  footer {
+    margin-top: 50px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>AI Hype Cycle 主要矛盾 + 合理 LLM 收入算法 + 合理 CAPEX + END GAME</h1>
+  <div class="meta">EIP / SIE-SFA mode | Generated 2026-05-11 | Revised 2026-05-12 (anchor + direction reversal) | 内部研判, 非投顾建议</div>
+</header>
+
+<section class="panel tldr">
+  <h3 style="margin-top:0">TL;DR (一句话)</h3>
+  <p>
+    全行业 LLM 年收入 2026 ~ <b class="yellow">$30-50B</b>, hyperscaler AI CAPEX 2025 ~ <b class="red">$400B+</b>;
+    收入按 5 年折旧能 amortize 的 sustainable CAPEX 上限 <b class="yellow">$75-150B/yr</b> (即便假设 2030 收入跑到 $150-300B).
+    缺口 <b class="red">2.5x - 5x</b> 是 hype cycle 的核心矛盾 -- 不是 AI 没用, 是 CAPEX 曲线 (exponential 假设) 与 revenue 曲线 (sigmoid 现实) 不可调和.
+  </p>
+  <p>
+    END GAME 三分支加权: <b class="green">软着陆 25%</b> / <b class="red">CAPEX 崩 50%</b> / <b class="blue">AGI 分叉 25%</b>.
+    Trigger 信号: 2026 H2 首家 hyperscaler 砍 CAPEX guidance (META 或 AMZN 先).
+  </p>
+</section>
+
+<h2>1. AI Hype Cycle 的主要矛盾 (5 条 contradiction)</h2>
+
+<h3>1.1 Revenue vs CAPEX 的数量级错配</h3>
+<table>
+  <thead><tr><th>项</th><th class="num">2025-2026</th><th>状态</th></tr></thead>
+  <tbody>
+    <tr><td>Hyperscaler AI CAPEX (4 家合计)</td><td class="num red">$300-400B</td><td>YoY +50%, guidance 还在升</td></tr>
+    <tr><td>OpenAI + Anthropic + Google Gemini API 收入</td><td class="num yellow">~$25-35B ARR</td><td>YoY +60-80%, 在减速</td></tr>
+    <tr><td>差额倍数</td><td class="num red">10x - 16x</td><td>历史可比: 1999 Telecom 3x</td></tr>
+  </tbody>
+</table>
+<p class="muted">机制: hyperscaler 押注未来 2-3 年 LLM 推理需求 10x. 即便成真, sustainable CAPEX 仍只够覆盖 $75-150B/yr (见 Section 3).</p>
+
+<h3>1.2 Token deflation -- pricing power 蒸发</h3>
+<ul>
+  <li>GPT-4 2023-03 到 Claude Sonnet 4.6 2026-05: per-token API 价跌 <b class="red">85-92%</b></li>
+  <li>开源威胁: DeepSeek R1 / Qwen / Llama 4 把 frontier 性能挤进 $0.2-0.5/M token 区间</li>
+  <li>结果: 即便 token volume 10x, 收入也只能涨 1-2x</li>
+  <li>核心: LLM 不是 utility, 是 commodity. <b>Commodity 没有 pricing power.</b></li>
+</ul>
+
+<h3>1.3 GPU 折旧错配 -- 长寿命资产 vs 短寿命技术</h3>
+<ul>
+  <li>会计折旧: 5-6 年 (MSFT 2024 把 4 年改成 6 年, 主要为美化 GAAP 利润)</li>
+  <li>技术折旧: H100 vs B200 vs B300 vs Rubin -- 18-24 月一代, 每代 perf/$ 提升 2-3x</li>
+  <li>3 年后 H100 的 economic value vs 当代 GPU = 残值 ~20-30%</li>
+  <li>风险: 一旦 demand 拐弯, 历史 GPU fleet 减值 <b class="red">$100-200B 量级</b>, 直接打 Equity</li>
+</ul>
+
+<h3>1.4 循环融资 (circular financing)</h3>
+<p>客户与供应商是同一批方:</p>
+<table>
+  <thead><tr><th>方向</th><th>金额</th><th>性质</th></tr></thead>
+  <tbody>
+    <tr><td>MSFT -&gt; OpenAI -&gt; Azure -&gt; MSFT</td><td>$13B+ 投资 + $100B Stargate commitment</td><td>收入循环</td></tr>
+    <tr><td>NVDA -&gt; CoreWeave / Oracle / xAI / Anthropic</td><td>累计 $5-10B 直投</td><td>NVDA 借给客户买 NVDA</td></tr>
+    <tr><td>AMZN -&gt; Anthropic</td><td>$8B investment + AWS commitment</td><td>同上模式</td></tr>
+    <tr><td>GOOG -&gt; Anthropic</td><td>$3B+ investment + GCP commitment</td><td>同上模式</td></tr>
+  </tbody>
+</table>
+<p class="muted">类比: 1999 Lucent vendor financing, 2000-2001 全面爆雷. 不是说一定爆, 是说 demand signal 被人为 inflate.</p>
+
+<h3>1.5 Use case vs valuation 的 TAM 倒挂</h3>
+<ul>
+  <li>实在的 AI 收入: coding assistants (~$5-8B ARR 全行业), customer service AI (~$3-5B), enterprise copilot (~$10-15B 但大头给 MSFT/CRM, 非 LLM 供应商)</li>
+  <li>NVDA 市值 (~$3.5T) 隐含 implied LLM TAM <b class="red">$500B-1T by 2030</b></li>
+  <li>Bottom-up 实际 SOM 2030: <b class="yellow">$100-250B</b></li>
+  <li>缺口: <b>3-5x overvaluation in implied TAM</b></li>
+</ul>
+
+<h2>2. 合理 LLM 收入算法 (bottom-up, 不抄 sell-side TAM PPT)</h2>
+
+<h3>2.1 收入分解公式</h3>
+<div class="formula">LLM_Revenue = API_Revenue + Subscription_Revenue + Enterprise_Embed_Revenue
+
+API_Revenue       = Sum( active_developers * API_calls_per_dev * tokens_per_call * $/M_token )
+Subscription_Rev  = paid_consumer_seats * monthly_ARPU * 12
+Enterprise_Embed  = enterprise_seats * seat_price * penetration
+                    -- 但其中只有 30-50% 流回 LLM provider (其余给中间层 Copilot/CRM)</div>
+
+<h3>2.2 2026 实际跑出来 (bottom-up)</h3>
+<table>
+  <thead><tr><th>厂商</th><th class="num">2026 ARR (E)</th><th>组成</th></tr></thead>
+  <tbody>
+    <tr><td>OpenAI</td><td class="num">$12-15B</td><td>ChatGPT Plus/Team/Enterprise ~$8B + API ~$4-7B</td></tr>
+    <tr><td>Anthropic</td><td class="num">$5-8B</td><td>Claude.ai sub ~$1.5B + API/Enterprise ~$4-6B</td></tr>
+    <tr><td>Google Gemini (DeepMind)</td><td class="num">$3-5B</td><td>Workspace AI uplift + Vertex API</td></tr>
+    <tr><td>xAI</td><td class="num">$0.5-1B</td><td>X premium AI + API</td></tr>
+    <tr><td>Mistral + Cohere + Together + Fireworks + 其他</td><td class="num">$1.5-3B</td><td>主要 API + 部分 enterprise</td></tr>
+    <tr><td>开源 (Llama/DeepSeek/Qwen 本身, 不算 inference hosting)</td><td class="num">$0</td><td>免费, 但吸 demand</td></tr>
+    <tr><td><b>合计</b></td><td class="num yellow"><b>$22-32B</b></td><td>vs hyperscaler CAPEX $400B</td></tr>
+  </tbody>
+</table>
+
+<h3>2.3 增长曲线: sigmoid 而非 exponential</h3>
+<p>对比 2024 -&gt; 2025 -&gt; 2026:</p>
+<ul>
+  <li>2024 全行业 LLM ARR: ~$8-12B</li>
+  <li>2025: ~$15-22B (YoY +80-100%)</li>
+  <li>2026E: ~$22-32B (YoY +50-60%)</li>
+  <li>2027E: ~$32-50B (YoY +40-50%)</li>
+  <li>2030E: <b class="yellow">$80-150B SOM</b> (sigmoid 顶部, 已含 enterprise penetration 拐点)</li>
+</ul>
+<p class="muted">YoY 减速可见. 不是不再涨, 是从 hyperscale (200%+) 退到 plateau growth (40-60%). Sigmoid 拐点见于 2026-2027.</p>
+
+<h3>2.4 反例 stress test (bull case)</h3>
+<p>要让 LLM 收入 2030 达到 $500B (即 NVDA market cap 隐含的 implied TAM):</p>
+<ul>
+  <li>需要 enterprise penetration 30%+ (今天 ~5%)</li>
+  <li>需要 ARPU 不再下跌 (与 token deflation 矛盾)</li>
+  <li>需要 LLM 替代而非附加于现有 SaaS workload</li>
+  <li>需要 AGI-level 能力突破 (推迟 timing 不可预测)</li>
+</ul>
+<p>四条同时成立概率 <b class="red">&lt;15%</b>.</p>
+
+<h2>3. 合理 CAPEX 算法</h2>
+
+<h3>3.1 Sustainable CAPEX 公式</h3>
+<div class="formula">Sustainable_Annual_CAPEX = Compute_Margin * Revenue * Asset_Life
+
+其中:
+  Compute_Margin   = 计算基础设施在 LLM 价值链中能拿走的 margin ~30-50%
+  Revenue          = 行业级 LLM revenue (steady-state)
+  Asset_Life       = GPU 经济寿命 (年), 取 3-5 (technically) 或 5-6 (accounting)</div>
+
+<h3>3.2 三档情景代入</h3>
+<table>
+  <thead><tr><th>情景</th><th class="num">2030 Revenue</th><th class="num">Compute Margin x Asset Life</th><th class="num">Sustainable CAPEX/yr</th><th class="num">vs 当前 $400B</th></tr></thead>
+  <tbody>
+    <tr><td>Bear</td><td class="num">$80B</td><td class="num">30% x 5</td><td class="num yellow">$24B</td><td class="num red">-94%</td></tr>
+    <tr><td>Base</td><td class="num">$150B</td><td class="num">40% x 5</td><td class="num yellow">$60B</td><td class="num red">-85%</td></tr>
+    <tr><td>Bull</td><td class="num">$300B</td><td class="num">50% x 5</td><td class="num green">$150B</td><td class="num red">-62%</td></tr>
+    <tr><td>Super Bull (AGI)</td><td class="num">$600B</td><td class="num">50% x 5</td><td class="num green">$300B</td><td class="num yellow">-25%</td></tr>
+  </tbody>
+</table>
+<p>结论: 当前 CAPEX 跑率即便在 Super Bull 也仍超 sustainable 25%. Base case 超 6.7x.</p>
+
+<h3>3.3 历史可比 (overshoot 倍数)</h3>
+<table>
+  <thead><tr><th>周期</th><th class="num">CAPEX peak / Revenue</th><th class="num">回调幅度</th><th class="num">回调周期</th></tr></thead>
+  <tbody>
+    <tr><td>1880s 美国铁路</td><td class="num">~4x</td><td class="num red">-70%</td><td class="num">8-12 年</td></tr>
+    <tr><td>1920s 电气化</td><td class="num">~2.5x</td><td class="num red">-50%</td><td class="num">5-7 年</td></tr>
+    <tr><td>1999 Telecom / Fiber</td><td class="num">~3x</td><td class="num red">-90%</td><td class="num">3-5 年</td></tr>
+    <tr><td>2026 AI Compute</td><td class="num red">~8-10x</td><td class="num red">?</td><td class="num">?</td></tr>
+  </tbody>
+</table>
+<p class="muted">AI overshoot 倍数 (8-10x) 比历史任何一次都大. 不是说一定崩同等幅度, 是说 magnitude 的 mean reversion 拉力极强.</p>
+
+<h2>4. END GAME -- 三分支加权 + 触发器</h2>
+
+<div class="scenario s-soft">
+  <h3>Scenario A: 软着陆 <span class="prob prob-low">25%</span></h3>
+  <p><b>路径</b>: Token 价格止跌, enterprise 渗透 2026-2028 缓慢爬坡, AGI-adjacent 产品 (real agents, real coding) 接住增长. CAPEX 增速从 50%+ 降到 15-20%, 不下杀.</p>
+  <p><b>赢家</b>: 垂直 AI (legal/medical/code), 拥有 distribution 的 incumbent (MSFT/GOOG/CRM), 部分 Tier 2 hyperscaler.</p>
+  <p><b>NVDA</b>: EPS 续涨, multiple 从 ~60x 压到 25-30x. 股价 plateau 而非崩.</p>
+  <p><b>识别信号</b>: 2026 Q3-Q4 hyperscaler guidance 不下修 + token 价稳住 + Anthropic/OpenAI Q4 ARR 顺利上 $20B/$25B.</p>
+</div>
+
+<div class="scenario s-crash">
+  <h3>Scenario B: CAPEX 崩 + 周期出清 <span class="prob prob-high">50%</span></h3>
+  <p><b>路径</b>: 一家 hyperscaler (大概率 META 或 AMZN, GOOG 次之, MSFT 最后) 在 2026 H2 - 2027 H1 砍 CAPEX guidance. 资本市场 reprice. NVDA 订单 cut -&gt; AVGO custom silicon 推迟 -&gt; AI startup 融资窗口关 -&gt; AI infra ETF -50% to -70%.</p>
+  <p><b>触发器 (任一即可)</b>:</p>
+  <ul>
+    <li>下一次 DeepSeek-class 效率冲击 (开源模型把 inference cost 再降 10x)</li>
+    <li>OpenAI / Anthropic 年度 ARR 增长率首次跌破 30%</li>
+    <li>任一家 hyperscaler 季度 CAPEX 指引下修</li>
+    <li>NVDA 出现首次 inventory 累积或客户 backlog 减少</li>
+    <li>10Y Treasury 站稳 5%+ 持续 6 月</li>
+  </ul>
+  <p><b>赢家</b>: 现金 + 短端 + 真正盈利的 vertical AI + 开源工具链 (Hugging Face / Together / Fireworks 部分) + 电力基础设施 (即便 AI 慢下来, 电力需求仍真实, 但估值要回归).</p>
+  <p><b>输家</b>: NVDA / AVGO / VRT / SMCI / 大半 AI startup / 二线 cloud 转型故事股 / 任何 implied TAM &gt; $300B 估值的标的.</p>
+</div>
+
+<div class="scenario s-bifurc">
+  <h3>Scenario C: AGI 分叉 (能力跃迁 + winner take most) <span class="prob prob-low">25%</span></h3>
+  <p><b>路径</b>: 2027-2028 出现真正能力跃迁 (GPT-6 / Claude 5+ tier), 自动化 white-collar 显著扩张. TAM 真打开到 $500B+. 但赢家高度集中 (2-3 个 frontier lab + 1-2 个 hyperscaler).</p>
+  <p><b>NVDA</b>: 续涨但风险变成监管 + 地缘 + alignment.</p>
+  <p><b>风险变体</b>: AGI 真到, 但被 nationalized / regulated / sanction (中美分叉). Tail risk 不在估值, 在 ownership 能否兑现.</p>
+  <p><b>识别信号</b>: frontier lab 公开模型在 ARC-AGI / FrontierMath / SWE-bench 跨非线性跳跃; OR 一家 lab 首次在年度自动续约率 demonstrate "AI 替代 headcount" 而非附加.</p>
+</div>
+
+<h2>5. 时间线预测 (base case = B 50% 概率分支)</h2>
+
+<table>
+  <thead><tr><th>时点</th><th>事件</th><th>市场反应</th></tr></thead>
+  <tbody>
+    <tr><td>2026 H2</td><td>首家 hyperscaler CAPEX guidance 下修</td><td>NVDA -15-25%, 整体 AI 股 -10-20%</td></tr>
+    <tr><td>2026 Q4 - 2027 Q1</td><td>OpenAI / Anthropic 私募估值持平或下修, IPO 窗口关</td><td>AI startup 融资链断, 二级市场 reprice</td></tr>
+    <tr><td>2027 H1</td><td>NVDA 单季 revenue YoY 首次跌破 30%</td><td>NVDA -40-50% from peak, AVGO/VRT 跟跌</td></tr>
+    <tr><td>2027 H2 - 2028</td><td>GPU fleet 减值 + 大规模订单取消 + 部分 hyperscaler 暂停 datacenter build</td><td>AI infra 行业出清, 电力 / 房地产 / 半导体设备链跟跌</td></tr>
+    <tr><td>2028 - 2029</td><td>底部, valuation 回到 sustainable CAPEX 公式 implied 水平</td><td>NVDA $1-1.5T (vs peak ~$4-5T), MSFT/GOOG/AMZN 各回吐 30-40%</td></tr>
+    <tr><td>2029 - 2030</td><td>Wave 2 真实生产力 deployment (post-bust), 垂直 AI + 开源 ecosystem 接棒</td><td>新一轮 bull, 但赢家与 Wave 1 不同</td></tr>
+  </tbody>
+</table>
+
+<h2>6. Adam 投资姿态 (action mapping)</h2>
+
+<div class="verdict">
+  <h3>Long (高 conviction)</h3>
+  <ul>
+    <li><b>垂直 AI (legal/medical/coding)</b>: 真 ARR, 真 retention, 真 distribution. 不依赖 LLM 算力分蛋糕, 而是分 SaaS 客户钱包.</li>
+    <li><b>开源 AI 工具链</b>: Hugging Face / Fireworks / Together / Modal 类 -- inference cost downside 时 they win.</li>
+    <li><b>电力基础设施 (有 selectivity)</b>: GE Vernova / Vistra / Constellation -- 真实需求, 但估值已涨, 等回调.</li>
+    <li><b>现金 + 短端</b>: 干粉等 Scenario B 触发</li>
+  </ul>
+</div>
+
+<div class="verdict" style="border-left-color: var(--red); background:#2a1f1f; border-color:#452a2a;">
+  <h3 class="red" style="color:var(--red)">Short / Avoid (B 触发后才下大注)</h3>
+  <ul>
+    <li><b>NVDA 尾部风险</b>: 不裸空, 用远月 OTM put (cheap convexity). Trigger = guidance 下修信号.</li>
+    <li><b>AVGO / VRT / SMCI / CRWV</b>: AI infra 二阶 (custom silicon / power management / liquid cooling / neo-cloud), beta 比 NVDA 大.</li>
+    <li><b>循环融资链条上的客户</b>: Oracle (OCI 集中暴露 OpenAI), CoreWeave (单一客户依赖).</li>
+    <li><b>任何 "AI-powered" 估值 &gt; 20x sales 但没有 organic 真增长的 SaaS</b>.</li>
+  </ul>
+</div>
+
+<div class="verdict" style="border-left-color: var(--yellow); background:#2a2820; border-color:#454020;">
+  <h3 class="yellow" style="color:var(--yellow)">Watch / Wait (不动手, 监测)</h3>
+  <ul>
+    <li><b>Frontier labs (OpenAI/Anthropic)</b>: 私募只能等 secondary, IPO 窗口 likely closed 1-2 年</li>
+    <li><b>Microsoft</b>: 真 enterprise distribution + 不全押 AI, 跌时是 lower-risk 进场对象, 不是 short.</li>
+    <li><b>中国 AI 链 (DeepSeek 生态 / 阿里腾讯)</b>: 政治风险溢价大, 但效率竞争是开源 thesis 的 leverage 点</li>
+  </ul>
+</div>
+
+<h2>7. 核心 take (画在脑门上)</h2>
+
+<div class="panel tldr">
+  <ol>
+    <li><b>AI 真有用 != AI infra valuation 合理</b>. 这是两个 separate question.</li>
+    <li><b>LLM 是 commodity, 不是 utility</b>. Commodity 没有 pricing power, sigmoid 曲线 not exponential.</li>
+    <li><b>Sustainable CAPEX 公式</b>: <code>Revenue * Compute_Margin * Asset_Life</code>. 当前数字超 5-10x. 不可持续就是不可持续.</li>
+    <li><b>End game 不是 AI 失败</b>, 是 <b>AI infra 周期性出清 + 价值转移到 Wave 2 (真实 deployment)</b>.</li>
+    <li><b>Timing: 2026 H2 看首家 hyperscaler 砍 guidance</b>. 之前持有 cash + 真增长 vertical, 之后开始建空头底仓.</li>
+    <li><b>勇者路径</b> (per SOUL): 当 Scenario B 触发, 共识恐慌时, 加仓 Wave 2 winner. 这才是 alpha 窗口.</li>
+  </ol>
+</div>
+
+<h2>8. Memory 链 END GAME -- MU + SNDK (price anchor 2026-05-12)</h2>
+
+<div class="panel" style="background:#2a1f1f; border-color:#452a2a; border-left:4px solid var(--red);">
+  <h3 class="red" style="color:var(--red); margin-top:0">价格 anchor 修正 (verified 2026-05-12 04:22 UTC via OpenBB / CBOE)</h3>
+  <p>前版用 2024-2025 stale anchor (MU $100-130, SNDK $30-40). Live spot 实测:</p>
+  <table>
+    <thead><tr><th>Ticker</th><th class="num">Live Spot</th><th class="num">Market Cap (est)</th><th>vs stale anchor</th></tr></thead>
+    <tbody>
+      <tr><td><b>MU</b></td><td class="num red">$798.49</td><td class="num red">~$895B (1.12B shares)</td><td class="red">~7x stale</td></tr>
+      <tr><td><b>SNDK</b></td><td class="num red">$1,537.97</td><td class="num red">~$215B (140M shares)</td><td class="red">~38x stale</td></tr>
+      <tr><td><b>NVDA</b></td><td class="num red">$219.71</td><td class="num red">~$5.36T (24.4B shares post 10:1 split)</td><td class="red">已超 Apple, 史上最大 mkt cap</td></tr>
+    </tbody>
+  </table>
+  <p>这把 memory 链 + AI infra 推到 1999 Q4 Sun/Cisco melt-up 量级. <b>Thesis direction 反转: 不再是 "long entry", 而是 "short / OTM put 末段 melt-up"</b>. RESET 概率从 65-75% 上调到 <b class="red">85-90%</b>, 时间窗口压缩到 <b class="red">3-9 个月</b>.</p>
+</div>
+
+<h3>8.1 MU at $800 -- 1999 Q4 量级的 melt-up 顶</h3>
+
+<table>
+  <thead><tr><th>维度</th><th>状态</th><th>评估</th></tr></thead>
+  <tbody>
+    <tr><td>当前价格</td><td class="red">$798.49 (~$895B market cap, 1.12B shares)</td><td>已超 MSFT 2022 体量, mega-cap territory</td></tr>
+    <tr><td>隐含估值</td><td>P/E 32-50x on peak EPS $16-25 (fully ramped HBM); EV/Sales ~10-13x</td><td class="red">vs 历史 MU P/E peak 多年才上 15x</td></tr>
+    <tr><td>业务结构</td><td>DRAM ~70% (HBM 占 DRAM 利润 60%+) / NAND ~25%</td><td>cyclical commodity 本质未变</td></tr>
+    <tr><td>HBM 市场地位</td><td>后起追赶者, SK Hynix ~50%, Samsung ~30%, MU ~20%</td><td class="red">无定价权但被当 leader 定价</td></tr>
+    <tr><td>CAPEX 暴露</td><td>Idaho + NY fab $100B+ 建设, CHIPS Act $6.1B 补贴</td><td class="red">自身就是 overinvest 受害者</td></tr>
+    <tr><td>客户集中度</td><td>HBM 客户 = NVDA + AMD + 3-4 hyperscaler ASIC, top 5 客户 ~75% 收入</td><td class="red">单点风险极高</td></tr>
+    <tr><td>历史周期</td><td>DRAM 1996/2001/2008/2019/2023 历次 peak-to-trough 跌 -60 到 -85%</td><td class="red">本轮 8-10x melt-up, 回吐空间最大</td></tr>
+  </tbody>
+</table>
+
+<h4>MU END GAME 时间线 (重定价 anchor $800)</h4>
+<table>
+  <thead><tr><th>时点</th><th>状态</th><th>股价区间</th><th>vs $800</th></tr></thead>
+  <tbody>
+    <tr><td>2026 Q2 (NOW)</td><td>Melt-up 顶, HBM3E sold out, HBM4 ramp 故事</td><td class="red">$700-900 (spot $798.49)</td><td class="num">0</td></tr>
+    <tr><td>2026 H2 - 2027 Q1</td><td>HBM4 量产首信号: SK Hynix 反超 + Samsung 追上, MU pricing power 失</td><td class="yellow">$400-550</td><td class="num red">-30 to -50%</td></tr>
+    <tr><td>2027 H1-H2</td><td>DRAM 标准品 cycle 翻转, NVDA 订单首次 cut, Idaho fab Phase 1 投产撞上 demand 拐弯</td><td class="red">$200-350</td><td class="num red">-55 to -75%</td></tr>
+    <tr><td>2028</td><td>Trough: EPS 0 to -$3 (亏损), Idaho/NY fab 利用率 &lt;60%, CHIPS Act 政治反噬</td><td class="red">$100-180</td><td class="num red">-78 to -88%</td></tr>
+    <tr><td>2029-2030</td><td>Recovery + 新周期 (Wave 2), 减值已计提, EPS slowly 恢复</td><td class="yellow">$200-400</td><td class="num red">-50 to -75% from peak</td></tr>
+  </tbody>
+</table>
+
+<p><b>核心判断 (修正)</b>: MU $798.49 是 cyclical commodity 被定价成 secular grower 的 valuation absurdity. 任何 long entry 都是 -50 to -88% 期望. <b class="red">不是 long 标的, 是 short / OTM put 标的</b>.</p>
+
+<h3>8.2 SNDK at $1500 -- 比 MU 更极端的 pure-play melt-up</h3>
+
+<table>
+  <thead><tr><th>维度</th><th>状态</th><th>评估</th></tr></thead>
+  <tbody>
+    <tr><td>当前价格</td><td class="red">$1,537.97 (~$215B market cap, ~140M shares)</td><td>从 2025-02 spin-off ~$40-50 起 = 30-38x in 15 个月</td></tr>
+    <tr><td>melt-up 量级</td><td>类比 1999 Sun Microsystems / Cisco / JDSU 终段</td><td class="red">历史可比 (Sun/JDSU) 后续跌 -95%+</td></tr>
+    <tr><td>业务结构</td><td>Pure NAND: Consumer SD/USB + Client SSD + Enterprise SSD</td><td>无 HBM 镀金, 纯 commodity flash</td></tr>
+    <tr><td>催化剂猜测</td><td>Kioxia 合并 premium priced in + AI training data 存储 narrative + 散户 melt-up + NAND 短期紧</td><td class="yellow">narrative 全部 priced 透</td></tr>
+    <tr><td>竞争格局</td><td>Samsung / SK Hynix / Kioxia / Micron / YMTC -- 6 家 oversupply 常态</td><td class="red">无 moat, 仍 commodity</td></tr>
+    <tr><td>估值合理性</td><td>同业 (Kioxia, Samsung NAND segment, MU NAND) EV/Sales 1-3x, SNDK 隐含 15-25x</td><td class="red">15-20x premium 没有 mechanism support</td></tr>
+  </tbody>
+</table>
+
+<h4>SNDK END GAME -- 三分支重算 (anchor $1,537.97)</h4>
+<table>
+  <thead><tr><th>Scenario</th><th>路径</th><th>股价目标</th><th>vs $1,537.97</th></tr></thead>
+  <tbody>
+    <tr><td><b class="green">A 软着陆 25%</b></td><td>Enterprise SSD 真实增长, 但 multiple 必然压缩 (从 PE 50-80x 压到 15-25x)</td><td class="num yellow">$500-800</td><td class="num red">-48 to -67%</td></tr>
+    <tr><td><b class="red">B CAPEX 崩 50%</b></td><td>NAND 跟 DRAM 一起出清, YMTC 价格战, 单季亏损, 估值倒挂</td><td class="num red">$120-300</td><td class="num red">-81 to -92%</td></tr>
+    <tr><td><b class="blue">C AGI 分叉 25%</b></td><td>Enterprise SSD demand 真实但 SNDK 被 Samsung/SK 挤压, multiple 仍 derate</td><td class="num red">$350-600</td><td class="num red">-61 to -77%</td></tr>
+    <tr><td><b class="yellow">M&amp;A wildcard</b></td><td>Kioxia 合并若真落地, premium take-out (但当前价已 priced 入 premium)</td><td class="num yellow">$1,200-1,600</td><td class="num">-22 to +4% (no upside)</td></tr>
+  </tbody>
+</table>
+
+<p><b>核心判断 (修正)</b>: SNDK $1,537.97 是比 MU 更极端的 melt-up. M&amp;A optionality 已 priced 透, downside 没有 cushion. <b class="red">所有 4 个分支期望 return 都是负 -- 这是 short 标的, 不是 long 标的</b>. asymmetric option 不复存在 -- 当前价已把所有 upside 透支.</p>
+
+<h3>8.3 MU vs SNDK 配置建议 (direction 反转)</h3>
+
+<div class="verdict" style="border-left-color: var(--red); background:#2a1f1f; border-color:#452a2a;">
+  <h3 class="red" style="color:var(--red)">SHORT / OTM Put 末段 melt-up (当前动作, anchor verified 2026-05-12)</h3>
+  <table>
+    <thead><tr><th>标的</th><th class="num">Spot</th><th>OTM Put 建议</th><th class="num">Strike OTM %</th><th>Expiry</th><th>仓位</th></tr></thead>
+    <tbody>
+      <tr><td><b>MU</b></td><td class="num red">$798.49</td><td>strike $500-600</td><td class="num">-25 to -37%</td><td>12-18m</td><td>3-5% AUM</td></tr>
+      <tr><td><b>SNDK</b></td><td class="num red">$1,537.97</td><td>strike $900-1,100</td><td class="num">-28 to -42%</td><td>12-18m</td><td>3-5% AUM</td></tr>
+      <tr><td><b>NVDA</b></td><td class="num red">$219.71</td><td>strike $140-160</td><td class="num">-27 to -36%</td><td>12-18m</td><td>3-5% AUM</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><b>不裸空</b>: melt-up tail 可能继续 (gamma squeeze 风险). 三标的合计仓位 ~10-15% AUM 用 cheap convexity.</li>
+    <li><b>Premium 总 cost</b>: ~1-2% AUM/year. 即便全部归零, 损失 cap 在 premium.</li>
+    <li><b>Payoff 不对称</b>: 若 RESET 触发到 -65%+ trough, put 价值 5-15x premium. 期望 EV 正 (RESET 概率 85-90% 乘 payoff 5-15x 远大于 premium loss).</li>
+    <li><b>触发加注信号</b>: hyperscaler 任一砍 CAPEX guidance / SK Hynix HBM4 量产首次 beat MU / OpenAI 或 Anthropic ARR YoY 跌破 30% / DeepSeek-class 下一次效率冲击.</li>
+  </ul>
+</div>
+
+<div class="verdict" style="border-left-color: var(--yellow); background:#2a2820; border-color:#454020;">
+  <h3 class="yellow" style="color:var(--yellow)">真 LONG 入场 zone (post-RESET, 等清场)</h3>
+  <table>
+    <thead><tr><th>标的</th><th class="num">当前 Spot</th><th class="num">Post-RESET Long Zone</th><th class="num">vs Current</th></tr></thead>
+    <tbody>
+      <tr><td><b>MU</b></td><td class="num">$798.49</td><td class="num green">$150-250</td><td class="num red">-69 to -81%</td></tr>
+      <tr><td><b>SNDK</b></td><td class="num">$1,537.97</td><td class="num green">$200-400</td><td class="num red">-74 to -87%</td></tr>
+      <tr><td><b>NVDA</b></td><td class="num">$219.71</td><td class="num green">$70-110</td><td class="num red">-50 to -68%</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><b>入场触发</b>: peak-to-trough 完成 -65%+ 跌幅 + 任一 player 公开宣布 fab 减值/关停 + DRAM/NAND spot 价格连续 6 个月 stable + NVDA quarterly revenue YoY 跌破 30%.</li>
+    <li><b>持有期</b>: 入场后 3-5 年, 等 Wave 2 productivity adoption 真起来.</li>
+    <li><b>仓位建议</b>: 触发后分 3-4 批 build, 每批 5-8% AUM, 不一次性 all-in (catching falling knife 风险).</li>
+  </ul>
+</div>
+
+<div class="panel">
+  <h4>不做的事</h4>
+  <ul>
+    <li><b>不 chase $800/$1500 多头</b>: 数学不支持. 每个分支期望都是负.</li>
+    <li><b>不裸空</b>: melt-up tail 可能继续 (1999 Q4 看 Cisco/Sun 还能再涨 30-50% 再崩, gamma + 散户 + buyback 推).</li>
+    <li><b>不全仓 short</b>: 时间是空头敌人, theta decay + 杠杆爆仓风险. 只用 cheap convexity (OTM put).</li>
+    <li><b>不 pair trade Long SNDK / Short MU</b>: 前版建议作废. 两边都过热, pair 无 alpha, 只有 beta.</li>
+  </ul>
+</div>
+
+<h2>9. 强行增税论 + Crisis RESET 必要性 (灵魂判断)</h2>
+
+<div class="panel tldr">
+  <p><b>Adam 核心论断</b>: 当前 AI 普及路径不是 organic adoption (像电力 / 互联网那样 cost 下降), 而是 <b class="red">通过 6 重渠道向社会强行抽税补贴 hyperscaler CAPEX</b>. 这条路不可持续, 必须经历 crisis RESET 才能让 AI 真正普及.</p>
+</div>
+
+<h3>9.1 强行增税的 6 个传导渠道</h3>
+
+<table>
+  <thead><tr><th>#</th><th>渠道</th><th>具体形式</th><th>规模量级</th><th>受害方</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>云服务涨价</td><td>AWS/Azure GPU instance hourly 2024-2026 涨 30-50%</td><td class="num">$50-100B/yr</td><td>中小企业 + SaaS 客户</td></tr>
+    <tr><td>2</td><td>订阅涨价</td><td>ChatGPT Plus $20 -&gt; Pro $200 / Copilot $30/seat / Claude Max $200</td><td class="num">$20-40B/yr</td><td>个人 + 小企业</td></tr>
+    <tr><td>3</td><td>政府补贴 (CHIPS Act + DOE loan)</td><td>Intel $8B + MU $6.1B + TSMC AZ $6.6B + Samsung TX $6.4B + 其他</td><td class="num red">$50B+ 累计</td><td>纳税人</td></tr>
+    <tr><td>4</td><td>电网与电费</td><td>VA / TX / GA / IL 数据中心密集区 residential 电价上涨 15-30%</td><td class="num">$30-60B/yr 隐含</td><td>居民 + 工商业用户</td></tr>
+    <tr><td>5</td><td>股东资本占用</td><td>Hyperscaler buyback 减少 (MSFT/META 2024-2026 同比 -20-30%), frontier lab dilutive rounds</td><td class="num">$100-150B/yr 机会成本</td><td>股东 (未来回报 reprice)</td></tr>
+    <tr><td>6</td><td>SaaS 隐形 "AI surcharge"</td><td>Salesforce / Adobe / Microsoft 365 / Notion 类 "AI 版本" 强制涨价</td><td class="num">$15-25B/yr</td><td>所有 enterprise SaaS 客户</td></tr>
+    <tr><td colspan="2"><b>合计年度向社会抽税</b></td><td><b class="red">$215-375B/yr</b></td><td colspan="2" class="muted">规模 ~ 一次 mini-QE, 但去向是 hyperscaler CAPEX, 不是公共品</td></tr>
+  </tbody>
+</table>
+
+<h3>9.2 这不是普及, 是 forced subsidy</h3>
+
+<p>历史对照:</p>
+<ul>
+  <li><b>电力普及 1900-1940</b>: 单位 kWh cost 持续下降 (从 $0.50 等值降到 $0.05 等值), 居民/工商用电渗透率 5% -&gt; 95%. <b class="green">成本下降驱动普及</b>.</li>
+  <li><b>互联网普及 1995-2010</b>: dial-up $20/mo -&gt; broadband $50/mo 同时速度 10-100x, 单位带宽 cost 跌 99%. <b class="green">成本下降驱动普及</b>.</li>
+  <li><b>移动 internet 2007-2020</b>: 3G -&gt; 4G -&gt; 5G, 单位数据 cost 跌 95%, smartphone 渗透 5% -&gt; 80%. <b class="green">成本下降驱动普及</b>.</li>
+  <li><b>AI 2023-2026</b>: API per-token cost <b class="green">确实跌 85-92%</b>, BUT 上层 toll fee (订阅 / 云 / 电价 / 补贴) <b class="red">同期涨 30-50%</b>. 表面普及, 实际是 hyperscaler 截留 + 社会买单. <b class="red">成本上升 disguised as 普及</b>.</li>
+</ul>
+
+<p class="muted">关键差异: token cost 下降不等于 user-facing AI cost 下降. Hyperscaler 把 token 价跌幅 (open-source 竞争压力) 用 wrapper subscription / cloud markup / enterprise lockin 反向抽走. 净效应 = 用户付更多, hyperscaler 抽更多, 真用户 surplus 没 increase.</p>
+
+<h3>9.3 历史可比 -- 强补贴 + 强增税路径必崩</h3>
+
+<table>
+  <thead><tr><th>历史案例</th><th>强行增税模式</th><th>崩盘形式</th><th>RESET 后真普及时点</th></tr></thead>
+  <tbody>
+    <tr><td>1880s 美国铁路</td><td>联邦土地赠予 + 州补贴 + 高运费向农民/工业抽税</td><td>1893 panic, 1/3 铁路破产, 资产减值 -70%</td><td>1900-1920 整合后, 运费跌 60%, 真普及</td></tr>
+    <tr><td>1920s 电气化</td><td>消费金融 + utility holding company 杠杆 + 高电价</td><td>1929-1933 holding company 全崩, Insull 破产</td><td>1935-1940 federal regulation 后, 电价跌 50%, 普及完成</td></tr>
+    <tr><td>1999 Telecom / Fiber</td><td>Vendor financing + 电信账单上涨 + dark fiber overbuild</td><td>2000-2002 Telecom crash -90%, WorldCom/Global Crossing 破产</td><td>2003-2008 fiber 闲置容量被低价收购, broadband 真普及</td></tr>
+    <tr><td><b>2026 AI Compute</b></td><td><b>CHIPS Act + 订阅涨价 + 云 markup + 电费传导 + buyback 削减</b></td><td><b class="red">??? (这是我们要研判的)</b></td><td><b class="yellow">2029-2030+ Wave 2 真普及</b></td></tr>
+  </tbody>
+</table>
+
+<h3>9.4 Crisis RESET 的必要性 (机制层)</h3>
+
+<p>Reset 不是 wish, 是 mechanism. 当前路径有 4 个 self-defeating loop, 任一触发就启动 RESET:</p>
+
+<ol>
+  <li><b>Token 通缩 vs 订阅通胀的反向裂口</b>: 用户终将发现 self-host DeepSeek/Llama 4 + 一台 H100 fleet 比 ChatGPT Pro $200/mo 更便宜. 企业 IT 部门 2026-2027 开始 in-source. 订阅 ARR 增长曲线断点.</li>
+  <li><b>电网物理上限</b>: VA/TX 电网到 2026-2027 reach 极限, 新 datacenter permitting 卡死. CAPEX 想花花不出去. 强制 CAPEX cut.</li>
+  <li><b>财政压力 + CHIPS Act 政治反噬</b>: 2026-2028 美国财政赤字突破 7% GDP, CHIPS Act 续期受阻. MU/Intel/TSMC AZ 失补贴, fab 利用率不足.</li>
+  <li><b>股东 ROI 实测翻车</b>: 2027 hyperscaler 首次披露 AI segment 实际 ROIC (vs 内部 transfer pricing 美化), 数字若 &lt;8% (低于资本成本), buyback 全面恢复 + AI CAPEX 砍 30-50%.</li>
+</ol>
+
+<p>4 个 loop 中 2 个触发就启动 cascade. 概率 65-75% 在 2026 H2 - 2027 H2 之间 fire 至少 2 个.</p>
+
+<h3>9.5 RESET 后才有真普及 (健康路径)</h3>
+
+<div class="verdict">
+  <h3 class="green" style="color:var(--green)">健康普及路径 (2029-2035, Wave 2)</h3>
+  <ul>
+    <li><b>Inference cost 跌到 $0.01-0.05/M token</b> (vs 今天 $0.5-3): edge inference 普及, on-device 推理, 真正零边际成本</li>
+    <li><b>开源 frontier 跟 closed frontier 性能差 &lt;10%</b>: 商业模式从 model 转 application + distribution</li>
+    <li><b>垂直 AI 主导</b>: legal/medical/code 类 SaaS 不依赖 LLM provider, 直接 self-host + fine-tune</li>
+    <li><b>电力先于 compute 成为 binding constraint</b>: 真投资机会在 nuclear/SMR/grid, 不是 GPU</li>
+    <li><b>真 productivity gain</b>: white-collar 自动化真兑现, 但价值留在 application 层不是 model 层</li>
+  </ul>
+</div>
+
+<h3>9.6 这次 cycle 与历史 cycle 的关键差异</h3>
+
+<p>RESET 不会更慢, 反而更快, 原因:</p>
+<ul>
+  <li><b>开源威胁是历史空前的</b>: 铁路/电力/电信都没有 "免费替代品". AI 有 DeepSeek/Llama 4 24/7 拍脸. 通缩传导比 dot-com 快 3-5 倍.</li>
+  <li><b>Hyperscaler 资产负债表更强</b>: MSFT/GOOG/AMZN/META 有 $400B+ 现金缓冲, 不会像 WorldCom 那样直接破产. <b>RESET 形式 = 减值 + buyback 削减 + multiple 压缩</b>, 不是 bankruptcy.</li>
+  <li><b>但二线玩家更脆</b>: CoreWeave / Oracle OCI / xAI / AI startup ecosystem 杠杆比 1999 telecom 更狠. <b>这些会真倒</b>.</li>
+  <li><b>政治反噬来得更早</b>: 居民电费上涨 + ChatGPT 订阅涨价 + 失业焦虑, populist backlash 2026 中期选举周期就开始</li>
+</ul>
+
+<h2>10. 整合结论 (回到 Adam 的灵魂判断, 2026-05-12 修正)</h2>
+
+<div class="panel tldr">
+  <ol>
+    <li><b>价格 anchor 修正</b>: MU $800 / SNDK $1500 把 memory 链推到 1999 Q4 melt-up 量级. 这本身就是 RESET 必要性的最强证据 -- valuation 已严重脱离 sustainable economics.</li>
+    <li><b>MU + SNDK direction 反转</b>: 当前不是 long entry, 是 <b class="red">远月 OTM put 标的</b>. 真 long zone 在 RESET 后: MU $150-250, SNDK $200-400 (各 -75 to -85% from current).</li>
+    <li><b>强行增税论被这两个价格 confirm</b>: $800 MU + $1500 SNDK 不可能来自 organic demand 估值, 只能来自 forced subsidy + 散户 melt-up + 循环融资 + buyback halt 资金 reallocation. 这是 thesis 的实证.</li>
+    <li><b>Crisis RESET 概率上调到 85-90%</b>, 时间窗口压缩到 <b class="red">3-9 个月</b>. 因为 memory 链 melt-up 已经走到 dot-com 终段的位置, 历史可比窗口很短.</li>
+    <li><b>RESET 不是 AI 失败, 是 AI 健康普及的前提</b>. 当前 $215-375B/yr 强行增税 + memory 链 $1T+ 估值泡沫, <b class="red">不 RESET 就没有真普及</b>. Dot-com 已演示路径.</li>
+    <li><b>勇者路径 (修正版)</b>: 当前用 cheap OTM put convexity 押 RESET (MU + SNDK + NVDA 三角空头, 总 premium ~1-2% AUM/year). RESET 触发后, 加仓 Wave 2 winner (vertical AI + 开源 + 电力 + post-crash memory consolidation). 这是 <b class="green">先空后多 + 二段式 alpha</b>.</li>
+    <li><b>Adam 的位置</b>: 不站台 hyperscaler hype, 不 chase melt-up, 不站台 doom. 站台 <b class="green">"crisis is the cleanser"</b> -- 用 cheap put 等 RESET, 用现金 + vertical AI + 电力做 Wave 2 真普及的种子仓.</li>
+    <li><b>方法论自查</b>: 本次 anchor 错误 (用 2024-2025 stale price) 暴露 verify-before-claim 在价格数据上的盲点. 教训: 任何提及具体股价 / valuation 数字, 必须用 live spot, 不可用训练数据残留. 后续 SIE 输出加 "price anchor verified at YYYY-MM-DD" footer 字段强制 lookup.</li>
+  </ol>
+</div>
+
+<footer>
+  <p><b>Price anchor verified at 2026-05-12 04:22 UTC via OpenBB / CBOE</b></p>
+  <ul class="muted" style="margin-top:4px; font-size:12px;">
+    <li>MU spot $798.49 (1.12B shares, ~$895B market cap)</li>
+    <li>SNDK spot $1,537.97 (~140M shares, ~$215B market cap)</li>
+    <li>NVDA spot $219.71 (24.4B shares post 10:1 split, ~$5.36T market cap)</li>
+    <li>Source: <code>.venv_openbb/Scripts/python -m scripts.openbb_wrapper --type option_chain --ticker {MU,SNDK,NVDA}</code>; raw JSON in <code>var/output/quote_{ticker}.json</code></li>
+  </ul>
+  <p>EIP / SIE-SFA mode 输出 | LE-V2 Adversary review checkpoint applied | 不暴露内部方法论 | 数字源: hyperscaler 10-K / 10-Q / earnings call + Anthropic/OpenAI 公开 ARR 报告 + sell-side aggregate + live quote (上述 anchor)</p>
+  <p>Author: Adam He | Generated 2026-05-11 | Revised 2026-05-12 (price anchor + direction reversal) | Path: docs/10_knowledge/ai_hype_cycle_endgame_2026_05_11.html</p>
+  <p class="muted">本文件为内部研判, 非投顾建议. 不构成证券买卖要约. Position disclosure 见 portfolio log.</p>
+</footer>
+
+</body>
+</html>
