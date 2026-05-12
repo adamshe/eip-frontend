@@ -2,166 +2,468 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Hype Cycle 主要矛盾 + LLM 收入算法 + 合理 CAPEX + END GAME (2026-05-11)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0f1419;
-    --panel: #1a2129;
-    --border: #2a3540;
-    --text: #d8dee9;
-    --muted: #8b95a1;
-    --accent: #ffb454;
-    --red: #e06c75;
-    --green: #98c379;
-    --blue: #61afef;
-    --yellow: #e5c07b;
+    --bg: #F4EFE6;
+    --paper-tint: #EDE6D6;
+    --ink: #1A2434;
+    --ink-soft: #3A4757;
+    --muted: #7D8492;
+    --accent: #8B2635;
+    --accent-secondary: #A87844;
+    --rule: #D4CCBE;
+    --rule-soft: #E5DCC9;
+
+    /* editorial tone classes for tables */
+    --tone-red: #8B2635;
+    --tone-green: #4A6B3D;
+    --tone-yellow: #A87844;
+    --tone-blue: #3F5A78;
+    --panel-bg: #EDE6D6;
+    --panel-tldr-bg: #E8DFC9;
+    --panel-warn-bg: #EDDED5;
+    --panel-watch-bg: #ECE5D0;
+    --panel-good-bg: #DDE3D5;
+
+    --serif: "Spectral", "Noto Serif SC", Georgia, "Times New Roman", serif;
+    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+    --mono: "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
+    margin: 0;
     background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
-    line-height: 1.65;
-    max-width: 980px;
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-size: 18px;
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.05  0 0 0 0 0.05  0 0 0 0 0.05  0 0 0 0.06 0'/></filter><rect width='180' height='180' filter='url(%23n)' opacity='0.5'/></svg>");
+    mix-blend-mode: multiply;
+    opacity: 0.4;
+  }
+  main { position: relative; z-index: 2; }
+
+  /* MASTHEAD */
+  .masthead {
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 40px 32px;
-    font-size: 15px;
+    padding: 80px 64px 56px;
+    border-bottom: 1px solid var(--rule);
   }
-  header {
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 20px;
-    margin-bottom: 32px;
+  .masthead .top-rule {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 10px 0;
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 56px;
   }
-  h1 {
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
     color: var(--accent);
-    font-size: 26px;
-    margin: 0 0 8px 0;
-    font-weight: 600;
+    margin: 0 0 28px 0;
   }
-  .meta {
+  .eyebrow .dot {
+    display: inline-block;
+    margin: 0 10px;
     color: var(--muted);
+  }
+  h1.title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-style: italic;
+    font-size: 56px;
+    line-height: 1.06;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    margin: 0 0 18px 0;
+    max-width: 22ch;
+  }
+  .subtitle {
+    font-family: var(--serif);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0 0 24px 0;
+    max-width: 48ch;
+  }
+  .author-line {
+    font-family: var(--sans);
     font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 18px 0 36px 0;
+    line-height: 1.5;
+  }
+  .author-line strong { font-weight: 600; color: var(--ink); letter-spacing: 0.12em; }
+  .author-line .dot { color: var(--muted); margin: 0 6px; }
+
+  /* ARTICLE */
+  article {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 64px 48px 32px;
+  }
+  article.narrow {
+    max-width: 700px;
+  }
+  section {
+    padding: 56px 0;
+    border-top: 1px solid var(--rule-soft);
+  }
+  section:first-of-type { border-top: none; }
+  .section-mark {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 24px;
+    font-family: var(--serif);
+  }
+  .section-mark .numeral {
+    font-size: 32px;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .section-mark .kicker {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--rule);
+    flex: 1;
+    padding-bottom: 6px;
+    transform: translateY(-6px);
   }
   h2 {
-    color: var(--accent);
-    font-size: 20px;
-    margin: 36px 0 12px 0;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--border);
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.25;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    margin: 0 0 20px 0;
   }
   h3 {
-    color: var(--blue);
-    font-size: 16px;
-    margin: 22px 0 8px 0;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.32;
+    color: var(--ink);
+    margin: 32px 0 12px 0;
   }
   h4 {
-    color: var(--yellow);
-    font-size: 14px;
-    margin: 16px 0 6px 0;
-  }
-  .panel {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 18px 22px;
-    margin: 14px 0;
-  }
-  .tldr {
-    background: linear-gradient(135deg, #1a2129, #1f2a35);
-    border-left: 4px solid var(--accent);
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 14px 0;
-    font-size: 14px;
-  }
-  th, td {
-    border: 1px solid var(--border);
-    padding: 8px 12px;
-    text-align: left;
-    vertical-align: top;
-  }
-  th {
-    background: #232c38;
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
     color: var(--accent);
+    margin: 24px 0 10px 0;
+  }
+  p {
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.78;
+    color: var(--ink-soft);
+    margin: 0 0 18px 0;
+  }
+  p strong, b {
+    color: var(--ink);
     font-weight: 600;
   }
-  td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  .red { color: var(--red); }
-  .green { color: var(--green); }
-  .yellow { color: var(--yellow); }
-  .blue { color: var(--blue); }
-  .muted { color: var(--muted); font-size: 13px; }
+  ul, ol {
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.78;
+    color: var(--ink-soft);
+    padding-left: 24px;
+    margin: 0 0 18px 0;
+  }
+  ul li, ol li {
+    margin: 0 0 8px 0;
+  }
+  ul li::marker, ol li::marker { color: var(--accent); }
+
+  /* TONE COLORS */
+  .red    { color: var(--tone-red); }
+  .green  { color: var(--tone-green); }
+  .yellow { color: var(--tone-yellow); }
+  .blue   { color: var(--tone-blue); }
+  .muted {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  b.red, b.green, b.yellow, b.blue { font-weight: 600; }
+  b.red    { color: var(--tone-red); }
+  b.green  { color: var(--tone-green); }
+  b.yellow { color: var(--tone-yellow); }
+  b.blue   { color: var(--tone-blue); }
+
+  /* CODE + FORMULA */
   code {
-    background: #232c38;
-    padding: 2px 6px;
+    background: var(--paper-tint);
+    border: 1px solid var(--rule-soft);
+    padding: 2px 7px;
     border-radius: 3px;
-    font-family: "JetBrains Mono", Consolas, monospace;
-    font-size: 13px;
-    color: var(--yellow);
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--ink);
   }
   .formula {
-    background: #0a0e13;
-    border: 1px solid var(--border);
+    background: var(--paper-tint);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent-secondary);
     border-radius: 4px;
-    padding: 14px 18px;
-    font-family: "JetBrains Mono", Consolas, monospace;
+    padding: 18px 22px;
+    font-family: var(--mono);
     font-size: 13.5px;
-    color: var(--green);
-    margin: 12px 0;
+    color: var(--ink);
+    margin: 18px 0;
     overflow-x: auto;
     white-space: pre;
     line-height: 1.7;
   }
-  ul, ol { padding-left: 22px; }
-  li { margin: 4px 0; }
+
+  /* PANELS */
+  .panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 24px 32px;
+    margin: 24px 0;
+  }
+  .panel p:last-child { margin-bottom: 0; }
+  .tldr {
+    background: var(--panel-tldr-bg);
+    border-left: 4px solid var(--accent);
+  }
+  .tldr h3 {
+    margin-top: 0;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: var(--sans);
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+  th, td {
+    border-bottom: 1px solid var(--rule-soft);
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: top;
+    color: var(--ink-soft);
+  }
+  th {
+    background: transparent;
+    border-bottom: 1px solid var(--ink);
+    color: var(--muted);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 14px 14px 10px;
+  }
+  tbody tr:nth-child(odd) td {
+    background: rgba(168, 120, 68, 0.06);
+  }
+  td.num {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  td.num.red    { color: var(--tone-red); }
+  td.num.green  { color: var(--tone-green); }
+  td.num.yellow { color: var(--tone-yellow); }
+  td.num.blue   { color: var(--tone-blue); }
+  td.muted { color: var(--muted); font-size: 13.5px; }
+
+  /* PROB PILLS */
   .prob {
     display: inline-block;
-    padding: 2px 10px;
+    padding: 3px 12px;
     border-radius: 12px;
-    font-size: 12px;
+    font-family: var(--sans);
+    font-size: 11px;
     font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     margin-left: 8px;
   }
-  .prob-low { background: #2a3540; color: var(--muted); }
-  .prob-mid { background: #3a3520; color: var(--yellow); }
-  .prob-high { background: #3a2520; color: var(--red); }
+  .prob-low  { background: var(--rule-soft); color: var(--muted); }
+  .prob-mid  { background: rgba(168, 120, 68, 0.18); color: var(--tone-yellow); }
+  .prob-high { background: rgba(139, 38, 53, 0.14); color: var(--tone-red); }
+
+  /* SCENARIO blocks */
   .scenario {
-    border-left: 3px solid var(--border);
-    padding-left: 16px;
-    margin: 14px 0;
+    border-left: 3px solid var(--rule);
+    padding: 4px 0 4px 22px;
+    margin: 22px 0;
   }
-  .scenario.s-soft { border-left-color: var(--green); }
-  .scenario.s-crash { border-left-color: var(--red); }
-  .scenario.s-bifurc { border-left-color: var(--blue); }
+  .scenario h3 {
+    font-style: italic;
+    margin-top: 4px;
+  }
+  .scenario.s-soft   { border-left-color: var(--tone-green); }
+  .scenario.s-crash  { border-left-color: var(--tone-red); }
+  .scenario.s-bifurc { border-left-color: var(--tone-blue); }
+
+  /* VERDICT panels (action mapping) */
   .verdict {
-    background: #1f2a1f;
-    border: 1px solid #2a4530;
-    border-left: 4px solid var(--green);
-    padding: 16px 20px;
+    background: var(--panel-good-bg);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--tone-green);
+    padding: 22px 28px;
     border-radius: 4px;
-    margin: 18px 0;
+    margin: 22px 0;
   }
-  .verdict h3 { color: var(--green); margin-top: 0; }
+  .verdict h3 {
+    color: var(--tone-green);
+    margin-top: 0;
+    font-style: italic;
+  }
+  .verdict.warn {
+    background: var(--panel-warn-bg);
+    border-left-color: var(--tone-red);
+  }
+  .verdict.warn h3 { color: var(--tone-red); }
+  .verdict.watch {
+    background: var(--panel-watch-bg);
+    border-left-color: var(--tone-yellow);
+  }
+  .verdict.watch h3 { color: var(--tone-yellow); }
+  .verdict table { margin-top: 14px; }
+
+  /* FOOTER */
   footer {
-    margin-top: 50px;
-    padding-top: 18px;
-    border-top: 1px solid var(--border);
-    color: var(--muted);
+    max-width: 800px;
+    margin: 64px auto 96px;
+    padding: 32px 48px 0;
+    border-top: 1px solid var(--ink);
+    text-align: center;
+    font-family: var(--sans);
     font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  footer p { font-size: 12px; margin: 6px 0; color: var(--muted); }
+  footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  footer ul li { margin: 2px 0; }
+
+  /* COLOPHON */
+  .colophon {
+    max-width: 800px;
+    margin: 32px auto 12px;
+    padding: 0 48px;
+    text-align: center;
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+  }
+  .colophon .dot { color: var(--rule); margin: 0 10px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .masthead { padding: 56px 36px 40px; }
+    article { padding: 48px 36px 24px; }
+    h1.title { font-size: 44px; }
+  }
+  @media (max-width: 768px) {
+    body { font-size: 16px; }
+    .masthead { padding: 40px 24px 32px; }
+    .masthead .top-rule { font-size: 10px; letter-spacing: 0.14em; flex-direction: column; gap: 4px; align-items: flex-start; }
+    article { padding: 40px 20px 20px; }
+    h1.title { font-size: 32px; max-width: none; }
+    .subtitle { font-size: 17px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 20px; }
+    p, ul, ol { font-size: 15px; }
+    table { font-size: 12.5px; }
+    th, td { padding: 8px 8px; }
+    .panel, .verdict { padding: 18px 18px; }
+    .formula { font-size: 12px; padding: 14px; }
+  }
+
+  @media print {
+    body::before { display: none; }
+    body { background: white; color: black; }
+    section { page-break-inside: avoid; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>AI Hype Cycle 主要矛盾 + 合理 LLM 收入算法 + 合理 CAPEX + END GAME</h1>
-  <div class="meta">EIP Research | 2026-05-12 | 独立研究, 非投顾建议</div>
+<main>
+
+<header class="masthead">
+  <div class="top-rule">
+    <span>EIP Research &nbsp;&middot;&nbsp; Issue 03</span>
+    <span>2026 年 5 月</span>
+  </div>
+  <p class="eyebrow">AI 行业结构性研究 <span class="dot">&middot;</span> 2026 年 5 月</p>
+  <h1 class="title">AI Hype Cycle 主要矛盾 + 合理 LLM 收入算法 + 合理 CAPEX + END GAME</h1>
+  <p class="subtitle">独立研究, 非投顾建议 &middot; price anchor verified 2026-05-12</p>
+  <p class="author-line">作者: <strong>Naughty Boss</strong> <span class="dot">&middot;</span> EIP</p>
 </header>
 
-<section class="panel tldr">
-  <h3 style="margin-top:0">历史的进步就是靠揭露-皇帝的新衣</h3>
+<article>
+
+<section>
+<div class="panel tldr">
+  <h3>历史的进步, 来自揭露皇帝的新衣</h3>
   <p>
     全行业 LLM 年收入 2026 run-rate ~ <b class="yellow">$65-80B</b> (OpenAI $24B + Anthropic $30B + Google/xAI/其他 ~$15B, verified 2026-04-05 公开披露),
     hyperscaler AI CAPEX <b class="red">2025 ~$350B / 2026 guidance ~$700-725B</b> (MSFT + GOOG + META + AMZN 合计, 2026 几乎翻倍);
@@ -172,16 +474,19 @@
     END GAME 三分支加权: <b class="green">软着陆 25%</b> / <b class="red">CAPEX 崩 50%</b> / <b class="blue">AGI 分叉 25%</b>.
     Trigger 信号: 2026 H2 首家 hyperscaler 砍 CAPEX guidance (META 或 AMZN 先).
   </p>
+</div>
 </section>
 
-<h2>1. AI Hype Cycle 的主要矛盾 (5 条 contradiction)</h2>
+<section>
+<div class="section-mark"><span class="numeral">I.</span><span class="kicker">AI Hype Cycle 的主要矛盾</span></div>
+<h2>五条结构性 contradiction.</h2>
 
 <h3>1.1 Revenue vs CAPEX 的数量级错配</h3>
 <table>
   <thead><tr><th>项</th><th class="num">2025 actual / 2026 guidance</th><th>状态</th></tr></thead>
   <tbody>
     <tr><td>Hyperscaler AI CAPEX (MSFT + GOOG + META + AMZN)</td><td class="num red">$350B (2025) / $700-725B (2026)</td><td>2026 几乎翻倍 (MSFT $190B, GOOG $180-190B, AMZN $200-230B, META $125-145B per CNBC/Statista/Fortune)</td></tr>
-    <tr><td>OpenAI + Anthropic + Google Gemini 全行业 LLM ARR</td><td class="num yellow">~$65-80B run-rate (2026-04)</td><td>OpenAI $24B + Anthropic $30B (80x 15月) + 其他 ~$15B</td></tr>
+    <tr><td>OpenAI + Anthropic + Google Gemini 全行业 LLM ARR</td><td class="num yellow">~$65-80B run-rate (2026-04)</td><td>OpenAI $24B + Anthropic $30B (80x 15 月) + 其他 ~$15B</td></tr>
     <tr><td>差额倍数</td><td class="num red">~9-11x</td><td>历史可比: 1999 Telecom 3x</td></tr>
   </tbody>
 </table>
@@ -210,7 +515,7 @@
   <tbody>
     <tr><td>MSFT -&gt; OpenAI -&gt; Azure -&gt; MSFT</td><td>$13B+ 投资 + $100B Stargate commitment (5-phase, Phase 1 target 2028)</td><td>收入循环</td></tr>
     <tr><td>NVDA -&gt; OpenAI / Anthropic / CoreWeave / xAI</td><td><b class="red">$44B+ cumulative</b> ($30B OpenAI + $10B Anthropic + $2B CoreWeave + $2B xAI; CNBC 2026-05-09)</td><td>NVDA 借给客户买 NVDA, 规模 4-9x 翻</td></tr>
-    <tr><td>AMZN -&gt; Anthropic</td><td><b class="red">$13B committed + 高达 $20B conditional</b> = up to $33B (Apr 2026 announce)</td><td>同上模式, 加码 4x </td></tr>
+    <tr><td>AMZN -&gt; Anthropic</td><td><b class="red">$13B committed + 高达 $20B conditional</b> = up to $33B (Apr 2026 announce)</td><td>同上模式, 加码 4x</td></tr>
     <tr><td>GOOG -&gt; Anthropic</td><td><b class="red">$13B+ committed + 高达 $30B conditional</b> = up to $43B (Bloomberg 2026-04-24)</td><td>同上模式, 加码 14x</td></tr>
   </tbody>
 </table>
@@ -223,8 +528,11 @@
   <li>Bottom-up 实际 SOM 2030 (按当前增长率 sigmoid 外推): <b class="yellow">$300-500B</b> -- 当前 ARR 已 $65-80B run-rate, 3-6x 即达 $500B target</li>
   <li>缺口: <b>~1.5-3x implied TAM 上方</b>, 但仍 overshoot</li>
 </ul>
+</section>
 
-<h2>2. 合理 LLM 收入算法 (bottom-up, 不抄 sell-side TAM PPT)</h2>
+<section>
+<div class="section-mark"><span class="numeral">II.</span><span class="kicker">合理 LLM 收入算法</span></div>
+<h2>Bottom-up, 不抄 sell-side TAM PPT.</h2>
 
 <h3>2.1 收入分解公式</h3>
 <div class="formula">LLM_Revenue = API_Revenue + Subscription_Revenue + Enterprise_Embed_Revenue
@@ -239,7 +547,7 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
   <thead><tr><th>厂商</th><th class="num">2026-04 run-rate</th><th>组成 + source</th></tr></thead>
   <tbody>
     <tr><td>OpenAI</td><td class="num red">$24B</td><td>$2B/月 (Sacra 2026-02 $25B; OpenAI 确认 2026-04, T1)</td></tr>
-    <tr><td>Anthropic</td><td class="num red">$30B</td><td>80x 15月 ($1B late-2024 -> $30B 2026-04; VentureBeat, SaaStr -- 已超 OpenAI, T1)</td></tr>
+    <tr><td>Anthropic</td><td class="num red">$30B</td><td>80x 15 月 ($1B late-2024 -&gt; $30B 2026-04; VentureBeat, SaaStr -- 已超 OpenAI, T1)</td></tr>
     <tr><td>Google Gemini (DeepMind)</td><td class="num">~$5-15B est</td><td>Workspace AI uplift + Vertex API (无 standalone 披露, T4)</td></tr>
     <tr><td>xAI</td><td class="num">~$2-5B est</td><td>X premium AI + API + Grok enterprise (T4, 无审计 ARR)</td></tr>
     <tr><td>Mistral + Cohere + Together + Fireworks + 其他</td><td class="num">$3-8B est</td><td>API + 部分 enterprise (T4 综合)</td></tr>
@@ -271,8 +579,11 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
   <li>不需 AGI 能力跃迁 -- 当前 frontier (Claude Sonnet 4.6 / GPT-5 tier) 已足够支撑 enterprise penetration ramp</li>
 </ul>
 <p>$500B 2030 TAM 概率 <b class="yellow">~40-50%</b>. <b>但 NVDA $5.36T 市值仍 implied $1T+ 2030 LLM TAM 才合理 (考虑 NVDA 拿 30-40% compute margin)</b>, 这部分 thesis 依然成立.</p>
+</section>
 
-<h2>3. 合理 CAPEX 算法</h2>
+<section>
+<div class="section-mark"><span class="numeral">III.</span><span class="kicker">合理 CAPEX 算法</span></div>
+<h2>Sustainability 数学下的上限.</h2>
 
 <h3>3.1 Sustainable CAPEX 公式</h3>
 <div class="formula">Sustainable_Annual_CAPEX = Compute_Margin * Revenue * Asset_Life
@@ -295,7 +606,7 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
 <p>结论: 即便 Super Bull (AGI 真到 + LLM 占整个 software TAM 25%) 当前 CAPEX 跑率仍超 sustainable 17%. Base case (绝大概率) 超 4.5x. 主要矛盾 magnitude 不可调和.</p>
 
 <h3>3.3 AI 文明进步前提: 收税企业 40% margin floor</h3>
-<p>AI 不是 narrative 是 infrastructure layer. Infrastructure 由 <b>收税企业</b> 承载 -- NVDA (compute 税) + MU (memory 税) + TSM (foundry 税) -- 每个 AI workload 经过都抽水. AI 文明持续推进的前提是这些收税企业能持续 fund 下一代 R&D + CAPEX (Rubin / B400 / HBM4 / 18A foundry节点).</p>
+<p>AI 不是 narrative 是 infrastructure layer. Infrastructure 由 <b>收税企业</b> 承载 -- NVDA (compute 税) + MU (memory 税) + TSM (foundry 税) -- 每个 AI workload 经过都抽水. AI 文明持续推进的前提是这些收税企业能持续 fund 下一代 R&D + CAPEX (Rubin / B400 / HBM4 / 18A foundry 节点).</p>
 <p><b>Margin floor 机制</b>:</p>
 <ul>
   <li><b>~40% net margin</b> 是 "收税企业" 必须门槛. 40% 是 sustainable CAPEX 公式里 compute_margin 中位 (见 3.2 Base case 40%) -- 不是 arbitrary, 是 sustainability 数学 derived 的下限</li>
@@ -310,7 +621,7 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
 
 <h3>3.4 历史可比 (overshoot 倍数)</h3>
 <table>
-  <thead><tr><th>周期</th><th class="num">CAPEX peak / Revenue</th><th class="num">回调幅度</th><th class="num">回调周期</th><th>verdict</th></tr></thead>
+  <thead><tr><th>周期</th><th class="num">CAPEX peak / Revenue</th><th class="num">回调幅度</th><th class="num">回调周期</th><th>Verdict</th></tr></thead>
   <tbody>
     <tr><td>1880s 美国铁路</td><td class="num">~4x est</td><td class="num red">-70%</td><td class="num">8-12 年</td><td class="muted">analytical anchor (T4-T5, 学术估计区间)</td></tr>
     <tr><td>1920s 电气化</td><td class="num">~2.5x est</td><td class="num red">-50%</td><td class="num">5-7 年</td><td class="muted">analytical anchor (T4-T5)</td></tr>
@@ -319,8 +630,11 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
   </tbody>
 </table>
 <p class="muted">AI overshoot 倍数 (~10x) 仍比 1999 Telecom (3x, T2 confirmed) 大 3x. 即便保守用 Telecom -90% 回调当锚, 历史先例不在 magnitude 一侧. 不是说一定崩 -90%, 是说 magnitude 的 mean reversion 拉力极强且历史先例缺. 1880s / 1920s 数字是 analytical anchor, 慎引用做精确预测.</p>
+</section>
 
-<h2>4. END GAME -- 三分支加权 + 触发器</h2>
+<section>
+<div class="section-mark"><span class="numeral">IV.</span><span class="kicker">END GAME -- 三分支加权 + 触发器</span></div>
+<h2>三条情景路径与各自的识别信号。</h2>
 
 <div class="scenario s-soft">
   <h3>Scenario A: 软着陆 <span class="prob prob-low">25%</span></h3>
@@ -352,9 +666,11 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
   <p><b>风险变体</b>: AGI 真到, 但被 nationalized / regulated / sanction (中美分叉). Tail risk 不在估值, 在 ownership 能否兑现.</p>
   <p><b>识别信号</b>: frontier lab 公开模型在 ARC-AGI / FrontierMath / SWE-bench 跨非线性跳跃; OR 一家 lab 首次在年度自动续约率 demonstrate "AI 替代 headcount" 而非附加.</p>
 </div>
+</section>
 
-<h2>5. 时间线预测 (base case = B 50% 概率分支)</h2>
-
+<section>
+<div class="section-mark"><span class="numeral">V.</span><span class="kicker">时间线预测</span></div>
+<h2>Base case = Scenario B (50% 概率) 路径.</h2>
 <table>
   <thead><tr><th>时点</th><th>事件</th><th>市场反应</th></tr></thead>
   <tbody>
@@ -366,8 +682,11 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
     <tr><td>2029 - 2030</td><td>Wave 2 真实生产力 deployment (post-bust), 垂直 AI + 开源 ecosystem 接棒</td><td>新一轮 bull, 但赢家与 Wave 1 不同</td></tr>
   </tbody>
 </table>
+</section>
 
-<h2>6. 投资姿态 (action mapping)</h2>
+<section>
+<div class="section-mark"><span class="numeral">VI.</span><span class="kicker">投资姿态</span></div>
+<h2>Action mapping.</h2>
 
 <div class="verdict">
   <h3>Long (高 conviction)</h3>
@@ -375,12 +694,12 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
     <li><b>垂直 AI (legal/medical/coding)</b>: 真 ARR, 真 retention, 真 distribution. 不依赖 LLM 算力分蛋糕, 而是分 SaaS 客户钱包.</li>
     <li><b>开源 AI 工具链</b>: Hugging Face / Fireworks / Together / Modal 类 -- inference cost downside 时 they win.</li>
     <li><b>电力基础设施 (有 selectivity)</b>: GE Vernova / Vistra / Constellation -- 真实需求, 但估值已涨, 等回调.</li>
-    <li><b>现金 + 短端</b>: 干粉等 Scenario B 触发</li>
+    <li><b>现金 + 短端</b>: 干粉等 Scenario B 触发.</li>
   </ul>
 </div>
 
-<div class="verdict" style="border-left-color: var(--red); background:#2a1f1f; border-color:#452a2a;">
-  <h3 class="red" style="color:var(--red)">Short / Avoid (B 触发后才下大注)</h3>
+<div class="verdict warn">
+  <h3>Short / Avoid (B 触发后才下大注)</h3>
   <ul>
     <li><b>NVDA 尾部风险</b>: 不裸空, 用远月 OTM put (cheap convexity). Trigger = guidance 下修信号.</li>
     <li><b>AVGO / VRT / SMCI / CRWV</b>: AI infra 二阶 (custom silicon / power management / liquid cooling / neo-cloud), beta 比 NVDA 大.</li>
@@ -389,17 +708,19 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
   </ul>
 </div>
 
-<div class="verdict" style="border-left-color: var(--yellow); background:#2a2820; border-color:#454020;">
-  <h3 class="yellow" style="color:var(--yellow)">Watch / Wait (不动手, 监测)</h3>
+<div class="verdict watch">
+  <h3>Watch / Wait (不动手, 监测)</h3>
   <ul>
-    <li><b>Frontier labs (OpenAI/Anthropic)</b>: 私募只能等 secondary, IPO 窗口 likely closed 1-2 年</li>
+    <li><b>Frontier labs (OpenAI/Anthropic)</b>: 私募只能等 secondary, IPO 窗口 likely closed 1-2 年.</li>
     <li><b>Microsoft</b>: 真 enterprise distribution + 不全押 AI, 跌时是 lower-risk 进场对象, 不是 short.</li>
-    <li><b>中国 AI 链 (DeepSeek 生态 / 阿里腾讯)</b>: 政治风险溢价大, 但效率竞争是开源 thesis 的 leverage 点</li>
+    <li><b>中国 AI 链 (DeepSeek 生态 / 阿里腾讯)</b>: 政治风险溢价大, 但效率竞争是开源 thesis 的 leverage 点.</li>
   </ul>
 </div>
+</section>
 
-<h2>7. 核心 take (画在脑门上)</h2>
-
+<section>
+<div class="section-mark"><span class="numeral">VII.</span><span class="kicker">核心 take</span></div>
+<h2>画在脑门上的几条。</h2>
 <div class="panel tldr">
   <ol>
     <li><b>AI 真有用 != AI infra valuation 合理</b>. 这是两个 separate question.</li>
@@ -410,11 +731,14 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
     <li><b>逆向布局</b>: 当 Scenario B 触发, 共识恐慌时, 加仓 Wave 2 winner. 这才是 alpha 窗口.</li>
   </ol>
 </div>
+</section>
 
-<h2>8. Memory 链 END GAME -- MU + SNDK (price anchor 2026-05-12)</h2>
+<section>
+<div class="section-mark"><span class="numeral">VIII.</span><span class="kicker">Memory 链 END GAME -- MU + SNDK</span></div>
+<h2>Price anchor 2026-05-12.</h2>
 
-<div class="panel" style="background:#2a1f1f; border-color:#452a2a; border-left:4px solid var(--red);">
-  <h3 class="red" style="color:var(--red); margin-top:0">Live spot (verified 2026-05-12 via Yahoo / CNBC / Robinhood multi-source)</h3>
+<div class="panel" style="border-left:4px solid var(--tone-red); background: var(--panel-warn-bg);">
+  <h3 class="red" style="margin-top:0; font-style: italic;">Live spot (verified 2026-05-12 via Yahoo / CNBC / Robinhood multi-source)</h3>
   <table>
     <thead><tr><th>Ticker</th><th class="num">Live Spot</th><th class="num">Market Cap (est)</th><th>vs stale anchor</th></tr></thead>
     <tbody>
@@ -427,7 +751,6 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
 </div>
 
 <h3>8.1 MU at $800 -- 1999 Q4 量级的 melt-up 顶</h3>
-
 <table>
   <thead><tr><th>维度</th><th>状态</th><th>评估</th></tr></thead>
   <tbody>
@@ -443,7 +766,7 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
 
 <h4>MU END GAME 时间线 (anchor $800)</h4>
 <table>
-  <thead><tr><th>时点</th><th>状态</th><th>股价区间</th><th>vs $800</th></tr></thead>
+  <thead><tr><th>时点</th><th>状态</th><th>股价区间</th><th class="num">vs $800</th></tr></thead>
   <tbody>
     <tr><td>2026 Q2 (NOW)</td><td>Melt-up 顶, HBM3E sold out, HBM4 ramp 故事</td><td class="red">$700-900 (spot $798.49)</td><td class="num">0</td></tr>
     <tr><td>2026 H2 - 2027 Q1</td><td>HBM4 量产首信号: SK Hynix 反超 + Samsung 追上, MU pricing power 失</td><td class="yellow">$400-550</td><td class="num red">-30 to -50%</td></tr>
@@ -452,11 +775,9 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
     <tr><td>2029-2030</td><td>Recovery + 新周期 (Wave 2), 减值已计提, EPS slowly 恢复</td><td class="yellow">$200-400</td><td class="num red">-50 to -75% from peak</td></tr>
   </tbody>
 </table>
-
 <p><b>核心判断</b>: MU $798.49 是 cyclical commodity 被定价成 secular grower 的 valuation absurdity. 任何 long entry 都是 -50 to -88% 期望. <b class="red">不是 long 标的, 是 short / OTM put 标的</b>.</p>
 
 <h3>8.2 SNDK at $1500 -- 比 MU 更极端的 pure-play melt-up</h3>
-
 <table>
   <thead><tr><th>维度</th><th>状态</th><th>评估</th></tr></thead>
   <tbody>
@@ -471,7 +792,7 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
 
 <h4>SNDK END GAME -- 三分支重算 (anchor $1,537.97)</h4>
 <table>
-  <thead><tr><th>Scenario</th><th>路径</th><th>股价目标</th><th>vs $1,537.97</th></tr></thead>
+  <thead><tr><th>Scenario</th><th>路径</th><th class="num">股价目标</th><th class="num">vs $1,537.97</th></tr></thead>
   <tbody>
     <tr><td><b class="green">A 软着陆 25%</b></td><td>Enterprise SSD 真实增长, 但 multiple 必然压缩 (从 PE 50-80x 压到 15-25x)</td><td class="num yellow">$500-800</td><td class="num red">-48 to -67%</td></tr>
     <tr><td><b class="red">B CAPEX 崩 50%</b></td><td>NAND 跟 DRAM 一起出清, YMTC 价格战, 单季亏损, 估值倒挂</td><td class="num red">$120-300</td><td class="num red">-81 to -92%</td></tr>
@@ -479,13 +800,11 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
     <tr><td><b class="yellow">M&amp;A wildcard</b></td><td>Kioxia 合并若真落地, premium take-out (但当前价已 priced 入 premium)</td><td class="num yellow">$1,200-1,600</td><td class="num">-22 to +4% (no upside)</td></tr>
   </tbody>
 </table>
-
 <p><b>核心判断</b>: SNDK $1,537.97 是比 MU 更极端的 melt-up. M&amp;A optionality 已 priced 透, downside 没有 cushion. <b class="red">所有 4 个分支期望 return 都是负 -- 这是 short 标的, 不是 long 标的</b>. asymmetric option 不复存在 -- 当前价已把所有 upside 透支.</p>
 
 <h3>8.3 MU vs SNDK 配置建议</h3>
-
-<div class="verdict" style="border-left-color: var(--red); background:#2a1f1f; border-color:#452a2a;">
-  <h3 class="red" style="color:var(--red)">SHORT / OTM Put 末段 melt-up (当前动作, anchor verified 2026-05-12)</h3>
+<div class="verdict warn">
+  <h3>SHORT / OTM Put 末段 melt-up (当前动作, anchor verified 2026-05-12)</h3>
   <table>
     <thead><tr><th>标的</th><th class="num">Spot</th><th>OTM Put 建议</th><th class="num">Strike OTM %</th><th>Expiry</th><th>仓位</th></tr></thead>
     <tbody>
@@ -502,8 +821,8 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
   </ul>
 </div>
 
-<div class="verdict" style="border-left-color: var(--yellow); background:#2a2820; border-color:#454020;">
-  <h3 class="yellow" style="color:var(--yellow)">真 LONG 入场 zone (post-RESET, 等清场)</h3>
+<div class="verdict watch">
+  <h3>真 LONG 入场 zone (post-RESET, 等清场)</h3>
   <table>
     <thead><tr><th>标的</th><th class="num">当前 Spot</th><th class="num">Post-RESET Long Zone</th><th class="num">vs Current</th></tr></thead>
     <tbody>
@@ -528,17 +847,19 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
     <li><b>不 pair trade Long SNDK / Short MU</b>: 两边都过热, pair 无 alpha, 只有 beta.</li>
   </ul>
 </div>
+</section>
 
-<h2>9. 强行增税论 + Crisis RESET 必要性 (灵魂判断)</h2>
+<section>
+<div class="section-mark"><span class="numeral">IX.</span><span class="kicker">强行增税论 + Crisis RESET 必要性</span></div>
+<h2>灵魂判断。</h2>
 
 <div class="panel tldr">
   <p><b>核心论断</b>: 当前 AI 普及路径不是 organic adoption (像电力 / 互联网那样 cost 下降), 而是 <b class="red">通过 6 重渠道向社会强行抽税补贴 hyperscaler CAPEX</b>. 这条路不可持续, 必须经历 crisis RESET 才能让 AI 真正普及.</p>
 </div>
 
 <h3>9.1 强行增税的 6 个传导渠道</h3>
-
 <table>
-  <thead><tr><th>#</th><th>渠道</th><th>具体形式</th><th>规模量级</th><th>受害方</th></tr></thead>
+  <thead><tr><th>#</th><th>渠道</th><th>具体形式</th><th class="num">规模量级</th><th>受害方</th></tr></thead>
   <tbody>
     <tr><td>1</td><td>云服务涨价</td><td>AWS/Azure GPU instance hourly 2024-2026 涨 30-50%</td><td class="num">$50-100B/yr</td><td>中小企业 + SaaS 客户</td></tr>
     <tr><td>2</td><td>订阅涨价</td><td>ChatGPT Plus $20 -&gt; Pro $200 / Copilot $30/seat / Claude Max $200</td><td class="num">$20-40B/yr</td><td>个人 + 小企业</td></tr>
@@ -551,7 +872,6 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
 </table>
 
 <h3>9.2 这不是普及, 是 forced subsidy</h3>
-
 <p>历史对照:</p>
 <ul>
   <li><b>电力普及 1900-1940</b>: 单位 kWh cost 持续下降 (从 $0.50 等值降到 $0.05 等值), 居民/工商用电渗透率 5% -&gt; 95%. <b class="green">成本下降驱动普及</b>.</li>
@@ -559,11 +879,9 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
   <li><b>移动 internet 2007-2020</b>: 3G -&gt; 4G -&gt; 5G, 单位数据 cost 跌 95%, smartphone 渗透 5% -&gt; 80%. <b class="green">成本下降驱动普及</b>.</li>
   <li><b>AI 2023-2026</b>: API per-token cost <b class="green">确实跌 85-92%</b>, BUT 上层 toll fee (订阅 / 云 / 电价 / 补贴) <b class="red">同期涨 30-50%</b>. 表面普及, 实际是 hyperscaler 截留 + 社会买单. <b class="red">成本上升 disguised as 普及</b>.</li>
 </ul>
-
 <p class="muted">关键差异: token cost 下降不等于 user-facing AI cost 下降. Hyperscaler 把 token 价跌幅 (open-source 竞争压力) 用 wrapper subscription / cloud markup / enterprise lockin 反向抽走. 净效应 = 用户付更多, hyperscaler 抽更多, 真用户 surplus 没 increase.</p>
 
 <h3>9.3 历史可比 -- 强补贴 + 强增税路径必崩</h3>
-
 <table>
   <thead><tr><th>历史案例</th><th>强行增税模式</th><th>崩盘形式</th><th>RESET 后真普及时点</th></tr></thead>
   <tbody>
@@ -575,43 +893,40 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
 </table>
 
 <h3>9.4 Crisis RESET 的必要性 (机制层)</h3>
-
 <p>Reset 不是 wish, 是 mechanism. 当前路径有 4 个 self-defeating loop, 任一触发就启动 RESET:</p>
-
 <ol>
   <li><b>Token 通缩 vs 订阅通胀的反向裂口</b>: 用户终将发现 self-host DeepSeek/Llama 4 + 一台 H100 fleet 比 ChatGPT Pro $200/mo 更便宜. 企业 IT 部门 2026-2027 开始 in-source. 订阅 ARR 增长曲线断点.</li>
   <li><b>电网物理上限</b>: VA/TX 电网到 2026-2027 reach 极限, 新 datacenter permitting 卡死. CAPEX 想花花不出去. 强制 CAPEX cut.</li>
   <li><b>财政压力 + CHIPS Act 政治反噬</b>: 2026-2028 美国财政赤字突破 7% GDP, CHIPS Act 续期受阻. MU/Intel/TSMC AZ 失补贴, fab 利用率不足.</li>
   <li><b>股东 ROI 实测翻车</b>: 2027 hyperscaler 首次披露 AI segment 实际 ROIC (vs 内部 transfer pricing 美化), 数字若 &lt;8% (低于资本成本), buyback 全面恢复 + AI CAPEX 砍 30-50%.</li>
 </ol>
-
 <p>4 个 loop 中 2 个触发就启动 cascade. 概率 65-75% 在 2026 H2 - 2027 H2 之间 fire 至少 2 个.</p>
 
 <h3>9.5 RESET 后才有真普及 (健康路径)</h3>
-
 <div class="verdict">
-  <h3 class="green" style="color:var(--green)">健康普及路径 (2029-2035, Wave 2)</h3>
+  <h3>健康普及路径 (2029-2035, Wave 2)</h3>
   <ul>
-    <li><b>Inference cost 跌到 $0.01-0.05/M token</b> (vs 今天 $0.5-3): edge inference 普及, on-device 推理, 真正零边际成本</li>
-    <li><b>开源 frontier 跟 closed frontier 性能差 &lt;10%</b>: 商业模式从 model 转 application + distribution</li>
-    <li><b>垂直 AI 主导</b>: legal/medical/code 类 SaaS 不依赖 LLM provider, 直接 self-host + fine-tune</li>
-    <li><b>电力先于 compute 成为 binding constraint</b>: 真投资机会在 nuclear/SMR/grid, 不是 GPU</li>
-    <li><b>真 productivity gain</b>: white-collar 自动化真兑现, 但价值留在 application 层不是 model 层</li>
+    <li><b>Inference cost 跌到 $0.01-0.05/M token</b> (vs 今天 $0.5-3): edge inference 普及, on-device 推理, 真正零边际成本.</li>
+    <li><b>开源 frontier 跟 closed frontier 性能差 &lt;10%</b>: 商业模式从 model 转 application + distribution.</li>
+    <li><b>垂直 AI 主导</b>: legal/medical/code 类 SaaS 不依赖 LLM provider, 直接 self-host + fine-tune.</li>
+    <li><b>电力先于 compute 成为 binding constraint</b>: 真投资机会在 nuclear/SMR/grid, 不是 GPU.</li>
+    <li><b>真 productivity gain</b>: white-collar 自动化真兑现, 但价值留在 application 层不是 model 层.</li>
   </ul>
 </div>
 
 <h3>9.6 这次 cycle 与历史 cycle 的关键差异</h3>
-
 <p>RESET 不会更慢, 反而更快, 原因:</p>
 <ul>
   <li><b>开源威胁是历史空前的</b>: 铁路/电力/电信都没有 "免费替代品". AI 有 DeepSeek/Llama 4 24/7 拍脸. 通缩传导比 dot-com 快 3-5 倍.</li>
   <li><b>Hyperscaler 资产负债表更强</b>: MSFT/GOOG/AMZN/META 有 $400B+ 现金缓冲, 不会像 WorldCom 那样直接破产. <b>RESET 形式 = 减值 + buyback 削减 + multiple 压缩</b>, 不是 bankruptcy.</li>
   <li><b>但二线玩家更脆</b>: CoreWeave / Oracle OCI / xAI / AI startup ecosystem 杠杆比 1999 telecom 更狠. <b>这些会真倒</b>.</li>
-  <li><b>政治反噬来得更早</b>: 居民电费上涨 + ChatGPT 订阅涨价 + 失业焦虑, populist backlash 2026 中期选举周期就开始</li>
+  <li><b>政治反噬来得更早</b>: 居民电费上涨 + ChatGPT 订阅涨价 + 失业焦虑, populist backlash 2026 中期选举周期就开始.</li>
 </ul>
+</section>
 
-<h2>10. 整合结论</h2>
-
+<section>
+<div class="section-mark"><span class="numeral">X.</span><span class="kicker">整合结论</span></div>
+<h2>读完后画在脑门上的几条。</h2>
 <div class="panel tldr">
   <ol>
     <li><b>价格 anchor</b>: MU $800 / SNDK $1500 把 memory 链推到 1999 Q4 melt-up 量级. 这本身就是 RESET 必要性的最强证据 -- valuation 已严重脱离 sustainable economics.</li>
@@ -623,19 +938,27 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
     <li><b>本报告立场</b>: 不站台 hyperscaler hype, 不 chase melt-up, 不站台 doom. 站台 <b class="green">"crisis is the cleanser"</b> -- 用 cheap put 等 RESET, 用现金 + vertical AI + 电力做 Wave 2 真普及的种子仓.</li>
   </ol>
 </div>
+</section>
+
+</article>
 
 <footer>
-  <p><b>Price anchor verified at 2026-05-12 04:22 UTC via OpenBB / CBOE</b></p>
-  <ul class="muted" style="margin-top:4px; font-size:12px;">
+  <p><b>Price anchor verified 2026-05-12 04:22 UTC via OpenBB / CBOE</b></p>
+  <ul>
     <li>MU spot $798.49 (1.12B shares, ~$895B market cap)</li>
     <li>SNDK spot $1,537.97 (~140M shares, ~$215B market cap)</li>
     <li>NVDA spot $219.71 (24.4B shares post 10:1 split, ~$5.36T market cap)</li>
-    <li>Source: <code>.venv_openbb/Scripts/python -m scripts.openbb_wrapper --type option_chain --ticker {MU,SNDK,NVDA}</code>; raw JSON in <code>var/output/quote_{ticker}.json</code></li>
+    <li>Source: <code>.venv_openbb/Scripts/python -m scripts.openbb_wrapper --type option_chain --ticker {MU,SNDK,NVDA}</code></li>
   </ul>
-  <p class="muted">数字源: hyperscaler 10-K / 10-Q / earnings call + Anthropic/OpenAI 公开 ARR 披露 + sell-side aggregate + live quote (Yahoo Finance / CNBC / Robinhood 多源交叉)</p>
-  <p>EIP Research | 2026-05-12</p>
-  <p class="muted">本报告为独立研究, 非投顾建议. 不构成证券买卖要约.</p>
+  <p>数字源: hyperscaler 10-K / 10-Q / earnings call + Anthropic/OpenAI 公开 ARR 披露 + sell-side aggregate + live quote (Yahoo Finance / CNBC / Robinhood 多源交叉)</p>
+  <p>本报告为独立研究, 非投顾建议. 不构成证券买卖要约.</p>
 </footer>
+
+<div class="colophon">
+  AI Hype Cycle <span class="dot">&middot;</span> Empire Integration 简报 <span class="dot">&middot;</span> 2026 年 5 月 <span class="dot">&middot;</span> Naughty Boss / EIP
+</div>
+
+</main>
 
 </body>
 </html>
