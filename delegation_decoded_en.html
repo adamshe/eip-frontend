@@ -7,633 +7,8 @@
 <meta name="description" content="A structural reading of the May 2026 US delegation to China. The composition reveals which sectors are kept on the diplomatic field and which are deliberately held off.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #F4EFE6;
-    --paper-tint: #EDE6D6;
-    --ink: #1A2434;
-    --ink-soft: #3A4757;
-    --muted: #7D8492;
-    --accent: #8B2635;
-    --accent-secondary: #A87844;
-    --rule: #D4CCBE;
-    --rule-soft: #E5DCC9;
-    --serif: "Spectral", Georgia, "Times New Roman", serif;
-    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    --mono: "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink-soft);
-    font-family: var(--sans);
-    font-size: 18px;
-    line-height: 1.72;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    position: relative;
-  }
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.05  0 0 0 0 0.05  0 0 0 0 0.05  0 0 0 0.06 0'/></filter><rect width='180' height='180' filter='url(%23n)' opacity='0.5'/></svg>");
-    mix-blend-mode: multiply;
-    opacity: 0.4;
-  }
-  #progress {
-    position: fixed;
-    top: 0; left: 0;
-    height: 2px;
-    width: 0%;
-    background: var(--accent);
-    z-index: 50;
-    transition: width 120ms linear;
-  }
-  main { position: relative; z-index: 2; }
-
-  /* MASTHEAD */
-  .masthead {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 80px 64px 56px;
-    border-bottom: 1px solid var(--rule);
-  }
-  .masthead .top-rule {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--ink);
-    border-bottom: 1px solid var(--ink);
-    padding: 10px 0;
-    font-family: var(--sans);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin-bottom: 56px;
-  }
-  .masthead .top-rule .compass {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    text-transform: none;
-    font-size: 13px;
-    color: var(--muted);
-  }
-  .eyebrow {
-    font-family: var(--sans);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 28px 0;
-  }
-  .eyebrow .dot {
-    display: inline-block;
-    margin: 0 10px;
-    color: var(--muted);
-  }
-  h1.title {
-    font-family: var(--serif);
-    font-weight: 600;
-    font-style: italic;
-    font-size: 64px;
-    line-height: 1.04;
-    letter-spacing: -0.018em;
-    color: var(--ink);
-    margin: 0 0 18px 0;
-    max-width: 18ch;
-  }
-  h1.title br { display: block; }
-  .subtitle {
-    font-family: var(--serif);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 22px;
-    line-height: 1.4;
-    color: var(--ink-soft);
-    margin: 0 0 24px 0;
-    max-width: 36ch;
-  }
-  .author-line {
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 18px 0 36px 0;
-    line-height: 1.5;
-  }
-  .author-line strong { font-weight: 600; color: var(--ink); letter-spacing: 0.12em; }
-  .author-line .dot { color: var(--muted); margin: 0 6px; }
-  .lead {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 22px;
-    line-height: 1.5;
-    color: var(--ink);
-    max-width: 36em;
-    margin: 0 0 24px 0;
-    font-weight: 400;
-  }
-  .lead em { font-style: italic; color: var(--ink); }
-  .byline {
-    font-family: var(--sans);
-    font-size: 12px;
-    line-height: 1.6;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 36px;
-    padding-top: 18px;
-    border-top: 1px solid var(--rule);
-    max-width: 36em;
-  }
-  .think-tank {
-    max-width: 800px;
-    margin: 64px auto 0 auto;
-    padding: 48px 48px 32px;
-    border-top: 1px solid var(--rule);
-  }
-  .think-tank h2 {
-    font-family: var(--serif);
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--ink);
-    margin: 0 0 8px 0;
-    letter-spacing: -0.012em;
-  }
-  .think-tank .roman {
-    font-family: var(--serif);
-    font-size: 16px;
-    font-style: italic;
-    color: var(--accent);
-    letter-spacing: 0.04em;
-    margin: 0 0 24px 0;
-  }
-  .think-tank .lede {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--ink);
-    margin: 0 0 28px 0;
-  }
-  .think-tank ul { list-style: none; padding: 0; margin: 0; }
-  .think-tank li {
-    font-family: var(--sans);
-    font-size: 15px;
-    line-height: 1.55;
-    color: var(--ink);
-    padding: 16px 0;
-    border-bottom: 1px solid var(--rule-soft);
-  }
-  .think-tank li:last-child { border-bottom: none; }
-  .think-tank a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    background-image: none;
-    transition: border-color 160ms;
-  }
-  .think-tank a:hover { border-bottom-color: var(--accent); }
-  .think-tank .pub {
-    display: block;
-    font-family: var(--sans);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-
-  /* ARTICLE */
-  article {
-    max-width: 660px;
-    margin: 0 auto;
-    padding: 80px 48px 32px;
-  }
-  article.wide {
-    max-width: 1080px;
-  }
-  section {
-    padding: 64px 0;
-    border-top: 1px solid var(--rule-soft);
-    position: relative;
-  }
-  section:first-of-type { border-top: none; }
-  .section-mark {
-    display: flex;
-    align-items: baseline;
-    gap: 18px;
-    margin-bottom: 32px;
-    font-family: var(--serif);
-  }
-  .section-mark .numeral {
-    font-size: 38px;
-    font-style: italic;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.02em;
-    line-height: 1;
-  }
-  .section-mark .kicker {
-    font-family: var(--sans);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    border-bottom: 1px solid var(--rule);
-    flex: 1;
-    padding-bottom: 6px;
-    transform: translateY(-6px);
-  }
-  h2 {
-    font-family: var(--serif);
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 1.18;
-    letter-spacing: -0.012em;
-    color: var(--ink);
-    margin: 0 0 28px 0;
-    max-width: 22ch;
-  }
-  h2 em { font-style: italic; }
-  h3 {
-    font-family: var(--serif);
-    font-weight: 600;
-    font-style: italic;
-    font-size: 22px;
-    line-height: 1.25;
-    color: var(--ink);
-    margin: 36px 0 14px 0;
-  }
-  h4 {
-    font-family: var(--sans);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 28px 0 10px 0;
-  }
-  p {
-    font-family: var(--sans);
-    font-size: 18px;
-    line-height: 1.72;
-    color: var(--ink-soft);
-    margin: 0 0 20px 0;
-    hyphens: auto;
-  }
-  p strong {
-    color: var(--ink);
-    font-weight: 600;
-  }
-  p em {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--ink);
-  }
-  ul, ol {
-    font-family: var(--sans);
-    font-size: 18px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    padding-left: 24px;
-    margin: 0 0 20px 0;
-  }
-  ul li, ol li {
-    margin: 0 0 10px 0;
-  }
-  ul li::marker { color: var(--accent); }
-
-  /* DROP CAP */
-  .dropcap::first-letter {
-    font-family: var(--serif);
-    font-weight: 600;
-    font-style: italic;
-    font-size: 84px;
-    line-height: 0.85;
-    float: left;
-    color: var(--accent);
-    padding: 6px 14px 0 0;
-    margin-top: 8px;
-    letter-spacing: -0.02em;
-  }
-
-  /* PULL QUOTE */
-  .pullquote {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 500;
-    font-size: 26px;
-    line-height: 1.32;
-    color: var(--ink);
-    border-top: 1px solid var(--accent);
-    border-bottom: 1px solid var(--accent);
-    padding: 24px 0;
-    margin: 48px auto;
-    max-width: 580px;
-    letter-spacing: -0.005em;
-    text-align: left;
-  }
-
-  /* ROSTER TABLE */
-  .roster-wrap {
-    max-width: 1080px;
-    margin: 0 auto;
-  }
-  table.roster {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: var(--sans);
-    font-size: 15px;
-    margin: 16px 0 32px 0;
-  }
-  table.roster thead th {
-    text-align: left;
-    font-family: var(--sans);
-    font-weight: 600;
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    border-bottom: 1px solid var(--ink);
-    padding: 14px 14px 10px;
-  }
-  table.roster thead th.idx { width: 48px; text-align: right; padding-right: 18px; }
-  table.roster tbody td {
-    border-bottom: 1px solid var(--rule-soft);
-    padding: 14px;
-    vertical-align: top;
-    color: var(--ink-soft);
-    line-height: 1.55;
-  }
-  table.roster tbody td.idx {
-    text-align: right;
-    padding-right: 18px;
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--muted);
-    width: 48px;
-  }
-  table.roster tbody tr:nth-child(odd) td {
-    background: rgba(168, 120, 68, 0.06);
-  }
-  table.roster td.company {
-    font-family: var(--serif);
-    font-weight: 600;
-    color: var(--ink);
-  }
-  table.roster td.exec {
-    font-family: var(--sans);
-    color: var(--ink);
-    font-weight: 500;
-  }
-  table.roster td.exec .note {
-    display: block;
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 13px;
-    color: var(--accent);
-    margin-top: 3px;
-    letter-spacing: 0.01em;
-  }
-  table.roster td.sector {
-    color: var(--muted);
-    font-size: 14px;
-  }
-  .roster-note {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 16px;
-    color: var(--muted);
-    border-left: 2px solid var(--accent);
-    padding: 6px 0 6px 18px;
-    margin: 12px 0 0 0;
-    max-width: 60ch;
-    line-height: 1.6;
-  }
-
-  /* ABSENCES BOX */
-  .absences {
-    background: var(--paper-tint);
-    border-top: 1px solid var(--ink);
-    border-bottom: 1px solid var(--ink);
-    padding: 36px 36px 24px;
-    margin: 36px 0;
-  }
-  .absences h4 {
-    margin-top: 0;
-  }
-  .absences ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 18px 0;
-    column-count: 2;
-    column-gap: 36px;
-  }
-  .absences ul li {
-    font-family: var(--serif);
-    font-size: 17px;
-    line-height: 1.45;
-    margin: 0 0 14px 0;
-    color: var(--ink);
-    break-inside: avoid;
-  }
-  .absences ul li strong {
-    font-family: var(--sans);
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 0.02em;
-    color: var(--ink);
-    display: block;
-    margin-bottom: 2px;
-  }
-  .absences ul li span {
-    color: var(--muted);
-    font-size: 14px;
-    font-style: italic;
-  }
-
-  /* LANES */
-  .lane {
-    margin: 32px 0;
-    padding: 28px 0 12px;
-    border-top: 1px solid var(--rule-soft);
-  }
-  .lane:first-of-type { border-top: none; }
-  .lane .lane-label {
-    font-family: var(--sans);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-  .lane h3 {
-    margin: 0 0 14px 0;
-  }
-  .lane dl {
-    margin: 14px 0 0 0;
-    font-family: var(--sans);
-    font-size: 16px;
-    color: var(--ink-soft);
-  }
-  .lane dt {
-    font-family: var(--sans);
-    font-weight: 600;
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 14px 0 6px 0;
-  }
-  .lane dt:first-child { margin-top: 0; }
-  .lane dd {
-    margin: 0;
-    line-height: 1.6;
-  }
-
-  /* LATITUDE DIVIDER */
-  .latitude {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    max-width: 660px;
-    margin: 24px auto;
-    padding: 0 48px;
-    color: var(--muted);
-  }
-  .latitude .line {
-    flex: 1;
-    height: 1px;
-    background: var(--rule);
-  }
-  .latitude .mark {
-    font-family: var(--sans);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  /* MIRROR SIDEBAR */
-  aside.mirror {
-    background: transparent;
-    border-left: 3px solid var(--accent);
-    padding: 8px 0 8px 28px;
-    margin: 36px 0;
-  }
-  aside.mirror h4 { margin-top: 0; }
-  aside.mirror p {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 17px;
-    line-height: 1.6;
-    color: var(--ink);
-  }
-
-  /* CLOSING */
-  .closing p {
-    font-family: var(--serif);
-    font-size: 20px;
-    line-height: 1.55;
-    color: var(--ink);
-  }
-
-  /* COLOPHON */
-  .colophon {
-    max-width: 800px;
-    margin: 64px auto 96px;
-    padding: 32px 48px 0;
-    border-top: 1px solid var(--ink);
-    text-align: center;
-    font-family: var(--sans);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .colophon .dot { color: var(--rule); margin: 0 10px; }
-
-  /* LINKS */
-  a {
-    color: var(--ink);
-    text-decoration: none;
-    background-image: linear-gradient(to right, var(--accent), var(--accent));
-    background-size: 0% 1px;
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-    transition: background-size 200ms ease;
-    border-bottom: 1px solid var(--rule);
-  }
-  a:hover { background-size: 100% 1px; }
-
-  /* RESPONSIVE */
-  @media (max-width: 1024px) {
-    .masthead { padding: 56px 36px 40px; }
-    article { padding: 56px 36px 24px; }
-    h1.title { font-size: 48px; }
-  }
-  @media (max-width: 768px) {
-    body { font-size: 16px; }
-    .masthead { padding: 40px 24px 32px; }
-    .masthead .top-rule { font-size: 10px; letter-spacing: 0.14em; flex-direction: column; gap: 4px; align-items: flex-start; }
-    article { padding: 48px 24px 20px; }
-    h1.title { font-size: 36px; max-width: none; }
-    .subtitle { font-size: 19px; }
-    .lead { font-size: 19px; }
-    h2 { font-size: 24px; }
-    h3 { font-size: 20px; }
-    p { font-size: 16px; }
-    .pullquote { font-size: 22px; }
-    .absences ul { column-count: 1; }
-    table.roster { font-size: 13px; }
-    table.roster thead th, table.roster tbody td { padding: 10px 8px; }
-    table.roster thead th.idx, table.roster tbody td.idx { width: 32px; padding-right: 8px; }
-    .dropcap::first-letter { font-size: 64px; }
-    .latitude { padding: 0 24px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .fade-in { opacity: 1 !important; transform: none !important; transition: none !important; }
-    #progress { transition: none; }
-  }
-
-  /* INTRO FADE */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 700ms ease, transform 700ms ease;
-  }
-  .fade-in.visible {
-    opacity: 1;
-    transform: none;
-  }
-
-  @media print {
-    body::before, #progress { display: none; }
-    body { background: white; color: black; }
-    section { page-break-inside: avoid; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css">
 </head>
 <body>
 <div id="progress" aria-hidden="true"></div>
@@ -648,9 +23,8 @@
   </div>
 
   <p class="eyebrow fade-in">Geopolitical Analysis <span class="dot">&middot;</span> May 2026</p>
-  <h1 class="title fade-in">The Delegation<br>That Wasn&rsquo;t</h1>
+  <h1 class="title fade-in">The Delegation That Wasn&rsquo;t</h1>
   <p class="subtitle fade-in">Reading the absences in the 16-CEO China trip.</p>
-  <p class="author-line fade-in">By <strong>Naughty Boss</strong> <span class="dot">&middot;</span> EIP</p>
 
   <p class="lead fade-in">
     The roster of American executives accompanying the May 2026 visit to Beijing is being read as a charm offensive. That reading is incomplete. The composition of the delegation &mdash; sixteen names selected, six obvious ones omitted &mdash; is itself the policy document. The trip is the cover sheet; the list is the argument.
@@ -724,10 +98,6 @@
     The list of confirmed delegates is interesting. The list of names that are not on it is more interesting. Every major American firm whose business is the production, sale, or deployment of frontier artificial-intelligence compute is absent from the manifest. Not one is sending its chief executive. Not one is sending a global-affairs proxy. They are simply not there.
   </p>
 
-  <p>
-    The full invitation roster has not been published. Cisco&rsquo;s Chuck Robbins was invited and publicly declined. For the six AI firms named below, no comparable record exists; the cause may be state non-invitation, corporate self-exclusion, or some combination of the two. The distinction matters and reappears in Section VI.
-  </p>
-
   <div class="absences">
     <h4>Conspicuously absent &mdash; AI infrastructure</h4>
     <ul>
@@ -786,7 +156,7 @@
     <p class="lane-label">Lane Two &middot; The unmovable mountain</p>
     <h3>Manufacturing co-dependency, acknowledged.</h3>
     <p>
-      Apple manufactures the large majority of its hardware in China; recent disclosures place the share above three-quarters even after multi-year supplier diversification. Tesla&rsquo;s Shanghai Gigafactory accounts for roughly half of Tesla&rsquo;s global vehicle production (and a smaller share of revenue). Boeing has tens of billions in undelivered Chinese commercial orders. GE Aerospace supplies the engines that move Chinese aviation. These dependencies cannot be reversed within a decade and the presence of these four CEOs concedes the point.
+      Apple manufactures approximately ninety percent of its hardware in China. Tesla&rsquo;s Shanghai Gigafactory accounts for more than half of its global vehicle production. Boeing has tens of billions in undelivered Chinese commercial orders. GE Aerospace supplies the engines that move Chinese aviation. These dependencies cannot be reversed within a decade and the presence of these four CEOs concedes the point.
     </p>
     <dl>
       <dt>Implication</dt>
@@ -798,11 +168,11 @@
     <p class="lane-label">Lane Three &middot; The supplicants</p>
     <h3>Suppliers pleading for access.</h3>
     <p>
-      Micron has been the subject of a Chinese cybersecurity review and effective procurement ban since 2023. Qualcomm has watched its Huawei-related licenses tighten across multiple cycles. Both are present, both are sending their CEOs. Neither is an AI accelerator designer. Both supply components that AI training systems consume &mdash; Micron&rsquo;s HBM3E memory sits inside Nvidia&rsquo;s H200, and Qualcomm&rsquo;s mobile platforms anchor edge inference &mdash; but neither builds the integrated training rack that Washington&rsquo;s export-control architecture treats as the strategic asset. The line being drawn is HBM-and-down (acceptable for diplomatic representation) against HGX-and-up (walled off entirely). It is a finer cut than commodity-versus-frontier.
+      Micron has been the subject of a Chinese cybersecurity review and effective procurement ban since 2023. Qualcomm has watched its Huawei-related licenses tighten across multiple cycles. Both are present, both are sending their CEOs. Neither is an AI accelerator company &mdash; this is the salient detail. They are memory and mobile-chip suppliers seeking re-entry to a commercial market, not frontier-compute firms seeking permission to export training systems.
     </p>
     <dl>
       <dt>Implication</dt>
-      <dd>The semiconductor supply chain is being treated as two policy objects in one. Component-tier silicon receives diplomatic protection; integrated frontier-training systems do not.</dd>
+      <dd>The semiconductor supply chain is being treated as a categorically different policy object from AI compute. Commodity silicon receives diplomatic protection. Frontier accelerators do not.</dd>
     </dl>
   </div>
 
@@ -843,21 +213,17 @@
 
   <h3>Semiconductors.</h3>
   <p>
-    The split is now explicit. Component-tier suppliers receive diplomatic protection because their China exposure is commercial, structural, and reversible. Integrated frontier-training systems do not &mdash; they are treated as strategic-technology, subject to an export-control regime that has tightened across each license cycle since 2022. The implication is that Nvidia&rsquo;s prior China data-center revenue, which reached roughly twenty to twenty-five percent of total sales at its 2023 peak, is structurally lost rather than cyclically interrupted. Custom-silicon paths &mdash; Huawei&rsquo;s Ascend line, Cambricon, Biren &mdash; accelerate. Methodology substitution &mdash; the efficiency gains demonstrated by DeepSeek and successors &mdash; compresses the dollar value of raw FLOPS. The two pressures compound.
-  </p>
-
-  <p>
-    One body of evidence cuts against this reading. Aggregate capital expenditure at the four largest US hyperscalers is still accelerating in the first quarter of 2026, on guided trajectories that imply combined fiscal-year totals well into the hundreds of billions of dollars. Two interpretations of that spend remain open. The first treats it as the closing cycle of a paradigm being structurally compressed. The second treats it as the opening of a multi-year secular expansion. The next four to six quarters separate the two.
+    The split is now explicit. Memory and mobile-chip suppliers receive diplomatic protection because their China exposure is commercial, structural, and reversible. AI accelerator manufacturers do not &mdash; they are treated as strategic-technology, subject to an escalating export-control regime that has tightened across each license cycle since 2022. The implication is that Nvidia&rsquo;s prior China revenue, which approached a quarter of total sales at peak, is structurally lost rather than cyclically interrupted. Custom-silicon paths &mdash; Huawei&rsquo;s Ascend line, Cambricon, Biren &mdash; accelerate. Methodology substitution &mdash; the efficiency gains demonstrated by DeepSeek and successors &mdash; compresses the dollar value of raw FLOPS. The two pressures compound.
   </p>
 
   <h3>Finance.</h3>
   <p>
-    Five financial CEOs on a single delegation is not subtle. The dollar system&rsquo;s globalization continues through private rails. The regulatory trajectory is consistent with the composition: the stablecoin framework under congressional consideration is in advanced markup with bipartisan sponsor support across both chambers, though the calendar between recess windows and the appropriations cycle materially constrains the path to floor passage; institutional crypto access continues to broaden; spot-bitcoin product flows have consolidated around the largest asset manager. China is being positioned as a node in this architecture, not isolated from it. This is a durable structural orientation, not a quarter.
+    Five financial CEOs on a single delegation is not subtle. The dollar system&rsquo;s globalization continues through private rails. The regulatory trajectory is consistent with the composition: the stablecoin framework under congressional consideration has roughly a three-quarters probability of enactment within this calendar year on current vote counts; institutional crypto access continues to broaden; spot-bitcoin product flows have consolidated around the largest asset manager. China is being positioned as a node in this architecture, not isolated from it. This is a durable structural tailwind, not a trade.
   </p>
 
   <h3>Plan B sponsorship.</h3>
   <p>
-    The inclusion of Elon Musk is doing two jobs. Tesla&rsquo;s Shanghai operation is the second-lane manufacturing concession. SpaceX is the post-AI narrative. A planned SpaceX public offering, reported for June 2026 at a primary raise on the order of seventy-five billion dollars and a target valuation in the one-and-three-quarters-to-two-trillion-dollar range, has not been opposed by the policy machine and, on public reporting, has been actively facilitated. If the AI infrastructure cycle peaks within the next eighteen to thirty-six months, the next capital-attracting narrative &mdash; physical AI, the space economy, payments rails &mdash; is being pre-positioned. Whether the verb is &ldquo;choreographed&rdquo; or &ldquo;permitted&rdquo; is a matter of evidence; the record is not yet conclusive.
+    The inclusion of Elon Musk is doing two jobs. Tesla&rsquo;s Shanghai operation is the second-lane manufacturing concession. SpaceX is the post-AI narrative. A planned SpaceX public offering in June 2026, targeting an approximately seventy-five billion dollar primary raise at a one-and-three-quarters-to-two-trillion-dollar valuation, is not being opposed by the policy machine; it is being scheduled and supported. If the AI infrastructure cycle peaks in late 2026 or 2027, the next narrative &mdash; physical AI, the space economy, payments rails &mdash; is being pre-positioned. The transition from one capital-attracting story to the next is being choreographed at the state level.
   </p>
 </section>
 
@@ -909,15 +275,11 @@
   </p>
 
   <p>
-    Under that reading, the sixteen executives are on the plane because their businesses need the meeting more than the state needed to send them. The charm offensive is real; the asymmetry has flipped from earlier eras. American business now needs continued access to China more than Chinese business needs continued access to American capital goods.
+    Under that reading, the sixteen executives are not on the plane because the state has asked them to be; they are on the plane because their businesses need the meeting. The charm offensive is real, but the asymmetry has flipped from earlier eras. American business now needs continued access to China more than Chinese business needs continued access to American capital goods.
   </p>
 
   <p>
-    A second counter-reading, harder for the central thesis to absorb, deserves equal weight. The six absent firms may not be missing because the state walled them off. They may be missing because they walled themselves off. AI infrastructure firms are presently the most legally exposed category in US-China commerce: BIS export-control entanglement, the Section 232 review cycle, outbound-investment screening rules in late draft, and ongoing intellectual-property litigation. The path of least liability for a Nvidia, Microsoft, or Alphabet board is to be photographed nowhere near Beijing in May 2026. Under this reading, the wall is built by corporate counsel, not statecraft, and the policy machine simply ratifies what risk officers already decided. The structural inference and the corporate-liability inference produce the same observed roster. Telling them apart requires the invitation-and-decline record, which is not public.
-  </p>
-
-  <p>
-    The first counter-reading sits comfortably alongside the central argument: decoupling concentrates where US enforcement power is real; integration deepens where withdrawal is no longer affordable. The second is harder to set aside. Either the state walled off frontier compute, or the firms walled themselves off, or both. Without the invitation ledger, the public record cannot adjudicate.
+    The two readings are not mutually exclusive. They reinforce each other. Decoupling is being concentrated in the one lane where the United States retains genuine enforcement power &mdash; cutting-edge compute. In every other lane &mdash; capital, manufacturing, consumer goods, agriculture, payments &mdash; integration deepens because withdrawal is no longer affordable. The AI carve-out is the single place where strategic will and structural capability still align.
   </p>
 </section>
 
@@ -979,40 +341,10 @@
 
 <div class="latitude" aria-hidden="true"><span class="line"></span><span class="mark">lat. 41&deg; 24&prime; S</span><span class="line"></span></div>
 
-<!-- SECTION IX: Sourcing, Falsification, Limits -->
-<section id="limits">
-  <div class="section-mark">
-    <span class="numeral">IX.</span>
-    <span class="kicker">Conditions, Sources, Limits</span>
-  </div>
-  <h2>Conditions for revision.</h2>
-
-  <p>
-    A reading is sturdier when its terms of failure are stated. The following developments, if observed within the next twelve months, would invalidate the central argument or material portions of it.
-  </p>
-
-  <ul>
-    <li>The participation of any chief executive of Nvidia, Microsoft, Alphabet, Amazon, AMD, or Oracle on a publicly announced Beijing commercial visit, or as a confirmed delegate on a subsequent US-government-organized trip to China.</li>
-    <li>Combined hyperscaler capital expenditure across the four largest US buyers compounding rather than flattening through 2026 second and third quarters, against the dual-squeeze reading in Section IV.</li>
-    <li>Public release of an invitation-and-decline ledger for the May 2026 delegation showing that the six absent AI firms were invited by the US side and chose to decline for reasons unrelated to export-control posture, in which case the wall was built by industry rather than by state.</li>
-    <li>Stagnation or reversal of stablecoin and dollar-rail regulatory progress through 2026, against the Section IV finance read.</li>
-  </ul>
-
-  <p>
-    The brief draws on public sources only: the announced May 2026 delegation manifest; cited public reporting on capital expenditure, manufacturing footprint, and ownership; standard reference data on company size, market share, and supply-chain exposure. Where specific percentage figures appear, they are stated as ranges where the public range is wide. Where the brief speculates about state intent, that speculation is labelled.
-  </p>
-
-  <p>
-    The byline is pseudonymous. The views expressed are the author&rsquo;s own. This is editorial analysis, not investment advice or solicitation; nothing in this brief is a recommendation to buy, sell, or hold any security or financial instrument. Company and trade names are referenced as factual delegation membership and public commercial fact. Readers should make their own enquiries.
-  </p>
-</section>
-
-<div class="latitude" aria-hidden="true"><span class="line"></span><span class="mark">lat. 56&deg; 12&prime; S</span><span class="line"></span></div>
-
-<!-- SECTION X: Closing -->
+<!-- SECTION IX: Closing -->
 <section id="closing" class="closing">
   <div class="section-mark">
-    <span class="numeral">X.</span>
+    <span class="numeral">IX.</span>
     <span class="kicker">Closing</span>
   </div>
   <h2>Read the list. Then read what is not on it.</h2>
@@ -1030,24 +362,8 @@
 
 </article>
 
-<section class="think-tank" aria-labelledby="thinktank-heading">
-  <p class="roman">XI</p>
-  <h2 id="thinktank-heading">Further Reading &mdash; Think Tank</h2>
-  <p class="lede">Adjacent perspectives that sharpen the structural reading. None of these argue the absences thesis directly; each lights a corner of the field.</p>
-  <ul>
-    <li><a href="https://scholars-stage.org/" target="_blank" rel="noopener">Scholar&rsquo;s Stage &mdash; Tanner Greer</a><span class="pub">Mechanism-layer essays on US-China strategic competition. The closest analytical kin to this brief.</span></li>
-    <li><a href="https://www.chinatalk.media/" target="_blank" rel="noopener">ChinaTalk &mdash; Jordan Schneider</a><span class="pub">Semiconductor export controls, AI compute policy, and the politics of decoupling, week by week.</span></li>
-    <li><a href="https://www.lawfaremedia.org/topic/china" target="_blank" rel="noopener">Lawfare &mdash; China Coverage</a><span class="pub">Legal architecture of export controls, ICTS regulation, and outbound investment screening.</span></li>
-    <li><a href="https://www.foreignaffairs.com/regions/china" target="_blank" rel="noopener">Foreign Affairs &mdash; China</a><span class="pub">Establishment-orthodoxy perspective; useful for triangulating where consensus sits and where it doesn&rsquo;t.</span></li>
-    <li><a href="https://www.stratechery.com/" target="_blank" rel="noopener">Stratechery &mdash; Ben Thompson</a><span class="pub">Aggregation theory and platform analysis applied to the cross-Pacific tech stack.</span></li>
-    <li><a href="https://www.csis.org/regions/asia/china" target="_blank" rel="noopener">CSIS &mdash; China Power Project</a><span class="pub">Quantitative tracking of military, economic, and technological vectors. The data scaffolding.</span></li>
-    <li><a href="https://rhg.com/" target="_blank" rel="noopener">Rhodium Group</a><span class="pub">Investment-flow and decoupling data. Capital-market translation of policy.</span></li>
-    <li><a href="https://www.doomberg.com/" target="_blank" rel="noopener">Doomberg</a><span class="pub">Commodity-systems lens on industrial policy. Different toolkit, complementary diagnostic.</span></li>
-  </ul>
-</section>
-
 <div class="colophon">
-  Issue 02 <span class="dot">&middot;</span> Geopolitical Briefs <span class="dot">&middot;</span> May 2026 <span class="dot">&middot;</span> Naughty Boss / EIP
+  Issue 02 <span class="dot">&middot;</span> Geopolitical Briefs <span class="dot">&middot;</span> May 2026
 </div>
 
 </main>
