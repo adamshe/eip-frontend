@@ -458,13 +458,13 @@ section:first-of-type { border-top: none; }
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 30px;
-  line-height: 1.25;
+  line-height: 1.35;
   color: var(--text);
   border-top: 1px solid var(--text);
   border-bottom: 1px solid var(--text);
   padding: var(--s-6) 0;
   margin: var(--s-7) 0;
-  max-width: 22ch;
+  max-width: none;
   letter-spacing: -0.005em;
 }
 .pullquote::before {
