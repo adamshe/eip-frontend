@@ -457,6 +457,48 @@ vs IPO target $1.75T = 基准 3.3x / 乐观 2.5x
     <li>轨道 DC + Fusion 期权设为 <strong>$0</strong> (Finding 3 sum-of-parts Block D)。</li>
     <li><strong>证伪</strong>: (a) 独立第三方工程团队 peer-reviewed paper 证明轨道 DC unit-of-compute 总成本低于 2026 地面方案; (b) SpaceX 公开 in-orbit servicing demonstration (单次 < $1M); (c) SpaceX / Tesla 公开收购 top-3 fusion 公司 30%+ 股权; (d) 地面 DC power 出现结构性不可解约束。任一发生, Finding 6 降级。</li>
   </ul>
+
+  <div class="panel verdict">
+    <h3>Update 2026-05-24 -- 校准, 不 flip</h3>
+    <p>本节初版 ($0 期权) 已收到 4 条 2025-2026 新 evidence, 触发<strong>校准</strong>: 期权 $0 -> <strong>$5B-$30B niche</strong> (DoD sovereign + Starlink V3 edge-inference). 主 thesis 仍成立 -- 市场 implicit 给 $200B-$500B premium, 仍远超 niche 真值. 不 flip thesis, 显式 acknowledge 新证据.</p>
+
+    <h4>新 evidence</h4>
+    <ul>
+      <li><strong>2026-01-30 SpaceX FCC filing</strong> -- 申请 ~1M satellite 星座, 明确定位 orbital AI DC (100kW compute / tonne, target 100GW/年 once Starship 运营). 原版 "concept 营销 / 不在 active R&D" stale (来源: DCD / SpaceNews).</li>
+      <li><strong>2025-11-04 Google Project Suncatcher</strong> -- TPU constellation + Planet 合作, prototype 2027 early launch. Google 同峰对手验证架构非物理排除 (来源: Google Research blog).</li>
+      <li><strong>2025-11 Starcloud-1 H100 已在轨</strong> -- ECC + 冗余 compute 替代 rad-hard premium. Pillar (2) "rad-hard 成本 4-8x" <strong>塌陷</strong> -- commercial silicon + ECC + 屏蔽是新架构 (来源: Tom's Hardware, CNBC).</li>
+      <li><strong>2026-05-12 WSJ: Google + SpaceX talks</strong> -- orbital DC 商务合作传闻 (来源: TechCrunch).</li>
+      <li><strong>2026 summer Northrop MRV + 4 DoD on-orbit servicing missions</strong> -- in-orbit servicing 10-20 年时间表收窄至 5-10 年 mass-scale (GEO 已可, LEO cluster GPU swap 仍远) (来源: Air & Space Forces, Via Satellite).</li>
+      <li><strong>Starship $78-94/kg LEO 部分可重用</strong> -- launch cost pillar 软化, Google viable 阈值 <$200/kg 在 mid-2030s. 仍出 SPCX 2-3 年估值窗 (来源: Orbital Radar).</li>
+    </ul>
+
+    <h4>5 pillar 重评</h4>
+    <table>
+      <tr><th>Pillar</th><th>原版 verdict</th><th>2026-05-24 校准</th></tr>
+      <tr><td>(1) In-orbit servicing</td><td>10-20 年</td><td>softened 5-10 年 mass-scale (Northrop MRV / DoD missions)</td></tr>
+      <tr><td>(2) Rad-hard GPU 4-8x</td><td>不可解</td><td class="lo"><strong>COLLAPSED</strong> -- Google Trillium 2 krad HBM (vs 5-yr shielded 750 rad) + Starcloud H100 ECC + 屏蔽 = commercial 替代</td></tr>
+      <tr><td>(3) Vacuum thermal</td><td>反物理</td><td class="hi"><strong>HOLDS</strong> -- Stefan-Boltzmann 量化: 100MW DC 需 ~120,000 m^2 radiator = ~7,000 tons = 15 ISS-equivalents. 最硬物理 pillar.</td></tr>
+      <tr><td>(4) Solar density</td><td>地面赢</td><td>partial -- Sun-sync dawn-dusk 比地面 8x productivity (Google), 但 mass-economics 现仍地面胜</td></tr>
+      <tr><td>(5) Launch < $1M / payload</td><td>10 年外</td><td>softened mid-2030s (Starship $78-94/kg 已实现; Google viable 阈值 $200/kg)</td></tr>
+    </table>
+
+    <h4>仅 2 个 niche pillar 真站得住</h4>
+    <ol>
+      <li><strong>DoD sovereign-compute premium</strong> -- 5-10x 价格容忍, 4 DoD 2026 missions 确认意图. Niche but real.</li>
+      <li><strong>Starlink V3 edge-inference bundling</strong> -- GPU 与 V3 broadband 卫星打包 = direct-to-cell AI latency killer. Breakthrough Institute 自己也承认可行.</li>
+    </ol>
+
+    <h4>校准估值: $0 -> $5B-$30B niche</h4>
+    <p>合理 option value: <strong>$5B-$30B</strong> for SPCX specifically (DoD sovereign + Starlink V3 edge-inference). 远高于 $0, 远低于市场 implicit 约 $200B-$500B premium. <strong>主 thesis 不变</strong> -- 市场仍按 200-500B 给, 真值 5-30B = 错配仍存在, 仅幅度收窄.</p>
+
+    <h4>新增证伪条件</h4>
+    <ul>
+      <li>(e) SpaceX V3 launch + 公布 per-satellite GPU 经济: 若 $/kg-token cost-competitive vs 地面 (例 < $100/token unit), Finding 6 进一步降级</li>
+      <li>(f) Starcloud-2 (2026 October, 100x power vs Starcloud-1) 公开实测 GPU 运行 6 月以上无失效 + token throughput: 若 production-grade 数据出, niche 上限扩到 $50B-$100B</li>
+    </ul>
+
+    <p class="src"><strong>校准纪律</strong>: 本 update 显式 box 而非 silent rewrite 主体, 让原 verdict + 新校准并列可见. 这是 think-tank 责任 -- evidence 变了就 acknowledge, 不藏不 over-flip. 主 thesis (类型错配 + 市场过度定价 0-to-1 期权) 仍可防御, 仅数字 calibrate.</p>
+  </div>
 </section>
 
 <!-- ====================== FINDING 7 ====================== -->
