@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rubin 供应链投资 Vet -- Yoneda 定性 + PE/PEG 定量</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --border:#2d3542;
+    --ink:#e6edf3; --mut:#8b97a7; --dim:#5c6675;
+    --green:#3fb950; --amber:#d29922; --red:#f85149; --blue:#58a6ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"Segoe UI",-apple-system,system-ui,"Microsoft YaHei",sans-serif;
+       font-size:14px;line-height:1.5}
+  header{padding:22px 26px 16px;border-bottom:1px solid var(--border);background:var(--panel)}
+  h1{margin:0 0 4px;font-size:20px;font-weight:650}
+  .byline{color:var(--blue);font-size:12.5px;margin:2px 0 6px;font-weight:600}
+  .sub{color:var(--mut);font-size:13px}
+  .frame{margin-top:12px;display:flex;gap:18px;flex-wrap:wrap}
+  .frame div{font-size:12.5px;color:var(--mut);max-width:560px}
+  .frame b{color:var(--ink)}
+  main{padding:20px 26px 60px;max-width:1320px;margin:0 auto}
+  h2{font-size:15px;margin:26px 0 10px;color:var(--mut);font-weight:600;
+     border-left:3px solid var(--blue);padding-left:9px}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  .master th,.master td{border:1px solid var(--border);padding:7px 9px;text-align:left;vertical-align:top}
+  .master th{background:var(--panel2);color:var(--mut);font-weight:600}
+  .master tr:hover td{background:#13182040}
+  .tk{font-weight:700;font-size:14px}
+  .v-CONFIRM{color:var(--green);font-weight:700}
+  .v-WATCH{color:var(--amber);font-weight:700}
+  .v-REJECT{color:var(--red);font-weight:700}
+  .tag{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:9px;
+       border:1px solid var(--border);color:var(--mut);white-space:nowrap}
+  .tag.BLACKHORSE{color:var(--blue);border-color:#264b7a}
+  .tag.SPECULATIVE{color:var(--red);border-color:#5a2b2b}
+  .num{font-variant-numeric:tabular-nums;text-align:right}
+  .nm{color:var(--dim)}
+  /* yoneda rank bar */
+  .rankbar{display:inline-flex;gap:2px;vertical-align:middle}
+  .seg{width:9px;height:13px;border-radius:2px;background:#222a36;border:1px solid #2d3542}
+  .seg.on5,.seg.on4{background:var(--blue);border-color:var(--blue)}
+  .seg.on3{background:var(--amber);border-color:var(--amber)}
+  .seg.on2,.seg.on1{background:#7d4040;border-color:#9a4a4a}
+  .rnum{color:var(--mut);font-size:11px;margin-left:5px}
+  .sd{font-size:11px;white-space:nowrap}
+  .sd-struct{color:#7ea7d8} .sd-domain{color:#c98fd8}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(580px,1fr));gap:14px;margin-top:8px}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+  .card.CONFIRM{border-top:3px solid var(--green)}
+  .card.WATCH{border-top:3px solid var(--amber)}
+  .card.REJECT{border-top:3px solid var(--red)}
+  .chead{display:flex;justify-content:space-between;align-items:baseline;padding:11px 14px;background:var(--panel2)}
+  .chead .L{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap}
+  .chead .nm2{color:var(--mut);font-size:12px}
+  .price{font-variant-numeric:tabular-nums;color:var(--ink);font-size:13px}
+  .cbody{padding:11px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .qual{font-size:12.5px}
+  .qual .row{margin-bottom:7px}
+  .qual .k{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.3px}
+  .qual .val{color:var(--ink)}
+  .quant table{font-size:12px}
+  .quant th,.quant td{padding:4px 6px;border-bottom:1px solid var(--border)}
+  .quant th{color:var(--dim);font-weight:600;text-align:right}
+  .quant td:first-child,.quant th:first-child{text-align:left}
+  .flag{color:var(--dim);font-size:10px}
+  .peg-cheap{color:var(--green)} .peg-mid{color:var(--amber)} .peg-rich{color:var(--red)}
+  .peg-trap{color:var(--red);text-decoration:underline wavy var(--red)}
+  .bucket{color:var(--blue);font-size:11.5px}
+  footer{padding:18px 26px;border-top:1px solid var(--border);color:var(--dim);font-size:11.5px;max-width:1320px;margin:0 auto}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:6px 0 0;color:var(--mut);font-size:11.5px}
+  code{background:var(--panel2);padding:1px 4px;border-radius:3px;color:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+  <h1>NVIDIA Rubin 供应链 -- 投资 Vet (22 只)</h1>
+  <div class="byline">作者: Naughty Boss . EIP Research</div>
+  <div class="sub">800V HVDC 电源 + 内存 + 光互连 + 发电/核燃料 supply-chain。价格 live 核实, 截至 2026-06-02 收盘 (~20:00 UTC)。仅分析, 非买卖建议。</div>
+  <div class="frame">
+    <div><b>Yoneda 定性</b>: 在 Rubin 关系网中的位置 -- 供应角色 / BOM 桶 / 共识 vs 黑马 / 护城河 / 裁决 / 风险 / <b>Yoneda 排名 1-5</b> (关系位置强度)</div>
+    <div><b>PE / PEG 定量</b>: FY2027-2030 forward 倍数 (亏损=NM, 无覆盖=no-consensus, 外年=[模型], 周期峰=trap 失真)</div>
+    <div><b>机会类型</b>: 结构 (骑 paradigm 大势 beta) vs 域 (公司自有护城河 alpha); * = 混合</div>
+  </div>
+</header>
+<main>
+  <h2>总览 (按 Yoneda 排名降序; 同排名 CONFIRM -> WATCH -> REJECT)</h2>
+  <table class="master"><thead><tr>
+      <th>Ticker</th><th>Yoneda 排名</th><th>机会</th><th>供应角色</th><th>BOM 桶</th>
+      <th>裁决</th><th class="num">价格</th>
+      <th class="num">FY27 PE</th><th class="num">FY27 PEG</th>
+  </tr></thead><tbody id="mbody"></tbody></table>
+
+  <h2>逐只 -- Yoneda 定性 (左) + PE/PEG 定量 (右)</h2>
+  <div class="cards" id="cards"></div>
+</main>
+<footer>
+  <div class="legend">
+    <span><span class="v-CONFIRM">CONFIRM</span> 有 sourced 真实敞口</span>
+    <span><span class="v-WATCH">WATCH</span> 部分/前置, 未 material</span>
+    <span><span class="v-REJECT">REJECT</span> 无 sourced driver (razor)</span>
+    <span>Yoneda: 5=不可替代 chokepoint / 4=领先确认 / 3=真实但被竞争 / 2=边缘前置 / 1=投机无位置</span>
+  </div>
+  <div class="legend">
+    <span>PEG: <span class="peg-cheap">&lt;1</span> / <span class="peg-mid">1-2</span> / <span class="peg-rich">&gt;2</span> / <span class="peg-trap">周期峰陷阱(低PE非便宜)</span></span>
+    <span><code>[模型]</code> 无 consensus 按 LT 增速推; <code>NM</code> EPS&lt;=0; <code>结构/域</code> 见上</span>
+  </div>
+  <div style="margin-top:10px">
+    数据纪律 (22 只): 价格全部 live 核实 2026-06-02/03 (TSM/GOOGL 用 Yahoo 收盘价已重算) (MRVL $219->$290.79 / LITE ~$913->$1029.15 已按今日实时改正)。
+    实线 consensus -- MRVL/CCJ FY27-29, MPWR FY27-28, POWI/TTMI/VSH/LITE FY27, SNDK FY27-28, P FY27, MU FY27; 其余外年 [模型] 或 no-consensus, 不编造。
+    内存/存储 (MU/SNDK) 与 VSH FY27 低 PEG 是 trough->peak 反弹 / cycle-peak 失真, 不读成便宜 (标 trap)。
+    P = Everpure (原 Pure Storage PSTG, 2026-04 改名改 ticker)。WOLF 破产重整旧股清零 ~45M 新股。
+    off-calendar FY: LITE/COHR/AOSL ~6月, MU ~8月, SNDK ~6月, MRVL ~1月; "FY2027" = 财年结束于该年。
+  </div>
+</footer>
+
+<script>
+const D=[
+ {tk:"TSM",name:"TSMC (ADR)",verdict:"CONFIRM",rank:5,sd:"域*",
+  role:"Rubin die foundry (N3/N2) + CoWoS-L/SoIC 先进封装双 chokepoint; NVIDIA 占 >50% CoWoS 订到 2027; HPC 61% 营收 (FY Dec, ADR)",
+  bucket:"晶圆 / 封装 chokepoint",tag:"CONSENSUS",price:"$446.69",
+  moat:"先进制程近垄断 (Samsung/Intel 落后 N3/N2 良率) + 先进封装单一源; 定价权 GM>66%; 20 年护城河",
+  risk:"台湾地缘/集中风险 (单岛 fab) -- 外生 binary, 护城河无法对冲; 资本密集周期",
+  fy:{f27:{eps:"~$20.3",pe:"22.0",peg:"0.67",fl:"模型 (33% CAGR)"},
+      f28:{eps:"~$27.0",pe:"16.5",peg:"0.50",fl:"模型"},
+      f29:{eps:"~$33.8",pe:"13.2",peg:"0.53",fl:"模型"},
+      f30:{eps:"~$39.0",pe:"11.5",peg:"0.77",fl:"模型"}}},
+
+ {tk:"GOOGL",name:"Alphabet",verdict:"CONFIRM",rank:4,sd:"域*",
+  role:"需求/买方节点 (Cloud capex, top-3 NVIDIA 客户) + TPU 自研硅 (Ironwood, 外卖 Anthropic $40B/Meta) + Gemini; 既客户又竞争者 (FY Dec)",
+  bucket:"买方 + 自研硅 TPU",tag:"CONSENSUS",price:"$361.85",
+  moat:"搜索/广告现金引擎自筹 $185B AI 投入 (少有对手能); TPU 垂直整合; Gemini + 分发 (Android/Chrome)",
+  risk:"capex $180-190B 升入 2027 压 FCF; AI-search 颠覆广告现金引擎 = 资金闭环断裂风险",
+  fy:{f27:{eps:"$14.94",pe:"24.2",peg:"4.94",fl:"consensus (capex 谷 artifact)"},
+      f28:{eps:"$17.45",pe:"20.7",peg:"1.23",fl:"consensus"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"ARM",name:"Arm Holdings",verdict:"WATCH",rank:4,sd:"域*",
+  role:"CPU 架构/IP; Vera CPU + 全 hyperscaler 自研硅 (Trainium/Maia/Axion/Cobalt) 都授权 Arm 收 royalty; CSS/自研 AGI CPU 上行 (FY Mar)",
+  bucket:"CPU IP / 架构税",tag:"CONSENSUS",price:"$402.71",
+  moat:"架构近泛在 = chokepoint 级 + 生态锁定; 但 RISC-V 长期威胁 + 客户内化 (licensee 即潜在叛逃者)",
+  risk:"~186x fwd PE / $430B 市值 on $4.9B 营收; FY27 EPS 故意降 (R&D ramp 投 AGI CPU), 牛市押 FY28+ 再加速",
+  fy:{f27:{eps:"$1.22",pe:"330",peg:"NM",fl:"consensus (R&D 降 -31%)"},
+      f28:{eps:"~$1.99",pe:"202",peg:"3.2",fl:"模型"},
+      f29:{eps:"~$2.81",pe:"143",peg:"3.5",fl:"模型"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"TSEM",name:"Tower Semiconductor",verdict:"CONFIRM",rank:4,sd:"域*",
+  role:"硅光 (SiPh) foundry for 光 transceiver/CPO + power/RF; NVIDIA 1.6T 模块 + Coherent 400G/lane; $1.3B 签约 2027 SiPh 营收 (FY Dec)",
+  bucket:"硅光 foundry",tag:"BLACKHORSE",price:"$274.71",
+  moat:"production-ready SiPh (400G/lane) + 多 fab 产能 + 50+ 客户 + 2yr 预付合约 = 锁定+产能稀缺; 但 GF/TSMC SiPh 竞争",
+  risk:"客户未具名+集中 ('最大客户'); fwd PE ~92x FY26 priced for perfection; 合约执行风险",
+  fy:{f27:{eps:"$4.50",pe:"61.0",peg:"1.20",fl:"consensus"},
+      f28:{eps:"$8.48",pe:"32.4",peg:"0.37",fl:"consensus"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"NET",name:"Cloudflare",verdict:"WATCH",rank:1,sd:"域*",
+  role:"边缘网络 + Workers AI 边缘推理 + Zero Trust; 是 GPU 消费者/推理分发, 非 Rubin 硬件供应商 (邻接需求侧) (FY Dec)",
+  bucket:"边缘/推理 (邻接)",tag:"BLACKHORSE",price:"$272.66",
+  moat:"全球 anycast 边缘 + 开发者平台 (Workers/R2/Workers AI) + Zero Trust 捆绑; 高切换成本; 但非 chokepoint",
+  risk:"fwd PE ~214-246x / EV/Sales ~31x / PEG ~7; 分析师目标 $234 比现价低 ~14%; 邻接非供应链节点",
+  fy:{f27:{eps:"~$1.60",pe:"170",peg:"5.0",fl:"模型"},
+      f28:{eps:"~$2.15",pe:"127",peg:"3.7",fl:"模型"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"LITE",name:"Lumentum",verdict:"CONFIRM",rank:4,sd:"域*",
+  role:"光互连: EML/InP 激光芯片 (50-60% 份额) + 800G/1.6T transceiver + CPO; NVIDIA $2B 入股 + CPO 订单 (FY Jun)",
+  bucket:"光互连",tag:"BLACKHORSE",price:"$1029.15",
+  moat:"EML 激光芯片瓶颈 (供需缺口 >30%, LT 协议预付); Coherent 6\" InP 追赶是结构威胁",
+  risk:"FY27 fwd PE ~70x; hyperscaler capex 周期依赖; Coherent yield 追赶侵蚀 chokepoint",
+  fy:{f27:{eps:"$14.55",pe:"70.7",peg:"0.78",fl:"consensus"},
+      f28:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"COHR",name:"Coherent",verdict:"CONFIRM",rank:4,sd:"结构*",
+  role:"光互连: 800G(量)/1.6T(ramp) transceiver + 垂直 InP; NVIDIA $2B 入股 + 采购承诺; 数据中心段 75% 营收 +40% YoY (FY Jun)",
+  bucket:"光互连",tag:"CONSENSUS",price:"$426.89",
+  moat:"垂直 InP + tri-route 1.6T 真; 但 Innolight 份额领先非唯一; 合并债务 $3.18B",
+  risk:"现价比分析师目标 $380 高 ~11%; fwd PE 48-57x; 光学 ramp 真但定价 rich",
+  fy:{f27:{eps:"~$5.00",pe:"85.4",peg:"3.7",fl:"consensus (源分歧)"},
+      f28:{eps:"~$6.75",pe:"63.2",peg:"1.8",fl:"模型 +35%"},
+      f29:{eps:"~$8.60",pe:"49.6",peg:"1.8",fl:"模型 +27%"},
+      f30:{eps:"~$10.30",pe:"41.4",peg:"2.1",fl:"模型 +20%"}}},
+
+ {tk:"MRVL",name:"Marvell Technology",verdict:"WATCH",rank:4,sd:"域*",
+  role:"#2 定制 AI silicon (Trainium/Maia) + 光 DSP/互连; 数据中心 76% 营收; NVIDIA 2026-03 入股 (FY Jan)",
+  bucket:"定制 ASIC / 互连",tag:"CONSENSUS",price:"$290.79",
+  moat:"双寡头非垄断 (Broadcom 更大); 光/互连护城河真, 定制 socket 每代重竞",
+  risk:"hyperscaler socket 流失 (Maia->Broadcom, Trainium3/4->Alchip) 击穿增长叙事; 现价 ~72x FY27",
+  fy:{f27:{eps:"$4.04",pe:"72.0",peg:"1.72",fl:"consensus"},
+      f28:{eps:"$5.60",pe:"51.9",peg:"1.34",fl:"consensus"},
+      f29:{eps:"$7.80",pe:"37.3",peg:"0.95",fl:"consensus"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"GEV",name:"GE Vernova",verdict:"WATCH",rank:4,sd:"结构*",
+  role:"AI-DC 供电: 燃气轮机 (产能锁 ~10GW/yr 到 2030) + 电网/变压器; 100GW backlog ~20% 绑数据中心 (FY Dec)",
+  bucket:"发电 / 电网",tag:"CONSENSUS",price:"$969.67",
+  moat:"燃气轮机三寡头 (GEV/Siemens/Mitsubishi); slot 稀缺 = chokepoint; 新机定价 +10-20%; 装机服务年金",
+  risk:"fwd PE 52x + 市值 YoY +124%, 需求已 priced in; 入场时点是开放风险",
+  fy:{f27:{eps:"~$24.8",pe:"~39",peg:"NM",fl:"模型 (Zacks 隐含 -20%)"},
+      f28:{eps:"~$33",pe:"~29",peg:"n/a",fl:"模型 (恢复)"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"CCJ",name:"Cameco",verdict:"WATCH",rank:4,sd:"结构*",
+  role:"铀 (tier-1 McArthur/Cigar) + 燃料服务 + 49% Westinghouse; $80B 美政府+Brookfield AP1000/SMR for AI-DC (FY Dec)",
+  bucket:"核燃料 / 铀",tag:"CONSENSUS",price:"$120.51",
+  moat:"tier-1 低成本铀 + 西方供应安全溢价 + Westinghouse 反应堆/SMR 期权; 但商品周期非经常性收入",
+  risk:"是铀价 bet 穿 AI-DC 外衣; spot ~$86 已离 1 月高点; FY26 营收 guide 持平, beta 大半已 fire; SMR 收入 2028+",
+  fy:{f27:{eps:"$2.08",pe:"57.9",peg:"2.68",fl:"consensus (商品周期)"},
+      f28:{eps:"$2.75",pe:"43.8",peg:"1.36",fl:"consensus"},
+      f29:{eps:"$3.18",pe:"37.9",peg:"2.43",fl:"consensus"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"TTMI",name:"TTM Technologies",verdict:"CONFIRM",rank:3,sd:"结构*",
+  role:"美国 PCB/HDI, 数据中心计算占比 28% (+57% YoY); Penang/Syracuse 专用 AI/ASIC 厂 (FY Dec)",
+  bucket:"PCB +233%",tag:"BLACKHORSE",price:"$179.62",
+  moat:"美国 fast-follower (地缘 domain), 非 Rubin GPU 板 prime (那是台/韩 Unimicron/Zhen Ding)",
+  risk:"41% 仍是国防航天; 产能 ramp 执行风险; 非 GPU 板 prime",
+  fy:{f27:{eps:"$4.55",pe:"39.5",peg:"0.86",fl:"consensus"},
+      f28:{eps:"$5.6",pe:"32.1",peg:"1.40",fl:"模型"},
+      f29:{eps:"$6.7",pe:"26.8",peg:"1.34",fl:"模型"},
+      f30:{eps:"$7.9",pe:"22.7",peg:"1.26",fl:"模型"}}},
+
+ {tk:"MU",name:"Micron Technology",verdict:"CONFIRM",rank:3,sd:"结构*",
+  role:"HBM4 (#3, 12-Hi 量产) + LPDDR5X/SOCAMM2 (Vera CPU) + DRAM/NAND; 内存是 Rubin +435% 最大增量 (FY Aug)",
+  bucket:"内存 HBM4 +435%",tag:"CONSENSUS",price:"$1064.10",
+  moat:"DRAM 三寡头之一, HBM4 是差异化但 MU 是最小份额 #3 (SK Hynix/Samsung 在前); 商品周期性",
+  risk:"3 家 HBM4 最小一片 + 现价 cycle-peak ($1064 vs 目标 $726, -32%); consensus 模型 FY28 EPS 下滑",
+  fy:{f27:{eps:"~$103.5",pe:"10.3",peg:"0.13",fl:"consensus (周期峰陷阱)"},
+      f28:{eps:"decline",pe:"NM",peg:"NM",fl:"模型 (供给追上)"},
+      f29:{eps:"spec",pe:"--",peg:"NM",fl:"无覆盖"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"SNDK",name:"Sandisk",verdict:"WATCH",rank:3,sd:"结构",
+  role:"NAND + 企业 SSD; Q3 FY26 数据中心 +645% YoY, $42B backlog; 78% GM 峰值 (FY Jun)",
+  bucket:"NAND / 存储",tag:"CONSENSUS",price:"$1716.36",
+  moat:"NAND 商品寡头 (Samsung/SK-Solidigm/Kioxia/MU/SNDK); BiCS 3D NAND; 78% GM 不可持续",
+  risk:"峰周期 + 峰 margin + 峰 multiple; NAND 永远均值回归; post-spin +4200% 已 crowded",
+  fy:{f27:{eps:"$180.14",pe:"9.5",peg:"0.05",fl:"consensus (周期峰陷阱)"},
+      f28:{eps:"$194.54",pe:"8.8",peg:"1.10",fl:"consensus"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"P",name:"Everpure (原 Pure Storage)",verdict:"WATCH",rank:3,sd:"结构*",
+  role:"企业全闪存 (2026-04 改名/改 ticker); hyperscaler AI 存储 design-win; 邻接层非 Rubin 直接节点 (FY Jan)",
+  bucket:"存储 (邻接)",tag:"BLACKHORSE",price:"$82.98",
+  moat:"DirectFlash 软件/控制器 + Evergreen 订阅锁定; 被 Dell/NetApp/VAST/自研 竞争 (中等)",
+  risk:"hyperscaler 收入 H2-FY27 weighted + 单客户集中未 derisk; 估值 rich",
+  fy:{f27:{eps:"$2.34",pe:"35.5",peg:"1.11",fl:"consensus adj (GAAP $0.94->88x)"},
+      f28:{eps:"no-consensus",pe:"--",peg:"NM",fl:"Pro-gated"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"Pro-gated"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"Pro-gated"}}},
+
+ {tk:"MPWR",name:"Monolithic Power",verdict:"WATCH",rank:3,sd:"域*",
+  role:"AI 服务器 VRM/PMIC 电压调节; Enterprise Data +97.7% YoY; Z-Axis 垂直供电 (FY Dec)",
+  bucket:"电源 +32%",tag:"CONSENSUS",price:"$1624.99",
+  moat:"模拟/工艺护城河强但非垄断; Blackwell socket 丢给 Infineon (证明非唯一选择)",
+  risk:"Rubin ~70% socket 是 regain 未锁; 60-74x fwd PE + GM 平, 增长与估值双杀风险",
+  fy:{f27:{eps:"$24.3",pe:"66.9",peg:"2.59",fl:"consensus"},
+      f28:{eps:"$29.8",pe:"54.5",peg:"2.41",fl:"consensus"},
+      f29:{eps:"$36.4",pe:"44.6",peg:"2.00",fl:"模型"},
+      f30:{eps:"$44.5",pe:"36.5",peg:"1.64",fl:"模型"}}},
+
+ {tk:"POWI",name:"Power Integrations",verdict:"WATCH",rank:3,sd:"域*",
+  role:"唯一量产 1250V/1700V 单芯片 GaN; Kyber aux-PSU 参考设计; PowiGaN +40% (2025) (FY Dec)",
+  bucket:"电源 +32%",tag:"CONSENSUS",price:"$84.19",
+  moat:"单芯片 GaN ~2-3 年领先, 但 GaN 竞争赛道 (Infineon/Navitas), 近 2x 非 10x",
+  risk:"数据中心是 2027-2030 forward SAM ($1B by 2030); 总营收仅 +3% 平; AI 倍数付给充电器公司; 内部人套现",
+  fy:{f27:{eps:"$1.85",pe:"45.5",peg:"1.23",fl:"consensus"},
+      f28:{eps:"$2.35",pe:"35.8",peg:"1.33",fl:"模型"},
+      f29:{eps:"$2.87",pe:"29.3",peg:"1.33",fl:"模型"},
+      f30:{eps:"$3.42",pe:"24.6",peg:"1.30",fl:"模型"}}},
+
+ {tk:"ON",name:"onsemi",verdict:"WATCH",rank:3,sd:"域*",
+  role:"功率半导体 incumbent (SiC EliteSiC/Treo + power MOSFET); AI-DC 电源树 (800V HVDC/BBU/DC-DC, 多 XPU + 全 hyperscaler) Q1 +2x YoY 但仅 ~4-8% 营收; 汽车 53% (FY Dec)",
+  bucket:"电源 +32%",tag:"CONSENSUS",price:"$128.64",
+  moat:"SiC 规模 (垂直衬底 GTAT) + power/analog/sensing 广度 vs 纯玩家 WOLF/NVTS; 但汽车周期性 (53% auto, EV air-pocket)",
+  risk:"AI-DC <8% 营收, >80% 汽车+工业; 是汽车复苏 bet 非 AI-DC bet; 38x fwd 在 trough 反弹基数; Q1 GAAP 亏损 ($329M 重组)",
+  fy:{f27:{eps:"$4.04",pe:"31.8",peg:"0.39",fl:"consensus (反弹失真)"},
+      f28:{eps:"$5.18",pe:"24.8",peg:"0.89",fl:"consensus"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"VSH",name:"Vishay Intertechnology",verdict:"WATCH",rank:2,sd:"结构",
+  role:"宽线 passives (MLCC/钽/film/MOSFET); AI-power 内容真但未量化, 无具名中标 (FY Dec)",
+  bucket:"MLCC +182% / 电源",tag:"CONSENSUS",price:"$62.49",
+  moat:"商品/工业/汽车 passives ~62%; 高端 AI MLCC 属 Murata/Samsung EM/Yageo, VSH 是 power-rail",
+  risk:"价格已远超分析师目标 ($34); FY27 PEG 0.29 是周期 trough 反弹失真, 非真便宜",
+  fy:{f27:{eps:"$1.75",pe:"35.7",peg:"0.29",fl:"consensus (反弹失真)"},
+      f28:{eps:"$2.45",pe:"25.5",peg:"0.64",fl:"模型"},
+      f29:{eps:"$3.00",pe:"20.8",peg:"0.95",fl:"模型"},
+      f30:{eps:"$3.45",pe:"18.1",peg:"1.21",fl:"模型"}}},
+
+ {tk:"NVTS",name:"Navitas Semiconductor",verdict:"WATCH (lean REJECT)",rank:2,sd:"域*",
+  role:"纯 GaN+SiC; NVIDIA 800V design-win (GTC 96.5% demo); high-power +35% YoY (FY Dec)",
+  bucket:"电源 +32%",tag:"BLACKHORSE",price:"$25.86",
+  moat:"800V-direct 拓扑真但可商品化; 'only pure-play both' 是营销框, 非 10x 护城河",
+  risk:"总营收 -39% YoY 崩塌, design-win 收入 forward 到 2027 Kyber; 亏损 + 持续稀释; 市值已定价成功",
+  fy:{f27:{eps:"~-$0.08",pe:"NM",peg:"NM",fl:"consensus 负"},
+      f28:{eps:"+$0.13",pe:"~199",peg:"NM",fl:"首次转正"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"AOSL",name:"Alpha & Omega Semi",verdict:"WATCH (lean REJECT)",rank:2,sd:"结构",
+  role:"板级供电 DrMOS (SmartClamp); AI server+graphics QoQ 翻倍 (~$20M, 占 Computing ~25%) (FY Jun)",
+  bucket:"电源 +32%",tag:"SPECULATIVE",price:"$53.32",
+  moat:"DrMOS 拥挤赛道 (MPWR/Infineon/Renesas); GM 21.7% 薄证明无定价权; fast-follower 非品类主",
+  risk:"AI 仅 ~12% 营收小尾巴; 总营收 -0.5% YoY + GAAP 亏损; 股价 30 天 +76% 定价 $20M 尾巴",
+  fy:{f27:{eps:"consensus 负",pe:"NM",peg:"NM",fl:"无利润"},
+      f28:{eps:"consensus 负",pe:"NM",peg:"NM",fl:"无利润 by 2028"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"WOLF",name:"Wolfspeed",verdict:"REJECT",rank:1,sd:"结构",
+  role:"纯 SiC 垂直; 首发 10kV SiC MOSFET (真); AI-DC 营收两季 ~翻倍但无 $ 披露 (FY Jun)",
+  bucket:"SiC / 电源",tag:"SPECULATIVE",price:"$61.06",
+  moat:"IP+200mm 衬底领先真但 2x 非 10x; 4 家更大对手 (Infineon/ST/onsemi/Rohm) SiC 卖更多",
+  risk:"破产重整: 旧股清零, ~45M 新债权人股 + ~$1.7B 残债; 总营收 -18.9% YoY 收缩, AI-DC 是缩小蛋糕上的薄片",
+  fy:{f27:{eps:"consensus 负",pe:"NM",peg:"NM",fl:"无利润 (FY26 -$16.10)"},
+      f28:{eps:"consensus 负",pe:"NM",peg:"NM",fl:"无利润 3 年"},
+      f29:{eps:"consensus 负",pe:"NM",peg:"NM",fl:"无利润"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"MX",name:"MagnaChip Semiconductor",verdict:"REJECT",rank:1,sd:"结构",
+  role:"中压 MOSFET (服务器 PSU 同步整流); 8 代 60V 真但 'AI server' 是展会横幅 (FY Dec)",
+  bucket:"电源 +32%",tag:"SPECULATIVE",price:"$8.34",
+  moat:"商品 fab-lite MV MOSFET vs Infineon/onsemi/Vishay; SGT 是追赶非 10x; GM 15.6% 且下滑",
+  risk:"generic capability 无 sourced design-in; 亏损 + 烧现金; 新品仅占 FY25 ~2% 营收 (rounding error)",
+  fy:{f27:{eps:"consensus 负",pe:"NM",peg:"NM",fl:"无 EPS 覆盖"},
+      f28:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}}
+];
+
+function isTrap(fl){return /陷阱|失真|周期峰/.test(fl||"");}
+function pegClass(p,fl){if(isTrap(fl))return"peg-trap";const n=parseFloat(p);if(isNaN(n))return"nm";if(n<1)return"peg-cheap";if(n<=2)return"peg-mid";return"peg-rich";}
+function vKey(v){return v.split(" ")[0];}
+function vOrder(v){return {CONFIRM:0,WATCH:1,REJECT:2}[vKey(v)];}
+function rankBar(r){let s="";for(let i=5;i>=1;i--){s+=`<span class="seg ${i<=r?'on'+r:''}"></span>`;}return `<span class="rankbar">${s}</span><span class="rnum">${r}/5</span>`;}
+function sdClass(sd){return sd.indexOf("域")>=0?"sd-domain":"sd-struct";}
+
+const sorted=[...D].sort((a,b)=> b.rank-a.rank || vOrder(a.verdict)-vOrder(b.verdict));
+
+const mb=document.getElementById("mbody");
+sorted.forEach(s=>{
+  const tr=document.createElement("tr");
+  tr.innerHTML=
+    `<td class="tk">${s.tk}</td>`+
+    `<td>${rankBar(s.rank)}</td>`+
+    `<td class="sd ${sdClass(s.sd)}">${s.sd}</td>`+
+    `<td>${s.role.split(";")[0]}</td>`+
+    `<td class="bucket">${s.bucket}</td>`+
+    `<td class="v-${vKey(s.verdict)}">${s.verdict}</td>`+
+    `<td class="num">${s.price}</td>`+
+    `<td class="num">${s.fy.f27.pe}</td>`+
+    `<td class="num ${pegClass(s.fy.f27.peg,s.fy.f27.fl)}">${s.fy.f27.peg}</td>`;
+  mb.appendChild(tr);
+});
+
+const cc=document.getElementById("cards");
+sorted.forEach(s=>{
+  const rows=["f27","f28","f29","f30"].map((k,i)=>{
+    const y=2027+i,f=s.fy[k];
+    return `<tr><td>FY${y}</td><td class="num">${f.eps}</td>`+
+           `<td class="num">${f.pe}</td>`+
+           `<td class="num ${pegClass(f.peg,f.fl)}">${f.peg}</td>`+
+           `<td class="flag">${f.fl}</td></tr>`;
+  }).join("");
+  const card=document.createElement("div");
+  card.className="card "+vKey(s.verdict);
+  card.innerHTML=
+    `<div class="chead"><div class="L"><span class="tk">${s.tk}</span>`+
+      `<span class="nm2">${s.name}</span>`+
+      `<span class="tag ${s.tag}">${s.tag}</span>`+
+      `${rankBar(s.rank)}`+
+      `<span class="sd ${sdClass(s.sd)}">${s.sd}</span></div>`+
+      `<div><span class="price">${s.price}</span> `+
+      `<span class="v-${vKey(s.verdict)}">${s.verdict}</span></div></div>`+
+    `<div class="cbody">`+
+      `<div class="qual">`+
+        `<div class="row"><div class="k">Yoneda 供应角色</div><div class="val bucket">${s.bucket}</div></div>`+
+        `<div class="row"><div class="k">关系网位置</div><div class="val">${s.role}</div></div>`+
+        `<div class="row"><div class="k">护城河</div><div class="val">${s.moat}</div></div>`+
+        `<div class="row"><div class="k">最大风险</div><div class="val">${s.risk}</div></div>`+
+      `</div>`+
+      `<div class="quant">`+
+        `<table><thead><tr><th>FY</th><th>EPS</th><th>PE</th><th>PEG</th><th>来源</th></tr></thead>`+
+        `<tbody>${rows}</tbody></table>`+
+      `</div>`+
+    `</div>`;
+  cc.appendChild(card);
+});
+</script>
+</body>
+</html>
