@@ -76,7 +76,7 @@
 </head>
 <body>
 <header>
-  <h1>NVIDIA Rubin 供应链 -- 投资 Vet (22 只)</h1>
+  <h1>NVIDIA Rubin 供应链 -- 投资 Vet (24 只)</h1>
   <div class="byline">作者: Naughty Boss . EIP Research</div>
   <div class="sub">800V HVDC 电源 + 内存 + 光互连 + 发电/核燃料 supply-chain。价格 live 核实, 截至 2026-06-02 收盘 (~20:00 UTC)。仅分析, 非买卖建议。</div>
   <div class="frame">
@@ -108,7 +108,7 @@
     <span><code>[模型]</code> 无 consensus 按 LT 增速推; <code>NM</code> EPS&lt;=0; <code>结构/域</code> 见上</span>
   </div>
   <div style="margin-top:10px">
-    数据纪律 (22 只): 价格全部 live 核实 2026-06-02/03 (TSM/GOOGL 用 Yahoo 收盘价已重算) (MRVL $219->$290.79 / LITE ~$913->$1029.15 已按今日实时改正)。
+    数据纪律 (24 只): 价格全部 live 核实 2026-06-02/03 (TSM/GOOGL 用 Yahoo 收盘价已重算; AVGO 今日盘后 Q2 财报将 reset forward; CBRS/NET 是邻接非供应链节点, 按镜头排低 rank) (MRVL $219->$290.79 / LITE ~$913->$1029.15 已按今日实时改正)。
     实线 consensus -- MRVL/CCJ FY27-29, MPWR FY27-28, POWI/TTMI/VSH/LITE FY27, SNDK FY27-28, P FY27, MU FY27; 其余外年 [模型] 或 no-consensus, 不编造。
     内存/存储 (MU/SNDK) 与 VSH FY27 低 PEG 是 trough->peak 反弹 / cycle-peak 失真, 不读成便宜 (标 trap)。
     P = Everpure (原 Pure Storage PSTG, 2026-04 改名改 ticker)。WOLF 破产重整旧股清零 ~45M 新股。
@@ -165,6 +165,16 @@ const D=[
   risk:"fwd PE ~214-246x / EV/Sales ~31x / PEG ~7; 分析师目标 $234 比现价低 ~14%; 邻接非供应链节点",
   fy:{f27:{eps:"~$1.60",pe:"170",peg:"5.0",fl:"模型"},
       f28:{eps:"~$2.15",pe:"127",peg:"3.7",fl:"模型"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"AVGO",name:"Broadcom",verdict:"CONFIRM",rank:4,sd:"域*",
+  role:"#1 定制 AI ASIC (Google TPU/Meta MTIA, 3 shipping + 4 engaged 含 OpenAI/Anthropic) + AI 网络 (Tomahawk 6/Jericho/SerDes) + VMware; Q1 AI semi $8.4B +106% YoY, $73B backlog (FY Nov)",
+  bucket:"定制 ASIC + 网络",tag:"CONSENSUS",price:"$481.57",
+  moat:"定制硅设计 IP + SerDes/网络领先 + VMware 锁定; 定制 ASIC #1 (MRVL #2); 但 socket 每代重竞 + 客户内化风险; 无 CUDA 级锁",
+  risk:"fwd PE ~36 近 ATH, 定价完美 $100B-2027 ramp; ~3 客户集中每代重 bid; 今日盘后 Q2 财报将 reset forward",
+  fy:{f27:{eps:"~$14.5",pe:"33",peg:"1.2",fl:"模型 (插值)"},
+      f28:{eps:"$17.55",pe:"27.4",peg:"1.3",fl:"consensus"},
       f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
       f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
 
@@ -285,6 +295,16 @@ const D=[
   risk:"AI-DC <8% 营收, >80% 汽车+工业; 是汽车复苏 bet 非 AI-DC bet; 38x fwd 在 trough 反弹基数; Q1 GAAP 亏损 ($329M 重组)",
   fy:{f27:{eps:"$4.04",pe:"31.8",peg:"0.39",fl:"consensus (反弹失真)"},
       f28:{eps:"$5.18",pe:"24.8",peg:"0.89",fl:"consensus"},
+      f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
+      f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
+
+ {tk:"CBRS",name:"Cerebras Systems",verdict:"WATCH",rank:2,sd:"域*",
+  role:"晶圆级 (WSE-3) AI 系统 + fast-inference cloud; NVIDIA 替代算力, 非 Rubin 供应商; $20B OpenAI + AWS CS-3 deal; FY25 营收 $510M +76% (FY Dec)",
+  bucket:"替代算力 (非供应链)",tag:"BLACKHORSE",price:"$236.52",
+  moat:"晶圆级单 die 架构真独特 (inference 延迟 unfair advantage); 但 vs NVIDIA CUDA 生态+规模 durability 存疑; 架构护城河 > 生态护城河 = 脆",
+  risk:"客户集中只是 G42/UAE 轮到 OpenAI (MBZUAI 占 AR 77.9%) 非真分散; GAAP 亏损 (-$345M op); ~100x P/S; 0 分析师覆盖",
+  fy:{f27:{eps:"亏损 (0 覆盖)",pe:"NM",peg:"NM",fl:"EV/Sales ~102x TTM / ~28x fwd [模型]"},
+      f28:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
       f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
       f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
 
