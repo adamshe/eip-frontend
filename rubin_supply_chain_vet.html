@@ -76,7 +76,7 @@
 </head>
 <body>
 <header>
-  <h1>NVIDIA Rubin 供应链 -- 投资 Vet (24 只)</h1>
+  <h1>NVIDIA Rubin 供应链 -- 投资 Vet (25 只)</h1>
   <div class="byline">作者: Naughty Boss . EIP Research</div>
   <div class="sub">800V HVDC 电源 + 内存 + 光互连 + 发电/核燃料 supply-chain。价格 live 核实, 截至 2026-06-02 收盘 (~20:00 UTC)。仅分析, 非买卖建议。</div>
   <div class="frame">
@@ -108,7 +108,7 @@
     <span><code>[模型]</code> 无 consensus 按 LT 增速推; <code>NM</code> EPS&lt;=0; <code>结构/域</code> 见上</span>
   </div>
   <div style="margin-top:10px">
-    数据纪律 (24 只): 价格全部 live 核实 2026-06-02/03 (TSM/GOOGL 用 Yahoo 收盘价已重算; AVGO 今日盘后 Q2 财报将 reset forward; CBRS/NET 是邻接非供应链节点, 按镜头排低 rank) (MRVL $219->$290.79 / LITE ~$913->$1029.15 已按今日实时改正)。
+    数据纪律 (25 只): 价格全部 live 核实 2026-06-02/03 (KLAC 用拆前 $2045 基准, 6/12 起 10:1 拆股; 两个 rank-5 chokepoint = TSM 晶圆/封装 + KLAC 过程控制) (TSM/GOOGL 用 Yahoo 收盘价已重算; AVGO 今日盘后 Q2 财报将 reset forward; NET 高 Yoneda rank 4 (边缘网络=关系位置护城河, technical unfair advantage), 但 axis 邻接 Rubin 硬件链; CBRS rank 2 (架构护城河+客户集中, 非关系位置)。Yoneda rank = 关系位置强度, 不因 axis 邻接而折扣) (MRVL $219->$290.79 / LITE ~$913->$1029.15 已按今日实时改正)。
     实线 consensus -- MRVL/CCJ FY27-29, MPWR FY27-28, POWI/TTMI/VSH/LITE FY27, SNDK FY27-28, P FY27, MU FY27; 其余外年 [模型] 或 no-consensus, 不编造。
     内存/存储 (MU/SNDK) 与 VSH FY27 低 PEG 是 trough->peak 反弹 / cycle-peak 失真, 不读成便宜 (标 trap)。
     P = Everpure (原 Pure Storage PSTG, 2026-04 改名改 ticker)。WOLF 破产重整旧股清零 ~45M 新股。
@@ -127,6 +127,16 @@ const D=[
       f28:{eps:"~$27.0",pe:"16.5",peg:"0.50",fl:"模型"},
       f29:{eps:"~$33.8",pe:"13.2",peg:"0.53",fl:"模型"},
       f30:{eps:"~$39.0",pe:"11.5",peg:"0.77",fl:"模型"}}},
+
+ {tk:"KLAC",name:"KLA Corporation",verdict:"CONFIRM",rank:5,sd:"域*",
+  role:"过程控制 (检测+量测) 近垄断 ~58% 份额 (6.5x 次名); AI 先进节点/CoWoS/HBM 抬升单 wafer 过程控制强度; 服务年金 52 季连增, ~90% 营收 (FY Jun)",
+  bucket:"WFE 过程控制 chokepoint",tag:"CONSENSUS",price:"$2045.20",
+  moat:"~58% 过程控制垄断 (6.5x 次名) + fab-qualified 工具切换成本 (重认证 recipe 担良率) + 装机服务年金; GM 62% / op margin 43% / $7B 回购; 护城河跨周期",
+  risk:"现价 $2045 高于分析师均价目标 $1842 (~-10%); PEG 外年全 >3 偏贵; 中国 33%->mid-20s% (出口管制 ~$300-350M CY26); WFE 周期性; 注 6/12 起 10:1 拆股",
+  fy:{f27:{eps:"$40.30",pe:"50.7",peg:"4.26",fl:"模型 (~12% EPS CAGR)"},
+      f28:{eps:"$45.10",pe:"45.3",peg:"3.81",fl:"模型"},
+      f29:{eps:"$50.50",pe:"40.5",peg:"3.38",fl:"模型"},
+      f30:{eps:"$56.60",pe:"36.1",peg:"2.99",fl:"模型 ($26B 营收目标)"}}},
 
  {tk:"GOOGL",name:"Alphabet",verdict:"CONFIRM",rank:4,sd:"域*",
   role:"需求/买方节点 (Cloud capex, top-3 NVIDIA 客户) + TPU 自研硅 (Ironwood, 外卖 Anthropic $40B/Meta) + Gemini; 既客户又竞争者 (FY Dec)",
@@ -158,11 +168,11 @@ const D=[
       f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
       f30:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"}}},
 
- {tk:"NET",name:"Cloudflare",verdict:"WATCH",rank:1,sd:"域*",
-  role:"边缘网络 + Workers AI 边缘推理 + Zero Trust; 是 GPU 消费者/推理分发, 非 Rubin 硬件供应商 (邻接需求侧) (FY Dec)",
-  bucket:"边缘/推理 (邻接)",tag:"BLACKHORSE",price:"$272.66",
-  moat:"全球 anycast 边缘 + 开发者平台 (Workers/R2/Workers AI) + Zero Trust 捆绑; 高切换成本; 但非 chokepoint",
-  risk:"fwd PE ~214-246x / EV/Sales ~31x / PEG ~7; 分析师目标 $234 比现价低 ~14%; 邻接非供应链节点",
+ {tk:"NET",name:"Cloudflare",verdict:"WATCH",rank:4,sd:"域*",
+  role:"边缘网络 = 强 Yoneda 位置 (~330 城 anycast POP + 数百万 app 在 Workers, 关系位置本身即护城河, 网络效应正反馈); Workers AI 在离用户最近端跑推理 (GPU 利用 70-80%); 仍是算力消费者非 Rubin 硬件供应商 (axis 邻接, 非 rank 折扣) (FY Dec)",
+  bucket:"边缘网络/推理 (邻接 axis)",tag:"BLACKHORSE",price:"$272.66",
+  moat:"technical unfair advantage = 位置性 (CEO Prince 自述 'agents 必经我们的网络' 印证 Yoneda 拓扑护城河); anycast 边缘 + ISP peering + Workers 平台锁定, 对手复制需资本+时间+关系; 非 5 因仍可替代",
+  risk:"位置真但经济性未证: inference 营收 'de minimis', Q1'26 货币化 GM 75.9->71.2% + $62M 经营亏损 + 股价 -24%; fwd PE ~214x; CEO 有 over-promise 前科 (2022 '5年到$5B'). Watch 触发: AI-native 大单 + Workers AI 单列且毛利扩张",
   fy:{f27:{eps:"~$1.60",pe:"170",peg:"5.0",fl:"模型"},
       f28:{eps:"~$2.15",pe:"127",peg:"3.7",fl:"模型"},
       f29:{eps:"no-consensus",pe:"--",peg:"NM",fl:"未公布"},
