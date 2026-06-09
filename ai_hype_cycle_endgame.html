@@ -187,6 +187,53 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
 
 <p><b>Investment implication (3.3 的反题)</b>: chokepoint 股票的高 margin 不是护城河收的税, 是 FOMO 窗口内收的赎金. 3.3 的 40% margin floor 论只在 "被税方愿意继续被税" 时成立 -- 窗口关闭时, 赎金归零的速度比 commodity 周期更快, 因为它从未被 cost structure 或不可替代性支撑过. <b class="red">正常会回归, 非正常不可持续 -- 这就是 normalcy test 给 RESET thesis 的认识论地基</b>.</p>
 
+<h3>3.3.2 被敲诈者的博弈反击 -- 序贯博弈 + 4-26 周时间线 (2026-06-09)</h3>
+
+<p><b>博弈结构: 不是 one-shot 囚徒困境, 是序贯博弈</b>. 静态看, 四大地主困在 "谁先停买谁输掉 AI 竞赛" 的囚徒困境里, 敲诈似乎可以无限续期. 但真实博弈是动态的: 每家同时走两条线 -- <b>台面上继续下单</b> (不打破叙事, 避免被市场定性为 "退出 AI 竞赛"), <b>台面下全速建 exit 通道</b> (自研 silicon + 开源模型 + 多源采购). 敲诈经济的真实较量不在公告里, 在 BATNA (最佳替代方案) 的积累速度里 -- 边打边谈, 谈的筹码每个季度都在变.</p>
+
+<p><b>反击工具箱 (escalation ladder, 按烈度升序)</b>:</p>
+<table>
+  <thead><tr><th>级别</th><th>手段</th><th>状态</th><th>对敲诈方的杀伤</th></tr></thead>
+  <tbody>
+    <tr><td><b>L1 阴反击 (暗线)</b></td><td>自研 ASIC ramp (TPU v7 自给 / Trainium 2 / MTIA) + 开源模型替代 frontier API + AMD MI400 多源 + 二手/租赁市场</td><td class="yellow">进行中 (week 0 已在跑)</td><td>不动声色抬高 BATNA, 降低 switching cost -- 杀伤是累积性的</td></tr>
+    <tr><td><b>L2 谈判反击</b></td><td>拿 BATNA 压 net price: NVDA 大客户实际折扣 (不公开) + HBM 长约重谈 + 付款条款拉长</td><td class="yellow">部分进行 (list price 不变, 实际 margin 已被啃)</td><td>margin 侵蚀先于 revenue 侵蚀, 财报上滞后 1-2 个季度才可见</td></tr>
+    <tr><td><b>L3 阳反击 (公开 defection)</b></td><td>第一家公开下修 CAPEX guidance = 公开说 FUCK OFF</td><td class="red">未发生 -- 这就是 RESET 扳机</td><td>"不买就输" 共识破灭, 剩余三家跟进成本骤降 = defection cascade, 相变</td></tr>
+    <tr><td><b>L4 政治反击 (并行)</b></td><td>DOJ antitrust 压 NVDA + CHIPS 补贴当谈判筹码 + 出口管制规则塑造</td><td class="yellow">低烈度进行</td><td>不求赢, 求增加敲诈方的让步意愿</td></tr>
+  </tbody>
+</table>
+
+<p><b>时间不对称 -- 为什么终局确定, 只有 timing 不确定</b>: 敲诈方的 margin 是<b class="red">窗口函数</b> -- FOMO 一退即归零, 且不可逆 (叙事破灭无法重建). 被敲诈方的 BATNA 是<b class="green">单调递增函数</b> -- 自研 ASIC 的 perf/$ 每季度只升不降, 每一次 tape-out 都永久抬高谈判地板. 两条曲线必然相交. 即使没有任何 exogenous shock, 博弈终局 (敲诈溢价归零) 也是结构确定的, 唯一开放变量是相交时点. <b>敲诈经济的可持续性 = FOMO 衰减速度 vs BATNA 增强速度的赛跑, 而后者有复利</b>.</p>
+
+<p><b>先动者画像 (谁先说 FUCK OFF)</b>: defection 收益最高 + 叙事成本最低的两家 -- <b>META</b> (无 cloud 转售生意, GPU 是纯 cost center, 敲诈成本无法转嫁给云客户) 和 <b>AMZN</b> (自研最深 Trainium + 零售现金流纪律传统). <b>GOOG</b> 实质上已半退出 (TPU 自给, 买 NVDA 是姿态性的), 但不需要公开宣布 -- 它是隐形的第一个. <b>MSFT</b> 绑 OpenAI 最深, 最后动. 这给 Section 4 Scenario B "META 或 AMZN 先" 补上博弈论依据.</p>
+
+<p><b>反敲诈路径 -- 地主的最优解不是公开退出, 是把敲诈倒过来</b>: L3 公开 defection 有个被忽略的成本: 四大地主自己的估值也含 AI premium, 公开砍 CAPEX = 亲手承认 AI thesis 降温, 自己的股价一起挨打. 所以 dominant strategy 不是公开放慢 CAPEX, 是<b class="red">反敲诈</b>: CAPEX 总额指引保持不动 (叙事完好, 自家股价受保护, 还把 "巨额预算花给谁" 变成谈判武器), 钱的去向静默改道:</p>
+<ul>
+  <li><b>Mix 改道</b>: 同样 $700B, 更多流向自研 ASIC (margin 内部化) + 电力/壳体/网络 (非敲诈方供应商) + AMD (压价杠杆) -- NVDA 的 wallet share 缩水, 但地主 guidance 一个数字都不用改</li>
+  <li><b>Margin 压制</b>: 拿 BATNA 谈 net price 折扣, list price 不动 (面子留给敲诈方), 实际 ASP 下行</li>
+  <li><b>接口 commoditize</b>: UALink vs NVLink + 开放推理栈 -- 不宣布任何事, 把锁定层标准化掉, 敲诈的技术地基静默拆除</li>
+</ul>
+<p><b>那泡沫怎么破? 从供给端财报破, 不从地主公告破</b>. 历史先例 = Apple M1 vs Intel (2020): Apple 从未宣布 "削减计算开支", 它持续花钱, 只是把钱花给了自己 -- Intel 失去的是 wallet share, 股价在没有任何客户公告的情况下结构性 derate. 反敲诈路径下的戳破顺序:</p>
+<ol>
+  <li><b>NVDA 财报先显形</b> (8 月底 / 11 月底): revenue 增速降档 + gross margin 指引从 75% 下滑 + backlog 质量 (大客户 mix / 付款条款) 恶化 -- 地主一个字不说, 市场自己 reprice chokepoint premium</li>
+  <li><b>Memory 链先崩</b> (MU/SNDK): 没有叙事缓冲, HBM 议价权随 NVDA 订单质量同步衰减, 且 melt-up 仓位最拥挤</li>
+  <li><b>二线信用事件</b> (CRWV / neo-cloud / ORCL OCI): 融资链建立在 chokepoint 叙事上, 叙事衰减即融资窗口关闭</li>
+</ol>
+<p class="muted">Silent path 与 Section 4/5 的 loud path (公开 guidance cut) 不互斥, 是同一终局的两种戳破形态. <b>反敲诈是地主利益最大化路径, 所以 silent path 概率更高</b> -- 这把 RESET 的第一观察位从地主 guidance 挪到 NVDA 8 月底财报的 margin + mix. 地主股价在 silent path 下相对受保护 (保住 AI 叙事 + 回收 margin), 全部杀伤集中在敲诈方与其融资链.</p>
+
+<h4>4-26 周博弈时间线 (2026-06-09 起算)</h4>
+<table>
+  <thead><tr><th>窗口</th><th>日历</th><th>博弈动作 (行为层)</th><th>观察指标 (tell)</th></tr></thead>
+  <tbody>
+    <tr><td><b>Week 0-4</b></td><td>06-09 至 07-07</td><td>L1 阴反击进行时, 台面平静</td><td>MU 06-24 财报里 HBM 长约条款措辞; hyperscaler 高管 "ROI discipline" 用词升级频率; AMD MI400 design win 公告</td></tr>
+    <tr><td><b>Week 4-8</b></td><td>07-07 至 08-04</td><td>7 月底 Q2 财报季 = 第一个公开摊牌窗口</td><td>四家 CAPEX guidance 措辞: "在既有指引内优化" = L2 升级; 任何一家给 2027 增速 &lt; 2026 = soft defection</td></tr>
+    <tr><td><b>Week 8-16</b></td><td>08-04 至 09-29</td><td>财报真空期, 杀伤转入 NVDA 数字</td><td>NVDA 8 月底财报: backlog 质量 / 大客户 mix / 付款条款 -- 地主的 L1+L2 反击先反映在 NVDA 报表, 不在地主公告</td></tr>
+    <tr><td><b>Week 16-22</b></td><td>09-29 至 11-10</td><td><b class="red">10 月底 Q3 财报季 = 最可能的公开 defection 窗口</b></td><td>第一家砍 2027 guidance -&gt; cascade 启动. 与 5.1 "10-11 月财报季" 判断同源</td></tr>
+    <tr><td><b>Week 22-26</b></td><td>11-10 至 12-09</td><td>分叉: cascade 已启动 -&gt; RESET 展开; 无人动 -&gt; 博弈顺延入 2027 Q1</td><td>cascade 路径: NVDA -15-25%, memory 链 -30-50%. 顺延路径: L1 继续复利, BATNA 地板更高, 下一窗口 defection 概率上修</td></tr>
+  </tbody>
+</table>
+
+<p class="muted">与 5.1 的关系: 5.1 是市场价格层的预测 (结果), 本节是博弈行为层的推演 (原因). 5.1 的 "10-11 月财报季最可能触发" 在行为层有两个对应物: loud path = Week 16-22 公开 defection 窗口; silent path (反敲诈, 概率更高) = Week 8-16 NVDA 8 月底财报 mix/margin 显形, Week 16-22 由市场完成 reprice. 顺延情景 (Week 22-26 无人动且 NVDA 数字未显形) 不证伪 thesis -- 阴反击单调递增, 时间在被敲诈方一边, 每顺延一个季度, 下一窗口的触发概率更高.</p>
+
 <h3>3.4 历史可比 (overshoot 倍数)</h3>
 <table>
   <thead><tr><th>周期</th><th class="num">CAPEX peak / Revenue</th><th class="num">回调幅度</th><th class="num">回调周期</th><th>verdict</th></tr></thead>
@@ -263,7 +310,7 @@ Enterprise_Embed  = enterprise_seats * seat_price * penetration
 <table>
   <thead><tr><th>情景</th><th class="num">概率</th><th>路径</th></tr></thead>
   <tbody>
-    <tr><td><b class="red">最可能: RESET 启动</b></td><td class="num red">~60-65%</td><td>7 月底 / 10 月底两轮 hyperscaler 财报季中至少一家 (META 或 AMZN 先) 下修 2027 CAPEX 增速指引 -&gt; NVDA -15-25% -&gt; memory 链 -30-50% (beta 更大). 最可能落点 10-11 月财报季. 对应 Section 5 主线 "2026 H2 首家下修".</td></tr>
+    <tr><td><b class="red">最可能: RESET 启动</b></td><td class="num red">~60-65%</td><td>触发形态二选一 (见 3.3.2): <b>loud</b> = 至少一家 (META 或 AMZN 先) 下修 2027 CAPEX 增速指引; <b>silent (反敲诈, 概率更高)</b> = 地主 guidance 不动, NVDA 8 月底/11 月财报 mix + margin 显性恶化, 市场自行 reprice. 两条路径同样落点 -&gt; NVDA -15-25% -&gt; memory 链 -30-50% (beta 更大). 最可能时点 10-11 月财报季.</td></tr>
     <tr><td><b class="yellow">melt-up 撑过年底</b></td><td class="num">~25%</td><td>1999 Q4 模式: 崩前最后一段最陡. MU/SNDK 可能再 +30-50%, put 需 roll (展期不撤退, thesis 未破).</td></tr>
     <tr><td><b class="green">软着陆信号确立</b></td><td class="num">~10-15%</td><td>token 价稳 + OpenAI/Anthropic ARR 续超 + 两轮财报季 guidance 全不修 -- 此时 Scenario A 概率需上修, put 减半.</td></tr>
   </tbody>
