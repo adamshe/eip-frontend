@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SpaceX IPO $135 Vet -- 参与决策</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --border:#2d3542;
+    --ink:#e6edf3; --mut:#8b97a7; --dim:#5c6675;
+    --green:#3fb950; --amber:#d29922; --red:#f85149; --blue:#58a6ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"Segoe UI",-apple-system,system-ui,"Microsoft YaHei",sans-serif;
+       font-size:14px;line-height:1.55}
+  header{padding:22px 26px 16px;border-bottom:1px solid var(--border);background:var(--panel)}
+  h1{margin:0 0 4px;font-size:20px;font-weight:650}
+  .byline{color:var(--blue);font-size:12.5px;margin:2px 0 6px;font-weight:600}
+  .sub{color:var(--mut);font-size:13px}
+  main{padding:20px 26px 60px;max-width:1100px;margin:0 auto}
+  h2{font-size:15px;margin:28px 0 10px;color:var(--mut);font-weight:600;
+     border-left:3px solid var(--blue);padding-left:9px}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  .master th,.master td{border:1px solid var(--border);padding:7px 9px;text-align:left;vertical-align:top}
+  .master th{background:var(--panel2);color:var(--mut);font-weight:600}
+  .master tr:hover td{background:#13182040}
+  .num{font-variant-numeric:tabular-nums;text-align:right}
+  .nm{color:var(--dim)}
+  .red{color:var(--red);font-weight:700}
+  .green{color:var(--green);font-weight:700}
+  .amber{color:var(--amber);font-weight:700}
+  .verdict-panel{margin-top:14px;background:var(--panel2);border:1px solid var(--border);
+       border-left:4px solid var(--red);border-radius:8px;padding:14px 18px}
+  .verdict-panel .vline{font-size:17px;font-weight:700;color:var(--red);margin-bottom:6px}
+  .verdict-panel .why{color:var(--ink);font-size:13px}
+  .verdict-panel .why li{margin:3px 0}
+  .factcard{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:4px 0;overflow:hidden}
+  .kv{display:grid;grid-template-columns:160px 1fr;gap:0}
+  .kv .k{padding:7px 14px;color:var(--dim);font-size:12px;border-bottom:1px solid var(--border)}
+  .kv .v{padding:7px 14px;border-bottom:1px solid var(--border);font-size:13px}
+  .kv .k:last-of-type,.kv .v:last-of-type{border-bottom:none}
+  .src{color:var(--dim);font-size:11px;white-space:nowrap}
+  .flag{color:var(--dim);font-size:11px}
+  .tag-unverified{color:var(--amber);font-size:11px}
+  .tag-model{color:var(--blue);font-size:11px}
+  .risk{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--red);
+        border-radius:6px;padding:10px 14px;margin:8px 0;font-size:13px}
+  .risk b{color:var(--red)}
+  .reentry{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--green);
+        border-radius:6px;padding:12px 14px;font-size:13px}
+  .reentry b{color:var(--green)}
+  footer{padding:18px 26px;border-top:1px solid var(--border);color:var(--dim);font-size:11.5px;max-width:1100px;margin:0 auto}
+  footer .line{margin:4px 0}
+  code{background:var(--panel2);padding:1px 4px;border-radius:3px;color:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+  <h1>SpaceX IPO $135 Vet -- 参与决策</h1>
+  <div class="byline">EIP Research . 2026-06-10</div>
+  <div class="sub">双轴 vet: 左轴 Yoneda 定性 (关系网位置) + 右轴 forward PE/PEG 定量。数据多源 web 核实 2026-06-09。仅分析, 非买卖建议。</div>
+
+  <div class="verdict-panel">
+    <div class="vline">Verdict: 不参与 (conviction 高)</div>
+    <ul class="why">
+      <li>灰市价已低于发行价: Forge $128.90 (06-09) / Nasdaq Private Market $125 (05-26) vs 发行 $135 -- 知情者用脚投票</li>
+      <li>~95x 2025 P/S, 亏损且加速 (Q1'26 净亏 $4.27B), PE = NM, 无卖方覆盖 = no-consensus</li>
+      <li>募资首要用途即 "扩张 AI compute 基础设施" -- 与 AI infra 泡沫 RESET thesis 正面对撞</li>
+      <li>解禁悬崖: 首份财报后 2 天即解禁 20%, 135 天内累计 ~45%</li>
+      <li>$135 买入是向下不对称的赌注: 上行已被极度共识定价, 下行由灰市/Morningstar FV (~$780B, 发行估值一半) 标定</li>
+    </ul>
+  </div>
+</header>
+<main>
+
+  <h2>IPO 事实卡 (IPO 属实)</h2>
+  <div class="factcard"><div class="kv">
+    <div class="k">价格</div><div class="v">固定 $135/股, 不设区间不 book-build <span class="src">(CNBC/Fortune 2026-06-03)</span></div>
+    <div class="k">规模</div><div class="v">555.6M 股 Class A, 募 $75B, 史上最大 (超 Aramco $25.6B) <span class="src">(Fortune/Reuters 06-03)</span></div>
+    <div class="k">估值</div><div class="v">~$1.77T, 美股第 7 大, 超 Tesla ~$1.6T <span class="src">(Fortune 06-03)</span></div>
+    <div class="k">时间</div><div class="v">6/10 关簿, 6/11 定价, 6/12 Nasdaq 上市, 代码 SPCX <span class="src">(CNBC 06-03)</span></div>
+    <div class="k">结构</div><div class="v">整体上市非 Starlink 分拆; 全 primary 无老股东卖出 <span class="src">(SpaceNews 06-04)</span>; 含 2026-02 全股票并购的 xAI+X <span class="src">(TechCrunch 05-20)</span></div>
+    <div class="k">募资用途</div><div class="v">首项 "扩张 AI compute 基础设施"; 另需 6 个月内偿还 $20B 过桥贷款</div>
+  </div></div>
+
+  <h2>市场共识 vs 分歧</h2>
+  <table class="master"><thead><tr>
+    <th style="width:130px">信号</th><th>内容</th><th style="width:90px">方向</th>
+  </tr></thead><tbody>
+    <tr><td>共识热</td><td>订单 $150B-250B, 2-4x 超额, 单笔 $10B 级机构订单 <span class="src">(Bloomberg 06-08)</span>; $250B 上限数字 <span class="tag-unverified">(未核实, 仅社媒/二线源)</span></td><td class="green">多</td></tr>
+    <tr><td>估值分歧</td><td>Morningstar 公允价值 ~$780B, 仅为发行估值一半, 称 xAI 财务 "reckless" <span class="src">(Morningstar 05月)</span></td><td class="red">空</td></tr>
+    <tr><td>灰市信号</td><td>Forge 价 $128.90 (06-09), Nasdaq Private Market $125 (05-26), 均低于 $135 发行价</td><td class="red">空</td></tr>
+    <tr><td>定价激进</td><td>2025-12 tender $421 pre-split (5:1 拆股后 = $84.2), 6 个月内 +60% 至 $135</td><td class="red">空</td></tr>
+    <tr><td>被动买盘</td><td>指数基金被动买盘是多头核心论据之一 <span class="src">(Fortune 06-03)</span></td><td class="amber">中性警示</td></tr>
+  </tbody></table>
+
+  <h2>定量 (右轴: forward PE/PEG)</h2>
+  <table class="master"><thead><tr>
+    <th>项目</th><th>数值</th><th>备注</th>
+  </tr></thead><tbody>
+    <tr><td>FY25 收入</td><td class="num">$18.7B</td><td class="src">S-1, PitchBook/Morningstar 05-20</td></tr>
+    <tr><td>FY25 净亏</td><td class="num red">-$4.9B</td><td>调整后 EBITDA $6.6B</td></tr>
+    <tr><td>Q1'26 收入</td><td class="num">$4.69B (+15.4% YoY)</td><td class="red">净亏 $4.27B 且亏损加速</td></tr>
+    <tr><td>P/S</td><td class="num red">~95x 2025 / ~90x 2026 run-rate</td><td>对照 Tesla ~17x P/S (~$1.6T 市值 / ~$95B 收入)</td></tr>
+    <tr><td>PE</td><td class="num nm">NM</td><td>亏损</td></tr>
+    <tr><td>FY27-30 forward PE/PEG</td><td class="num nm">no-consensus</td><td>无卖方覆盖</td></tr>
+    <tr><td>2030 外推</td><td class="num">即使收入达 $80B, $1.77T 仍 ~22x P/S</td><td class="tag-model">[模型]</td></tr>
+  </tbody></table>
+
+  <h2>分部拆解</h2>
+  <table class="master"><thead><tr>
+    <th>分部</th><th>收入</th><th>盈利性</th><th>定性</th>
+  </tr></thead><tbody>
+    <tr><td>Starlink</td><td class="num">$11B</td><td class="green">39% 营业利润率</td><td>订户 8.9M 增至 10.3M, 唯一真利润引擎</td></tr>
+    <tr><td>发射</td><td class="num">~$4B</td><td>--</td><td>全球 83% 发射, 垄断但规模有限</td></tr>
+    <tr><td>xAI</td><td class="num">$3.2B</td><td class="red">营业亏 -$6.4B</td><td>Q1'26 AI capex $7.7B 超火箭+卫星总和</td></tr>
+  </tbody></table>
+
+  <h2>Yoneda 定性 (左轴, 5 维)</h2>
+  <table class="master"><thead><tr>
+    <th style="width:130px">维度</th><th>评估</th><th style="width:90px">信号</th>
+  </tr></thead><tbody>
+    <tr><td>供应角色</td><td>发射层垄断 (全球 83% 发射) + 连接层 dominant, 但并入 xAI 后 1/3 故事变成 AI compute 军备竞赛中的追赶者</td><td class="amber">混合</td></tr>
+    <tr><td>共识 vs 黑马</td><td>极度共识标的, 无黑马折价, alpha 已被定价</td><td class="red">负</td></tr>
+    <tr><td>护城河</td><td>可复用火箭成本曲线 + 星座规模真实; xAI 段无护城河 (GPU 落后者烧钱)</td><td class="amber">混合</td></tr>
+    <tr><td>裁决者</td><td>美国政府 (~20% 收入 + FAA/FCC 监管) 与 Musk 本人 (82% 投票权), 公众股东零话语权</td><td class="red">负</td></tr>
+    <tr><td>风险传导</td><td>Starlink 利润被接入 xAI 亏损黑洞; 与 AI infra 泡沫高 beta, 非独立资产</td><td class="red">负</td></tr>
+  </tbody></table>
+
+  <h2>风险 Top 3</h2>
+  <div class="risk"><b>1. AI 泡沫传导</b> -- 募资首要用途即 AI compute capex, 若 2026 H2-2027 AI infra RESET, 直接打击 1/3 估值叙事与现金流。</div>
+  <div class="risk"><b>2. 解禁悬崖</b> -- 非标准 lockup, 首份财报后 2 天即解禁 20%, 135 天内累计 ~45% (Musk 锁 366 天) <span class="src">(CNBC 05-21)</span>。</div>
+  <div class="risk"><b>3. 治理/政治</b> -- Musk 单点 + 2025 Trump-Musk 决裂先例 (曾威胁取消合同), 2026-06 虽已和解但可重燃。</div>
+
+  <h2>IPO 历史对照</h2>
+  <table class="master"><thead><tr>
+    <th>案例</th><th>结果</th>
+  </tr></thead><tbody>
+    <tr><td>Aramco (此前最大 IPO)</td><td class="red">上市 3 月 -23%</td></tr>
+    <tr><td>Rivian</td><td class="red">较发行价 -85%</td></tr>
+    <tr><td>Alibaba</td><td class="amber">首日 +38% 后一年内破发</td></tr>
+  </tbody></table>
+
+  <h2>条件再入场</h2>
+  <div class="reentry">
+    <b>触发条件</b>: 若 RESET 后股价进入 <b>$60-85 区间</b> (Morningstar FV / 2025-12 tender 锚) 且 Starlink 分部利润率维持, 以 Starlink 为锚重估。<br>
+    在此之前, $135 买入是向下不对称的赌注: 灰市价已低于发行价 + ~95x P/S 亏损加速 + 募资用途正是 AI capex (与 AI 泡沫 RESET thesis 对撞) + 45% 筹码 135 天内解禁。
+  </div>
+
+</main>
+<footer>
+  <div class="line">EIP Research | 2026-06-10</div>
+  <div class="line">本报告为独立研究, 非投顾建议, 不构成证券买卖要约</div>
+  <div class="line">数据来源: 多源 web 核实 2026-06-09 (CNBC / Fortune / Reuters / Bloomberg / SpaceNews / TechCrunch / Morningstar / PitchBook / S-1); 灰市价 Forge 06-09, Nasdaq Private Market 05-26。<code>(未核实)</code> = 仅社媒/二线源; <code>[模型]</code> = 外推非 consensus。</div>
+</footer>
+</body>
+</html>
