@@ -304,6 +304,24 @@
   <p><strong>其二，Fed 臂：动机不成立，功能可成立。</strong>Fed 的法定锚是通胀与就业，不是垄断租金 -- 压垄断是 DOJ/FTC/USTR 的工具箱。任何官方通信中都不存在"压制 AI"的政策意图，Warsh 本人还在淡化 AI-通胀链条。但机制链条独立于动机存在：AI capex -> 电价/内存/建筑成本 -> CPI -> 通胀反应函数 -> 利率上行 -> 长久期 AI 叙事折现率压缩。<strong>只要通胀路径走热，Fed 就会"功能上"压制 AI 税，无论它想不想。</strong>点阵图 3.8% vs 市场 5.4% 的分歧，就是这条链的定价缺口。</p>
   <p><strong>其三，日本类比：半对，要拆成三个部件。</strong>（a）1985 Plaza 协议 = 汇率武器打外国对手；（b）1986 美日半导体协定 + 1987 关税 = 贸易/司法武器打外国内存卡特尔 -- 今天最接近的韵脚恰是 6/25 对韩国内存厂的反垄断诉讼，这条臂<strong>已经在打</strong>，只是执行者是法院不是 Fed；（c）刺破日本泡沫的是日本自己的央行（BOJ 1989-90 连续加息），对应到今天是"Fed 对本国泡沫"，动机只能是通胀，不会是产业压制 -- NVDA 是本国旗舰，不是外国对手。BIS 已做规模类比：AI 数据中心 capex 占 GDP 0.8-1.3%，与日本 80 年代地产泡沫同量级。</p>
 
+  <h3>供给侧证据补强：全链量价分解（2026-07-29 新增）</h3>
+  <p>检验命题："海力士的创纪录收入只是因为涨价，出货量其实没涨多少" -- 以及它的推广版："整个 AI 硬件链是不是卡特尔敲诈"。判别式：健康周期 = 量价齐升；敲诈签名 = 价升量平 + 主动供给纪律 + 买方无替代，三条齐才成立。逐环节实测：</p>
+  <table>
+    <tr><th>环节</th><th>量（出货增长）</th><th>价（ASP 增长）</th><th>判决</th></tr>
+    <tr><td><strong>SK hynix</strong>（T1，季报披露）</td><td>Q1'26 DRAM bit QoQ <strong>持平</strong>、NAND bit <strong>-10%</strong>；Q2'26 DRAM bit +个位数高段</td><td>Q1 DRAM ASP +60% 中段、NAND +70% 中段；Q2 DRAM +30%</td><td><strong>价格主导：营收增长中价格贡献 70-100%</strong>。Q2 营收 79.3 万亿韩元史上最高、营业利润率 76%</td></tr>
+    <tr><td><strong>Micron</strong>（T1）</td><td>DRAM bit QoQ +个位数低段</td><td>DRAM ASP QoQ +60% 低段、NAND ASP +80% 中段</td><td>价格主导，与海力士同型</td></tr>
+    <tr><td><strong>Samsung</strong>（T3）</td><td>--</td><td>Q1'26 ASP QoQ +146%（TrendForce），Q3 传闻再争取 +20%</td><td>价格主导</td></tr>
+    <tr><td><strong>NVDA</strong>（T2/T3）</td><td>单位真增长（Hopper 约 200 万台/2024 -&gt; GB200 约 252 万台估）；但全市场加速器单位数 2026 约 650 万台，<strong>对 2025 持平偏降</strong></td><td>代际 ASP 翻倍：H200 约 $31-32K -&gt; GB200 superchip $60-70K，NVL72 整机架约 $3M</td><td><strong>价格/mix 主导</strong>，量为次要贡献。性质是单方垄断定价力 + 配给，非横向合谋</td></tr>
+    <tr><td><strong>TSM</strong>（T1，审计年报）</td><td>FY2025 wafer 出货 <strong>+16.3%</strong>（1290 万 -&gt; 1500 万片 12 寸当量）</td><td>营收 +35.9%，价约贡献 17 个点，同规格提价仅 3-10%，其余是节点 mix</td><td><strong>量价各半，真瓶颈</strong>：CoWoS 售罄至 2027、交期 52-78 周，且在 2 年内 4 倍扩产 -- 洗清</td></tr>
+    <tr><td><strong>服务器（SMCI/Dell）</strong>（T2）</td><td>SMCI 营收 +123%、Dell AI 服务器 +757%、backlog $51.3B</td><td>SMCI 毛利率被压到 <strong>6.4%</strong>，主动降价抢单</td><td><strong>量主导 + 无定价权</strong> -- 不是卡特尔，是上游税的受害层</td></tr>
+  </table>
+  <p><strong>利润率梯度就是税收地图</strong>：内存营业利润率 76%（DDR5 逼近 90%）-&gt; GPU 毛利 71% -&gt; 代工约 60%（量价对半）-&gt; 整机 6.4%。租金全部淤积在最上游两层 -- 与逻辑主线 P3"硬件税"的分布预测完全吻合。最硬的一条行为证据：SK hynix 把 HBM4 产能<strong>转回</strong> DDR5（因 DDR5 利润率逼近 90%）-- 厂商在主动配置产能追逐价格而非追逐产量；NAND 侧则有明文的"disciplined capacity management"供给纪律语言，PC/手机/消费级被刻意饿着。</p>
+  <p><strong>诚实反机制（敲诈判定的边界）</strong>：其一，HBM 每 bit 耗约 3 倍 wafer，产能转 HBM 会在满产状态下机械性压低 bit 数 -- 这是中性组合效应，单独的"量没涨"不构成敲诈证据，判别要看 wafer 总投片（capex +30% YoY 但产出缓解要等 2027+）。其二，"四年 700%"是原告口径，未经独立价格指数确认（TrendForce 单季 40-110% 连续数季在方向上一致）。其三，全链最强反证：$/TFLOP 每年仍改善 30-50%、推理 token 成本三年降约 1000 倍 -- 单位算力性价比在改善，说明 GPU 段是垄断租金而非纯敲诈。其四，DOJ 对 NVDA 的调查方向是配给与捆绑（tying），不是横向价格合谋 -- 与内存段的集体诉讼是两种不同的反垄断动物。</p>
+  <div class="panel verdict">
+    <h3>裁决 A 补充：敲诈判定分段落地</h3>
+    <p><strong>命题"海力士创纪录收入 = 涨价不是量"：完全证实</strong>（Q1 bit 零增长/负增长下的纪录营收，价格贡献 70-100%）。<strong>命题"整链 = 卡特尔敲诈"：不成立于整链，成立于分段</strong> -- 内存段三条判别全齐（价升量平 + 供给纪律明文 + 三家寡头），是字面意义上最接近卡特尔的一段，合谋与否待司法认定；GPU 段是单方垄断租金 + 配给（另一种税，另一部法律）；代工段洗清；服务器段是受害层。监控判别式：内存厂 wafer 总投片若在 2027 供给缓解窗口仍不放量 + Q3 价格再上修，敲诈判定升级；DDR 合约价 QoQ 转负或 DOJ 刑事跟进（2005 年 DRAM 案先例），此段落进入下一相位。</p>
+  </div>
+
   <h3>强制反例（采信前的对抗测试）</h3>
   <table>
     <tr><th>反例</th><th>内容</th><th>强度</th></tr>
@@ -424,7 +442,10 @@
         <tr><td>内存反垄断集体诉讼立案（N.D. Cal., 90% DRAM / 95% HBM）</td><td><span class="st st-fired">06/25</span></td></tr>
         <tr><td>$950B 韩美供应包（SK-NVDA $750B + Samsung-AVGO $200B）</td><td><span class="st st-fired">07/25</span></td></tr>
         <tr><td>DOJ/FTC 是否跟进 HBM 锁约的排他性审查</td><td><span class="st st-no">未现</span></td></tr>
-        <tr><td>DRAM/HBM 合同价 QoQ（卡特尔定价力实测）</td><td><span class="st st-pend">季度</span></td></tr>
+        <tr><td>DOJ 对 NVDA 配给/捆绑（tying）调查（非合谋轨道）</td><td><span class="st st-fired">已报道</span></td></tr>
+        <tr><td>内存量价分解：SK Q1 bit 持平/ASP +60% 中段 = 价格贡献 70-100%</td><td><span class="st st-fired">07/28</span></td></tr>
+        <tr><td>内存厂 wafer 总投片 2027 缓解窗口是否放量（敲诈判定升级/降级开关）</td><td><span class="st st-pend">季度</span></td></tr>
+        <tr><td>DRAM/HBM 合同价 QoQ（Q1 +105-110% / Q2 +35-48%，转负 = 相位切换）</td><td><span class="st st-pend">季度</span></td></tr>
       </table>
     </div>
 
@@ -569,6 +590,14 @@
     <li><a href="https://www.bloomberg.com/news/articles/2026-07-17/gauge-of-oracle-s-credit-risk-hits-fresh-all-time-high">Gauge of Oracle's Credit Risk Hits Fresh All-Time High</a><span class="pub">BLOOMBERG, 2026-07-17</span></li>
     <li><a href="https://deepquarry.substack.com/p/coreweaves-new-debt-facility-beyond">CoreWeave's new debt facility: SOFR+450</a><span class="pub">DEEP QUARRY, 2026-05</span></li>
     <li><a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2">ICE BofA US High Yield Index Option-Adjusted Spread</a><span class="pub">FRED, accessed 2026-07-28</span></li>
+    <li><a href="https://news.skhynix.com/en/q2-2026-business-results/">SK hynix Announces 2Q26 Financial Results</a><span class="pub">SK HYNIX NEWSROOM, 2026-07-28</span></li>
+    <li><a href="https://www.trendforce.com/news/2026/05/18/news-memory-supercycle-drives-1q26-price-surge-samsung-flags-146-asp-jump-sk-hynix-sees-mid-60-dram-gains/">Memory 1Q26 Price Surge: Samsung Flags 146% ASP Jump, SK hynix Sees Mid-60% DRAM Gains</a><span class="pub">TRENDFORCE, 2026-05-18</span></li>
+    <li><a href="https://www.techtimes.com/articles/319016/20260624/sk-hynix-dethroned-samsung-after-26-years-now-choosing-ddr5-profits-over-hbm4-ramp.htm">SK Hynix: Choosing DDR5 Profits Over HBM4 Ramp</a><span class="pub">TECH TIMES, 2026-06-24</span></li>
+    <li><a href="https://investors.micron.com/static-files/631b1a32-5537-46ae-8f40-82e42fc79dfe">Micron Fiscal Q3 2026 Earnings Call Prepared Remarks</a><span class="pub">MICRON IR, 2026</span></li>
+    <li><a href="https://investor.tsmc.com/static/annualReports/2024/english/pdf/2024_tsmc_ar_e_ch2.pdf">TSMC Annual Report: wafer shipments and revenue decomposition</a><span class="pub">TSMC IR</span></li>
+    <li><a href="https://www.trendforce.com/presscenter/news/20260202-12911.html">NAND 1Q26 contract price revision +55-60% QoQ</a><span class="pub">TRENDFORCE, 2026-02-02</span></li>
+    <li><a href="https://www.techpowerup.com/325160/nvidia-hit-with-doj-antitrust-probe-over-ai-gpus-unfair-sales-tactics-and-pricing-alleged">Nvidia DOJ antitrust probe over allocation and tying practices</a><span class="pub">TECHPOWERUP</span></li>
+    <li><a href="https://www.gpunex.com/blog/ai-inference-economics-2026/">AI inference economics: cost-per-TFLOP and token cost trends</a><span class="pub">GPUNEX, 2026</span></li>
   </ul>
 </div>
 
