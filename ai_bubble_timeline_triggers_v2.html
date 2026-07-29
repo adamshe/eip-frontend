@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI硬件泡沫出清：两层结构时间线与触发器手册 v2.1</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* 本页补充样式：仅状态标签 / 触发器网格 / 图片框，其余全部继承 theme.css */
+  .st{font-family:var(--font-mono);font-size:11px;padding:2px 8px;border:1px solid var(--border);border-radius:3px;white-space:nowrap;display:inline-block}
+  .st-fired{color:var(--tone-primary);border-color:var(--tone-primary)}
+  .st-pend{color:var(--tone-warn);border-color:var(--tone-warn)}
+  .st-no{color:var(--text-muted)}
+  .st-hot{color:var(--tone-stress);border-color:var(--tone-stress)}
+  .trig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-top:var(--s-4)}
+  .trig-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:var(--s-4) var(--s-5)}
+  .trig-card h4{margin-top:0}
+  .trig-card table{margin:var(--s-2) 0 0 0;font-size:13px}
+  .trig-card td{padding:6px 4px}
+  .figure{margin:var(--s-6) 0;text-align:center}
+  .figure img{max-width:100%;border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
+  .figure figcaption{font-family:var(--font-sans);font-size:13px;color:var(--text-muted);margin-top:var(--s-3);line-height:1.6}
+  .tgrade{font-family:var(--font-mono);font-size:10.5px;color:var(--accent);white-space:nowrap}
+  .kill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:var(--s-4)}
+  .kill{border:1px solid var(--border);border-left:3px solid var(--tone-stress);border-radius:var(--r-sm);padding:var(--s-4) var(--s-4);background:var(--bg-card)}
+  .kill h5{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--tone-stress);margin:0 0 var(--s-2) 0}
+  .kill p{font-size:14px;margin:0}
+  .prob-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:var(--s-5)}
+  .prob-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--s-4);text-align:center}
+  .prob-box .v{font-family:var(--font-mono);font-size:24px;font-weight:600;color:var(--text)}
+  .prob-box .l{font-family:var(--font-sans);font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5}
+  .prob-box .rev{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-top:4px}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6)}
+  @media(max-width:768px){.two-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<header class="masthead">
+  <div class="top-rule">
+    <span>EMPIRE INTEGRATION PARTNERS</span>
+    <span class="compass">内部作战文件 v2.1</span>
+    <span>2026-07-29</span>
+  </div>
+  <p class="eyebrow">EIP RESEARCH <span class="dot">.</span> AI CAPEX CYCLE <span class="dot">.</span> TIMELINE AND TRIGGERS</p>
+  <h1 class="title">AI硬件泡沫出清</h1>
+  <p class="subtitle">两层结构时间线与触发器手册。v2.1 新增：双 thesis 实证审查（AI OPEC 压制论、减记级联论）、Benner 周期先验、12月加息定价的实时修正。以反应函数为主钟，以触发器为导航，不以催化剂日期为信仰。</p>
+  <p class="author-line">BY <strong>NAUGHTY BOSS</strong> <span class="dot">.</span> EIP RESEARCH <span class="dot">.</span> 2026-07-29 <span class="dot">.</span> 非投资建议</p>
+  <p class="byline">状态板：SOX 峰值-20%（07/26）｜ORCL $121 / -65%（07/26）｜SPCX $113 破发-16%（07/26）｜CRWV $72（07/26）｜HY OAS 269-277bp 十年低位第16分位（07/23）｜AI 单名 5yr CDS 同日集体纪录：ORCL 215 / Meta 92 / NVDA 82 / GOOGL 64bp（07/27）｜FedWatch 12月：不动 78.2% / 降息 15.4% / 加息 5.4%（07/28）｜7月半导体抹去市值超 $1T</p>
+</header>
+
+<article class="wide">
+
+<!-- ============ I 修正摘要 ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">I</span><span class="kicker">对原推演的五处手术：先纠错，再上路</span></div>
+  <h2>修正摘要</h2>
+  <div class="lane">
+    <p class="lane-label">修正一：CAPEX 方向已被证伪</p>
+    <p>阶段一不是"指引下修"，是<strong>上调被惩罚</strong>。TSM 上调 $60-64B 被砸 -4%，GOOGL 上调 $195-205B 被砸 -5%。真正的下修在 10 月 FY27 指引季，以"component pricing normalization"台词登场。</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">修正二：买方在抢锁，不在砍单</p>
+    <p>MU 签 16 份多年协议 $22B、Musk 公开哀嚎"pretty insane"并锁定数年产能。7/25-26 韩美峰会 $950B 供应包（见第 IV 节）是同一行为的最大样本：<strong>买方峰值恐慌锁约 = 顶部签名</strong>。联合反抗属于 2027 合同重谈期，不属于现在。</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">修正三：付费断崖是轨迹不是现状</p>
+    <p>中国/开源 band 以约 1 分/月逼近 85-88 分 agent 门槛（现 80.6 vs 88.7），抵达时间 2027 H1，恰与 Anthropic 年均 $40B、OpenAI 各承诺的<strong>合同 step-up 同季相遇</strong>。剪刀合拢写在日历上。</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">修正四：-80% 属于 2028，不属于 2027/5</p>
+    <p>Layer 1（2026 H2）= 数据中心去泡沫 -30~40%。<strong>Layer 2（2028）= 接力证伪后的数字+物理双杀，-70~80%、P/E 15-20x 终局。</strong>中间隔层的性质，v2.1 被第 VI 节的减记级联 vet 重新定价：从"多头段"降级为"战术反弹段"。</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">修正五（v2.1 新增）：12月加息定价 77% 是错读</p>
+    <p>实时 FedWatch（07/28）：12月<strong>不动 78.2% / 降息 15.4% / 加息仅 5.4%</strong>。v2.0 把"不动概率"误读成"加息概率"。但 6 月点阵图 YE2026 中位数 3.8%（3 月为 3.4%）= FOMC 自己的中位路径隐含再加一次息。<strong>市场 5.4% vs 点阵图隐含一次加息，这个分歧本身就是仓位</strong>（见第 V 节）。</p>
+  </div>
+</section>
+
+<!-- ============ II Benner 周期先验 ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">II</span><span class="kicker">1875 年的周期卡片：先验，不是福音</span></div>
+  <h2>Benner 周期先验：<em>2026 卖，2032 买</em></h2>
+  <figure class="figure">
+    <img src="cycle.jpg" alt="Samuel Benner 1875 年周期图：A 行恐慌年，B 行高价卖出年，C 行低价买入年">
+    <figcaption>Samuel Benner《Periods When to Make Money》（1875）。A 行恐慌年：1927、1945、1965、1981、1999、2019、<strong>2035</strong>；B 行高价卖出年：...1999、2007、2016、<strong>2026</strong>、2034；C 行低价买入年：...2005、2012、2023、<strong>2032</strong>。</figcaption>
+  </figure>
+  <p class="dropcap">这张 150 年前的农商周期卡片以 8-9-10 年节奏排布，与本手册的关系是先验校准，不是证据。它的命中记录值得尊重：1999 卖出年对上 2000 年顶，2019 恐慌年对上 2020 年崩，2023 买入年对上本轮牛市起点（Nasdaq 2022/12 见底）。它的脱靶同样要记账：1945 无恐慌，1965 的对应物是 1966 信贷紧缩，节奏是统计韵脚不是物理定律。</p>
+  <h3>Benner x 级联合成路径（预测）</h3>
+  <p>把第 V 节的级联五级铺到 Benner 节奏上，得到一条可证伪的合成路径。历史校准点：2000/3 顶部到 WorldCom 爆雷（级联第 4 级）间隔 27 个月；到最终底部（2002/10）间隔 31 个月；durable 反弹从 -78% 起跳。以 2026 H2 为本轮顶部锚，逐级外推：</p>
+  <table>
+    <tr><th>年份</th><th>Benner 行</th><th>级联位置</th><th>预测内容</th></tr>
+    <tr><td><strong>2026 H2</strong></td><td>B 行卖出年</td><td>级 1 点火</td><td>Layer 1 破裂。顶部签名已集齐：$950B 峰值恐慌锁约、7月半导体抹去 $1T 市值、买方抢产能哀嚎。E-revision 从 AVGO/IBM 蔓延至 FY27 指引季。</td></tr>
+    <tr><td><strong>2027</strong></td><td>下行段</td><td>级 1 -&gt; 2</td><td>盈利下修全面入账，卖方系统性转空（KS-6 点火）。预计 2-3 次 +15~30% 熊市反弹全部失败 -- 埋刀客年。durable rally（40-50%）若兑现也属租用段，不改路径。</td></tr>
+    <tr><td><strong>2028</strong></td><td>下行段</td><td>级 2 -&gt; 3</td><td>Layer 2 总崩（NVDA -70~80% 终局区）+ 首批金融机构减记：GPU 残值（现 27%）跌穿租赁/ABS 模型假设，私募信贷 marks 被审计强制确认，BDC 折价兑现为损失。</td></tr>
+    <tr><td><strong>2029</strong></td><td>下行段</td><td>级 3 -&gt; 4</td><td>违约潮窗口。WorldCom 间隔律（顶部 +27 个月 = 2028 H2-2029 H1）指向最大单体爆雷：候选 = 高杠杆 neocloud、SPV 结构、SoftBank 型控股杠杆。HY OAS 穿 500 危机区 = KS-2 完全触发。</td></tr>
+    <tr><td><strong>2030-31</strong></td><td>hard times</td><td>级 4 -&gt; 5 或出清</td><td>清算段：低波动阴跌、政策大宽松、无人再谈 AI。debt crisis 是否升级为 systemic（25-30% 尾部）在此裁决 -- 传导器是银行-NBFI 管道（&gt;$1.2T，FSB 盲区）。</td></tr>
+    <tr><td><strong>2032</strong></td><td><strong>C 行买入年</strong></td><td>出清完成</td><td>"hard times, low prices, buy corner lots"。Wave 3 建仓年：真实应用（Agent/具身/垂直AI）在去暴利土壤上的 ROI 闭环。这是一代人的入场点。</td></tr>
+    <tr><td><strong>2034-35</strong></td><td>B 行 2034 / A 行 panic 2035</td><td>下一周期</td><td>复苏顶与下一次恐慌。按 Benner 节奏预约下一张卖出卡。</td></tr>
+  </table>
+  <p><strong>路径的证伪条件</strong>：至 2027 Q2 零减记且 HY OAS 低于 320（KS-7 反向）-&gt; 本路径作废，回到 2019 型 pivot 反弹剧本；反之，首例 AI 抵押减记落地 -&gt; 本路径从"先验"升级为"主剧本"。</p>
+
+  <aside class="mirror">
+    <h4>与两层结构的对表</h4>
+    <p><strong>对齐处</strong>：B 行 2026 = "高价、卖出一切之年"，与 Layer 1（2026 H2 顶部确认）同向。<strong>分歧处</strong>：本手册 Layer 2 终局在 2028，而 Benner 的下一个买入年在 2032、恐慌年在 2035。若 Benner 节奏占优，含义是：出清比 2028 剧本更长、更磨，底部不在崩塌日而在其后的漫长清算段。这与第 VI 节减记级联 vet 的结论同向：<strong>信用出清是以年计的过程，不是以季计的事件</strong>。2028-2032 之间的每一次"底部确认"都按熊市反弹纪律处理。</p>
+  </aside>
+</section>
+
+<!-- ============ III 主时间线 ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">III</span><span class="kicker">主时间线 P0-P7：红=空头段，琥珀=换挡，绿=多头段</span></div>
+  <h2>主时间线</h2>
+
+  <div class="lane">
+    <p class="lane-label">P0 / 现在 -> 2026-08-15 / 空头段</p>
+    <h3>绞肉机：Mega-cap 财报周</h3>
+    <p>反应函数已被 TSM/GOOGL 验证两次。7/29-31 是同一台绞肉机的测试 #3-#5，80% 概率至少一家被卖。</p>
+    <ul>
+      <li><strong>07/29-31</strong>：MSFT / Meta / AMZN / AAPL 财报。判据单一：上调 capex 被卖还是被奖。</li>
+      <li><strong>08/12</strong>：7月 CPI。捕捉油价与 AI 输入成本（电价 YoY +4.0%，内存/组件传导）入账。若走热，12月加息定价从 5.4% 重新武装（5 月先例：通胀冲击时加息定价曾冲 51%）。</li>
+    </ul>
+    <p>触发器：component pricing 数字升级（4月 $5B -> ?）；MSFT RPO 里 OpenAI $250B 质量问答；Meta 是否宣布发股；FY27 capex 形容词计数（"significantly higher"）。</p>
+    <div class="panel verdict"><h3>动作</h3><p>8月腿：周二盘前先锁 30%，财报反应日兑现 50-70%，8/12 后全部清零。近月纪律：永不持近月穿越理论上限。</p></div>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P1 / 2026-08-15 -> 09-30 / 空头段</p>
+    <h3>终审：NVDA 反应函数判决</h3>
+    <p>数据必然华丽（GOOGL $205B capex 就是它的订单簿）。唯一变量是市场用哪套规则定价它。</p>
+    <ul>
+      <li><strong>08/26</strong>：NVDA 财报。被卖（55-60%）= beat-then-die #4，最后庇护所倒；被奖励（40-45%）= 税制续期，弱手推 F&amp;G 向 Greed。</li>
+      <li><strong>09月中</strong>：FOMC 鹰派 hold，12月 dots 定型（6月中位数已在 3.8%）。</li>
+      <li><strong>09月</strong>：Anthropic $900B+ 轮结果 = circular 续命判决（vendor 们有一致动机让它 close）。</li>
+      <li><strong>09月末</strong>：SPCX 12/12 解禁的 front-run 研报开始出现。</li>
+    </ul>
+    <p>触发器：NVDA 自家 equity 组合 mark-down 首印（CRWV/Nebius/xAI）；客户集中度披露；guidance 是否"不再爆发"。</p>
+    <div class="panel verdict"><h3>动作</h3><p>被卖 -> press 近月；被奖 -> 按 F&amp;G 纪律等 Greed 55+/75+ 装填第二批 Dec'26。9/18 腿：9/15 前无条件清零。</p></div>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P2 / 2026-10-01 -> 11-03 / 空头段</p>
+    <h3>主收割：E-revision 打印层</h3>
+    <p>价格 7 月已抢跑，10 月是入账日：折旧满额 + 最贵 memory 合同进 COGS + FY27 指引季。"Q3 财报难看"的精确形态 = margin + guidance + 账面投资损失三线齐暗，不是收入 miss。</p>
+    <ul>
+      <li><strong>10月中</strong>：Q3 财报，运营 margin 全线压缩；"component pricing normalization"预写砍单台词登场。</li>
+      <li><strong>10月中</strong>：Mark-to-market 首印。GOOGL $94.1B SpaceX 持仓 -> 账面损失约 $25-30B（估），Q2 的 $99B 收益反向鞭打。</li>
+      <li><strong>10月初</strong>：NAND Q3 合同价 QoQ 数据。低于 +30% = memory 反转确认 = Jun'27 腿最后确认灯。</li>
+      <li><strong>11/03</strong>：中期选举，通胀替罪羊政治峰值。</li>
+    </ul>
+    <p>目标区：QQQ 560-600｜SPX 6,300-6,700｜VIX 28-40。</p>
+    <div class="panel verdict"><h3>动作</h3><p>Dec'26 腿在第一腿目标主收割；Jan'28 spread 兑现 1/3-1/2，余下留作 Layer 2 保险；30-40% 现金铁律不动。</p></div>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P3 / 2026-11-03 -> 12-12 / 换挡窗口</p>
+    <h3>换边窗口：机械反弹</h3>
+    <p>回补 + 选举落地 + 抢跑 2027 pivot。反弹没有可持续的道理，但有机械的道理。你的纪律是利用它，不是否认它。<strong>v2.1 注：第 VI 节 vet 之后，此段与 P5 的所有反弹一律按熊市反弹纪律处理 -- 可租用，不可持有。</strong></p>
+    <ul>
+      <li>VIX 30-40 时卖 GOOGL/TSM 的 -40% tier cash-secured puts：被付钱等待 Wave 2 入场价。</li>
+      <li>Wave 2 tranche 1（仅 1/4 弹药）：GOOGL &gt; TSM &gt; GEV &gt; AMZN。</li>
+      <li>SPCX 反弹 $130-150 建 12月后 expiry puts（解禁交易，第一目标 $70-80 流量地板）。</li>
+      <li>绝不买名单：memory / neocloud / humanoid / TSLA / SPCX 多头。</li>
+    </ul>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P4 / 2026-12-12 -> 12-31 / 空头段</p>
+    <h3>风险簇：解禁 + FOMC</h3>
+    <p>2018 年 12 月的潜在复刻窗口：Warsh 若在弱市中加息 = 最后的鹰派表演，也是泡沫之死治好通胀、为 2027 转向铺路的仪式。<strong>v2.1 修正：加息不是基线（市场定价 5.4%），是尾部情景 -- 武装条件为 8-11 月通胀重新走热（触发器见第 VII 节 Fed 卡）。</strong></p>
+    <ul>
+      <li><strong>12/12</strong>：SPCX 锁定期到期，$200B+ 级潜在供给，前置 front-run 已在 10-11 月发生。</li>
+      <li><strong>12月中</strong>：FOMC。基线鹰派 hold；若 CPI 连续走热则 25bp 加息砸进弱市（2018/12 结构）。</li>
+    </ul>
+    <div class="panel verdict"><h3>动作</h3><p>战术多头 12/12 前全部离场；若加息尾部兑现砸出投降低点 -> tier-2/3 价格出现 -> tranche 2。</p></div>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P5 / 2027 Q1 / 换挡窗口（v2.1 从多头段降级）</p>
+    <h3>点火：Pivot 与第 3 年引擎</h3>
+    <p>原判断：第 3 年上涨不需要 AI 修复（2003 年 Nasdaq 废墟 +50%，2019 年零盈利增长 +29%）。<strong>v2.1 降级理由（详见第 VI 节）：2003 与 2019 的可比性被债务周期变量切开 -- 2019 型（无债务出清，pivot 即反弹）与 2003 型（债务出清后从 -78% 起跳）是两个物种。本轮发债结构更像 2000-02，durable rally 概率从 65-70% 下修至 40-50%。</strong></p>
+    <ul>
+      <li><strong>Fed pivot</strong>：财富效应摧毁 + 裁员 = 需求破坏 = 通胀被治好。但历史基准率：2001 年 Fed 降息 11 次，市场仍再跌两年。pivot 是必要条件，不是充分条件。</li>
+      <li><strong>砍 capex -> FCF 爆炸</strong>：Meta 2023 模板，惩罚加 capex 的 regime 会对称地奖励砍 capex。此引擎仍立。</li>
+      <li><strong>Reset 起点</strong>：从 -20~30% 起跳的回补反弹。此引擎降级为战术级。</li>
+      <li><strong>国家意志</strong>：2028 大选刚需托底；OpenAI IPO 重启 = 庄家维持机制翻回 ON。</li>
+    </ul>
+    <div class="panel verdict"><h3>动作</h3><p>pivot 信号 -> tranche 2（但 tranche 3 冻结直至第 VI 节级联走到第 4 级并出清）；ORCL 按"砍 capex 公告 = Meta 时刻"处理（trade -> hold 升级判据）。</p></div>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P6 / 2027 Q2 -> Q3 / 裁决段</p>
+    <h3>骑乘 + 侦察：剪刀合拢与弹性裁决</h3>
+    <p>反弹（若有）与 physical AI 高潮同场。同一季度，两条已知曲线相交：band 触及 85-88 分 agent 门槛 x Anthropic 年均 $40B / OpenAI 承诺 step-up 生效。</p>
+    <ul>
+      <li><strong>版本裁决</strong>：廉价 token 后真实需求弹性 &gt;1（版本A）-> tranche 3 加满，持有到底。</li>
+      <li>弹性 &lt;1（版本B）-> rally 定性为 Layer 2 最后疯狂 -> 多头止步，开建 2028 空头名单（humanoid 纯玩 / TSLA / Figure 若 IPO）。</li>
+      <li>SNDK Jun'27 腿随 NAND 反转在 H1'27 收割（-50~70% 路径）。</li>
+    </ul>
+    <p>C端专项指标：OpenAI 广告 rollout 进度（= 订阅认输书）；免费层能力 vs 付费层差距；NET pay-per-crawl 收入化。</p>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P7 / 2028+ / 终局</p>
+    <h3>Layer 2 总崩：终局</h3>
+    <p>physical AI 证伪（humanoid 量产跳票 + robotaxi 经济性不成立）+ 没有下一个接力叙事。原报告的终局判断在此兑现，晚了一个接力棒的长度。<strong>v2.1 注：若 Benner 节奏占优，终局后的清算段延伸至 2030-2032，买入年不在崩塌日。</strong></p>
+    <ul>
+      <li><strong>NVDA -70~80%</strong>（数字+物理双杀），P/E 回落 15-20x，毛利向 40s 制造业归位。</li>
+      <li>Memory 毛利 84.6% -> 十几个点或亏损（trough 惯例）；算力公用事业化，token 成本趋近水电。</li>
+      <li>猎场：Jan'28 余仓 + 2028 LEAPS；猎物：humanoid 叙事纯玩。</li>
+      <li>真实应用（Agent/具身/垂直AI）在去暴利的土壤上建立 ROI 闭环 -- 版本A 的 Wave 3 从这里开始。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ IV Thesis Vet A ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">IV</span><span class="kicker">Thesis Vet A：结构确认，动机修正</span></div>
+  <h2>AI OPEC 压制论 <em>实证审查</em></h2>
+  <blockquote class="pullquote">论点原文：NVDA CEO 与韩国 HBM 的 950B 合约是垄断生意的卡特尔化 -- 一个 AI OPEC。押注 Fed 将加息压制这笔不健康的 AI 税，如同当年美国压制日本。</blockquote>
+
+  <h3>事实层（全部实时核实，2026-07-28）</h3>
+  <table>
+    <tr><th>级别</th><th>事实</th><th>对论点的作用</th></tr>
+    <tr><td class="tgrade">T2</td><td>7/25-26 韩美峰会：$950B 供应包属实，但结构 = SK hynix-NVDA <strong>$750B</strong>（5年 HBM 供应+联合开发）+ Samsung-Broadcom <strong>$200B</strong>。美元计价，非单一 NVDA 合约。</td><td>方向支持，数字修正</td></tr>
+    <tr><td class="tgrade">T1</td><td>6/25 联邦反垄断集体诉讼（Garciaguirre v. Samsung, N.D. Cal.）：指控三星/SK/美光（DRAM 约90%、HBM 95%+）借 HBM 转型削减 DDR4 产能，常规内存四年涨约 700%，援引 Sherman Act 第一条。</td><td><strong>卡特尔行为已进法院文件 -- 比"OPEC"比喻更硬</strong></td></tr>
+    <tr><td class="tgrade">T3</td><td>HBM 份额 Q2'26：SK hynix 62% / Micron 21% / Samsung 17%。三家合计约 100%。</td><td>供给侧寡头结构确认</td></tr>
+    <tr><td class="tgrade">T1</td><td>Warsh 5/22 就任 Fed 主席；利率 3.50-3.75% 自 2025/12 未动；6月点阵图 YE2026 中位数 <strong>3.8%</strong>（3月 3.4%）= 隐含再加一次。</td><td>鹰派转向属实</td></tr>
+    <tr><td class="tgrade">T2</td><td>FedWatch 07/28：12月不动 78.2% / 降息 15.4% / <strong>加息仅 5.4%</strong>。5月通胀冲击时加息定价曾达 51%（后随 7/2 弱非农回落）。</td><td>市场当前不信加息</td></tr>
+    <tr><td class="tgrade">T1</td><td>核心 PCE 3.4%（5月）；电价 YoY +4.0%（6月）；多方经济学家把 2026 年约 $700B+ 的 AI 数据中心 capex 列为内存/处理器/电价的通胀推手。Warsh 7/14 证词自称要以"regime change"清除通胀这个"tax"。</td><td>通胀通道存在，且 Warsh 自己用了"税"这个词</td></tr>
+    <tr><td class="tgrade">T2</td><td>但 Warsh 7/15 参院证词亲口淡化 AI-通胀链条："AI 支出可能抬价但未必形成持续通胀"。Trump 装 Warsh 的目的是降息，仅在通胀破 4% 后暂缓施压。</td><td>直接动机反证</td></tr>
+  </table>
+
+  <h3>机制层修正：三段拆解</h3>
+  <p><strong>其一，卡特尔结构：确认，且比原表述更完整。</strong>"AI OPEC"不是一份合约，是两层结构叠加：上游是已被法院文件指控的三家内存寡头（供给侧削产抬价），下游是 NVDA 用 $750B 五年锁约把稀缺 HBM 产能优先权买断（需求侧锁定）。后者的垄断意义在于：AMD 与所有自研 ASIC 同样需要 HBM，锁死上游产能 = 扼住竞品加速器的喉咙。这是垄断维持行为，不只是供应保障。</p>
+  <p><strong>其二，Fed 臂：动机不成立，功能可成立。</strong>Fed 的法定锚是通胀与就业，不是垄断租金 -- 压垄断是 DOJ/FTC/USTR 的工具箱。任何官方通信中都不存在"压制 AI"的政策意图，Warsh 本人还在淡化 AI-通胀链条。但机制链条独立于动机存在：AI capex -> 电价/内存/建筑成本 -> CPI -> 通胀反应函数 -> 利率上行 -> 长久期 AI 叙事折现率压缩。<strong>只要通胀路径走热，Fed 就会"功能上"压制 AI 税，无论它想不想。</strong>点阵图 3.8% vs 市场 5.4% 的分歧，就是这条链的定价缺口。</p>
+  <p><strong>其三，日本类比：半对，要拆成三个部件。</strong>（a）1985 Plaza 协议 = 汇率武器打外国对手；（b）1986 美日半导体协定 + 1987 关税 = 贸易/司法武器打外国内存卡特尔 -- 今天最接近的韵脚恰是 6/25 对韩国内存厂的反垄断诉讼，这条臂<strong>已经在打</strong>，只是执行者是法院不是 Fed；（c）刺破日本泡沫的是日本自己的央行（BOJ 1989-90 连续加息），对应到今天是"Fed 对本国泡沫"，动机只能是通胀，不会是产业压制 -- NVDA 是本国旗舰，不是外国对手。BIS 已做规模类比：AI 数据中心 capex 占 GDP 0.8-1.3%，与日本 80 年代地产泡沫同量级。</p>
+
+  <h3>强制反例（采信前的对抗测试）</h3>
+  <table>
+    <tr><th>反例</th><th>内容</th><th>强度</th></tr>
+    <tr><td>政治向量反</td><td>装 Warsh 上台的白宫要的是降息；Fed 为压制本国旗舰产业主动加息在政治上自相矛盾。</td><td>高</td></tr>
+    <tr><td>市场定价反</td><td>12月加息定价仅 5.4%，降息定价反而 15.4%；7/2 弱非农给了鸽派实弹。</td><td>高（但5月51%先例证明一份 CPI 即可翻转）</td></tr>
+    <tr><td>历史结构错位</td><td>Plaza/1986 打的是外国对手保本国产业；对 AI 加息是打自己人，1980s 剧本无此先例。BOJ 案例里主动刺破泡沫的央行事后被钉在通缩三十年的耻辱柱上 -- Warsh 知道这个先例。</td><td>中高</td></tr>
+  </table>
+
+  <div class="panel verdict">
+    <h3>裁决 A</h3>
+    <p><strong>结构判断（AI OPEC）：确认</strong>，且有 T1 法院文件加持 -- 但执行压制的第一只手是司法/贸易臂（已开打），不是 Fed。<strong>Fed 加息判断：动机错，机制对。</strong>修正后的可下注版本：不赌"Fed 有意压制 AI"，赌"AI capex 通胀 + 油价传导迫使 Warsh 加息或长期鹰派 hold"。概率：12月字面加息 20-30%（市场 5.4%，点阵图隐含一次，分歧即不对称赔率）；"加息或鹰派 hold 至 2027 中、不降息"60-70%。压制效果不需要字面加息 -- 实际利率维持限制性穿过泡沫后期，杀伤等效。<strong>武装触发器：8/12 CPI；FedWatch 12月加息定价突破 30% = 论点点火。</strong></p>
+  </div>
+</section>
+
+<!-- ============ V (was VI) Thesis Vet B 编号按文档顺序 ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">V</span><span class="kicker">Thesis Vet B：级联五级，当前走到 2/5</span></div>
+  <h2>减记级联论 <em>实证审查</em></h2>
+  <blockquote class="pullquote">论点原文：不会有像样的反弹 -- 反弹会埋掉所有抄底刀客。然后是盈利下修、评级下调、银行与金融机构减记，可能触发债务危机。</blockquote>
+
+  <h3>级联五级与当前位置（2026-07-28 实测）</h3>
+  <table>
+    <tr><th>级</th><th>阶段</th><th>状态</th><th>实证</th></tr>
+    <tr><td>1</td><td>E-revision（盈利下修）</td><td><span class="st st-fired">已点火</span></td><td>AVGO 6/4 AI 指引 $16B vs $17.2B 预期后 -14%；7月半导体抹去市值超 $1T；TSM 单月约 -15%。但主流叙事仍是"mid-cycle reset"，卖方目标价未系统性下调。</td></tr>
+    <tr><td>2</td><td>评级/信用下调</td><td><span class="st st-fired">首例已现</span></td><td>ORCL 被 S&amp;P 降至 BBB-（投资级最后一档），5年 CDS 198bp 创 18 年纪录，Q3 FCF -$24.7B；CRWV $3.1B 信贷档仅获 Ba2/BB+（部分放贷人退出）；Moody's 点名警告六大发行人信用质量。</td></tr>
+    <tr><td>3</td><td>金融机构减记</td><td><span class="st st-no">未现</span></td><td>截至 07/28 无任何一笔银行/BDC 对 AI/GPU 抵押的确认减记。但物理前置已就位：H100 残值约为原价 27%（ABS/租赁结构普遍按 3 年 50% 假设建模）；BDC 中位 NAV 折价 26%（Saba 出价折 20-35% 收私募信贷份额 = 市场认定 marks 陈旧）。</td></tr>
+    <tr><td>4</td><td>债务危机传导</td><td><span class="st st-no">未现</span></td><td>HY OAS 273-277bp = 十年区间第 16 分位（低位）；IG 约 +74bp；tech BBB 仅 +10bp 有序走宽。指数级信用市场完全没有定价级联。</td></tr>
+    <tr><td>5</td><td>Systemic</td><td><span class="st st-pend">尾部</span></td><td>FSB：银行对私募信贷敞口 $220-500B，对非存款金融机构贷款超 $1.2T，Fed 自认可见度有限 -- pre-2008 影子银行结构的回声。</td></tr>
+  </table>
+
+  <h3>信用信号面板：单名 CDS vs 指数的分层（2026-07-27 实测）</h3>
+  <p>07/27（MSFT/Meta 财报前两天），Bloomberg 口径下 Oracle、Nvidia、Meta、Alphabet 的 5 年期 CDS 同日升至<strong>历史纪录</strong>，而 HY 指数 OAS 仍趴在十年区间第 16 分位。<strong>单名层在定价级联，指数层在否认传导 -- 这个分层是级联第 2 级的信用侧签名</strong>：市场已经开始逐名重定价 AI 发行人，但尚未定价系统传导。分层收敛的方向（单名回落 or 指数追上来）就是级联论的裁决。</p>
+  <table>
+    <tr><th>标的</th><th>5yr CDS（07/27）</th><th>方向 vs 3个月前</th><th>状态</th><th>警戒 / 危机线</th></tr>
+    <tr><td><strong>ORCL</strong></td><td class="num">215 bp</td><td>走宽（2025 年末 144）</td><td><span class="st st-hot">纪录</span></td><td>250 / 300</td></tr>
+    <tr><td><strong>SoftBank</strong></td><td class="num">380 bp（03/09 旧印）</td><td>走宽（1月约 347）</td><td><span class="st st-pend">数据陈旧</span></td><td>450 / 550</td></tr>
+    <tr><td><strong>Meta</strong></td><td class="num">92 bp</td><td>走宽</td><td><span class="st st-hot">纪录</span></td><td>120 / 150</td></tr>
+    <tr><td><strong>NVDA</strong></td><td class="num">82 bp</td><td><strong>一个月翻倍</strong>（6月末 42）</td><td><span class="st st-hot">纪录</span></td><td>120 / 150</td></tr>
+    <tr><td><strong>AMZN</strong></td><td class="num">67 bp</td><td>走宽</td><td><span class="st st-pend">高位</span></td><td>90 / 120</td></tr>
+    <tr><td><strong>GOOGL</strong></td><td class="num">64 bp</td><td>走宽</td><td><span class="st st-hot">纪录</span></td><td>90 / 120</td></tr>
+    <tr><td><strong>MSFT</strong></td><td class="num">~49 bp（07/16 印）</td><td>走宽（2018 年以来最高）</td><td><span class="st st-pend">高位</span></td><td>75 / 100</td></tr>
+    <tr><td>HY 指数 OAS</td><td class="num">269-277 bp</td><td>持平/微收</td><td><span class="st st-no">十年低位</span></td><td>380 / 400（KS-2）</td></tr>
+    <tr><td>IG 指数 OAS</td><td class="num">~79 bp</td><td>持平</td><td><span class="st st-no">低位</span></td><td>110 / 130</td></tr>
+  </table>
+  <p>边际融资成本同向确认：CoreWeave 信贷序列两个月内从 SOFR+225（DDTL 4.0, 03月）跳到 <strong>SOFR+450</strong>（DDTL 5.0, 05月, YTM 约 8.5-8.8%）；Meta El Paso SPV 比十个月前的 Hyperion（T+225）<strong>多付约 40bp</strong>；ORCL 2056 长债 263bp、10 年期全收益率约 6.4% vs BBB 曲线 5.7%。同一方向：每一笔新钱都比上一笔贵。</p>
+
+  <div class="two-col">
+    <div class="lane">
+      <p class="lane-label">支持级联的证据</p>
+      <ul>
+        <li>发债规模：2026 年 AI 相关发债约 $570B（前一年 4 倍速），JPM 估至 2030 累计 $4.1T；六大 hyperscaler 直接债务约 $460B；capex 已吃掉近 100% 运营现金流（十年均值 40%）。</li>
+        <li>Vendor financing 回声：NVDA 对 OpenAI $30B 股权 + 报道中 $250B 俄亥俄担保（= 现有担保簿的约 71 倍）+ 讨论中最高 $350B 芯片购买融资 -- 与 2000-02 电信崩溃里 Lucent/Nortel 给客户放贷买自家设备同构。</li>
+        <li>Off-balance-sheet 层：Meta Hyperion SPV $27B（Blue Owl 80%）、El Paso 二期 $13B+ 且投资者已多要 40bp、收益率报价过 7% -- 边际融资成本在涨。</li>
+        <li>SoftBank：$40B 无抵押过桥 + 以 OpenAI 股份质押求 $10B 保证金贷款（SOFR+425bp），两年 $32B 资金缺口（分析师估）。</li>
+      </ul>
+    </div>
+    <div class="lane">
+      <p class="lane-label">反对级联的证据（当前最强反证）</p>
+      <ul>
+        <li>HY OAS 十年低位：市场用真金白银投票"没有违约潮"。这是对论点的最强反证，同时也是空头最好的定价 -- 保护便宜。</li>
+        <li>零实际减记：级联第 3 级完全未发生，论点跑在数据前面。</li>
+        <li>SPV 结构缓冲：PIMCO/BlackRock 类长久期买家持有，银行直接传染路径被拉长。</li>
+        <li>SoftBank 展望 7/16 刚从负面调回稳定 -- 局部在降级序列上倒车。</li>
+        <li>数据中心 REIT（DLR/EQIX）仍投资级、无负面展望。</li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="mirror">
+    <h4>历史基准率："没有像样反弹"字面上罕见，操作上正确</h4>
+    <p>2000-02：Nasdaq 从顶到底 -78%，途中四次 +30~40% 的熊市反弹全部失败；Fed 2001 年降息 11 次未能止跌；WorldCom（$30B 债务）在顶部后第 27 个月才引爆，2003 年那场 +50% 是从 -78% 起跳的，不是从 -30%。1929-32：1930 年 +48% 反弹后再 -86%。反例：2018 Q4 -20% 后 2019 年 +29% pivot 反弹成立 -- <strong>判别变量是有没有企业债务出清周期</strong>。2018 没有，2000 有。本轮 $570B/年发债 + vendor financing + SPV 结构，形态属于 2000 族。含义：反弹会有（1930 年都有 +48%），但在级联走完第 3-4 级之前，每一次都是埋刀客的。</p>
+  </aside>
+
+  <div class="panel verdict">
+    <h3>裁决 B</h3>
+    <p><strong>字面"无反弹"：不采信</strong>（机械反弹的历史基准率约 85%+，P3 换边窗口保留）。<strong>操作含义"反弹不可持有、埋抄底刀客"：采信</strong> -- 债务出清型熊市里 durable rally 只在信用出清后出现。<strong>级联方向：采信，但相位要诚实 -- 当前只走到 2/5 级</strong>，第 3 级（减记）的物理前置（GPU 残值 27%、BDC 折价 26%）已就位，缺的只是会计确认，盯 10-K/10-Q 季节。对原文档的量化修正：2027 durable 第 3 年反弹 65-70% 下修至 <strong>40-50%</strong>；systemic 尾部 20-25% 上修至 <strong>25-30%</strong>（ORCL CDS 纪录 + 71 倍担保簿 + FSB 敞口盲区）。Layer 1 破裂 72-75% 与 2028 Layer 2 终局判断不变。</p>
+  </div>
+</section>
+
+<!-- ============ VI 触发器仪表盘 ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">VI</span><span class="kicker">已点火 / 待决 / 未现</span></div>
+  <h2>触发器仪表盘</h2>
+  <div class="trig-grid">
+
+    <div class="trig-card"><h4>Regime 测试（主钟）</h4>
+      <table>
+        <tr><td>TSM 上调 capex 被砸 -4%</td><td><span class="st st-fired">07/16</span></td></tr>
+        <tr><td>GOOGL $205B 被砸 -5%（Cloud +82% 都救不了）</td><td><span class="st st-fired">07/22</span></td></tr>
+        <tr><td>MSFT / Meta 测试 #3/#4</td><td><span class="st st-pend">07/29</span></td></tr>
+        <tr><td>NVDA 终审（将军的 beat-then-die）</td><td><span class="st st-pend">08/26</span></td></tr>
+        <tr><td>判据：上调 capex 被卖 = 确认；被奖 = 税制续期</td><td><span class="st st-no">规则</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>E-revision 链</h4>
+      <table>
+        <tr><td>IBM -25% 软件需求预警（第一枪）</td><td><span class="st st-fired">07/14</span></td></tr>
+        <tr><td>AVGO AI 指引 miss -14%（$1T 半导体抛售引信）</td><td><span class="st st-fired">06/04</span></td></tr>
+        <tr><td>GOOGL 运营 margin miss（折旧咬合前缘）</td><td><span class="st st-fired">07/22</span></td></tr>
+        <tr><td>"component pricing"措辞升级（4月 $5B -&gt; ?）</td><td><span class="st st-pend">07/29</span></td></tr>
+        <tr><td>FY27 指引季砍单台词（正式 E-revision）</td><td><span class="st st-pend">10月</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>Fed 反应函数（v2.1 新增）</h4>
+      <table>
+        <tr><td>7月 CPI（油价 + AI 输入成本入账）</td><td><span class="st st-pend">08/12</span></td></tr>
+        <tr><td>FedWatch 12月加息定价 &gt;30% = 论点A点火（现 5.4%）</td><td><span class="st st-pend">逐日</span></td></tr>
+        <tr><td>9月 FOMC dots（6月 YE26 中位已 3.8%）</td><td><span class="st st-pend">09月中</span></td></tr>
+        <tr><td>Warsh "regime change" 措辞 vs AI-通胀淡化的裂缝</td><td><span class="st st-pend">监控</span></td></tr>
+        <tr><td>核心 PCE 3.4% / 电价 +4.0% YoY 的走向</td><td><span class="st st-pend">逐月</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>AI OPEC 司法/贸易臂（v2.1 新增）</h4>
+      <table>
+        <tr><td>内存反垄断集体诉讼立案（N.D. Cal., 90% DRAM / 95% HBM）</td><td><span class="st st-fired">06/25</span></td></tr>
+        <tr><td>$950B 韩美供应包（SK-NVDA $750B + Samsung-AVGO $200B）</td><td><span class="st st-fired">07/25</span></td></tr>
+        <tr><td>DOJ/FTC 是否跟进 HBM 锁约的排他性审查</td><td><span class="st st-no">未现</span></td></tr>
+        <tr><td>DRAM/HBM 合同价 QoQ（卡特尔定价力实测）</td><td><span class="st st-pend">季度</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>减记级联（v2.1 新增）</h4>
+      <table>
+        <tr><td>ORCL：S&amp;P BBB- + CDS 198bp 纪录 + FCF -$24.7B</td><td><span class="st st-fired">04-07月</span></td></tr>
+        <tr><td>Moody's 点名六大发行人信用质量警告</td><td><span class="st st-fired">07/24</span></td></tr>
+        <tr><td>首例银行/BDC 对 AI/GPU 抵押的确认减记</td><td><span class="st st-hot">未现=引信</span></td></tr>
+        <tr><td>BDC 中位 NAV 折价 &gt;35%（现 26%）</td><td><span class="st st-pend">监控</span></td></tr>
+        <tr><td>Meta El Paso SPV 定价 &gt;7% / 边际融资成本抬升</td><td><span class="st st-pend">发行中</span></td></tr>
+        <tr><td>GPU 残值跌破原价 20%（现约 27%）</td><td><span class="st st-pend">监控</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>五鲸对手方</h4>
+      <table>
+        <tr><td>ORCL $553B RPO（OpenAI）-- 股价已 -65%</td><td><span class="st st-fired">定价中</span></td></tr>
+        <tr><td>GOOGL $514B backlog（Anthropic 占约 40%）</td><td><span class="st st-fired">已披露</span></td></tr>
+        <tr><td>MSFT RPO 含 OpenAI $250B -- 问答质量</td><td><span class="st st-pend">07/29</span></td></tr>
+        <tr><td>SNDK $42B / SMCI $60B 单季订单</td><td><span class="st st-pend">08/11</span></td></tr>
+        <tr><td>Anthropic $900B+ 轮 close/flat/down</td><td><span class="st st-pend">Q3</span></td></tr>
+        <tr><td>NVDA $250B 担保 + $350B 芯片融资讨论（circular 第七证）</td><td><span class="st st-fired">07/27</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>Memory 周期</h4>
+      <table>
+        <tr><td>SK Hynix ADR 上市 = distribution 里程碑</td><td><span class="st st-fired">07/10</span></td></tr>
+        <tr><td>MU/SNDK 失败反弹（爆表财报后 -10%/-11%）</td><td><span class="st st-fired">07月</span></td></tr>
+        <tr><td>NAND 合同价 QoQ &lt;+30%（反转确认灯）</td><td><span class="st st-pend">Q4'26-Q1'27</span></td></tr>
+        <tr><td>三大厂 NAND 扩产公告（84.6% 毛利的请柬）</td><td><span class="st st-pend">监控</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>信用 Gates</h4>
+      <table>
+        <tr><td>HY OAS 现 269-277bp（十年第16分位）：380 预警 / 400 冻结 / 500 危机</td><td><span class="st st-no">低位</span></td></tr>
+        <tr><td>AI 单名 CDS 同日集体纪录（ORCL 215 / Meta 92 / NVDA 82 / GOOGL 64）</td><td><span class="st st-fired">07/27</span></td></tr>
+        <tr><td>NVDA CDS 一个月翻倍（42 -&gt; 82bp）；破 120 = 级联信用侧升级</td><td><span class="st st-hot">监控</span></td></tr>
+        <tr><td>单名-指数分层收敛方向（单名回落 or HY 追上）= 级联裁决</td><td><span class="st st-pend">逐周</span></td></tr>
+        <tr><td>BDC 折价率（私募信贷 mark 的上市代理，现中位 26%）</td><td><span class="st st-pend">监控</span></td></tr>
+        <tr><td>银行 -&gt; NBFI 管道（&gt;$1.2T，FSB 盲区警告）披露</td><td><span class="st st-pend">财报季</span></td></tr>
+        <tr><td>Swap spread / 国债 basis 异动（systemic 传导器心电图）</td><td><span class="st st-no">监控</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>中国收敛（时间的敌人）</h4>
+      <table>
+        <tr><td>Band 爬升：80.6 vs 88.7，约 1 分/月 -&gt; 85-88 门槛 @2027H1</td><td><span class="st st-pend">逐月</span></td></tr>
+        <tr><td>Z.AI 1GW 纯国产算力（Huawei Ascend，GLM-5.2 登顶）</td><td><span class="st st-fired">07/20</span></td></tr>
+        <tr><td>中国 $295B 国家算力网（80% 国产硅）</td><td><span class="st st-fired">草案</span></td></tr>
+        <tr><td>WF6/钨管制成本传导（硬件成本地板抬升）</td><td><span class="st st-fired">07/01</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>Distribution 管道</h4>
+      <table>
+        <tr><td>SPCX 破发 $113（-50% from peak，空头浮盈 $15.5B）</td><td><span class="st st-fired">07月</span></td></tr>
+        <tr><td>OpenAI IPO 推迟至 2027（NYT+JPM 融资措辞）</td><td><span class="st st-fired">06/26</span></td></tr>
+        <tr><td>SPCX 解禁 front-run -&gt; 解禁日</td><td><span class="st st-pend">12/12</span></td></tr>
+        <tr><td>卖方研究系统性转空（Goldman/JPM）= 最后主跌发令枪</td><td><span class="st st-hot">关键</span></td></tr>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ VII Kill Switches ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">VII</span><span class="kicker">一次写死，全年不改</span></div>
+  <h2>Kill Switches</h2>
+  <div class="kill-grid">
+    <div class="kill"><h5>KS-1 REGIME INVALIDATION</h5><p>MSFT+Meta+NVDA 全部因 capex 被奖励 + CPI 降温 + 信用平静 + SPCX 收复 $135 -- 四条齐 -&gt; 砍近月、框架降级重评。缺一条不算。</p></div>
+    <div class="kill"><h5>KS-2 信用 GATE</h5><p>HY OAS 持续 &gt;400 -&gt; 第 3 年剧本作废，Wave 2 全冻结，现金为王（1930 路径，尾部已上修至 25-30%）。&gt;380 即暂停新建多头。</p></div>
+    <div class="kill"><h5>KS-3 利润保护</h5><p>任何腿回吐峰值浮盈 50% -&gt; 无条件砍，不听叙事解释。</p></div>
+    <div class="kill"><h5>KS-4 F&amp;G 纪律</h5><p>Fear 区永不加空（bear trap）；Greed 55+ 分批、Extreme Greed 75+ 满装填（bull trap 收割）。</p></div>
+    <div class="kill"><h5>KS-5 版本裁决 GATE</h5><p>2027 弹性 &gt;1 -&gt; tranche 3 加满；&lt;1 -&gt; 多头止步，2028 空头名单启动。裁决前多头永远只到 2/4 弹药。</p></div>
+    <div class="kill"><h5>KS-6 卖方转向</h5><p>Goldman/JPM 研究首次系统性转空 = distribution 完成官宣 = 最后一段主跌发令枪。在此之前独立方的呐喊都不是信号。</p></div>
+    <div class="kill"><h5>KS-7 级联 GATE（v2.1 新增）</h5><p>首例金融机构对 AI/GPU 抵押的确认减记（10-K/Q 或公告）-&gt; 级联进入第 3 级 -&gt; Wave 2 tranche 计划整体下移一档入场价，tranche 3 冻结直至 HY OAS 峰值回落。反向：至 2027 Q2 仍零减记且 HY OAS &lt;320 -&gt; 级联论降级，P5 反弹概率回升。</p></div>
+  </div>
+</section>
+
+<!-- ============ VIII 关键价位与概率 ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">VIII</span><span class="kicker">清洁 EPS x 谷底 PE，全部为估计，正负 15-20%</span></div>
+  <h2>关键价位与概率结构</h2>
+  <table>
+    <tr><th>标的</th><th>性质</th><th>首批 / 主区 / 深熊</th><th>逻辑锚</th></tr>
+    <tr><td><strong>NVDA</strong>（PRIMARY SHORT）</td><td>两层出清主标的；thesis tracker 锚：峰值 $217（05/12），Phase 1 = Cisco 型 margin reset</td><td>Phase 1 trough <strong>$80-110</strong></td><td>GM 71% -&gt; 45-50%，P/S 24x -&gt; 8-10x；工具 = rolling 2-12mo OTM puts，不锁 LEAPS（theta 死）</td></tr>
+    <tr><td><strong>GOOGL</strong>（复利核心）</td><td>免费世界唯一广告赢家 + TPU 绕 NVDA 税</td><td>$230-235 / <strong>$185-195</strong> / $155-165</td><td>清洁 EPS $8.5-10 x 15-17x + 现金；Wave 2 弹药 50-60%</td></tr>
+    <tr><td><strong>NET</strong>（凸性卫星）</td><td>Agent 经济收费站；版本B 下叙事反而加速</td><td>-- / <strong>$95-125</strong> / $75-85</td><td>9-12x FY27-28 销售；仓位帽 15-20%，输小赢大</td></tr>
+    <tr><td><strong>TSM</strong>（租金）</td><td>双周期代工垄断，预付款硬 floor</td><td>$240 / <strong>$190-200</strong> / $140-160</td><td>清洁 EPS $8.5-10.5 x 12-14x；恢复 +50-100% 必卖</td></tr>
+    <tr><td><strong>GEV</strong>（租金）</td><td>电 = 所有 AI 版本的公约数</td><td>Wave 2 tier 价</td><td>50-70% 恢复级；到点收租走人</td></tr>
+    <tr><td><strong>ARM</strong>（交易）</td><td>Edge 接力受益，RISC-V 旗未撤</td><td>$95-110 / <strong>$70-90</strong></td><td>仓位帽 &lt;=5%；CSS 双刃</td></tr>
+    <tr><td><strong>ORCL</strong>（事件）</td><td>老登价值 $45-75；BBB- + CDS 纪录 = 级联第 2 级活样本</td><td>买区 <strong>$50-70</strong>（超调区）</td><td>催化剂悖论：砍 capex 公告 = FCF 翻转日 = trade -&gt; hold 升级</td></tr>
+    <tr><td><strong>SPCX</strong>（空头/事件）</td><td>老登地板 $22-35；流量假地板 $45-70</td><td>解禁 puts 目标 <strong>$70-80</strong></td><td>翻多唯一钥匙：xAI 关停公告（+$6.4B 年 FCF）</td></tr>
+    <tr><td><strong>SNDK</strong>（PRIMARY SHORT）</td><td>Pattern 3 纯商品，physical AI 无逃生路径</td><td>end game <strong>$200-350</strong></td><td>Jun'27 核心腿；NAND QoQ &lt;+30% = 确认灯</td></tr>
+  </table>
+
+  <div class="prob-strip">
+    <div class="prob-box"><div class="v">72-75%</div><div class="l">2026年内 Layer 1 破裂</div><div class="rev">不变</div></div>
+    <div class="prob-box"><div class="v">40-50%</div><div class="l">2027 durable 第3年反弹</div><div class="rev">v2.1 下修（原 65-70%）</div></div>
+    <div class="prob-box"><div class="v">20-30%</div><div class="l">12月字面加息（市场定价 5.4%）</div><div class="rev">v2.1 新增，分歧即赔率</div></div>
+    <div class="prob-box"><div class="v">42-48%</div><div class="l">版本B（无真实复苏）</div><div class="rev">不变</div></div>
+    <div class="prob-box"><div class="v">25-30%</div><div class="l">Systemic 尾部（级联走满5级）</div><div class="rev">v2.1 上修（原 20-25%）</div></div>
+    <div class="prob-box"><div class="v">2028</div><div class="l">Layer 2 终局：NVDA -70~80%</div><div class="rev">不变；若 Benner 占优，清算段拖至 2030-32</div></div>
+  </div>
+</section>
+
+<!-- ============ IX References ============ -->
+<div class="think-tank">
+  <h2>References</h2>
+  <p class="roman">v2.1 实证审查引用源（访问日期 2026-07-28）</p>
+  <ul>
+    <li><a href="https://www.thejakartapost.com/business/2026/07/26/south-korean-chipmakers-to-supply-us-tech-firms-in-950b-deals">South Korean chipmakers to supply US tech firms in $950b deals</a><span class="pub">THE JAKARTA POST, 2026-07-26</span></li>
+    <li><a href="https://www.techtimes.com/articles/321554/20260725/samsung-sk-hynix-lock-ai-chip-supply-through-2030-950b-us-deals.htm">Samsung and SK Hynix Lock In AI Chip Supply Through 2030 With $950B in US Deals</a><span class="pub">TECH TIMES, 2026-07-25</span></li>
+    <li><a href="https://en.sedaily.com/finance/2026/07/26/samsung-strikes-200-billion-ai-chip-deal-sk-extends-hbm4">Samsung Strikes $200 Billion AI Chip Deal; SK Extends HBM4 Supply</a><span class="pub">SEOUL ECONOMIC DAILY, 2026-07-26</span></li>
+    <li><a href="https://www.trendforce.com/news/2026/06/29/news-samsung-sk-hynix-micron-face-u-s-class-action-lawsuit-over-alleged-dram-supply-manipulation/">Samsung, SK hynix, Micron Face U.S. Class-Action Lawsuit Over Alleged DRAM Supply Manipulation</a><span class="pub">TRENDFORCE, 2026-06-29</span></li>
+    <li><a href="https://en.sedaily.com/finance/2026/06/02/jensen-huang-to-sk-hynix-please-make-more-hbm">Jensen Huang to SK hynix: "Please Make More HBM"</a><span class="pub">SEOUL ECONOMIC DAILY, 2026-06-02</span></li>
+    <li><a href="https://www.federalreserve.gov/newsevents/testimony/files/warsh20260714a.pdf">Statement by Kevin Warsh, Chair, Board of Governors of the Federal Reserve System</a><span class="pub">FEDERAL RESERVE, 2026-07-14</span></li>
+    <li><a href="https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm">FOMC Minutes, June 16-17, 2026</a><span class="pub">FEDERAL RESERVE</span></li>
+    <li><a href="https://www.axios.com/2026/07/15/warsh-ai-inflation-senate">Warsh says AI spending may lift prices without fueling lasting inflation</a><span class="pub">AXIOS, 2026-07-15</span></li>
+    <li><a href="https://www.cnbc.com/2026/07/14/warsh-promises-inflation-will-be-a-thing-of-the-past-cites-benefits-of-ai-investment-boom.html">Warsh pledges "regime change", cites benefits of AI investment boom</a><span class="pub">CNBC, 2026-07-14</span></li>
+    <li><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html">CME FedWatch Tool</a><span class="pub">CME GROUP, accessed 2026-07-28</span></li>
+    <li><a href="https://www.cnbc.com/2026/05/15/traders-now-see-next-fed-interest-rate-move-as-a-hike-following-inflation-surge.html">Traders now see next Fed move as a hike following inflation surge</a><span class="pub">CNBC, 2026-05-15</span></li>
+    <li><a href="https://www.washingtontimes.com/news/2026/jul/13/massive-ai-buildout-poses-latest-inflation-threat-consumers-pay/">Massive AI buildout poses latest inflation threat</a><span class="pub">WASHINGTON TIMES, 2026-07-13</span></li>
+    <li><a href="https://www.theregister.com/ai-and-ml/2026/06/29/how-the-ai-bubble-could-pop-and-take-down-the-global-economy-according-to-the-bis/5263793">How the AI bubble could pop, per the BIS</a><span class="pub">THE REGISTER, 2026-06-29</span></li>
+    <li><a href="https://www.forbes.com/sites/robertszczerba/2026/07/17/bond-investors-push-back-as-ai-debt-heads-toward-570-billion/">Bond investors push back as AI debt heads toward $570 billion</a><span class="pub">FORBES, 2026-07-17</span></li>
+    <li><a href="https://www.cnbc.com/2026/07/24/moodys-ai-spending-credit-quality-amazon-meta-alphabet.html">Moody's: unprecedented AI spending threatens credit quality</a><span class="pub">CNBC, 2026-07-24</span></li>
+    <li><a href="https://www.fool.com/investing/2026/04/10/oracles-credit-risk-is-at-an-all-time-high/">Oracle's credit risk is at an all-time high</a><span class="pub">MOTLEY FOOL, 2026-04-10</span></li>
+    <li><a href="https://en.sedaily.com/international/2026/07/21/oracle-default-risk-hits-record-high-amid-growing-ai">Oracle default risk hits record high</a><span class="pub">SEOUL ECONOMIC DAILY, 2026-07-21</span></li>
+    <li><a href="https://www.datacenterdynamics.com/en/news/meta-taps-pimco-and-blue-owl-for-29bn-data-center-financing-report/">Meta taps PIMCO and Blue Owl for $29bn data center financing</a><span class="pub">DATA CENTER DYNAMICS</span></li>
+    <li><a href="https://capacityglobal.com/news/metas-12bn-el-paso-bond-exposes-ai-debt-repricing/">Meta's El Paso bond exposes AI debt repricing</a><span class="pub">CAPACITY, 2026-07</span></li>
+    <li><a href="https://www.axios.com/2026/07/27/nvidia-openai-financing-ai-jensen-huang-ssi">Nvidia's circular financing: $250B guarantee, $350B chip financing talks</a><span class="pub">AXIOS, 2026-07-27</span></li>
+    <li><a href="https://www.fsb.org/uploads/P060526.pdf">FSB report: bank exposures to private credit</a><span class="pub">FINANCIAL STABILITY BOARD, 2026-05-06</span></li>
+    <li><a href="https://www.privateequitywire.co.uk/private-credit-bdcs-trade-at-deepest-nav-discounts-in-over-five-years-says-lseg/">Private credit BDCs trade at deepest NAV discounts in over five years</a><span class="pub">PRIVATE EQUITY WIRE, 2026</span></li>
+    <li><a href="https://ciphertalk.substack.com/p/nobody-knows-what-a-used-gpu-cluster">Nobody knows what a used GPU cluster is worth</a><span class="pub">CIPHERTALK, 2026</span></li>
+    <li><a href="https://tradingeconomics.com/united-states/bofa-merrill-lynch-us-high-yield-option-adjusted-spread-fed-data.html">ICE BofA US High Yield Option-Adjusted Spread</a><span class="pub">FRED / TRADING ECONOMICS, 2026-07-23</span></li>
+    <li><a href="https://prospect.org/2002/08/19/great-telecom-implosion/">The Great Telecom Implosion</a><span class="pub">THE AMERICAN PROSPECT, 2002-08-19</span></li>
+    <li><a href="https://www.cnbc.com/2026/06/04/softbank-openai-liquidity-crunch-arm-son.html">SoftBank's OpenAI liquidity crunch</a><span class="pub">CNBC, 2026-06-04</span></li>
+    <li><a href="https://en.bloomingbit.io/feed/news/117174">Big Tech CDS Hits Record as $244 Billion AI Bond Surge Stokes Market Stress</a><span class="pub">BLOOMINGBIT (BLOOMBERG-SOURCED), 2026-07-27</span></li>
+    <li><a href="https://www.bloomberg.com/news/articles/2026-07-17/gauge-of-oracle-s-credit-risk-hits-fresh-all-time-high">Gauge of Oracle's Credit Risk Hits Fresh All-Time High</a><span class="pub">BLOOMBERG, 2026-07-17</span></li>
+    <li><a href="https://deepquarry.substack.com/p/coreweaves-new-debt-facility-beyond">CoreWeave's new debt facility: SOFR+450</a><span class="pub">DEEP QUARRY, 2026-05</span></li>
+    <li><a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2">ICE BofA US High Yield Index Option-Adjusted Spread</a><span class="pub">FRED, accessed 2026-07-28</span></li>
+  </ul>
+</div>
+
+<footer class="colophon">
+  方法论：反应函数为主钟 <span class="dot">.</span> 六层时钟制 <span class="dot">.</span> 层间 lead-lag 3-6 个月 <span class="dot">.</span> 共识模板打时间折扣 <span class="dot">.</span> 本文件为私人研究笔记，非投资建议 <span class="dot">.</span> 所有价格目标为清洁 EPS x 谷底 PE 估算（正负 15-20%）<span class="dot">.</span> EIP <span class="dot">.</span> 2026
+</footer>
+
+</article>
+
+<script>
+  var bar = document.getElementById('progress');
+  addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var p = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = p + '%';
+  }, {passive:true});
+</script>
+</body>
+</html>
