@@ -74,6 +74,11 @@
   <div class="lane">
     <p class="lane-label">P2 -- 付费天花板已被开源锁死，财源两头断</p>
     <p>Kimi/DeepSeek 类开源低价模型 cap 了企业付费上限：能力差距以约 1 分/月收敛（现 80.6 vs 88.7，2027 H1 触及 85-88 agent 门槛），企业永远有一个"便宜到近乎免费"的替代锚，闭源模型商失去涨价权。大众端付费率仅约 5%（Adam 锚，与公开的付费转化估算同量级）。于是 Anthropic/OpenAI 的财源被两头夹断：<strong>上游硬件收税，下游收入被 cap -- 中间层的商业模式在数学上不闭合</strong>，只能靠循环融资续命（这正是第 V 节 vendor financing 证据链的根因）。</p>
+    <figure class="figure">
+      <img src="openrouter-july.PNG" alt="OpenRouter 2026年7月 LLM Leaderboard: token 消耗前七名全部为中国/开源模型">
+      <figcaption>OpenRouter 月度榜（2026年7月，按 token 消耗）：前 7 名全部是中国/开源阵营 -- MiMo-V2.5（小米）33T +121%、DeepSeek V4 Flash 24.5T、Hy3（腾讯，免费）19.4T、MiniMax M3 14.9T、GLM 5.2 13.7T <strong>+306%</strong>、DeepSeek V4 Pro 12.2T、Nemotron 3 Ultra（NVIDIA，免费）9.2T。闭源旗舰被压到后排：Anthropic 最高排 <strong>#8</strong>（Opus 4.8，7.8T），GPT-5.5 排 <strong>#16</strong>（3.1T，约为榜首小米的 1/11）；同月 Opus 4.7 -16%、Sonnet 4.6 <strong>-40%</strong>。</figcaption>
+    </figure>
+    <p>这张榜是 P2 的实时形态：token 消耗是用脚投票的用量数据。在这个按价格路由的市场上，中国/开源模型吃掉约七成流量。诚实边界：OpenRouter 只是市场的价格敏感边缘，不含 Anthropic/OpenAI 第一方 API 的企业直连流量 -- 但<strong>替代永远从价格敏感边缘开始，然后向核心蔓延</strong>，边际买家的显性偏好正是定价权的先行裁决者。"cap 了企业付费上限"不是预测，是本月榜单。</p>
   </div>
   <div class="lane">
     <p class="lane-label">P3 -- 硬件 margin 太高不健康，暴利在杀死自己的需求</p>
@@ -496,6 +501,7 @@
       <table>
         <tr><td>Band 爬升：80.6 vs 88.7，约 1 分/月 -&gt; 85-88 门槛 @2027H1</td><td><span class="st st-pend">逐月</span></td></tr>
         <tr><td>Z.AI 1GW 纯国产算力（Huawei Ascend，GLM-5.2 登顶）</td><td><span class="st st-fired">07/20</span></td></tr>
+        <tr><td>OpenRouter 7月榜前 7 全为中国/开源（MiMo 33T +121% / GLM +306%），GPT-5.5 仅 #16，Sonnet 4.6 -40%</td><td><span class="st st-fired">07月</span></td></tr>
         <tr><td>中国 $295B 国家算力网（80% 国产硅）</td><td><span class="st st-fired">草案</span></td></tr>
         <tr><td>WF6/钨管制成本传导（硬件成本地板抬升）</td><td><span class="st st-fired">07/01</span></td></tr>
       </table>
