@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Hardware Unwind: Two-Layer Timeline and Trigger Handbook v2.1</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  .st{font-family:var(--font-mono);font-size:11px;padding:2px 8px;border:1px solid var(--border);border-radius:3px;white-space:nowrap;display:inline-block}
+  .st-fired{color:var(--tone-primary);border-color:var(--tone-primary)}
+  .st-pend{color:var(--tone-warn);border-color:var(--tone-warn)}
+  .st-no{color:var(--text-muted)}
+  .st-hot{color:var(--tone-stress);border-color:var(--tone-stress)}
+  .trig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-top:var(--s-4)}
+  .trig-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:var(--s-4) var(--s-5)}
+  .trig-card h4{margin-top:0}
+  .trig-card table{margin:var(--s-2) 0 0 0;font-size:13px}
+  .trig-card td{padding:6px 4px}
+  .figure{margin:var(--s-6) 0;text-align:center}
+  .figure img{max-width:100%;border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
+  .figure figcaption{font-family:var(--font-sans);font-size:13px;color:var(--text-muted);margin-top:var(--s-3);line-height:1.6}
+  .tgrade{font-family:var(--font-mono);font-size:10.5px;color:var(--accent);white-space:nowrap}
+  .kill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:var(--s-4)}
+  .kill{border:1px solid var(--border);border-left:3px solid var(--tone-stress);border-radius:var(--r-sm);padding:var(--s-4) var(--s-4);background:var(--bg-card)}
+  .kill h5{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--tone-stress);margin:0 0 var(--s-2) 0}
+  .kill p{font-size:14px;margin:0}
+  .prob-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:var(--s-5)}
+  .prob-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--s-4);text-align:center}
+  .prob-box .v{font-family:var(--font-mono);font-size:24px;font-weight:600;color:var(--text)}
+  .prob-box .l{font-family:var(--font-sans);font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5}
+  .prob-box .rev{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-top:4px}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6)}
+  @media(max-width:768px){.two-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<header class="masthead">
+  <div class="top-rule">
+    <span>EMPIRE INTEGRATION PARTNERS</span>
+    <span class="compass">Internal Playbook v2.1 <a href="ai_bubble_timeline_triggers_v2.html">中文版</a></span>
+    <span>2026-07-29</span>
+  </div>
+  <p class="eyebrow">EIP RESEARCH <span class="dot">.</span> AI CAPEX CYCLE <span class="dot">.</span> TIMELINE AND TRIGGERS</p>
+  <h1 class="title">The AI Hardware Unwind</h1>
+  <p class="subtitle">Two-layer timeline and trigger handbook. New in v2.1: evidence-vetted review of two theses (the "AI OPEC suppression" thesis and the "write-off cascade" thesis), the Benner cycle prior, a full-chain volume/price decomposition, and a live correction of the December rate-hike pricing. The reaction function is the master clock; triggers are the navigation; catalyst dates are not articles of faith.</p>
+  <p class="author-line">BY <strong>NAUGHTY BOSS</strong> <span class="dot">.</span> EIP RESEARCH <span class="dot">.</span> 2026-07-29 <span class="dot">.</span> NOT INVESTMENT ADVICE</p>
+  <p class="byline">STATUS BOARD: SOX -20% from peak (07/26) | ORCL $121 / -65% (07/26) | SPCX $113, broken IPO -16% (07/26) | CRWV $72 (07/26) | HY OAS 269-277bp, 16th percentile of 10yr range (07/23) | Single-name 5yr CDS records set the same day: ORCL 215 / Meta 92 / NVDA 82 / GOOGL 64bp (07/27) | Dec FedWatch: hold 78.2% / cut 15.4% / hike 5.4% (07/28) | July semis wiped out over $1T of market cap</p>
+  <p class="lead">Verdict first: the AI OPEC structure is confirmed (the memory cartel is already in a court filing), but suppression runs through the inflation channel, not the motive channel -- the market prices a December hike at just 5.4% while the dot plot implies one; the gap itself is the odds. The write-off cascade is confirmed in direction, at phase 2 of 5: single-name CDS records against a 10-year-low HY index is the stratification whose resolution decides the next leg. Rallies will come -- but until the cascade reaches level 3, every one of them is a knife-catcher burial.</p>
+</header>
+
+<article class="wide">
+
+<!-- ============ 0 EXECUTIVE SUMMARY ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">0</span><span class="kicker">Executive Summary: the final verdict</span></div>
+  <h2>Where we are, what happens next, and the end game</h2>
+
+  <div class="panel tldr">
+    <h4>One-line verdict</h4>
+    <p><strong>We are standing just past the top of the bubble, at level 2 of the 5-level write-off cascade. What follows is not a one-step collapse but a three-act program: rallies bury the dip-buyers -&gt; write-offs get confirmed -&gt; defaults deliver the verdict. The end game is a long clearing from 2028 to 2032 -- de-bubbling is the market healing itself. The buy year is not the crash day; it is the true starting point of the AI industry.</strong></p>
+  </div>
+
+  <h3>The logic spine: why de-bubbling is normal market behavior</h3>
+  <p>Install this causal chain before reading any section -- every trigger in this handbook hangs from it.</p>
+  <div class="lane">
+    <p class="lane-label">P1 -- The only criterion is AI ROI data</p>
+    <p>Whether the AI revolution works has exactly one test: can application-layer unit economics close? Current reality: value-chain profits pool in a single hardware layer (NVDA gross margin 71%; the memory cartel lifted conventional DRAM roughly 700% in four years), model labs burn billions a year, and the application layer scales without profits. <strong>In an industry whose two downstream layers are broken, hardware-layer profit is not profit -- it is an advance against a future that cannot pay.</strong></p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">P2 -- Open source has capped the paying ceiling; the revenue base is cut at both ends</p>
+    <p>Kimi/DeepSeek-class open-source, near-free models cap what enterprises will ever pay: the capability gap closes at roughly 1 point per month (80.6 vs 88.7 today, hitting the 85-88 agent threshold in H1 2027), so closed labs have lost pricing power -- there is always a nearly-free anchor. On the consumer side, only about 5% pay (Adam's anchor; consistent in magnitude with public paid-conversion estimates). Anthropic and OpenAI are therefore squeezed from both ends: <strong>hardware taxes them upstream while open source caps their revenue downstream -- the middle layer's business model does not close mathematically</strong>, and survives on circular financing (which is precisely the root cause of the vendor-financing evidence chain in Section V).</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">P3 -- Hardware margins this high are unhealthy; the rent is killing its own demand</p>
+    <p>A 71% gross margin is a tax on the entire industry. Until the tax falls, the application layer can never reach scale economics and the AI revolution cannot run -- <strong>monopoly profit is destroying its own demand side; the structure is self-negating</strong>. Hardware margins must normalize (into the 40s, manufacturing territory) and token costs must approach utility pricing before the AI industry can actually develop. That is not a bear's wish; it is a survival requirement of the industry itself.</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">P4 -- Therefore de-bubbling is self-healing, not disaster</p>
+    <p>What the market is doing right now -- repricing credit name by name, punishing capex raises, marking GPUs down to 27% of original price -- is the normal mechanism that beats the tax rate back to a sustainable level. <strong>Every short section of this handbook is not a bet against AI; it is a bet on AI after the rent is gone.</strong> The clearing is the precondition for Wave 3 real applications. The reason the entry window around 2032 is a generational opportunity is precisely that it is the first moment application-layer unit economics can work.</p>
+  </div>
+
+  <h3>Where we are (2026-07-29, all verified)</h3>
+  <p>The top signatures are complete: buyers panic-locked $950B of supply at the peak (a textbook specimen of top behavior); July semis lost over $1T of market cap in a month; the "capex raises get punished" regime has been confirmed twice by TSM and GOOGL; and on 07/27 -- two days before earnings -- the 5-year CDS of ORCL, Meta, NVDA and GOOGL all set records on the same day, with NVDA doubling in a month. Of the five cascade levels, level 1 (earnings revisions) has fired and level 2 (rating downgrades) has its first case (ORCL at BBB-), while level 3 (financial-institution write-offs) stands at zero -- but its physical preconditions (GPU residual value at 27%, BDC discounts at 26%) are fully in place; only the accounting acknowledgment is missing. The Fed is in a hawkish hold: core PCE at 3.4% is not tamed, the dot plot implies one more hike, and the market prices 5.4%. Two stratifications exist at once -- single-name CDS vs the HY index, dots vs futures -- the market is admitting name by name while denying at the system level.</p>
+
+  <h3>What happens next (in sequence, each step with its verdict point)</h3>
+  <table>
+    <tr><th>Window</th><th>Event</th><th>Verdict point</th></tr>
+    <tr><td><strong>This week -&gt; 08/26</strong></td><td>The earnings meat grinder: MSFT/Meta/AMZN/AAPL (07/29-31) + the NVDA final review (08/26)</td><td>Capex raise sold = third regime confirmation; single-name CDS through earnings week = credit-side cross-check</td></tr>
+    <tr><td><strong>08/12</strong></td><td>July CPI: oil, electricity and memory pass-through hit the print</td><td>Hot print -&gt; December hike pricing re-arms from 5.4% (it hit 51% in May); the AI OPEC thesis ignites</td></tr>
+    <tr><td><strong>Q4 2026</strong></td><td>Earnings-revision season: FY27 guidance cuts scripted as "component pricing normalization" + first mark-to-market prints + the NAND reversal light</td><td>Main harvest leg; target zone QQQ 560-600 / VIX 28-40; cascade level 1 completes</td></tr>
+    <tr><td><strong>December</strong></td><td>Risk cluster: SPCX lockup expiry (12/12) + FOMC (a hike is the tail case; a hot CPI arms it)</td><td>Whether Dec 2018 repeats; tactical longs cleared before 12/12</td></tr>
+    <tr><td><strong>2027</strong></td><td>The knife-catcher year: 2-3 bear rallies of +15~30%; durable rally only 40-50%</td><td>First AI-collateral write-off = cascade to 3/5 = KS-7 fires. Reverse falsifier: zero write-offs by Q2 2027 with HY &lt;320 = revert to the 2019-style pivot-rally script</td></tr>
+    <tr><td><strong>2028</strong></td><td>Layer 2 collapse: physical AI falsified + no next relay narrative</td><td>NVDA -70~80% terminal zone; write-offs go from cases to a wave</td></tr>
+    <tr><td><strong>Late 2028 - H1 2029</strong></td><td>Default-wave window (the WorldCom interval: peak +28 months)</td><td>Largest single blow-up candidates: leveraged neoclouds / SPV structures / holding-company leverage; HY OAS through 500 = KS-2 fully triggered</td></tr>
+  </table>
+
+  <h3>End game</h3>
+  <p>Compute becomes a utility: NVDA gross margin normalizes from 71% into the manufacturing 40s, P/E settles at 15-20x, token costs approach water-and-power pricing -- that is the terminal state, not a point of disagreement; the only dispute is the length of the road. A debt crisis is the 25-30% tail, not the baseline: the baseline is an orderly clearing of name-by-name repricing, a write-off wave, and individual defaults; the transmission channel that could upgrade it to systemic is the bank-to-NBFI pipeline (over $1.2T, which regulators admit they cannot see through). The clearing bottom window: the aggressive read is 2029 (the default wave clears, the bottom is in); the Benner read is 2032 (the buy year). Every "bottom confirmation" between those two dates gets treated under bear-rally discipline. <strong>Around 2032 is the generational entry</strong>: real applications (agents, embodied AI, vertical AI) get workable unit economics for the first time on de-rented soil. The position doctrine stands: rolling 2-12 month puts on the short side, the 30-40% cash rule, Wave 2 rented not owned, tranche 3 frozen until write-offs clear.</p>
+</section>
+
+<!-- ============ I CORRECTIONS ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">I</span><span class="kicker">Five surgical corrections to the original projection</span></div>
+  <h2>Corrections</h2>
+  <div class="lane">
+    <p class="lane-label">Correction 1: The capex direction was falsified</p>
+    <p>Phase one is not "guidance cuts" -- it is <strong>raises getting punished</strong>. TSM raised to $60-64B and was sold 4%; GOOGL raised to $195-205B and was sold 5%. The real cuts arrive in the October FY27 guidance season, scripted as "component pricing normalization."</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">Correction 2: Buyers are panic-locking supply, not cutting orders</p>
+    <p>MU signed 16 multi-year agreements worth $22B; Musk publicly wailed "pretty insane" while locking years of capacity. The $950B Korea-US supply package of 7/25-26 (see Section IV) is the largest specimen of the same behavior: <strong>peak-panic supply lock-ins are a top signature</strong>. The buyers' revolt belongs to the 2027 contract-renegotiation season, not to now.</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">Correction 3: The paying cliff is a trajectory, not a current state</p>
+    <p>The China/open-source band closes on the 85-88 agent threshold at roughly 1 point per month (now 80.6 vs 88.7), arriving H1 2027 -- exactly the quarter when Anthropic's ~$40B/yr and OpenAI's committed contract step-ups take effect. <strong>The scissors close on a calendar date.</strong></p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">Correction 4: The -80% belongs to 2028, not May 2027</p>
+    <p>Layer 1 (H2 2026) = datacenter de-bubbling, -30~40%. <strong>Layer 2 (2028) = the digital-plus-physical double kill after the relay narrative is falsified: -70~80%, P/E 15-20x terminal.</strong> The character of the interval between them was repriced by the Section V cascade vet: downgraded from "long leg" to "tactical bounce leg."</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">Correction 5 (new in v2.1): The "77% December hike pricing" was a misread</p>
+    <p>Live FedWatch (07/28): December <strong>hold 78.2% / cut 15.4% / hike just 5.4%</strong>. v2.0 misread the hold probability as hike probability. But the June dot plot's YE2026 median is 3.8% (vs 3.4% in March) -- the FOMC's own median path implies one more hike. <strong>Market 5.4% vs dots implying a hike: the divergence itself is the position</strong> (see Section IV).</p>
+  </div>
+</section>
+
+<!-- ============ II BENNER ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">II</span><span class="kicker">An 1875 cycle card: a prior, not a gospel</span></div>
+  <h2>The Benner cycle prior: <em>sell 2026, buy 2032</em></h2>
+  <figure class="figure">
+    <img src="cycle.jpg" alt="Samuel Benner's 1875 cycle chart: row A panic years, row B good-times sell years, row C hard-times buy years">
+    <figcaption>Samuel Benner, "Periods When to Make Money" (1875). Row A, panic years: 1927, 1945, 1965, 1981, 1999, 2019, <strong>2035</strong>. Row B, good-times sell years: ...1999, 2007, 2016, <strong>2026</strong>, 2034. Row C, hard-times buy years: ...2005, 2012, 2023, <strong>2032</strong>.</figcaption>
+  </figure>
+  <p class="dropcap">This 150-year-old farm-and-commerce cycle card runs on an 8-9-10 year rhythm. Its relationship to this handbook is prior calibration, not evidence. Its hits deserve respect: the 1999 sell year against the 2000 top, the 2019 panic year against the 2020 crash, the 2023 buy year against this bull market's origin (Nasdaq bottomed December 2022). Its misses go on the ledger too: no panic in 1945; 1965's counterpart was the 1966 credit crunch. The rhythm is a statistical rhyme, not a law of physics.</p>
+  <h3>Benner x cascade composite path (projection)</h3>
+  <p>Laying the five-level cascade of Section V onto the Benner rhythm yields one falsifiable composite path. Historical calibration: from the March 2000 top to the WorldCom blow-up (cascade level 4) took 28 months; to the final bottom (October 2002), 31 months; the durable rally launched from -78%. Anchoring this cycle's top at H2 2026 and extrapolating level by level:</p>
+  <table>
+    <tr><th>Year</th><th>Benner row</th><th>Cascade position</th><th>Projection</th></tr>
+    <tr><td><strong>H2 2026</strong></td><td>Row B sell year</td><td>Level 1 fires</td><td>Layer 1 breaks. Top signatures complete: the $950B peak-panic supply lock, $1T of July semi cap erased, buyers wailing for capacity. Earnings revisions spread from AVGO/IBM into the FY27 guidance season.</td></tr>
+    <tr><td><strong>2027</strong></td><td>Downleg</td><td>Level 1 -&gt; 2</td><td>Revisions fully print; sell-side turns systematically bearish (KS-6 fires). Expect 2-3 bear rallies of +15~30%, all failing -- the knife-catcher year. Even if the durable rally (40-50%) materializes, it is a rental leg; the path does not change.</td></tr>
+    <tr><td><strong>2028</strong></td><td>Downleg</td><td>Level 2 -&gt; 3</td><td>Layer 2 collapse (NVDA -70~80% terminal zone) + the first financial write-offs: GPU residuals (now 27%) crash through lease/ABS model assumptions, private-credit marks get forced by auditors, BDC discounts (median 26%, March 2026 print) convert into recognized losses.</td></tr>
+    <tr><td><strong>2029</strong></td><td>Downleg</td><td>Level 3 -&gt; 4</td><td>Default-wave window. The WorldCom interval (peak +28 months = late 2028 to H1 2029) points at the largest single blow-up: leveraged neoclouds, SPV structures, SoftBank-style holding leverage. HY OAS through the 500 crisis zone = KS-2 fully triggered.</td></tr>
+    <tr><td><strong>2030-31</strong></td><td>Hard times</td><td>Level 4 -&gt; 5, or clearing</td><td>The liquidation leg: low-volatility grind, massive policy easing, nobody talks about AI. Whether the debt crisis upgrades to systemic (the 25-30% tail) is decided here -- the transmitter is the bank-to-NBFI pipeline (over $1.2T, an FSB blind spot).</td></tr>
+    <tr><td><strong>2032</strong></td><td><strong>Row C buy year</strong></td><td>Clearing complete</td><td>"Hard times, low prices, buy corner lots." Wave 3 entry year: real applications close the ROI loop on de-rented soil. The generational entry point.</td></tr>
+    <tr><td><strong>2034-35</strong></td><td>Row B 2034 / Row A panic 2035</td><td>Next cycle</td><td>The recovery top and the next panic. Reserve the next sell card per the Benner rhythm.</td></tr>
+  </table>
+  <p><strong>Falsification conditions for this path</strong>: zero write-offs by Q2 2027 with HY OAS below 320 (KS-7 reverse) -&gt; this path is void, revert to the 2019-style pivot-rally script. Conversely, the first AI-collateral write-off landing -&gt; this path upgrades from "prior" to "base case."</p>
+
+  <aside class="mirror">
+    <h4>Reconciling with the two-layer structure</h4>
+    <p><strong>Where they align</strong>: Row B 2026 = "high prices, sell everything year," same direction as Layer 1 (top confirmation H2 2026). <strong>Where they diverge</strong>: this handbook puts the Layer 2 terminal in 2028, while Benner's next buy year is 2032 and panic year 2035. If the Benner rhythm wins, the implication is that the clearing runs longer and grinds harder than the 2028 script, with the bottom not on the crash day but in the long liquidation that follows. That points the same way as the Section V cascade vet: <strong>credit clearing is a process measured in years, not an event measured in quarters</strong>. Every "bottom confirmation" between 2028 and 2032 gets bear-rally discipline.</p>
+  </aside>
+</section>
+
+<!-- ============ III TIMELINE ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">III</span><span class="kicker">Master timeline P0-P7: red = short leg, amber = gear change, green = long leg</span></div>
+  <h2>Master timeline</h2>
+
+  <div class="lane">
+    <p class="lane-label">P0 / now -> 2026-08-15 / short leg</p>
+    <h3>The meat grinder: mega-cap earnings week</h3>
+    <p>The reaction function has been confirmed twice by TSM and GOOGL. July 29-31 is the same grinder running tests #3-#5; 80% odds at least one name gets sold.</p>
+    <ul>
+      <li><strong>07/29-31</strong>: MSFT / Meta / AMZN / AAPL earnings. Single criterion: does a capex raise get sold or rewarded?</li>
+      <li><strong>08/12</strong>: July CPI. Oil plus AI input costs (electricity +4.0% YoY, memory/component pass-through) hit the print. A hot print re-arms December hike pricing from 5.4% (May precedent: it reached 51% during the inflation shock).</li>
+    </ul>
+    <p>Triggers: the "component pricing" number upgrading (April's $5B -&gt; ?); the quality of MSFT's answers on the OpenAI $250B inside RPO; whether Meta announces an equity raise; FY27 capex adjective counting ("significantly higher").</p>
+    <div class="panel verdict"><h3>Action</h3><p>August legs: lock 30% pre-market Tuesday, realize 50-70% on reaction days, flat by 08/12. Front-month rule: never hold front-month through its theoretical ceiling.</p></div>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P1 / 2026-08-15 -> 09-30 / short leg</p>
+    <h3>The final review: NVDA's reaction-function verdict</h3>
+    <p>The numbers will be spectacular (GOOGL's $205B capex is NVDA's order book). The only variable is which rulebook the market prices them under.</p>
+    <ul>
+      <li><strong>08/26</strong>: NVDA earnings. Sold (55-60%) = beat-then-die #4, the last sanctuary falls; rewarded (40-45%) = the tax regime renews, weak hands push F&amp;G toward Greed.</li>
+      <li><strong>Mid-September</strong>: hawkish FOMC hold; December dots set (June median already 3.8%).</li>
+      <li><strong>September</strong>: the Anthropic $900B+ round result = the circular-financing life-support verdict (vendors share one incentive: get it closed).</li>
+      <li><strong>Late September</strong>: front-running research on the SPCX 12/12 lockup expiry begins.</li>
+    </ul>
+    <p>Triggers: first mark-downs printing inside NVDA's own equity book (CRWV/Nebius/xAI); customer-concentration disclosure; whether guidance stops being explosive.</p>
+    <div class="panel verdict"><h3>Action</h3><p>Sold -&gt; press front-month. Rewarded -&gt; wait per F&amp;G discipline, load the second Dec'26 batch at Greed 55+/75+. The 9/18 leg: unconditionally flat by 9/15.</p></div>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P2 / 2026-10-01 -> 11-03 / short leg</p>
+    <h3>Main harvest: the earnings-revision print layer</h3>
+    <p>Price front-ran in July; October is when it hits the books: full depreciation, the priciest memory contracts entering COGS, and the FY27 guidance season. The precise shape of "ugly Q3" = margins plus guidance plus book losses all darkening at once -- not a revenue miss.</p>
+    <ul>
+      <li><strong>Mid-October</strong>: Q3 earnings; operating margins compress across the board; the pre-scripted "component pricing normalization" cut language debuts.</li>
+      <li><strong>Mid-October</strong>: first mark-to-market print. GOOGL's $94.1B SpaceX stake -&gt; an estimated $25-30B book loss, whiplashing Q2's $99B gain.</li>
+      <li><strong>Early October</strong>: NAND Q3 contract price QoQ. Below +30% = memory reversal confirmed = the final confirmation light for the Jun'27 leg.</li>
+      <li><strong>11/03</strong>: midterm elections; peak inflation-scapegoat politics.</li>
+    </ul>
+    <p>Target zone: QQQ 560-600 | SPX 6,300-6,700 | VIX 28-40.</p>
+    <div class="panel verdict"><h3>Action</h3><p>Harvest the Dec'26 legs at first-leg targets; realize 1/3-1/2 of the Jan'28 spread, keep the rest as Layer 2 insurance; the 30-40% cash rule does not move.</p></div>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P3 / 2026-11-03 -> 12-12 / gear-change window</p>
+    <h3>Side-switch window: the mechanical bounce</h3>
+    <p>Short-covering plus election resolution plus front-running the 2027 pivot. The bounce has no sustainable logic, but it has mechanical logic. Your discipline is to use it, not deny it. <strong>v2.1 note: after the Section V vet, every rally here and in P5 gets bear-rally discipline -- rentable, never holdable.</strong></p>
+    <ul>
+      <li>At VIX 30-40, sell cash-secured puts at the -40% tier on GOOGL/TSM: get paid to wait for Wave 2 entry prices.</li>
+      <li>Wave 2 tranche 1 (1/4 of ammunition only): GOOGL &gt; TSM &gt; GEV &gt; AMZN.</li>
+      <li>On an SPCX bounce to $130-150, build post-December expiry puts (the lockup trade; first target the $70-80 flow floor).</li>
+      <li>Never-buy list: memory / neoclouds / humanoids / TSLA / SPCX longs. (Conflict disclosure: the thesis tracker's sister-long basket contains a TSLA long stub (2026-05-12), in direct conflict with this list. This handbook is the later document (post 07/26) and governs for now; final call belongs to Adam.)</li>
+    </ul>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P4 / 2026-12-12 -> 12-31 / short leg</p>
+    <h3>Risk cluster: lockup expiry + FOMC</h3>
+    <p>A potential replay of December 2018: Warsh hiking into a weak tape = the last hawkish performance, and the ritual by which the bubble's death cures inflation and paves the 2027 turn. <strong>v2.1 correction: the hike is not the baseline (market prices 5.4%) -- it is the tail case, armed if inflation re-heats through August-November (triggers in the Section VI Fed card).</strong></p>
+    <ul>
+      <li><strong>12/12</strong>: SPCX lockup expires; $200B+ of potential supply; the front-run already happened in October-November.</li>
+      <li><strong>Mid-December</strong>: FOMC. Baseline hawkish hold; if CPI runs hot consecutively, a 25bp hike lands on a weak tape (the Dec 2018 structure).</li>
+    </ul>
+    <div class="panel verdict"><h3>Action</h3><p>All tactical longs out before 12/12. If the tail-case hike smashes out a capitulation low -&gt; tier-2/3 prices appear -&gt; tranche 2.</p></div>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P5 / 2027 Q1 / gear-change window (downgraded from long leg in v2.1)</p>
+    <h3>Ignition: the pivot and the third-year engines</h3>
+    <p>Original judgment: the third-year rally needs no AI repair (Nasdaq +50% on the 2003 rubble, +29% in 2019 on zero earnings growth). <strong>v2.1 downgrade rationale (Section V): the debt-cycle variable severs the comparability of 2003 and 2019 -- 2019-type (no debt clearing, pivot = rally) and 2003-type (rally from -78% after the debt cleared) are different species. This cycle's debt structure looks like 2000-02; durable-rally probability cut from 65-70% to 40-50%.</strong></p>
+    <ul>
+      <li><strong>Fed pivot</strong>: wealth-effect destruction + layoffs = demand destruction = inflation cured. But the base rate: the Fed cut 11 times in 2001 and the market fell two more years. A pivot is necessary, not sufficient.</li>
+      <li><strong>Capex cuts -&gt; FCF explosion</strong>: the Meta 2023 template -- a regime that punishes capex raises symmetrically rewards cuts. This engine stands.</li>
+      <li><strong>Reset launchpad</strong>: a covering rally from -20~30%. Downgraded to tactical.</li>
+      <li><strong>National will</strong>: the 2028 election needs a floor; an OpenAI IPO restart = the house's maintenance machine flips back ON.</li>
+    </ul>
+    <div class="panel verdict"><h3>Action</h3><p>Pivot signal -&gt; tranche 2 (tranche 3 stays frozen until the Section V cascade reaches level 4 and clears); treat an ORCL capex-cut announcement as its "Meta moment" (the trade-to-hold upgrade test).</p></div>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P6 / 2027 Q2 -> Q3 / adjudication leg</p>
+    <h3>Ride and scout: the scissors close, elasticity decides</h3>
+    <p>The rally (if any) shares the stage with the physical-AI climax. In the same quarter, two known curves intersect: the band touches the 85-88 agent threshold x Anthropic's ~$40B/yr and OpenAI's committed step-ups take effect.</p>
+    <ul>
+      <li><strong>The version verdict</strong>: real demand elasticity after cheap tokens &gt;1 (Version A) -&gt; fill tranche 3, hold to the end.</li>
+      <li>Elasticity &lt;1 (Version B) -&gt; the rally is Layer 2's final mania -&gt; longs stop; open the 2028 short list (pure-play humanoids / TSLA / Figure if it IPOs).</li>
+      <li>The SNDK Jun'27 leg harvests with the NAND reversal in H1'27 (the -50~70% path).</li>
+    </ul>
+    <p>Consumer-side indicators: OpenAI ad rollout progress (= the subscription surrender note); free-tier capability vs paid-tier gap; NET pay-per-crawl monetization.</p>
+  </div>
+
+  <div class="lane">
+    <p class="lane-label">P7 / 2028+ / terminal</p>
+    <h3>Layer 2 collapse: the terminal</h3>
+    <p>Physical AI falsified (humanoid mass production slips + robotaxi economics fail) + no next relay narrative. The original report's terminal verdict lands here -- one relay baton late. <strong>v2.1 note: if the Benner rhythm wins, the liquidation extends to 2030-2032; the buy year is not the crash day.</strong></p>
+    <ul>
+      <li><strong>NVDA -70~80%</strong> (digital plus physical double kill), P/E to 15-20x, margins normalize to manufacturing 40s.</li>
+      <li>Memory margins from 84.6% to teens or losses (trough custom); compute becomes a utility, token cost approaches water and power.</li>
+      <li>Hunting ground: residual Jan'28 positions + 2028 LEAPS. Prey: pure-narrative humanoid names.</li>
+      <li>Real applications (agents / embodied / vertical AI) close the ROI loop on de-rented soil -- Version A's Wave 3 starts here.</li>
+    </ul>
+  </div>
+
+  <h3>Rally path projection and short-timing table</h3>
+  <p>Clearing-period rallies are not noise; they are loading windows -- every short-entry discipline hangs inversely on a rally. Historical anchor: 2000-02 Nasdaq produced four bear rallies of +30~40%, all of which failed. Magnitudes below are index-level; high-beta AI single names typically bounce 2-3x the index (rallies hurt shorts most in single names -- which is exactly why the batch discipline exists).</p>
+  <table>
+    <tr><th>#</th><th>Rally window</th><th>Driver</th><th>Est. magnitude (index)</th><th>Character</th><th>Short action (timing + instrument)</th></tr>
+    <tr><td>R1</td><td>07/29 -&gt; pre-08/26</td><td>Post-earnings snapback if MSFT/Meta get rewarded + NVDA pre-print front-run</td><td>+3~6%</td><td>Event snapback</td><td>Load August legs at the snapback tail (30% pre-market lock rule holds); act only at F&amp;G 55+; never add shorts in the Fear zone (KS-4)</td></tr>
+    <tr><td>R2</td><td>Post-08/26 (if NVDA rewarded, 40-45%)</td><td>Tax-regime-renewal narrative, weak hands chase, F&amp;G runs to Greed</td><td>+5~8%</td><td>Bull trap</td><td>Second Dec'26 loading window: scale at Greed 55+, full at 75+; in the sold scenario (55-60%), press front-month immediately, no waiting</td></tr>
+    <tr><td>R3</td><td>11/03 -&gt; 12/12</td><td>Election resolution + short covering + 2027 pivot front-run (P3 mechanical bounce)</td><td>+8~15% (from the P2 target zone QQQ 560-600)</td><td>Mechanical bounce</td><td>Long side rented only (tranche 1, 1/4 ammo); SPCX $130-150 bounce -&gt; build post-December lockup puts; tactical longs flat by 12/12; at the rally tail (VIX under 20) load the December FOMC leg</td></tr>
+    <tr><td>R4</td><td>2027 Q1-Q2 (the pivot rally -- largest and most dangerous)</td><td>Fed pivot + capex-cut FCF narrative + FOMO chase</td><td>+15~30%; durable odds only 40-50%</td><td>Adjudicated by KS-7: first write-off lands = bear rally; zero write-offs and HY &lt;320 = 2019-type script</td><td>Never short into the Fear-zone launch; wait for the Greed swing; scale Jun'27 legs at Greed 55+, Jan'28 legs at 75+; press from the day a write-off lands; if KS-1's four conditions all fire -&gt; stop adding shorts, reassess the framework</td></tr>
+    <tr><td>R5</td><td>2027 H2 (physical-AI climax, P6)</td><td>Robotaxi/humanoid IPO wave + world-model narrative</td><td>+10~20% (concentrated in narrative names)</td><td>Version verdict: elasticity &gt;1 = real rally; &lt;1 = Layer 2's final mania</td><td>After elasticity &lt;1 confirms, build the 2028 short list at the IPO-mania top (pure-play humanoids / TSLA / Figure if listed); instrument = 2028 LEAPS puts (here the duration finally matches the script -- LEAPS no longer die of theta)</td></tr>
+    <tr><td>R6</td><td>Inside the 2028-2031 clearing</td><td>Every "bottom is in" chorus (policy rescues / mega-cap support / value-buyer dips)</td><td>+10~25%, repeatedly</td><td>Knife-catcher rallies</td><td>No new shorts (the main downleg is done); switch to Wave 2/3 accumulation discipline: buy tier prices only after HY OAS rolls over from its peak and the write-off wave passes; primary accumulation window around 2032</td></tr>
+  </table>
+  <p><strong>Uniform discipline (entire table)</strong>: shorts load only at rally tails, never chase weakness down (chasing = adding shorts in the Fear zone = the bear trap); every leg carries KS-3 profit protection (give back 50% of peak gains = cut, no narrative appeals); instruments follow the thesis-tracker mainline -- rolling 2-12 month OTM puts before 2028, the single exception being R5's 2028 LEAPS (by then duration and script align).</p>
+</section>
+
+<!-- ============ IV THESIS VET A ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">IV</span><span class="kicker">Thesis Vet A: structure confirmed, motive corrected</span></div>
+  <h2>The AI OPEC suppression thesis: <em>an evidence review</em></h2>
+  <blockquote class="pullquote">The thesis as stated: the NVDA CEO's $950B contract with Korean HBM makers is the cartelization of a monopoly business -- an AI OPEC. The bet: the Fed will hike to suppress this unhealthy AI tax, the way America once suppressed Japan.</blockquote>
+
+  <h3>The facts (all live-verified, 2026-07-28)</h3>
+  <div class="panel">
+    <h4>Source-grading legend (T1-T5, used throughout this document)</h4>
+    <p><strong>T1</strong> = physically or economically unforgeable: market prices, court filings, official data, SEC filings -- hard constraints, tradeable. <strong>T2</strong> = the same event cross-confirmed by 3+ independent sources of different alignment -- treated as hard fact. <strong>T3</strong> = single source with specific checkable detail (dates/places/numbers) -- medium confidence, must be flagged as single-source when used. <strong>T4</strong> = single source, vague wording ("reportedly," "sources say") -- not used as fact, narrative data only. <strong>T5</strong> = opinion/commentary/official statements -- reflects positioning, not facts. Rule: conclusions may stand only on T1/T2; T3 informs but is flagged; T4/T5 feed narrative-warfare analysis only.</p>
+  </div>
+  <table>
+    <tr><th>Grade</th><th>Fact</th><th>Bearing on the thesis</th></tr>
+    <tr><td class="tgrade">T2</td><td>Korea-US summit, 7/25-26: the $950B supply package is real, but its structure = SK hynix-NVDA <strong>$750B</strong> (5-year HBM supply + co-development) + Samsung-Broadcom <strong>$200B</strong>. Dollar-denominated; not a single NVDA contract. Note: the $950B bundle is T2; the $750B single-leg split is not fully reconciled with earlier $500B reports and leans T3.</td><td>Direction supported, figure corrected</td></tr>
+    <tr><td class="tgrade">T1</td><td>Federal antitrust class action, 6/25 (Garciaguirre v. Samsung, N.D. Cal.): alleges Samsung/SK/Micron (~90% of DRAM, 95%+ of HBM) used the HBM transition as cover to curtail DDR4 output, inflating conventional memory ~700% over four years; Sherman Act Section 1.</td><td><strong>Cartel behavior is already in a court filing -- harder than the "OPEC" metaphor</strong></td></tr>
+    <tr><td class="tgrade">T3</td><td>HBM share, Q2'26: SK hynix 62% / Micron 21% / Samsung 17%. Three firms ~100%.</td><td>Supply-side oligopoly confirmed</td></tr>
+    <tr><td class="tgrade">T1</td><td>Warsh sworn in as Fed Chair 5/22; rates at 3.50-3.75% unchanged since Dec 2025; June dot plot YE2026 median <strong>3.8%</strong> (3.4% in March) = one more hike implied.</td><td>The hawkish turn is real</td></tr>
+    <tr><td class="tgrade">T2</td><td>FedWatch 07/28: December hold 78.2% / cut 15.4% / <strong>hike just 5.4%</strong>. Hike pricing reached 51% during May's inflation shock (fading after the weak 7/2 payrolls).</td><td>The market currently disbelieves the hike</td></tr>
+    <tr><td class="tgrade">T1</td><td>Core PCE 3.4% (May); electricity +4.0% YoY (June); multiple economists list 2026's ~$700B+ AI datacenter capex as an inflation driver in memory, processors and electricity. Warsh's 7/14 testimony pledges a "regime change" to rid inflation as a "tax."</td><td>The inflation channel exists -- and Warsh used the word "tax" himself</td></tr>
+    <tr><td class="tgrade">T2</td><td>But Warsh's 7/15 Senate testimony personally played down the AI-inflation link: AI spending "may lift prices without fueling lasting inflation." Trump installed Warsh to get cuts, easing pressure only after inflation topped 4%.</td><td>Direct counter-evidence on motive</td></tr>
+  </table>
+
+  <h3>Mechanism-level correction: three cuts</h3>
+  <p><strong>First, the cartel structure: confirmed, and more complete than as stated.</strong> "AI OPEC" is not one contract; it is two stacked layers. Upstream: a three-firm memory oligopoly already accused in a court filing of supply-side curtailment. Downstream: NVDA using a $750B five-year lock to buy priority over scarce HBM capacity (demand-side lock-in). The monopoly meaning of the latter: AMD and every custom ASIC need HBM too -- locking the upstream chokes rival accelerators at the throat. That is monopoly maintenance, not mere supply assurance.</p>
+  <p><strong>Second, the Fed arm: the motive fails, the function can hold.</strong> The Fed's statutory anchors are inflation and employment, not monopoly rents -- rent suppression belongs to the DOJ/FTC/USTR toolbox. No official communication contains any intent to "suppress AI," and Warsh personally downplays the AI-inflation link. But the mechanical chain exists independently of motive: AI capex -&gt; electricity/memory/construction costs -&gt; CPI -&gt; the inflation reaction function -&gt; rates up -&gt; the discount rate compresses long-duration AI narratives. <strong>If the inflation path runs hot, the Fed suppresses the AI tax functionally whether it wants to or not.</strong> The dots-at-3.8% vs market-at-5.4% divergence is the pricing gap on that chain.</p>
+  <p><strong>Third, the Japan analogy: half right, and it must be split into three parts.</strong> (a) Plaza Accord 1985 = a currency weapon against a foreign rival. (b) The 1986 US-Japan Semiconductor Agreement + 1987 tariffs = trade/judicial weapons against a foreign memory cartel -- today's closest rhyme is precisely the 6/25 antitrust action against the Korean memory makers; that arm <strong>is already swinging</strong>, only the executor is a court, not the Fed. (c) What pierced Japan's bubble was Japan's own central bank (BOJ hikes, 1989-90); mapped to today that is "the Fed against its own bubble," and its motive can only be inflation, never industrial suppression -- NVDA is the national flagship, not a foreign rival. The BIS has already drawn the scale analogy: AI datacenter capex at 0.8-1.3% of GDP, the same magnitude as Japan's 1980s property boom.</p>
+
+  <h3>Supply-side reinforcement: the full-chain volume/price decomposition (added 2026-07-29)</h3>
+  <p>Testing the proposition: "SK hynix's record revenue is just price increases -- shipments barely grew" -- and its generalization, "the whole AI hardware chain is a price-gouging cartel." The discriminant: a healthy cycle = volume and price rising together; the gouging signature = price up, volume flat, plus active supply discipline, plus buyers with no substitute. All three must hold. Measured segment by segment:</p>
+  <table>
+    <tr><th>Segment</th><th>Volume (shipment growth)</th><th>Price (ASP growth)</th><th>Verdict</th></tr>
+    <tr><td><strong>SK hynix</strong> (T1, earnings disclosure)</td><td>Q1'26 DRAM bits QoQ <strong>flat</strong>, NAND bits <strong>-10%</strong>; Q2'26 DRAM bits +high single digits</td><td>Q1 DRAM ASP +mid-60s%, NAND +mid-70s%; Q2 DRAM +30%</td><td><strong>Price-led: 70-100% of revenue growth came from price.</strong> Q2 revenue 79.3T KRW, an all-time record; operating margin 76%</td></tr>
+    <tr><td><strong>Micron</strong> (T1)</td><td>DRAM bits QoQ +low single digits</td><td>DRAM ASP QoQ +low-60s%, NAND ASP +mid-80s%</td><td>Price-led, same pattern as SK hynix</td></tr>
+    <tr><td><strong>Samsung</strong> (T3)</td><td>--</td><td>Q1'26 ASP QoQ +146% (TrendForce); reportedly seeking another +20% in Q3</td><td>Price-led</td></tr>
+    <tr><td><strong>NVDA</strong> (T2/T3)</td><td>Real unit growth (Hopper ~2M units in 2024 -&gt; GB200 ~2.52M est.); but total-market accelerator units 2026 ~6.5M, <strong>flat-to-down vs 2025</strong></td><td>ASP doubles per generation: H200 ~$31-32K -&gt; GB200 superchip $60-70K; an NVL72 rack ~$3M</td><td><strong>Price/mix-led</strong>, volume secondary. Its nature is unilateral monopoly pricing plus allocation -- not horizontal collusion</td></tr>
+    <tr><td><strong>TSM</strong> (T1, audited annual report)</td><td>FY2025 wafer shipments <strong>+16.3%</strong> (12.9M -&gt; 15.0M 12-inch equivalents)</td><td>Revenue +35.9%; price/mix contributed ~17 points, like-for-like hikes only 3-10%, the rest node mix</td><td><strong>Roughly half volume, half price -- a genuine bottleneck</strong>: CoWoS sold out through 2027, 52-78 week lead times, capacity being quadrupled inside two years -- cleared</td></tr>
+    <tr><td><strong>Servers (SMCI/Dell)</strong> (T2)</td><td>SMCI revenue +123%; Dell AI servers +757%, backlog $51.3B</td><td>SMCI gross margin compressed to <strong>6.4%</strong>, actively discounting for volume</td><td><strong>Volume-led with no pricing power</strong> -- not a cartel; the victim layer of the upstream tax</td></tr>
+  </table>
+  <p><strong>The margin gradient is the tax map</strong>: memory operating margin 76% (DDR5 approaching 90%) -&gt; GPU gross margin 71% -&gt; foundry ~60% (half volume, half price) -&gt; systems 6.4%. The rent pools entirely in the top two layers -- exactly matching the distribution predicted by logic-spine P3. The hardest single piece of behavioral evidence: SK hynix <strong>reallocating HBM4 capacity back to DDR5</strong> (DDR5 margins approaching 90%) -- a producer actively steering capacity to chase price rather than volume. On the NAND side there is explicit "disciplined capacity management" language, with PC/mobile/consumer segments deliberately starved.</p>
+  <p><strong>Honest counter-mechanisms (the boundary of the gouging verdict)</strong>: First, HBM consumes ~3x the wafers per bit, so shifting capacity to HBM mechanically depresses bit counts even at full utilization -- a neutral mix effect; "volume didn't grow" alone proves nothing, and the discriminant is total wafer starts (capex +30% YoY, but output relief only arrives 2027+). Second, "700% over four years" is the plaintiffs' figure, not yet confirmed by an independent price index (TrendForce's consecutive quarterly gains of 40-110% point the same direction). Third, the chain's strongest counter-evidence: $/TFLOP still improves 30-50% per year and inference cost per token has fallen ~1000x in three years -- price-performance is improving, which argues the GPU layer is monopoly rent rather than pure gouging. Fourth, the DOJ probe into NVDA concerns allocation and tying, not horizontal price coordination -- a different antitrust animal from the memory class action.</p>
+  <div class="panel verdict">
+    <h3>Verdict A supplement: the gouging verdict lands segment by segment</h3>
+    <p><strong>The proposition "SK hynix's record revenue = price, not volume": fully confirmed</strong> (record revenue on zero-to-negative bit growth in Q1; price contribution 70-100%). <strong>The proposition "the whole chain = a gouging cartel": fails for the chain, holds by segment</strong> -- the memory segment meets all three criteria (price-up-volume-flat + explicit supply discipline + a three-firm oligopoly) and is the closest thing to a literal cartel, with collusion sub judice; the GPU segment is unilateral monopoly rent plus allocation (a different tax under a different statute); the foundry is cleared; the server layer is the victim. Monitoring discriminants: if memory wafer starts fail to expand into the 2027 relief window while Q3 prices get revised up again, the gouging verdict upgrades; if DDR contract prices go QoQ-negative or the DOJ escalates criminally (the 2005 DRAM precedent), this segment enters its next phase.</p>
+  </div>
+
+  <h3>Mandatory counter-examples (the adversarial test before adoption)</h3>
+  <table>
+    <tr><th>Counter</th><th>Content</th><th>Strength</th></tr>
+    <tr><td>The political vector points the other way</td><td>The White House that installed Warsh wants cuts; a Fed deliberately hiking to suppress the nation's flagship industry is politically self-contradictory.</td><td>High</td></tr>
+    <tr><td>Market pricing points the other way</td><td>December hike priced at just 5.4%, a cut at 15.4%; the weak 7/2 payrolls gave the doves live ammunition.</td><td>High (though the May 51% precedent proves one CPI print can flip it)</td></tr>
+    <tr><td>The historical structure mismatches</td><td>Plaza/1986 struck a foreign rival to protect domestic industry; hiking against AI strikes one's own. No 1980s script exists for that. And in the BOJ case, the central bank that deliberately pierced its own bubble was nailed to thirty years of deflation -- Warsh knows that precedent.</td><td>Medium-high</td></tr>
+  </table>
+
+  <div class="panel verdict">
+    <h3>Verdict A</h3>
+    <p><strong>The structural judgment (AI OPEC): confirmed</strong>, with T1 court-filing support -- but the first suppressing hand is the judicial/trade arm (already swinging), not the Fed. <strong>The Fed-hike judgment: wrong on motive, right on mechanism.</strong> The tradeable corrected version: do not bet that "the Fed intends to suppress AI"; bet that "AI-capex inflation plus oil pass-through forces Warsh into a hike or a prolonged hawkish hold." Odds: a literal December hike 20-30% (market at 5.4%, dots implying one -- the divergence is the asymmetric payoff); "hike or hawkish hold through mid-2027, no cuts" 60-70%. Suppression does not require the literal hike -- real rates held restrictive through the bubble's late phase kill just as well. <strong>Arming triggers: the 08/12 CPI; December hike pricing on FedWatch breaking 30% = thesis ignition.</strong></p>
+  </div>
+</section>
+
+<!-- ============ V THESIS VET B ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">V</span><span class="kicker">Thesis Vet B: five cascade levels, currently at 2 of 5</span></div>
+  <h2>The write-off cascade thesis: <em>an evidence review</em></h2>
+  <blockquote class="pullquote">The thesis as stated: there will be no serious rally -- the rallies will bury every bottom-fishing knife catcher. Then come earnings revisions, downgrades, bank and financial-institution write-offs, and possibly a debt crisis.</blockquote>
+
+  <h3>The five cascade levels and the current position (measured 2026-07-28)</h3>
+  <table>
+    <tr><th>Level</th><th>Stage</th><th>Status</th><th>Evidence</th></tr>
+    <tr><td>1</td><td>Earnings revisions</td><td><span class="st st-fired">FIRED</span></td><td>AVGO -14% on 6/4 after guiding AI revenue $16B vs $17.2B expected; July semis lost over $1T of cap; TSM ~-15% for the month. But the mainstream narrative is still "mid-cycle reset"; sell-side targets not yet systematically cut.</td></tr>
+    <tr><td>2</td><td>Rating/credit downgrades</td><td><span class="st st-fired">FIRST CASE</span></td><td>ORCL cut to BBB- by S&amp;P (the last investment-grade rung), 5yr CDS 215bp (07/27; broke the 18-year record at 198bp on 07/17 and kept widening), Q3 FCF -$24.7B; CRWV's $3.1B credit tranche rated only Ba2/BB+ (some lenders passed); Moody's named six major issuers in a credit-quality warning.</td></tr>
+    <tr><td>3</td><td>Financial-institution write-offs</td><td><span class="st st-no">NOT YET</span></td><td>As of 07/28, not one confirmed bank/BDC write-off against AI/GPU collateral. But the physical preconditions are in place: H100 residual value ~27% of original price (ABS/lease structures typically model ~50% at year 3); BDC median NAV discount 26% (Saba bidding for private-credit stakes at 20-35% off NAV = the market judging marks stale).</td></tr>
+    <tr><td>4</td><td>Debt-crisis transmission</td><td><span class="st st-no">NOT YET</span></td><td>HY OAS 269-277bp = 16th percentile of the 10-year range (low); IG ~+79bp; tech BBB only +10bp of orderly widening. Index-level credit prices no cascade at all.</td></tr>
+    <tr><td>5</td><td>Systemic</td><td><span class="st st-pend">TAIL</span></td><td>FSB: bank exposure to private credit $220-500B; loans to non-depository financial institutions over $1.2T; the Fed admits limited visibility -- an echo of pre-2008 shadow-banking structure.</td></tr>
+  </table>
+
+  <h3>The credit signal panel: single names vs the index (measured 2026-07-27)</h3>
+  <p>On 07/27 -- two days before MSFT/Meta report -- the 5-year CDS of Oracle, Nvidia, Meta and Alphabet rose to <strong>all-time records</strong> on the same day (Bloomberg-sourced), while HY index OAS sat at the 16th percentile of its 10-year range. (Source disclosure: the same-day record levels come through a single Bloomberg-syndicating channel and are treated as T3; ORCL is separately multi-source confirmed by Bloomberg and Seoul Economic Daily, T1. Re-verify through earnings week.) <strong>The single-name layer is pricing the cascade while the index layer denies transmission -- this stratification is the credit-side signature of cascade level 2</strong>: the market has begun repricing AI issuers name by name without yet pricing systemic transmission. The direction in which the stratification resolves (single names retreat, or the index catches up) is the cascade thesis's adjudicator.</p>
+  <table>
+    <tr><th>Name</th><th>5yr CDS (07/27)</th><th>Direction vs 3 months ago</th><th>Status</th><th>Alert / crisis line</th></tr>
+    <tr><td><strong>ORCL</strong></td><td class="num">215 bp</td><td>Wider (144 at end-2025)</td><td><span class="st st-hot">RECORD</span></td><td>250 / 300</td></tr>
+    <tr><td><strong>SoftBank</strong></td><td class="num">380 bp (03/09 print)</td><td>Wider (~347 in January)</td><td><span class="st st-pend">STALE DATA</span></td><td>450 / 550</td></tr>
+    <tr><td><strong>Meta</strong></td><td class="num">92 bp</td><td>Wider</td><td><span class="st st-hot">RECORD</span></td><td>120 / 150</td></tr>
+    <tr><td><strong>NVDA</strong></td><td class="num">82 bp</td><td><strong>Doubled in a month</strong> (42 in late June)</td><td><span class="st st-hot">RECORD</span></td><td>120 / 150</td></tr>
+    <tr><td><strong>AMZN</strong></td><td class="num">67 bp</td><td>Wider</td><td><span class="st st-pend">ELEVATED</span></td><td>90 / 120</td></tr>
+    <tr><td><strong>GOOGL</strong></td><td class="num">64 bp</td><td>Wider</td><td><span class="st st-hot">RECORD</span></td><td>90 / 120</td></tr>
+    <tr><td><strong>MSFT</strong></td><td class="num">~49 bp (07/16 print)</td><td>Wider (highest since 2018)</td><td><span class="st st-pend">ELEVATED</span></td><td>75 / 100</td></tr>
+    <tr><td>HY index OAS</td><td class="num">269-277 bp</td><td>Flat/slightly tighter</td><td><span class="st st-no">10YR LOWS</span></td><td>380 / 400 (KS-2)</td></tr>
+    <tr><td>IG index OAS</td><td class="num">~79 bp</td><td>Flat</td><td><span class="st st-no">LOW</span></td><td>110 / 130</td></tr>
+  </table>
+  <p>Marginal funding costs confirm the direction: CoreWeave's credit series jumped from SOFR+225 (DDTL 4.0, March) to <strong>SOFR+450</strong> (DDTL 5.0, May; ~8.5-8.8% YTM) inside two months; Meta's El Paso SPV pays <strong>~40bp more</strong> than Hyperion did ten months earlier (T+225); ORCL's 2056 bond sits at 263bp, its 10-year all-in yield ~6.4% vs a ~5.7% BBB curve. One direction: every new dollar costs more than the last.</p>
+
+  <div class="two-col">
+    <div class="lane">
+      <p class="lane-label">Evidence for the cascade</p>
+      <ul>
+        <li>Issuance scale: ~$570B of AI-related debt in 2026 (4x the prior year's pace); JPM projects $4.1T cumulative by 2030; ~$460B of direct debt across six hyperscalers; capex now consumes nearly 100% of operating cash flow (10-year average: 40%).</li>
+        <li>The vendor-financing echo: NVDA's $30B equity in OpenAI + a reported $250B Ohio guarantee (~71x its existing guarantee book) + up to $350B of chip financing under discussion -- structurally identical to Lucent/Nortel lending customers money to buy their own equipment in 2000-02.</li>
+        <li>The off-balance-sheet layer: Meta's Hyperion SPV $27B (Blue Owl 80%), the El Paso second deal $13B+ with investors demanding ~40bp more and yields quoted past 7% -- marginal funding costs are rising.</li>
+        <li>SoftBank: a $40B unsecured bridge + seeking a $10B margin loan against OpenAI shares (SOFR+425bp); analysts estimate a $32B two-year funding gap.</li>
+      </ul>
+    </div>
+    <div class="lane">
+      <p class="lane-label">Evidence against (currently the strongest rebuttal)</p>
+      <ul>
+        <li>HY OAS at 10-year lows: the market votes with real money that there is no default wave. The strongest rebuttal to the thesis -- and simultaneously the short's best pricing: protection is cheap.</li>
+        <li>Zero realized write-offs: cascade level 3 has not happened; the thesis runs ahead of the data.</li>
+        <li>SPV structural buffering: held by long-duration buyers (PIMCO/BlackRock types), lengthening the contagion path to banks.</li>
+        <li>SoftBank's outlook was revised back to stable on 7/16 -- locally reversing on the downgrade ladder.</li>
+        <li>Datacenter REITs (DLR/EQIX) remain investment grade with no negative outlook.</li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="mirror">
+    <h4>The base rate: "no serious rally" is literally rare, operationally right</h4>
+    <p>2000-02: Nasdaq fell -78% peak to trough, with four bear rallies of +30~40% along the way, all failing; the Fed cut 11 times in 2001 and could not stop it; WorldCom ($30B of debt) detonated only in month 28 after the peak; and 2003's +50% launched from -78%, not from -30%. 1929-32: the +48% rally of 1930, then -86%. The counter-case: Q4 2018's -20% followed by 2019's +29% pivot rally, which held -- <strong>the discriminating variable is whether a corporate debt-clearing cycle exists</strong>. 2018 had none; 2000 did. This cycle's $570B/yr issuance, vendor financing and SPV structures put it in the 2000 family. Implication: rallies will come (even 1930 produced +48%) -- but until the cascade completes levels 3-4, every one of them buries the knife catchers.</p>
+  </aside>
+
+  <div class="panel verdict">
+    <h3>Verdict B</h3>
+    <p><strong>The literal "no rally": not adopted</strong> (the base rate of mechanical rallies is ~85%+; the P3 side-switch window stays). <strong>The operational meaning -- "rallies cannot be held; they bury dip-buyers": adopted</strong> -- in debt-clearing bear markets, the durable rally arrives only after credit clears. <strong>The cascade direction: adopted, with honest phasing -- we are at 2 of 5</strong>; level 3's physical preconditions (GPU residuals 27%, BDC discounts 26%) are in place, and only the accounting acknowledgment is missing -- watch the 10-K/10-Q seasons. Quantitative revisions to the original document: durable 2027 rally cut from 65-70% to <strong>40-50%</strong>; the systemic tail raised from 20-25% to <strong>25-30%</strong> (the ORCL CDS record + the 71x guarantee book + the FSB exposure blind spot). Layer 1 rupture at 72-75% and the 2028 Layer 2 terminal stand unchanged.</p>
+  </div>
+</section>
+
+<!-- ============ VI TRIGGERS ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">VI</span><span class="kicker">FIRED / PENDING / NOT YET</span></div>
+  <h2>Trigger dashboard</h2>
+  <div class="trig-grid">
+
+    <div class="trig-card"><h4>Regime tests (the master clock)</h4>
+      <table>
+        <tr><td>TSM raises capex, sold -4%</td><td><span class="st st-fired">07/16</span></td></tr>
+        <tr><td>GOOGL $205B, sold -5% (Cloud +82% could not save it)</td><td><span class="st st-fired">07/22</span></td></tr>
+        <tr><td>MSFT / Meta, tests #3/#4</td><td><span class="st st-pend">07/29</span></td></tr>
+        <tr><td>NVDA final review (the general's beat-then-die)</td><td><span class="st st-pend">08/26</span></td></tr>
+        <tr><td>Criterion: raise sold = confirmation; raise rewarded = tax regime renews</td><td><span class="st st-no">RULE</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>The revision chain</h4>
+      <table>
+        <tr><td>IBM -25% software demand warning (first shot)</td><td><span class="st st-fired">07/14</span></td></tr>
+        <tr><td>AVGO AI guidance miss, -14% (the $1T semi selloff fuse)</td><td><span class="st st-fired">06/04</span></td></tr>
+        <tr><td>GOOGL operating margin miss (depreciation's leading edge)</td><td><span class="st st-fired">07/22</span></td></tr>
+        <tr><td>"Component pricing" language upgrading (April's $5B -&gt; ?)</td><td><span class="st st-pend">07/29</span></td></tr>
+        <tr><td>FY27 guidance-season cut scripts (the formal revision)</td><td><span class="st st-pend">Oct</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>The Fed reaction function (new in v2.1)</h4>
+      <table>
+        <tr><td>July CPI (oil + AI input costs print)</td><td><span class="st st-pend">08/12</span></td></tr>
+        <tr><td>FedWatch December hike pricing &gt;30% = Thesis A ignition (now 5.4%)</td><td><span class="st st-pend">DAILY</span></td></tr>
+        <tr><td>September FOMC dots (June YE26 median already 3.8%)</td><td><span class="st st-pend">MID-SEP</span></td></tr>
+        <tr><td>The crack between Warsh's "regime change" and his AI-inflation dismissal</td><td><span class="st st-pend">WATCH</span></td></tr>
+        <tr><td>Core PCE 3.4% / electricity +4.0% YoY trajectory</td><td><span class="st st-pend">MONTHLY</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>The AI OPEC judicial/trade arm (new in v2.1)</h4>
+      <table>
+        <tr><td>Memory antitrust class action filed (N.D. Cal.; 90% DRAM / 95% HBM)</td><td><span class="st st-fired">06/25</span></td></tr>
+        <tr><td>$950B Korea-US supply package (SK-NVDA $750B + Samsung-AVGO $200B)</td><td><span class="st st-fired">07/25</span></td></tr>
+        <tr><td>DOJ/FTC exclusivity review of the HBM lock-ins</td><td><span class="st st-no">NOT YET</span></td></tr>
+        <tr><td>DOJ probe of NVDA allocation/tying (the non-collusion track)</td><td><span class="st st-fired">REPORTED</span></td></tr>
+        <tr><td>Memory volume/price split: SK Q1 bits flat / ASP +mid-60s = price contributed 70-100%</td><td><span class="st st-fired">07/28</span></td></tr>
+        <tr><td>Memory wafer starts into the 2027 relief window (the gouging-verdict up/downgrade switch)</td><td><span class="st st-pend">QUARTERLY</span></td></tr>
+        <tr><td>DRAM/HBM contract price QoQ (Q1 +105-110% / Q2 +35-48%; a sign flip = phase change)</td><td><span class="st st-pend">QUARTERLY</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>The write-off cascade (new in v2.1)</h4>
+      <table>
+        <tr><td>ORCL: S&amp;P BBB- + CDS 215bp record (07/27) + FCF -$24.7B</td><td><span class="st st-fired">APR-JUL</span></td></tr>
+        <tr><td>Moody's names six major issuers in credit-quality warning</td><td><span class="st st-fired">07/24</span></td></tr>
+        <tr><td>First confirmed bank/BDC write-off on AI/GPU collateral</td><td><span class="st st-hot">NOT YET = THE FUSE</span></td></tr>
+        <tr><td>BDC median NAV discount &gt;35% (now 26%)</td><td><span class="st st-pend">WATCH</span></td></tr>
+        <tr><td>Meta El Paso SPV pricing &gt;7% / marginal funding cost rising</td><td><span class="st st-pend">IN MARKET</span></td></tr>
+        <tr><td>GPU residuals below 20% of original price (now ~27%)</td><td><span class="st st-pend">WATCH</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>The five whales' counterparties</h4>
+      <table>
+        <tr><td>ORCL $553B RPO (OpenAI) -- stock already -65%</td><td><span class="st st-fired">PRICING</span></td></tr>
+        <tr><td>GOOGL $514B backlog (Anthropic ~40%)</td><td><span class="st st-fired">DISCLOSED</span></td></tr>
+        <tr><td>MSFT RPO contains OpenAI $250B -- answer quality</td><td><span class="st st-pend">07/29</span></td></tr>
+        <tr><td>SNDK $42B / SMCI $60B single-quarter orders</td><td><span class="st st-pend">08/11</span></td></tr>
+        <tr><td>Anthropic $900B+ round: close/flat/down</td><td><span class="st st-pend">Q3</span></td></tr>
+        <tr><td>NVDA $250B guarantee + $350B chip financing talks (circular proof #7)</td><td><span class="st st-fired">07/27</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>The memory cycle</h4>
+      <table>
+        <tr><td>SK Hynix ADR listing = distribution milestone</td><td><span class="st st-fired">07/10</span></td></tr>
+        <tr><td>MU/SNDK failed rallies (-10%/-11% after blowout prints)</td><td><span class="st st-fired">JUL</span></td></tr>
+        <tr><td>NAND contract price QoQ &lt;+30% (the reversal confirmation light)</td><td><span class="st st-pend">Q4'26-Q1'27</span></td></tr>
+        <tr><td>All three majors announce NAND expansion (the 84.6% margin invitation)</td><td><span class="st st-pend">WATCH</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>Credit gates</h4>
+      <table>
+        <tr><td>HY OAS now 269-277bp (16th pct of 10yr): 380 alert / 400 freeze / 500 crisis</td><td><span class="st st-no">LOW</span></td></tr>
+        <tr><td>AI single-name CDS collective same-day records (ORCL 215 / Meta 92 / NVDA 82 / GOOGL 64)</td><td><span class="st st-fired">07/27</span></td></tr>
+        <tr><td>NVDA CDS doubled in a month (42 -&gt; 82bp); through 120 = credit-side escalation</td><td><span class="st st-hot">WATCH</span></td></tr>
+        <tr><td>Stratification resolution (single names retreat or HY catches up) = cascade adjudicator</td><td><span class="st st-pend">WEEKLY</span></td></tr>
+        <tr><td>BDC discounts (the listed proxy for private-credit marks; median 26%)</td><td><span class="st st-pend">WATCH</span></td></tr>
+        <tr><td>Bank -&gt; NBFI pipeline (&gt;$1.2T; FSB blind-spot warning) disclosures</td><td><span class="st st-pend">EARNINGS</span></td></tr>
+        <tr><td>Swap spreads / Treasury basis anomalies (the systemic transmitter's EKG)</td><td><span class="st st-no">WATCH</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>China convergence (the enemy of time)</h4>
+      <table>
+        <tr><td>Band climb: 80.6 vs 88.7, ~1 pt/month -&gt; 85-88 threshold @H1 2027</td><td><span class="st st-pend">MONTHLY</span></td></tr>
+        <tr><td>Z.AI 1GW fully domestic compute (Huawei Ascend; GLM-5.2 tops charts)</td><td><span class="st st-fired">07/20</span></td></tr>
+        <tr><td>China's $295B national compute network (80% domestic silicon)</td><td><span class="st st-fired">DRAFT</span></td></tr>
+        <tr><td>WF6/tungsten export-control cost pass-through (hardware cost floor rising)</td><td><span class="st st-fired">07/01</span></td></tr>
+      </table>
+    </div>
+
+    <div class="trig-card"><h4>The distribution pipeline</h4>
+      <table>
+        <tr><td>SPCX broken IPO at $113 (-50% from peak; shorts up $15.5B)</td><td><span class="st st-fired">JUL</span></td></tr>
+        <tr><td>OpenAI IPO postponed to 2027 (NYT + JPM financing language)</td><td><span class="st st-fired">06/26</span></td></tr>
+        <tr><td>SPCX lockup front-run -&gt; expiry day</td><td><span class="st st-pend">12/12</span></td></tr>
+        <tr><td>Sell-side research turns systematically bearish (Goldman/JPM) = the last-leg starting gun</td><td><span class="st st-hot">KEY</span></td></tr>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ VII KILL SWITCHES ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">VII</span><span class="kicker">Written once, unchanged all year</span></div>
+  <h2>Kill switches</h2>
+  <div class="kill-grid">
+    <div class="kill"><h5>KS-1 REGIME INVALIDATION</h5><p>MSFT+Meta+NVDA ALL rewarded for capex + CPI cooling + credit calm + SPCX reclaiming $135 -- all four together -&gt; cut front-months, downgrade and reassess the framework. Three of four does not count.</p></div>
+    <div class="kill"><h5>KS-2 CREDIT GATE</h5><p>HY OAS sustained &gt;400 -&gt; the third-year script is void, Wave 2 fully frozen, cash is king (the 1930 path; tail now raised to 25-30%). &gt;380 already pauses new longs.</p></div>
+    <div class="kill"><h5>KS-3 PROFIT PROTECTION</h5><p>Any leg giving back 50% of peak gains -&gt; cut unconditionally. No narrative appeals.</p></div>
+    <div class="kill"><h5>KS-4 F&amp;G DISCIPLINE</h5><p>Never add shorts in the Fear zone (bear trap); scale at Greed 55+, full load at Extreme Greed 75+ (harvesting the bull trap).</p></div>
+    <div class="kill"><h5>KS-5 VERSION VERDICT GATE</h5><p>2027 elasticity &gt;1 -&gt; fill tranche 3; &lt;1 -&gt; longs stop, the 2028 short list activates. Before the verdict, longs never exceed 2/4 ammunition.</p></div>
+    <div class="kill"><h5>KS-6 SELL-SIDE TURN</h5><p>Goldman/JPM research turning systematically bearish for the first time = distribution officially complete = the starting gun of the final downleg. Until then, independent voices shouting do not count as signal.</p></div>
+    <div class="kill"><h5>KS-7 CASCADE GATE (new in v2.1)</h5><p>The first confirmed financial-institution write-off on AI/GPU collateral (10-K/Q or announcement) -&gt; the cascade enters level 3 -&gt; shift the whole Wave 2 tranche plan one tier lower, freeze tranche 3 until HY OAS rolls over from its peak. Reverse: zero write-offs by Q2 2027 with HY OAS &lt;320 -&gt; downgrade the cascade thesis, restore P5 rally odds.</p></div>
+  </div>
+</section>
+
+<!-- ============ VIII LEVELS AND PROBABILITIES ============ -->
+<section>
+  <div class="section-mark"><span class="numeral">VIII</span><span class="kicker">Clean EPS x trough PE; all estimates, +/-15-20%</span></div>
+  <h2>Key levels and probability structure</h2>
+  <table>
+    <tr><th>Name</th><th>Character</th><th>First batch / main zone / deep bear</th><th>Logic anchor</th></tr>
+    <tr><td><strong>NVDA</strong> (PRIMARY SHORT)</td><td>Main name of the two-layer unwind; thesis-tracker anchor: peak $217 (05/12); Phase 1 = Cisco-style margin reset</td><td>Phase 1 trough <strong>$80-110</strong></td><td>GM 71% -&gt; 45-50%, P/S 24x -&gt; 8-10x; instrument = rolling 2-12mo OTM puts, no LEAPS (theta death)</td></tr>
+    <tr><td><strong>GOOGL</strong> (compounding core)</td><td>The free world's only ad winner + TPU dodges the NVDA tax</td><td>$230-235 / <strong>$185-195</strong> / $155-165</td><td>Clean EPS $8.5-10 x 15-17x + cash; 50-60% of Wave 2 ammo</td></tr>
+    <tr><td><strong>NET</strong> (convexity satellite)</td><td>The agent economy's tollbooth; Version B accelerates the narrative</td><td>-- / <strong>$95-125</strong> / $75-85</td><td>9-12x FY27-28 sales; position cap 15-20%; lose small, win big</td></tr>
+    <tr><td><strong>TSM</strong> (rent)</td><td>Dual-cycle foundry monopoly; prepayments are a hard floor</td><td>$240 / <strong>$190-200</strong> / $140-160</td><td>Clean EPS $8.5-10.5 x 12-14x; +50-100% recovery = must sell</td></tr>
+    <tr><td><strong>GEV</strong> (rent)</td><td>Electricity = the common denominator of every AI version</td><td>Wave 2 tier prices</td><td>50-70% recovery class; collect the rent and leave</td></tr>
+    <tr><td><strong>ARM</strong> (trade)</td><td>Edge-relay beneficiary; the RISC-V flag has not been struck</td><td>$95-110 / <strong>$70-90</strong></td><td>Position cap &lt;=5%; CSS cuts both ways</td></tr>
+    <tr><td><strong>ORCL</strong> (event)</td><td>Legacy value $45-75; the live specimen of cascade level 2 (BBB- + record CDS)</td><td>Buy zone <strong>$50-70</strong> (overshoot)</td><td>The catalyst paradox: a capex-cut announcement = the FCF reversal day = trade -&gt; hold upgrade</td></tr>
+    <tr><td><strong>SPCX</strong> (short/event)</td><td>Legacy floor $22-35; the false flow floor $45-70</td><td>Lockup puts target <strong>$70-80</strong></td><td>The only key that flips it long: an xAI shutdown announcement (+$6.4B/yr FCF)</td></tr>
+    <tr><td><strong>SNDK</strong> (PRIMARY SHORT)</td><td>Pattern-3 pure commodity; no escape path in physical AI</td><td>End game <strong>$200-350</strong></td><td>Jun'27 core leg; NAND QoQ &lt;+30% = the confirmation light</td></tr>
+  </table>
+
+  <div class="prob-strip">
+    <div class="prob-box"><div class="v">72-75%</div><div class="l">Layer 1 rupture within 2026</div><div class="rev">unchanged</div></div>
+    <div class="prob-box"><div class="v">40-50%</div><div class="l">Durable 2027 third-year rally</div><div class="rev">v2.1 cut (was 65-70%)</div></div>
+    <div class="prob-box"><div class="v">20-30%</div><div class="l">Literal December hike (market: 5.4%)</div><div class="rev">v2.1 new; the divergence is the odds</div></div>
+    <div class="prob-box"><div class="v">42-48%</div><div class="l">Version B (no real recovery)</div><div class="rev">unchanged</div></div>
+    <div class="prob-box"><div class="v">25-30%</div><div class="l">Systemic tail (cascade runs all 5 levels)</div><div class="rev">v2.1 raised (was 20-25%)</div></div>
+    <div class="prob-box"><div class="v">2028</div><div class="l">Layer 2 terminal: NVDA -70~80%</div><div class="rev">unchanged; if Benner wins, liquidation runs to 2030-32</div></div>
+  </div>
+</section>
+
+<!-- ============ IX REFERENCES ============ -->
+<div class="think-tank">
+  <h2>References</h2>
+  <p class="roman">Sources cited in the v2.1 evidence review (accessed 2026-07-28/29)</p>
+  <ul>
+    <li><a href="https://www.thejakartapost.com/business/2026/07/26/south-korean-chipmakers-to-supply-us-tech-firms-in-950b-deals">South Korean chipmakers to supply US tech firms in $950b deals</a><span class="pub">THE JAKARTA POST, 2026-07-26</span></li>
+    <li><a href="https://www.techtimes.com/articles/321554/20260725/samsung-sk-hynix-lock-ai-chip-supply-through-2030-950b-us-deals.htm">Samsung and SK Hynix Lock In AI Chip Supply Through 2030 With $950B in US Deals</a><span class="pub">TECH TIMES, 2026-07-25</span></li>
+    <li><a href="https://en.sedaily.com/finance/2026/07/26/samsung-strikes-200-billion-ai-chip-deal-sk-extends-hbm4">Samsung Strikes $200 Billion AI Chip Deal; SK Extends HBM4 Supply</a><span class="pub">SEOUL ECONOMIC DAILY, 2026-07-26</span></li>
+    <li><a href="https://www.trendforce.com/news/2026/06/29/news-samsung-sk-hynix-micron-face-u-s-class-action-lawsuit-over-alleged-dram-supply-manipulation/">Samsung, SK hynix, Micron Face U.S. Class-Action Lawsuit Over Alleged DRAM Supply Manipulation</a><span class="pub">TRENDFORCE, 2026-06-29</span></li>
+    <li><a href="https://en.sedaily.com/finance/2026/06/02/jensen-huang-to-sk-hynix-please-make-more-hbm">Jensen Huang to SK hynix: "Please Make More HBM"</a><span class="pub">SEOUL ECONOMIC DAILY, 2026-06-02</span></li>
+    <li><a href="https://www.federalreserve.gov/newsevents/testimony/files/warsh20260714a.pdf">Statement by Kevin Warsh, Chair, Board of Governors of the Federal Reserve System</a><span class="pub">FEDERAL RESERVE, 2026-07-14</span></li>
+    <li><a href="https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm">FOMC Minutes, June 16-17, 2026</a><span class="pub">FEDERAL RESERVE</span></li>
+    <li><a href="https://www.axios.com/2026/07/15/warsh-ai-inflation-senate">Warsh says AI spending may lift prices without fueling lasting inflation</a><span class="pub">AXIOS, 2026-07-15</span></li>
+    <li><a href="https://www.cnbc.com/2026/07/14/warsh-promises-inflation-will-be-a-thing-of-the-past-cites-benefits-of-ai-investment-boom.html">Warsh pledges "regime change", cites benefits of AI investment boom</a><span class="pub">CNBC, 2026-07-14</span></li>
+    <li><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html">CME FedWatch Tool</a><span class="pub">CME GROUP, accessed 2026-07-28</span></li>
+    <li><a href="https://www.cnbc.com/2026/05/15/traders-now-see-next-fed-interest-rate-move-as-a-hike-following-inflation-surge.html">Traders now see next Fed move as a hike following inflation surge</a><span class="pub">CNBC, 2026-05-15</span></li>
+    <li><a href="https://www.washingtontimes.com/news/2026/jul/13/massive-ai-buildout-poses-latest-inflation-threat-consumers-pay/">Massive AI buildout poses latest inflation threat</a><span class="pub">WASHINGTON TIMES, 2026-07-13</span></li>
+    <li><a href="https://www.theregister.com/ai-and-ml/2026/06/29/how-the-ai-bubble-could-pop-and-take-down-the-global-economy-according-to-the-bis/5263793">How the AI bubble could pop, per the BIS</a><span class="pub">THE REGISTER, 2026-06-29</span></li>
+    <li><a href="https://www.forbes.com/sites/robertszczerba/2026/07/17/bond-investors-push-back-as-ai-debt-heads-toward-570-billion/">Bond investors push back as AI debt heads toward $570 billion</a><span class="pub">FORBES, 2026-07-17</span></li>
+    <li><a href="https://www.cnbc.com/2026/07/24/moodys-ai-spending-credit-quality-amazon-meta-alphabet.html">Moody's: unprecedented AI spending threatens credit quality</a><span class="pub">CNBC, 2026-07-24</span></li>
+    <li><a href="https://www.fool.com/investing/2026/04/10/oracles-credit-risk-is-at-an-all-time-high/">Oracle's credit risk is at an all-time high</a><span class="pub">MOTLEY FOOL, 2026-04-10</span></li>
+    <li><a href="https://en.sedaily.com/international/2026/07/21/oracle-default-risk-hits-record-high-amid-growing-ai">Oracle default risk hits record high</a><span class="pub">SEOUL ECONOMIC DAILY, 2026-07-21</span></li>
+    <li><a href="https://www.datacenterdynamics.com/en/news/meta-taps-pimco-and-blue-owl-for-29bn-data-center-financing-report/">Meta taps PIMCO and Blue Owl for $29bn data center financing</a><span class="pub">DATA CENTER DYNAMICS</span></li>
+    <li><a href="https://capacityglobal.com/news/metas-12bn-el-paso-bond-exposes-ai-debt-repricing/">Meta's El Paso bond exposes AI debt repricing</a><span class="pub">CAPACITY, 2026-07</span></li>
+    <li><a href="https://www.axios.com/2026/07/27/nvidia-openai-financing-ai-jensen-huang-ssi">Nvidia's circular financing: $250B guarantee, $350B chip financing talks</a><span class="pub">AXIOS, 2026-07-27</span></li>
+    <li><a href="https://www.fsb.org/uploads/P060526.pdf">FSB report: bank exposures to private credit</a><span class="pub">FINANCIAL STABILITY BOARD, 2026-05-06</span></li>
+    <li><a href="https://www.privateequitywire.co.uk/private-credit-bdcs-trade-at-deepest-nav-discounts-in-over-five-years-says-lseg/">Private credit BDCs trade at deepest NAV discounts in over five years</a><span class="pub">PRIVATE EQUITY WIRE, 2026</span></li>
+    <li><a href="https://ciphertalk.substack.com/p/nobody-knows-what-a-used-gpu-cluster">Nobody knows what a used GPU cluster is worth</a><span class="pub">CIPHERTALK, 2026</span></li>
+    <li><a href="https://tradingeconomics.com/united-states/bofa-merrill-lynch-us-high-yield-option-adjusted-spread-fed-data.html">ICE BofA US High Yield Option-Adjusted Spread</a><span class="pub">FRED / TRADING ECONOMICS, 2026-07-23</span></li>
+    <li><a href="https://prospect.org/2002/08/19/great-telecom-implosion/">The Great Telecom Implosion</a><span class="pub">THE AMERICAN PROSPECT, 2002-08-19</span></li>
+    <li><a href="https://www.cnbc.com/2026/06/04/softbank-openai-liquidity-crunch-arm-son.html">SoftBank's OpenAI liquidity crunch</a><span class="pub">CNBC, 2026-06-04</span></li>
+    <li><a href="https://en.bloomingbit.io/feed/news/117174">Big Tech CDS Hits Record as $244 Billion AI Bond Surge Stokes Market Stress</a><span class="pub">BLOOMINGBIT (BLOOMBERG-SOURCED), 2026-07-27</span></li>
+    <li><a href="https://www.bloomberg.com/news/articles/2026-07-17/gauge-of-oracle-s-credit-risk-hits-fresh-all-time-high">Gauge of Oracle's Credit Risk Hits Fresh All-Time High</a><span class="pub">BLOOMBERG, 2026-07-17</span></li>
+    <li><a href="https://deepquarry.substack.com/p/coreweaves-new-debt-facility-beyond">CoreWeave's new debt facility: SOFR+450</a><span class="pub">DEEP QUARRY, 2026-05</span></li>
+    <li><a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2">ICE BofA US High Yield Index Option-Adjusted Spread</a><span class="pub">FRED, accessed 2026-07-28</span></li>
+    <li><a href="https://news.skhynix.com/en/q2-2026-business-results/">SK hynix Announces 2Q26 Financial Results</a><span class="pub">SK HYNIX NEWSROOM, 2026-07-28</span></li>
+    <li><a href="https://www.trendforce.com/news/2026/05/18/news-memory-supercycle-drives-1q26-price-surge-samsung-flags-146-asp-jump-sk-hynix-sees-mid-60-dram-gains/">Memory 1Q26 Price Surge: Samsung Flags 146% ASP Jump, SK hynix Sees Mid-60% DRAM Gains</a><span class="pub">TRENDFORCE, 2026-05-18</span></li>
+    <li><a href="https://www.techtimes.com/articles/319016/20260624/sk-hynix-dethroned-samsung-after-26-years-now-choosing-ddr5-profits-over-hbm4-ramp.htm">SK Hynix: Choosing DDR5 Profits Over HBM4 Ramp</a><span class="pub">TECH TIMES, 2026-06-24</span></li>
+    <li><a href="https://investors.micron.com/static-files/631b1a32-5537-46ae-8f40-82e42fc79dfe">Micron Fiscal Q3 2026 Earnings Call Prepared Remarks</a><span class="pub">MICRON IR, 2026</span></li>
+    <li><a href="https://investor.tsmc.com/static/annualReports/2024/english/pdf/2024_tsmc_ar_e_ch2.pdf">TSMC Annual Report: wafer shipments and revenue decomposition</a><span class="pub">TSMC IR</span></li>
+    <li><a href="https://www.trendforce.com/presscenter/news/20260202-12911.html">NAND 1Q26 contract price revision +55-60% QoQ</a><span class="pub">TRENDFORCE, 2026-02-02</span></li>
+    <li><a href="https://www.techpowerup.com/325160/nvidia-hit-with-doj-antitrust-probe-over-ai-gpus-unfair-sales-tactics-and-pricing-alleged">Nvidia DOJ antitrust probe over allocation and tying practices</a><span class="pub">TECHPOWERUP</span></li>
+    <li><a href="https://www.gpunex.com/blog/ai-inference-economics-2026/">AI inference economics: cost-per-TFLOP and token cost trends</a><span class="pub">GPUNEX, 2026</span></li>
+  </ul>
+</div>
+
+<footer class="colophon">
+  METHOD: reaction function as master clock <span class="dot">.</span> six-layer clock system <span class="dot">.</span> 3-6 month lead-lag between layers <span class="dot">.</span> consensus templates get a time discount <span class="dot">.</span> private research notes, not investment advice <span class="dot">.</span> all price targets are clean-EPS x trough-PE estimates (+/-15-20%) <span class="dot">.</span> EIP <span class="dot">.</span> 2026
+</footer>
+
+</article>
+
+<script>
+  var bar = document.getElementById('progress');
+  addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var p = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = p + '%';
+  }, {passive:true});
+</script>
+</body>
+</html>
