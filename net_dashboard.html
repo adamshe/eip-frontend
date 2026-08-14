@@ -33,16 +33,71 @@
   .cal .flag{border-color:var(--yellow);color:var(--yellow)}
   a{color:var(--blue);text-decoration:none}
   h2{font-size:14px;margin-top:28px;color:var(--muted);text-transform:uppercase}
+  .layer-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin:10px 0}
+  .layer-card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+  .layer-card h3{margin:0 0 6px;font-size:13px;color:var(--text)}
+  .layer-card p{margin:4px 0;font-size:12px;color:var(--muted);line-height:1.6}
+  .layer-card p b{color:var(--blue)}
+  .composite-note{border-left:3px solid var(--blue);padding:8px 12px;margin:10px 0;font-size:12px;color:var(--text);background:var(--panel)}
+  .months{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin:10px 0}
+  .month{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px}
+  .month h3{margin:0 0 8px;font-size:13px;color:var(--text);text-align:center;letter-spacing:.1em}
+  .month table{margin:0;table-layout:fixed}
+  .month th{font-size:9px;text-align:center;padding:2px;border:none}
+  .month td{border:1px solid var(--line);padding:2px 3px;height:38px;vertical-align:top;font-size:10px;position:relative}
+  .month td.empty{border-color:transparent}
+  .month td.past{opacity:.35}
+  .month td.today{outline:2px solid var(--blue);outline-offset:-2px}
+  .month td.has-event{background:rgba(245,185,66,.10);border-color:var(--yellow)}
+  .month td.has-event.flag{background:rgba(255,107,94,.12);border-color:var(--red)}
+  .month .dnum{color:var(--muted);font-size:10px}
+  .month .ev{display:block;color:var(--yellow);font-size:9px;line-height:1.25;margin-top:1px;overflow:hidden}
+  .month td.flag .ev{color:var(--red)}
+  .handbook{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0}
+  .hb{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px}
+  .hb .hb-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .hb .hb-id{font-weight:bold;color:var(--text)}
+  .hb .hb-label{color:var(--muted);font-size:11px}
+  .imp{font-size:10px;padding:1px 8px;border-radius:3px;white-space:nowrap}
+  .imp.p0{color:var(--red);border:1px solid var(--red)}
+  .imp.p1{color:var(--yellow);border:1px solid var(--yellow)}
+  .imp.p2{color:var(--muted);border:1px solid var(--muted)}
+  .hb p{margin:5px 0 0;font-size:12px;line-height:1.6;color:var(--muted)}
+  .hb p b{color:var(--blue)}
 </style>
 </head>
 <body>
 <h1>NET Leading-Indicator Dashboard</h1>
-<div class="muted">generated 2026-08-14 03:35Z | doctrine: single needle = note, three same-direction = signal | no value is ever fabricated</div>
+<div class="muted">generated 2026-08-14 03:57Z | doctrine: single needle = note, three same-direction = signal | no value is ever fabricated</div>
 
 <div class="banner YELLOW">GLOBAL YELLOW -- mixed -- see needle table
 </div>
 
-<h2>Layer signals</h2>
+<h2>How to read this board -- 层级读法</h2>
+<div class="layer-cards">
+
+  <div class="layer-card">
+    <h3>Layer A -- 标的层 (NET 自身遥测)</h3>
+    <p><b>测什么:</b> 直接测 NET 这台收费站的运转: 流量过站量 (radar)、开发者飞轮 (npm)、路网覆盖 (w3techs)、管理层信心 (jobs)、硬承诺 (cRPO)。</p>
+    <p><b>怎么读:</b> 三针同向绿 = 标的层 SIGNAL UP, 基本面动能确认; 单针只作注意。A 层强而 C 层弱 = 好公司坏环境, 仓位帽压低; A 层弱 = 不管环境多好都别加。</p>
+  </div>
+
+  <div class="layer-card">
+    <h3>Layer B -- 生态层 (上游水位)</h3>
+    <p><b>测什么:</b> NET 活在互联网扩张 + 云需求两条水系里: 新域名 (DNIB) 是进水口, 三大云增速是潮汐。水位决定所有船的吃水。</p>
+    <p><b>怎么读:</b> 季度更新的慢层, 作背景板: 两针齐绿 = 涨潮, A 层的绿更可信; 水位转弱而 A 层还绿 = NET 在逆水行舟, 检查是份额扩张还是滞后。</p>
+  </div>
+
+  <div class="layer-card">
+    <h3>Layer C -- Regime 层 (剧本支柱)</h3>
+    <p><b>测什么:</b> 决定'现在是什么市场'的四根支柱: 信用 (HY OAS = 拒付仪表)、汇率杠杆 (USDJPY = carry 心电图)、事件钟 (S-1 = IPO 发令枪)、价格闸门 ($305 = 生死线)。</p>
+    <p><b>怎么读:</b> C 层一票否决: 任一针 RED 直接把全局打 RED, A/B 再绿也不放行 -- 'regime 裂了, 好标的也先站开'。C 层 SIGNAL UP + A 层跟上 = 全绿放行。</p>
+  </div>
+
+</div>
+<div class="composite-note">合成规则 (L2 教义): 单针只叫注意, 三针同向才叫信号; 全局 = worst(C 层, A 层); NET 收破 $305 或任何 EVENT = 无条件顶格横幅。</div>
+
+<h2>Layer signals -- 今日层信号</h2>
 <table>
 <tr><th>Layer</th><th>Signal</th><th>Note</th></tr>
 
@@ -64,7 +119,7 @@
   <td><span class="st YELLOW">YELLOW</span></td>
   <td>1.00</td>
   <td class="muted">today</td>
-  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 80.0,33.0 160.0,33.0"/></svg></td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 53.3,33.0 106.7,33.0 160.0,33.0"/></svg></td>
   <td>traffic q/q slope +0.459% vs +1.090%; AI-crawler share latest 33.4% (trend -0.43pp/wk over 8w)</td>
   <td class="muted"><a href="https://api.cloudflare.com/client/v4/radar/http/timeseries">src</a></td>
 </tr>
@@ -75,7 +130,7 @@
   <td><span class="st GREEN">GREEN</span></td>
   <td>15,536,734.73</td>
   <td class="muted">today</td>
-  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 40.0,33.0 80.0,33.0 120.0,33.0 160.0,33.0"/></svg></td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 32.0,33.0 64.0,33.0 96.0,33.0 128.0,33.0 160.0,33.0"/></svg></td>
   <td>13w MA slope +5.3642%/wk, latest week 17,531,111 dl</td>
   <td class="muted"><a href="https://api.npmjs.org/downloads/range/last-year/wrangler">src</a></td>
 </tr>
@@ -83,11 +138,11 @@
 <tr>
   <td>w3techs_share</td>
   <td class="layer-tag">A</td>
-  <td><span class="st INFO">INFO</span></td>
+  <td><span class="st YELLOW">YELLOW</span></td>
   <td>24.60</td>
   <td class="muted">today</td>
-  <td></td>
-  <td>share 24.6% of all websites; not enough history for slope yet</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 160.0,33.0"/></svg></td>
+  <td>cached (fetched 0d ago, next fetch after 28d); slope +0.00pp over 2 readings</td>
   <td class="muted"><a href="https://w3techs.com/technologies/details/cn-cloudflare">src</a></td>
 </tr>
 
@@ -97,8 +152,8 @@
   <td><span class="st YELLOW">YELLOW</span></td>
   <td>299.00</td>
   <td class="muted">today</td>
-  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,3.0 40.0,33.0 80.0,33.0 120.0,33.0 160.0,3.0"/></svg></td>
-  <td>299 postings (110 GTM/Sales/AI), +0.3% -- inside noise band</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,3.0 32.0,33.0 64.0,33.0 96.0,33.0 128.0,3.0 160.0,3.0"/></svg></td>
+  <td>299 postings (110 GTM/Sales/AI), +0.0% -- inside noise band</td>
   <td class="muted"><a href="https://boards-api.greenhouse.io/v1/boards/cloudflare/jobs">src</a></td>
 </tr>
 
@@ -141,7 +196,7 @@
   <td><span class="st GREEN">GREEN</span></td>
   <td>271.00</td>
   <td class="muted">today</td>
-  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 80.0,33.0 160.0,33.0"/></svg></td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 53.3,33.0 106.7,33.0 160.0,33.0"/></svg></td>
   <td>level 271bps, widened +3bps in 20td</td>
   <td class="muted">fred:BAMLH0A0HYM2</td>
 </tr>
@@ -152,7 +207,7 @@
   <td><span class="st YELLOW">YELLOW</span></td>
   <td>157.54</td>
   <td class="muted">today</td>
-  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 80.0,33.0 160.0,33.0"/></svg></td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 53.3,33.0 106.7,33.0 160.0,33.0"/></svg></td>
   <td>USD/JPY 157.54 (2026-08-07); 20d-vol regime YELLOW</td>
   <td class="muted">fred:DEXJPUS</td>
 </tr>
@@ -163,7 +218,7 @@
   <td><span class="st GREEN">GREEN</span></td>
   <td>0.00</td>
   <td class="muted">today</td>
-  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 40.0,33.0 80.0,33.0 120.0,33.0 160.0,33.0"/></svg></td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 32.0,33.0 64.0,33.0 96.0,33.0 128.0,33.0 160.0,33.0"/></svg></td>
   <td>no S-1/S-1A hits for ['"OpenAI"', '"Anthropic"'] in last 7d</td>
   <td class="muted"><a href="https://efts.sec.gov/LATEST/search-index">src</a></td>
 </tr>
@@ -174,7 +229,7 @@
   <td><span class="st GREEN">GREEN</span></td>
   <td>330.83</td>
   <td class="muted">today</td>
-  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 40.0,33.0 80.0,33.0 120.0,33.0 160.0,33.0"/></svg></td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 32.0,33.0 64.0,33.0 96.0,33.0 128.0,33.0 160.0,33.0"/></svg></td>
   <td>NET 330.83, VRSN 287.15, NVDA 225.30; NET vs invalidation 305: +8.5%</td>
   <td class="muted">yfinance</td>
 </tr>
@@ -185,7 +240,7 @@
   <td><span class="st INFO">INFO</span></td>
   <td>8,184,226.00</td>
   <td class="muted">today</td>
-  <td></td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 160.0,33.0"/></svg></td>
   <td>NET SI 8,184,226 sh @ 2026-07-31 (-16.8% biweekly, DTC 2.84)</td>
   <td class="muted"><a href="https://api.finra.org/data/group/otcMarket/name/consolidatedShortInterest">src</a></td>
 </tr>
@@ -196,14 +251,625 @@
   <td><span class="st INFO">INFO</span></td>
   <td>0.00</td>
   <td class="muted">today</td>
-  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 40.0,33.0 80.0,33.0 120.0,33.0 160.0,33.0"/></svg></td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 32.0,33.0 64.0,33.0 96.0,33.0 128.0,33.0 160.0,33.0"/></svg></td>
   <td>2026-09-11 (29d): 25d call IV 52.9% - put IV 52.5% = +0.4% | call skew positive -- silent accumulation watch</td>
   <td class="muted">yfinance</td>
 </tr>
 
 </table>
 
-<h2>Calendar</h2>
+<h2>Calendar -- 裁决日历</h2>
+<div class="months">
+
+  <div class="month">
+    <h3>2026-08</h3>
+    <table>
+      <tr><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th></tr>
+      
+      <tr>
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="past ">
+          <span class="dnum">1</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">2</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="past ">
+          <span class="dnum">3</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">4</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">5</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">6</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">7</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">8</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">9</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="past ">
+          <span class="dnum">10</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">11</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">12</span>
+          
+        </td>
+        
+        <td class="today ">
+          <span class="dnum">13</span>
+          
+        </td>
+        
+        <td class="has-event flag">
+          <span class="dnum">14</span>
+          <span class="ev">13F deadline</span>
+        </td>
+        
+        <td class="">
+          <span class="dnum">15</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">16</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">17</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">18</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">19</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">20</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">21</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">22</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">23</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">24</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">25</span>
+          
+        </td>
+        
+        <td class="has-event ">
+          <span class="dnum">26</span>
+          <span class="ev">NVDA Q2 FY27 print</span>
+        </td>
+        
+        <td class="">
+          <span class="dnum">27</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">28</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">29</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">30</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">31</span>
+          
+        </td>
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+      </tr>
+      
+    </table>
+  </div>
+
+  <div class="month">
+    <h3>2026-09</h3>
+    <table>
+      <tr><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th></tr>
+      
+      <tr>
+        
+        <td class="empty"></td>
+        
+        
+        <td class="">
+          <span class="dnum">1</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">2</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">3</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">4</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">5</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">6</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">7</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">8</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">9</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">10</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">11</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">12</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">13</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">14</span>
+          
+        </td>
+        
+        <td class="has-event ">
+          <span class="dnum">15</span>
+          <span class="ev">Cloudflare crawl-default flip</span>
+        </td>
+        
+        <td class="">
+          <span class="dnum">16</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">17</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">18</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">19</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">20</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">21</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">22</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">23</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">24</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">25</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">26</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">27</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">28</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">29</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">30</span>
+          
+        </td>
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+      </tr>
+      
+    </table>
+  </div>
+
+  <div class="month">
+    <h3>2026-10</h3>
+    <table>
+      <tr><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th></tr>
+      
+      <tr>
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="">
+          <span class="dnum">1</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">2</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">3</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">4</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">5</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">6</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">7</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">8</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">9</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">10</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">11</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">12</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">13</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">14</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">15</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">16</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">17</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">18</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">19</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">20</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">21</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">22</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">23</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">24</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">25</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">26</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">27</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">28</span>
+          
+        </td>
+        
+        <td class="has-event ">
+          <span class="dnum">29</span>
+          <span class="ev">BOJ meeting (Oct 29-30, official)</span>
+        </td>
+        
+        <td class="">
+          <span class="dnum">30</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">31</span>
+          
+        </td>
+        
+        <td class="empty"></td>
+        
+        
+      </tr>
+      
+    </table>
+  </div>
+
+</div>
 <div class="cal">
 
 <div class="flag">T+1d | 2026-08-14 | 13F deadline</div>
@@ -217,6 +883,206 @@
 <div class="">T+84d | 2026-11-05 | NET Q3 print (approx)</div>
 
 <div class="">T+126d | 2026-12-17 | BOJ meeting (Dec 17-18, official)</div>
+
+</div>
+
+<h2>Needle handbook -- 针法手册 (these are my leading indicators)</h2>
+<div class="handbook">
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">radar_traffic</span>
+      <span class="layer-tag">Layer A</span>
+      
+      <span class="imp p1">P1 确认</span>
+      <span class="st YELLOW">YELLOW</span>
+      <span class="hb-label">Cloudflare Radar global traffic + AI crawler share</span>
+    </div>
+    <p><b>为什么重要:</b> 生态流量水位 + AI 爬虫份额 = pay-to-crawl 的税基。爬虫份额越高, 9/15 强制收费翻转后的收入弹性越大。</p>
+    <p><b>怎么读:</b> 绿 = 流量增速环比加速; 黄 = 增速放缓但为正 (当前状态); 红 = 增速转负。AI 爬虫份额 (现 33.4%) 单独看趋势, 升 = 税基扩大。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">wrangler_npm</span>
+      <span class="layer-tag">Layer A</span>
+      
+      <span class="imp p1">P1 确认</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">wrangler npm weekly downloads, 13w MA slope</span>
+    </div>
+    <p><b>为什么重要:</b> 开发者飞轮的最快前哨: wrangler 是 Workers 开发工具, 下载斜率领先 Workers 收入 2-4 个季度。</p>
+    <p><b>怎么读:</b> 绿 = 13 周均线斜率为正 (现 +5.4%/周, 强); 黄 = 走平; 红 = 转负 = 开发者流失预警, 比财报早知道。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">w3techs_share</span>
+      <span class="layer-tag">Layer A</span>
+      
+      <span class="imp p2">P2 信息</span>
+      <span class="st YELLOW">YELLOW</span>
+      <span class="hb-label">W3Techs Cloudflare usage share (monthly)</span>
+    </div>
+    <p><b>为什么重要:</b> 全网份额 (现 24.6% of all websites) = 收费站的路网覆盖率。慢变量, 月度采样。</p>
+    <p><b>怎么读:</b> 看三次读数的斜率: 升 = 网络效应在扩; 平 = 成熟; 降 = 被替代信号 (罕见, 出现即重视)。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">cf_jobs</span>
+      <span class="layer-tag">Layer A</span>
+      
+      <span class="imp p2">P2 信息</span>
+      <span class="st YELLOW">YELLOW</span>
+      <span class="hb-label">Cloudflare Greenhouse postings (total + GTM/Sales/AI)</span>
+    </div>
+    <p><b>为什么重要:</b> 管理层自信心代理: GTM/销售岗位扩张 = 内部看到的需求管道。2026 重组后重新扩招 = 转折确认。</p>
+    <p><b>怎么读:</b> 绿 = 岗位数 +2% 以上; 黄 = 噪音带内; 红 = -2% 以上收缩 = 内部需求可见度转弱。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">net_quarterly</span>
+      <span class="layer-tag">Layer A</span>
+      
+      <span class="imp p0">P0 核心</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">NET quarterly prints (manual)</span>
+    </div>
+    <p><b>为什么重要:</b> cRPO YoY 是唯一的硬承诺指标 -- 客户已签约未确认的钱, 比收入领先 2-4 个季度, 比 guidance 诚实。</p>
+    <p><b>怎么读:</b> 绿 = cRPO YoY >= 30% (现 35%); 黄 = 25-30% 减速警告; 红 = < 25% = 增长故事折损, 估值模型换挡。季报日手工录入。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">vrsn_dnib</span>
+      <span class="layer-tag">Layer B</span>
+      
+      <span class="imp p1">P1 确认</span>
+      <span class="st YELLOW">YELLOW</span>
+      <span class="hb-label">Verisign DNIB new .com/.net registrations (manual, quarterly)</span>
+    </div>
+    <p><b>为什么重要:</b> 上游进水口: 新域名 = 新网站 = NET 未来客户的总供给。互联网还在扩张吗, 这针直接回答。</p>
+    <p><b>怎么读:</b> 绿 = 季度新注册 >= 1200 万且 YoY >= +15%; 黄 = 1000-1200 万 (现 1150 万, +13.9%); 红 = < 1000 万 = 水源萎缩。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">hyperscaler</span>
+      <span class="layer-tag">Layer B</span>
+      
+      <span class="imp p1">P1 确认</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">AWS/Azure/GCP growth pct (manual, quarterly)</span>
+    </div>
+    <p><b>为什么重要:</b> 云需求潮汐: 三大云增速加速 = 涨潮, 所有云生态船 (含 NET) 一起浮。也是 AI 需求真实性的对照组。</p>
+    <p><b>怎么读:</b> 绿 = 3 家中 >= 2 家环比自身上季加速 (现 3/3: AWS 37 / Azure 43 / GCP 82); 黄 = 不足 2 家; 潮退时 NET 的相对强度要单独审。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">hy_oas</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p0">P0 核心</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">HY OAS (FRED BAMLH0A0HYM2) -- funding-loop vital sign</span>
+    </div>
+    <p><b>为什么重要:</b> 拒付仪表 / 融资环命门: AI capex 靠发债续命, HY 利差走宽 = 债权人开始拒付 = 整条融资环断流的先兆。级联论 (KS-2) 的主闸门。</p>
+    <p><b>怎么读:</b> 绿 = 平静 (现 271bps, 十年低位); 黄 = 20 交易日内走宽 25-50bps; 红 = 走宽 50bps+ 或绝对值破 450 = 全局剧本换挡, 现金为王。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">usdjpy</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p1">P1 确认</span>
+      <span class="st YELLOW">YELLOW</span>
+      <span class="hb-label">USD/JPY (FRED DEXJPUS) + BOJ meeting flags</span>
+    </div>
+    <p><b>为什么重要:</b> Carry trade 心电图: 日元剧烈波动 = 全球杠杆资金的融资腿在抖, 2024/8 式连锁去杠杆的前哨。BOJ 会议 (10/29, 12/17) 前后重点盯。</p>
+    <p><b>怎么读:</b> 绿 = 20 日实现波动率正常; 黄 = 波动率超基线 2 个标准差 (当前状态) = 提高警觉; 配合 BOJ 日历读, 会议前的黄比平时的黄更重。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">edgar_s1</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p0">P0 核心 (EVENT 枪)</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">EDGAR full-text S-1 watch: OpenAI / Anthropic (EVENT gun)</span>
+    </div>
+    <p><b>为什么重要:</b> OpenAI/Anthropic 公开 S-1 = climax 窗口发令枪: 史上最大 distribution 开始打印, 造势期进入倒计时 (S-1 到定价约 4-6 周)。OpenAI 已于 6/8 秘密提交, 本针盯公开翻牌瞬间。</p>
+    <p><b>怎么读:</b> 绿 = 无命中; EVENT = 命中 = 立即行动信号: 造势段 melt-up 尾声 + IPO 定价后保护解除。这是全面板唯一的'响一次就够'针。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">tickers</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p0">P0 核心 (生死线)</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">Daily closes: NET / VRSN / SPACEX_TICKER / NVDA</span>
+    </div>
+    <p><b>为什么重要:</b> $305 是 thesis 的 invalidation 线: 8/7 财报跳空的顶, 破了说明市场拒绝了 agent 经济故事。NVDA 是 AI 税收发动机对照, VRSN 是域名生态对照。</p>
+    <p><b>怎么读:</b> 绿 = NET 距 $305 超过 +5%; 黄 = 0 到 +5% (贴线); 红 = 收破 $305 = 全局 RED 横幅, 一切多头纪律暂停。OI 侧下方真空到 $260, 破线不是小跌是滑落。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">short_interest</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p2">P2 信息</span>
+      <span class="st INFO">INFO</span>
+      <span class="hb-label">FINRA biweekly short interest, NET (informational)</span>
+    </div>
+    <p><b>为什么重要:</b> 轧空燃料计: 空头持仓的双周变化解释上涨的燃料构成 (7 月下旬 -16.8% = 那波拉升有轧空成分)。</p>
+    <p><b>怎么读:</b> 信息针不打分。SI 骤降 + 股价大涨 = 燃料已烧掉, 后续上涨需要真买盘; SI 堆积 + 股价横盘 = 弹簧在压。DTC (回补天数) > 5 才有逼空结构, 现 ~3 无。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">options_skew</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p2">P2 信息</span>
+      <span class="st INFO">INFO</span>
+      <span class="hb-label">NET 30d 25-delta call IV minus put IV (best effort)</span>
+    </div>
+    <p><b>为什么重要:</b> 静默吸筹探测器 (静默 ATH 律): 安静的价格带上 call 偏度走正 = 有人在悄悄用期权建多仓, 不推价格。</p>
+    <p><b>怎么读:</b> 30 天期 25-delta call IV 减 put IV: 正值且扩大 + 现货安静 = 吸筹信号; 负值扩大 = 对冲需求压倒投机。数据质量不够时标 UNRELIABLE, 宁缺毋假。</p>
+  </div>
+
 
 </div>
 
