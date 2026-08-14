@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NET Leading-Indicator Dashboard</title>
+<style>
+  :root{--bg:#0e1420;--panel:#171f2e;--text:#e8ecf2;--muted:#8a94a6;--line:#2a3548;
+        --green:#7be0a2;--yellow:#f5b942;--red:#ff6b5e;--blue:#4fd1c5}
+  body{background:var(--bg);color:var(--text);font-family:ui-monospace,Menlo,Consolas,monospace;
+       font-size:14px;margin:0;padding:32px;line-height:1.6}
+  h1{font-size:18px;margin:0 0 4px}
+  .muted{color:var(--muted);font-size:12px}
+  .banner{padding:12px 16px;border-radius:6px;margin:16px 0;font-weight:bold}
+  .banner.GREEN{background:rgba(123,224,162,.12);border:1px solid var(--green);color:var(--green)}
+  .banner.YELLOW{background:rgba(245,185,66,.12);border:1px solid var(--yellow);color:var(--yellow)}
+  .banner.RED{background:rgba(255,107,94,.15);border:1px solid var(--red);color:var(--red)}
+  .banner.MISSING{background:rgba(138,148,166,.12);border:1px solid var(--muted);color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin:12px 0}
+  th{color:var(--muted);text-transform:uppercase;font-size:11px;text-align:left;
+     border-bottom:1px solid var(--line);padding:6px 8px}
+  td{border-bottom:1px solid var(--line);padding:8px;vertical-align:top}
+  .st{padding:1px 8px;border-radius:3px;font-size:11px;white-space:nowrap}
+  .st.GREEN{color:var(--green);border:1px solid var(--green)}
+  .st.YELLOW{color:var(--yellow);border:1px solid var(--yellow)}
+  .st.RED{color:var(--red);border:1px solid var(--red)}
+  .st.STALE,.st.MISSING,.st.UNRELIABLE{color:var(--muted);border:1px solid var(--muted)}
+  .st.EVENT{color:var(--red);border:2px solid var(--red);font-weight:bold}
+  .st.INFO{color:var(--blue);border:1px solid var(--blue)}
+  .layer-tag{color:var(--muted);font-size:11px}
+  svg{color:var(--blue)}
+  .cal{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0}
+  .cal div{border:1px solid var(--line);border-radius:4px;padding:6px 12px;font-size:12px}
+  .cal .flag{border-color:var(--yellow);color:var(--yellow)}
+  a{color:var(--blue);text-decoration:none}
+  h2{font-size:14px;margin-top:28px;color:var(--muted);text-transform:uppercase}
+</style>
+</head>
+<body>
+<h1>NET Leading-Indicator Dashboard</h1>
+<div class="muted">generated 2026-08-14 03:35Z | doctrine: single needle = note, three same-direction = signal | no value is ever fabricated</div>
+
+<div class="banner YELLOW">GLOBAL YELLOW -- mixed -- see needle table
+</div>
+
+<h2>Layer signals</h2>
+<table>
+<tr><th>Layer</th><th>Signal</th><th>Note</th></tr>
+
+<tr><td>A</td><td>--</td><td>note only: strongest = radar_traffic YELLOW</td></tr>
+
+<tr><td>B</td><td>--</td><td>note only: strongest = vrsn_dnib YELLOW</td></tr>
+
+<tr><td>C</td><td>UP</td><td>3 needles up</td></tr>
+
+</table>
+
+<h2>Needles</h2>
+<table>
+<tr><th>Needle</th><th>Layer</th><th>Status</th><th>Value</th><th>Age</th><th>90d</th><th>Note</th><th>Source</th></tr>
+
+<tr>
+  <td>radar_traffic</td>
+  <td class="layer-tag">A</td>
+  <td><span class="st YELLOW">YELLOW</span></td>
+  <td>1.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 80.0,33.0 160.0,33.0"/></svg></td>
+  <td>traffic q/q slope +0.459% vs +1.090%; AI-crawler share latest 33.4% (trend -0.43pp/wk over 8w)</td>
+  <td class="muted"><a href="https://api.cloudflare.com/client/v4/radar/http/timeseries">src</a></td>
+</tr>
+
+<tr>
+  <td>wrangler_npm</td>
+  <td class="layer-tag">A</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>15,536,734.73</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 40.0,33.0 80.0,33.0 120.0,33.0 160.0,33.0"/></svg></td>
+  <td>13w MA slope +5.3642%/wk, latest week 17,531,111 dl</td>
+  <td class="muted"><a href="https://api.npmjs.org/downloads/range/last-year/wrangler">src</a></td>
+</tr>
+
+<tr>
+  <td>w3techs_share</td>
+  <td class="layer-tag">A</td>
+  <td><span class="st INFO">INFO</span></td>
+  <td>24.60</td>
+  <td class="muted">today</td>
+  <td></td>
+  <td>share 24.6% of all websites; not enough history for slope yet</td>
+  <td class="muted"><a href="https://w3techs.com/technologies/details/cn-cloudflare">src</a></td>
+</tr>
+
+<tr>
+  <td>cf_jobs</td>
+  <td class="layer-tag">A</td>
+  <td><span class="st YELLOW">YELLOW</span></td>
+  <td>299.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,3.0 40.0,33.0 80.0,33.0 120.0,33.0 160.0,3.0"/></svg></td>
+  <td>299 postings (110 GTM/Sales/AI), +0.3% -- inside noise band</td>
+  <td class="muted"><a href="https://boards-api.greenhouse.io/v1/boards/cloudflare/jobs">src</a></td>
+</tr>
+
+<tr>
+  <td>net_quarterly</td>
+  <td class="layer-tag">A</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>35.00</td>
+  <td class="muted">0d</td>
+  <td></td>
+  <td>rev 36.0% / cRPO 35.0% / 100k+ cust 4698 / NRR 120.0% (entered 0d ago)</td>
+  <td class="muted">manual</td>
+</tr>
+
+<tr>
+  <td>vrsn_dnib</td>
+  <td class="layer-tag">B</td>
+  <td><span class="st YELLOW">YELLOW</span></td>
+  <td>11.50</td>
+  <td class="muted">0d</td>
+  <td></td>
+  <td>new regs 11.5M, YoY +13.9% (entered 0d ago)</td>
+  <td class="muted">manual</td>
+</tr>
+
+<tr>
+  <td>hyperscaler</td>
+  <td class="layer-tag">B</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>3.00</td>
+  <td class="muted">0d</td>
+  <td></td>
+  <td>AWS 37.0% / Azure 43.0% / GCP 82.0%; 3/3 accelerating (entered 0d ago)</td>
+  <td class="muted">manual</td>
+</tr>
+
+<tr>
+  <td>hy_oas</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>271.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 80.0,33.0 160.0,33.0"/></svg></td>
+  <td>level 271bps, widened +3bps in 20td</td>
+  <td class="muted">fred:BAMLH0A0HYM2</td>
+</tr>
+
+<tr>
+  <td>usdjpy</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st YELLOW">YELLOW</span></td>
+  <td>157.54</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 80.0,33.0 160.0,33.0"/></svg></td>
+  <td>USD/JPY 157.54 (2026-08-07); 20d-vol regime YELLOW</td>
+  <td class="muted">fred:DEXJPUS</td>
+</tr>
+
+<tr>
+  <td>edgar_s1</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>0.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 40.0,33.0 80.0,33.0 120.0,33.0 160.0,33.0"/></svg></td>
+  <td>no S-1/S-1A hits for ['"OpenAI"', '"Anthropic"'] in last 7d</td>
+  <td class="muted"><a href="https://efts.sec.gov/LATEST/search-index">src</a></td>
+</tr>
+
+<tr>
+  <td>tickers</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>330.83</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 40.0,33.0 80.0,33.0 120.0,33.0 160.0,33.0"/></svg></td>
+  <td>NET 330.83, VRSN 287.15, NVDA 225.30; NET vs invalidation 305: +8.5%</td>
+  <td class="muted">yfinance</td>
+</tr>
+
+<tr>
+  <td>short_interest</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st INFO">INFO</span></td>
+  <td>8,184,226.00</td>
+  <td class="muted">today</td>
+  <td></td>
+  <td>NET SI 8,184,226 sh @ 2026-07-31 (-16.8% biweekly, DTC 2.84)</td>
+  <td class="muted"><a href="https://api.finra.org/data/group/otcMarket/name/consolidatedShortInterest">src</a></td>
+</tr>
+
+<tr>
+  <td>options_skew</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st INFO">INFO</span></td>
+  <td>0.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 40.0,33.0 80.0,33.0 120.0,33.0 160.0,33.0"/></svg></td>
+  <td>2026-09-11 (29d): 25d call IV 52.9% - put IV 52.5% = +0.4% | call skew positive -- silent accumulation watch</td>
+  <td class="muted">yfinance</td>
+</tr>
+
+</table>
+
+<h2>Calendar</h2>
+<div class="cal">
+
+<div class="flag">T+1d | 2026-08-14 | 13F deadline</div>
+
+<div class="">T+13d | 2026-08-26 | NVDA Q2 FY27 print</div>
+
+<div class="">T+33d | 2026-09-15 | Cloudflare crawl-default flip</div>
+
+<div class="">T+77d | 2026-10-29 | BOJ meeting (Oct 29-30, official)</div>
+
+<div class="">T+84d | 2026-11-05 | NET Q3 print (approx)</div>
+
+<div class="">T+126d | 2026-12-17 | BOJ meeting (Dec 17-18, official)</div>
+
+</div>
+
+
+</body>
+</html>
