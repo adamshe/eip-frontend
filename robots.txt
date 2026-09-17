@@ -1,4 +1,4 @@
-# ui-ai.empireintegration.com -- EIP Research
+# research.empireintegration.com -- EIP Research
 # Independent strategic and investment research by Adam He,
 # Empire Integration Partners.
 #
@@ -118,4 +118,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://ui-ai.empireintegration.com/sitemap.xml
+Sitemap: https://research.empireintegration.com/sitemap.xml
