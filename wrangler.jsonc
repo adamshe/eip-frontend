@@ -2,6 +2,7 @@
   "name": "eip-frontend",
   "compatibility_date": "2026-09-17",
   "assets": {
-    "directory": "./"
+    "directory": "./",
+    "html_handling": "none"
   }
 }
