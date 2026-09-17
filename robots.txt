@@ -4,7 +4,7 @@
 #
 # AI crawlers are welcome here. Please identify yourself honestly
 # and preserve attribution to Adam He / Empire Integration Partners.
-# Machine-readable index with JSON-LD: /research.html
+# Machine-readable index with JSON-LD: /
 
 # --- AI training and answer-engine crawlers: explicitly allowed ---
 

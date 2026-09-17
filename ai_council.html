@@ -1,0 +1,4001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>AI Council</title>
+<style>
+:root {
+  --bg: #2b2b2b; --bg-card: #363636; --bg-input: #3d3d3d; --bg-chip: #454545;
+  --border: #4a4a4a; --border-soft: #3e3e3e;
+  --text: #ffffff; --text-dim: #d0d0d0; --text-muted: #9a9a9a;
+  --accent: #e8855e; --accent-hover: #f09770; --accent-bg: rgba(232, 133, 94, .18);
+  --tone-primary: #7cb369; --tone-peer: #5ba0d8; --tone-stress: #d66a5b; --tone-final: #7cb369;
+  --r: 10px; --rl: 14px;
+  --shadow: 0 2px 8px rgba(0,0,0,.35), 0 4px 16px rgba(0,0,0,.25);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.55 ui-sans-serif, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased; height: 100%; overflow: hidden; }
+.app { max-width: 1680px; margin: 0 auto; padding: 12px 20px 8px;
+  height: 100vh; height: 100dvh;
+  display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+header.topbar { flex: 0 0 auto; display: flex; align-items: center; gap: 14px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+header.topbar h1 { font: 600 22px/1 ui-sans-serif; letter-spacing: -0.01em; margin: 0; color: var(--text); }
+header.topbar .spacer { flex: 1; }
+.api-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+  color: var(--text-dim); padding: 4px 8px; border: 1px solid var(--border);
+  border-radius: 999px; background: var(--bg-card); }
+.api-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #888; }
+.api-status-dot[data-state="online"] { background: #34a853; box-shadow: 0 0 4px #34a85366; }
+.api-status-dot[data-state="offline"] { background: #ea4335; }
+.api-status-dot[data-state="unknown"] { background: #fbbc05; }
+#submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.input-row select { background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 6px 10px; font-size: 13px; outline: none; }
+.input-row select:focus { border-color: var(--accent); }
+.pills { display: flex; gap: 6px; overflow-x: auto; flex: 1; min-width: 0; scrollbar-width: thin; }
+.pills::-webkit-scrollbar { height: 6px; }
+.pills::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.pill { background: var(--bg-card); color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: 999px;
+  padding: 4px 12px; font-size: 12px; cursor: pointer; white-space: nowrap;
+  max-width: 160px; overflow: hidden; text-overflow: ellipsis;
+  transition: background 160ms, color 160ms, border-color 160ms; flex-shrink: 0; }
+.pill:hover { color: var(--text); border-color: var(--text-muted); }
+.pill.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
+/* Pill 'x' removed -- delete now lives inside the tooltip. */
+/* Custom pill tooltip -- shows full question instantly on hover, no 1-2s
+   browser title delay. Mounted on document.body (not as pill child) to
+   escape .pill overflow:hidden and .pills overflow-x:auto clipping.
+   JS sets top/left from pill's getBoundingClientRect on mouseenter. */
+.pill-tooltip-float { display: none; position: fixed; z-index: 1000;
+  background: var(--bg-card); color: var(--text);
+  border: 1px solid var(--border-soft); border-radius: var(--r);
+  padding: 0; font-size: 12px; line-height: 1.45; font-weight: 400;
+  max-width: 520px; min-width: 220px;
+  box-shadow: var(--shadow); pointer-events: auto; }
+.pill-tip-bar { display: flex; gap: 6px; padding: 6px 8px;
+  border-bottom: 1px solid var(--border-soft); background: var(--bg);
+  border-top-left-radius: var(--r); border-top-right-radius: var(--r); }
+.pill-tip-btn { background: transparent; color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 3px 8px; cursor: pointer; display: inline-flex;
+  align-items: center; justify-content: center; height: 24px;
+  transition: color 140ms, border-color 140ms, background 140ms; }
+.pill-tip-btn svg { display: block; }
+.pill-tip-btn:hover { color: var(--accent); border-color: var(--accent); }
+.pill-tip-btn.danger:hover { color: var(--tone-stress);
+  border-color: var(--tone-stress); }
+.pill-tip-btn.copied { color: var(--tone-final);
+  border-color: var(--tone-final); }
+.pill-tip-body { padding: 8px 10px; white-space: pre-wrap;
+  user-select: text; -webkit-user-select: text; cursor: text; }
+.q-bar { flex: 0 0 auto; display: flex; align-items: center; gap: 10px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 8px 12px; font-size: 13px; }
+.q-bar .q-label { color: var(--text-muted); font-size: 11px; letter-spacing: .05em;
+  text-transform: uppercase; flex-shrink: 0; }
+.q-bar .q-text { flex: 1; color: var(--text-dim);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.q-bar .q-meta { color: var(--text-muted); font-size: 11px; flex-shrink: 0; }
+.q-bar button.resend { background: transparent; color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 4px 10px; font-size: 11px; cursor: pointer; }
+.q-bar button.resend:hover { color: var(--accent); border-color: var(--accent); }
+.q-bar.empty { display: none; }
+.panels-wrap { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 10px; }
+.panels-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  flex: 1 1 50%; min-height: 0; }
+.panels-bottom { display: grid; grid-template-columns: 1fr; flex: 1 1 50%; min-height: 0; }
+@media (max-width: 900px) {
+  .panels-top { grid-template-columns: 1fr; flex: 1 1 auto; }
+  .panels-bottom { flex: 0 0 auto; min-height: 200px; }
+  .app { overflow-y: auto; height: auto; min-height: 100vh; min-height: 100dvh; }
+  html, body { overflow: auto; }
+}
+.panel { background: var(--bg-card); border: 1px solid var(--border);
+  border-top: 3px solid var(--border); border-radius: var(--rl); padding: 10px 14px;
+  height: 100%; min-height: 0; display: flex; flex-direction: column;
+  transition: border-color 200ms, box-shadow 200ms;
+  box-shadow: var(--shadow); position: relative; }
+.panel[data-role=primary]   { border-top-color: var(--tone-primary); }
+.panel[data-role=peer]      { border-top-color: var(--tone-peer); }
+.panel[data-role=stress]    { border-top-color: var(--tone-stress); }
+.panel[data-role=final]     { border-top-color: var(--tone-final); }
+.panel[data-status=start] { border-color: var(--accent);
+  animation: panel-breathe 2s infinite ease-in-out; }
+.panel[data-status=done] { border-color: var(--tone-final);
+  animation: panel-settle 1.6s ease-out 1; }
+.panel[data-status=error] { border-color: var(--tone-stress);
+  animation: panel-alert 0.8s ease-out 1; }
+@keyframes panel-breathe {
+  0%, 100% { box-shadow: 0 0 0 1px var(--accent-bg), var(--shadow); }
+  50%      { box-shadow: 0 0 0 4px var(--accent-bg), 0 4px 20px rgba(232,133,94,.25); }
+}
+@keyframes panel-settle {
+  0%   { box-shadow: 0 0 0 4px rgba(124,179,105,.35), 0 0 24px rgba(124,179,105,.40); }
+  60%  { box-shadow: 0 0 0 2px rgba(124,179,105,.18), 0 0 12px rgba(124,179,105,.20); }
+  100% { box-shadow: var(--shadow); }
+}
+@keyframes panel-alert {
+  0%   { box-shadow: 0 0 0 4px rgba(214,106,91,.35), 0 0 20px rgba(214,106,91,.40); }
+  100% { box-shadow: var(--shadow); }
+}
+.panel[data-status=start]::before,
+.panel[data-typing=true]::before {
+  content: ''; position: absolute; inset: -1px; border-radius: var(--rl); padding: 2px;
+  background: conic-gradient(from var(--flow-angle, 0deg),
+    transparent 0%, transparent 40%,
+    rgba(232,133,94,.3) 48%, rgba(232,133,94,.9) 52%, #fff6ee 55%,
+    rgba(232,133,94,.9) 58%, rgba(232,133,94,.3) 62%,
+    transparent 70%, transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: flow-rotate 3.5s linear infinite;
+  pointer-events: none; z-index: 0;
+  filter: drop-shadow(0 0 8px rgba(232,133,94,.6)) drop-shadow(0 0 18px rgba(232,133,94,.3));
+}
+@property --flow-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes flow-rotate { 0% { --flow-angle: 0deg; } 100% { --flow-angle: 360deg; } }
+.panel-head { flex: 0 0 auto; display: flex; align-items: center; gap: 8px;
+  margin-bottom: 6px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-soft);
+  cursor: pointer; user-select: none; }
+.panel-head h3 { font-size: 13px; font-weight: 600; margin: 0; color: var(--text); flex: 1; }
+.chevron { font-size: 11px; color: var(--text-muted); transition: transform 200ms;
+  width: 12px; display: inline-block; }
+.panel[data-collapsed="true"] .chevron { transform: rotate(-90deg); }
+.panel[data-collapsed="true"] .panel-body { display: none; }
+.panel[data-collapsed="true"] { min-height: auto; height: auto; }
+.status { font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); padding: 2px 8px; border-radius: 999px;
+  background: var(--bg-chip); }
+.status[data-s=start] { color: var(--accent); background: var(--accent-bg); animation: pulse 1.4s infinite ease-in-out; }
+.status[data-s=done] { color: var(--tone-final); background: rgba(124,179,105,.18); }
+.status[data-s=error] { color: var(--tone-stress); background: rgba(214,106,91,.18); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+.copy-btn { background: transparent; border: 1px solid var(--border);
+  color: var(--text-muted); padding: 0; border-radius: 6px;
+  width: 26px; height: 22px; display: inline-flex;
+  align-items: center; justify-content: center;
+  cursor: pointer; transition: color 120ms, border-color 120ms; }
+.copy-btn svg { display: block; }
+.copy-btn:hover { color: var(--text); border-color: var(--text-dim); }
+.copy-btn[data-copied="true"] { color: var(--tone-final); border-color: var(--tone-final); }
+.copy-btn[data-copied="failed"] { color: var(--tone-stress); border-color: var(--tone-stress); }
+.copy-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.retry-btn { display: none; background: transparent; border: 1px solid var(--tone-stress);
+  color: var(--tone-stress); border-radius: var(--r); padding: 2px 10px; font-size: 11px;
+  cursor: pointer; transition: all 0.15s; }
+.retry-btn:hover { background: rgba(214,106,91,.18); }
+.retry-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.panel[data-status="done"] .retry-btn,
+.panel[data-status="error"] .retry-btn { display: inline-block; }
+.panel-body { flex: 1; min-height: 0; overflow-y: auto; padding-right: 4px; }
+.panel-body::-webkit-scrollbar { width: 8px; }
+.panel-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.panel-body::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+pre { margin: 0; font: 12px/1.55 ui-monospace, 'SF Mono', Consolas, monospace;
+  color: var(--text); white-space: pre-wrap; word-break: break-word; }
+.placeholder { color: var(--text-muted); font-style: italic; font-size: 12px; }
+.cursor-blink { display: inline-block; width: 10px; height: 1.05em;
+  background: var(--accent); margin-left: 2px; vertical-align: text-bottom;
+  animation: cursor-blink .9s steps(2, jump-none) infinite; }
+@keyframes cursor-blink { 50% { opacity: 0; } }
+.cursor-pulse { display: inline-block; width: 10px; height: 1.05em;
+  background: var(--accent); margin-left: 2px; vertical-align: text-bottom;
+  animation: cursor-pulse 1.4s ease-in-out infinite; }
+@keyframes cursor-pulse {
+  0%, 100% { opacity: .3; }
+  50%      { opacity: 1; }
+}
+.panel-body pre.typing { position: relative; }
+.input-area { flex: 0 0 auto; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--rl); padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 8px;
+  box-shadow: var(--shadow); }
+.input-area textarea { background: var(--bg-input); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r); padding: 10px 12px;
+  font: 14px/1.5 inherit; outline: none; resize: vertical;
+  min-height: 80px; max-height: 200px; width: 100%;
+  transition: border 120ms, box-shadow 120ms; }
+.input-area textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg); }
+.input-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.input-row button { font-size: 14px; font-weight: 600; cursor: pointer;
+  border-radius: var(--r); padding: 8px 18px; border: none;
+  transition: background 120ms, opacity 120ms; }
+.btn-primary { background: var(--accent); color: #1a1a1a; }
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+.btn-primary:disabled { opacity: .4; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+.btn-ghost:hover { color: var(--text); border-color: var(--text-dim); }
+.chat-popup { position: fixed; left: 20px; right: 20px; bottom: 12px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--rl);
+  box-shadow: 0 -8px 32px rgba(0,0,0,.4), 0 0 0 1px var(--border-soft);
+  z-index: 500; display: flex; flex-direction: column;
+  max-height: 25vh; transition: max-height 280ms cubic-bezier(.2,.85,.3,1); }
+.chat-popup.collapsed { max-height: 36px; }
+.chat-handle { flex: 0 0 auto; padding: 8px 14px;
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer; user-select: none;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--text-dim); font-size: 12px; }
+.chat-popup.collapsed .chat-handle { border-bottom: none; }
+.chat-handle .title { flex: 1; font-weight: 500; }
+.chat-handle .hint { color: var(--text-muted); font-size: 11px; }
+.chat-handle .chev { transition: transform 200ms; }
+.chat-popup:not(.collapsed) .chat-handle .chev { transform: rotate(180deg); }
+.chat-body { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.chat-popup.collapsed .chat-body { display: none; }
+.chat-history { flex: 1; overflow-y: auto; padding: 10px 14px; font-size: 13px; line-height: 1.5; }
+.chat-history::-webkit-scrollbar { width: 8px; }
+.chat-history::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.chat-msg { margin-bottom: 10px; }
+.chat-msg .role { font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 2px; }
+.chat-msg.user .role { color: var(--accent); }
+.chat-msg.analyst .role { color: var(--tone-primary); }
+.chat-msg.error .role { color: var(--tone-stress); }
+.chat-msg .content { white-space: pre-wrap; color: var(--text); }
+.chat-input-row { flex: 0 0 auto; display: flex; gap: 8px; padding: 8px 10px 10px;
+  border-top: 1px solid var(--border-soft); }
+.chat-input-row input { flex: 1; background: var(--bg-input); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 8px 10px; font-size: 13px; outline: none; }
+.chat-input-row input:focus { border-color: var(--accent); }
+.chat-input-row button { font-size: 13px; font-weight: 600; padding: 6px 14px;
+  border-radius: var(--r); cursor: pointer; border: none;
+  background: var(--accent); color: #1a1a1a; }
+.chat-input-row button:disabled { opacity: 0.4; cursor: not-allowed; }
+.chat-nocontext { color: var(--text-muted); font-style: italic;
+  padding: 20px; text-align: center; font-size: 12px; }
+.app-footer { flex: 0 0 auto; padding: 4px 0 0; margin-bottom: 43px;
+  display: flex; flex-direction: row; flex-wrap: wrap;
+  align-items: center; justify-content: center; gap: 4px 10px;
+  color: var(--text-muted); font-size: 10px; line-height: 1.3; text-align: center; }
+.app-footer a { color: inherit; text-decoration: none; }
+.app-footer .sep { color: var(--border); }
+.app-footer .word { --i: 0; display: inline;
+  color: var(--text-muted); cursor: default;
+  transition: color 220ms; }
+.app-footer a .word { cursor: pointer; }
+.app-footer .word.hot {
+  color: #fff6ee;
+  animation: word-breathe 3.2s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+@keyframes word-breathe {
+  0%, 100% {
+    text-shadow: 0 0 1px rgba(255,255,255,.4),
+                 0 0 2px rgba(232,133,94,.25);
+    filter: drop-shadow(0 0 0 rgba(232,133,94,0));
+  }
+  50% {
+    text-shadow: 0 0 4px rgba(255,255,255,1),
+                 0 0 10px rgba(255,218,185,.9),
+                 0 0 22px rgba(232,133,94,.85),
+                 0 0 44px rgba(232,133,94,.55),
+                 0 0 72px rgba(232,133,94,.32),
+                 0 0 110px rgba(232,133,94,.15);
+    filter: drop-shadow(0 0 18px rgba(232,133,94,.5));
+  }
+}
+.debug-log { display: none; }
+body.debug-enabled .debug-log { display: inline; }
+body:not(.debug-enabled) .debug-sep { display: none; }
+.debug-log summary { list-style: none; cursor: pointer; color: var(--text-muted);
+  transition: color 200ms; }
+.debug-log summary:hover { color: var(--text-dim); }
+.debug-log summary::-webkit-details-marker { display: none; }
+.debug-log summary::before { content: '>'; display: inline-block;
+  margin-right: 4px; transition: transform 200ms; transform-origin: center; }
+.debug-log[open] summary::before { transform: rotate(90deg); }
+/* Ensure summary stays clickable above #debug overlay (which is z-index 1000).
+   Without this, small viewports where #debug's fixed box overlaps footer
+   summary position make toggling fail because clicks hit #debug instead. */
+.debug-log summary { position: relative; z-index: 1001; }
+#debug { display: none; }
+.debug-log[open] #debug { display: block; position: fixed;
+  left: 24px; right: 24px; bottom: 52px; height: 50vh;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--rl);
+  box-shadow: 0 -8px 32px rgba(0,0,0,.35), 0 0 0 1px var(--border-soft);
+  padding: 16px 20px; font-size: 11px; line-height: 1.55;
+  overflow-y: auto; color: var(--text-dim); white-space: pre-wrap;
+  text-align: left; z-index: 1000;
+  animation: popup-rise 260ms cubic-bezier(.2,.85,.3,1); }
+/* Explicit close control inside the overlay -- independent click target,
+   works even if summary click path has any event-capture interference. */
+.debug-log[open] .debug-close { display: block; position: fixed;
+  bottom: calc(52px + 50vh - 32px); right: 32px; z-index: 1002;
+  background: var(--bg-chip); color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 2px 10px; font-size: 11px; cursor: pointer;
+  transition: color 120ms, border-color 120ms; }
+.debug-log[open] .debug-close:hover { color: var(--text); border-color: var(--text-dim); }
+.debug-close { display: none; }
+@keyframes popup-rise { from { opacity: 0; transform: translateY(24px) scale(.98); }
+  to { opacity: 1; transform: none; } }
+
+/* Client mode (default, no .debug-enabled on body): hide the 3 top
+   panels, let the Final/Analysis Report panel take the full panel area. */
+body:not(.debug-enabled) .panels-top { display: none; }
+body:not(.debug-enabled) .panels-bottom { flex: 1 1 100%; }
+
+/* Chat / QuickChat interactions hide Advise/Medical mode + subtype selectors
+   (chat is a single-model reply, no domain routing needed). Also always hide
+   the 3 top panels regardless of debug state -- chat doesn't run Trinity. */
+body[data-interaction="chat"] #mode, body[data-interaction="chat"] #sub-type,
+body[data-interaction="quickchat"] #mode, body[data-interaction="quickchat"] #sub-type {
+  display: none;
+}
+body[data-interaction="chat"] .panels-top,
+body[data-interaction="quickchat"] .panels-top { display: none; }
+body[data-interaction="chat"] .panels-bottom,
+body[data-interaction="quickchat"] .panels-bottom { flex: 1 1 100%; }
+
+/* BigIdea mode (admin-only Investment Scanner): single-source pipeline,
+   no Trinity 4-reviewer mapping. Hide sub-type + 3 reviewer panels; let
+   the final panel hold the full pipeline stdout + alert markdown. */
+body[data-mode="bigidea"] #sub-type { display: none; }
+body[data-mode="bigidea"] .panels-top { display: none; }
+body[data-mode="bigidea"] .panels-bottom { flex: 1 1 100%; }
+
+/* Thinking timer next to the final panel title: ticks live while a turn
+   is in flight (both Chat mode and Analysis mode). Helps the user know
+   the system is alive during long Opus replies. */
+.thinking-timer { font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: 11px; color: var(--accent); margin-left: 6px;
+  letter-spacing: .02em; animation: pulse 1.4s infinite ease-in-out; }
+
+/* Client-mode thinking animation on the Analysis Report panel while
+   a run is in flight: cycles "thinking." -> "thinking.." -> "thinking..."
+   every 1.2s. Replaces the generic "thinking" + cursor-pulse placeholder. */
+@keyframes thinking-dots {
+  0%, 33%   { content: "thinking."; }
+  34%, 66%  { content: "thinking.."; }
+  67%, 100% { content: "thinking..."; }
+}
+body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-body .placeholder {
+  display: none;
+}
+body:not(.debug-enabled) .panel[data-role="final"][data-status="start"] .panel-body::before {
+  content: "thinking.";
+  animation: thinking-dots 1.2s steps(3, end) infinite;
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 14px;
+  display: block;
+  padding: 4px 0;
+}
+/* About-modal: overlay pitch / contact dialog launched from the footer.
+   Fixed full-viewport positioning, backdrop click and ESC both close it.
+   Content populated from i18n keys so language toggle works. */
+.about-modal { display: none; position: fixed; inset: 0; z-index: 2000; }
+.about-modal[data-open="true"] { display: block; }
+.about-backdrop { position: absolute; inset: 0;
+  background: rgba(10, 10, 14, 0.72); backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px); }
+.about-panel { position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-card); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--rl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  width: min(640px, calc(100vw - 32px));
+  max-height: 85vh; overflow-y: auto;
+  padding: 28px 32px 24px 32px;
+  animation: about-in 200ms ease-out; }
+@keyframes about-in {
+  from { opacity: 0; transform: translate(-50%, -48%); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+.about-close { position: absolute; top: 10px; right: 12px;
+  background: transparent; border: none; color: var(--text-muted);
+  cursor: pointer; font-size: 18px; line-height: 1; padding: 4px 8px;
+  border-radius: 4px; transition: color 120ms, background 120ms; }
+.about-close:hover { color: var(--tone-stress);
+  background: rgba(214, 106, 91, 0.12); }
+.about-panel h2 { margin: 0 0 6px 0; font-size: 16px; color: var(--text);
+  letter-spacing: 0.02em; font-weight: 600; }
+.about-panel .about-tagline { margin: 0 0 16px 0; font-size: 11px;
+  color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase;
+  font-weight: 600; }
+.about-panel .about-lead { margin: 0 0 20px 0; font-size: 13px;
+  color: var(--text-dim); line-height: 1.55; border-left: 2px solid var(--accent);
+  padding-left: 12px; font-style: italic; }
+.about-panel h3 { margin: 16px 0 6px 0; font-size: 11px;
+  color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;
+  font-weight: 700; }
+.about-panel ul { margin: 0 0 10px 0; padding-left: 20px; }
+.about-panel li { margin: 6px 0; font-size: 12px; color: var(--text-dim);
+  line-height: 1.55; }
+.about-panel .about-retain { margin: 6px 0 18px 0; font-size: 12px;
+  color: var(--text-dim); line-height: 1.6; }
+.about-cta { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap;
+  padding-top: 16px; border-top: 1px solid var(--border-soft); }
+.about-cta a { flex: 1 1 180px; text-align: center;
+  text-decoration: none; padding: 10px 16px; border-radius: var(--r);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.03em;
+  transition: color 140ms, border-color 140ms, background 140ms, filter 140ms; }
+.about-cta .cta-primary { background: var(--accent); color: #fff;
+  border: 1px solid var(--accent); }
+.about-cta .cta-primary:hover { filter: brightness(1.12); }
+.about-cta .cta-secondary { background: transparent; color: var(--text-dim);
+  border: 1px solid var(--border); }
+.about-cta .cta-secondary:hover { color: var(--accent);
+  border-color: var(--accent); }
+.about-email-display { margin: 12px 0 0 0; font-size: 12px;
+  color: var(--text-dim); text-align: center;
+  font-family: monospace; cursor: pointer;
+  user-select: all; }
+.about-email-display:hover { color: var(--accent); }
+.about-email-toast { margin: 6px 0 0 0; font-size: 11px;
+  color: var(--accent); text-align: center;
+  min-height: 14px; opacity: 0;
+  transition: opacity 200ms; }
+.about-email-toast[data-show="true"] { opacity: 1; }
+.about-trigger { background: transparent; border: none; color: inherit;
+  font: inherit; cursor: pointer; padding: 0; text-decoration: underline;
+  text-decoration-color: var(--border); text-underline-offset: 3px;
+  transition: color 120ms, text-decoration-color 120ms; }
+.about-trigger:hover { color: var(--accent);
+  text-decoration-color: var(--accent); }
+/* Top-right fixed container: anchors the P2P toggle and auth box in a
+   single layout context so they never overlap. Both children flow
+   inline-flex inside this single fixed wrapper -- old-Chrome safe. */
+.topright-fixed { position: fixed; top: 14px; right: 16px; z-index: 50;
+  display: inline-flex; align-items: center; gap: 8px; }
+.auth-box { font-size: 12px; color: var(--text-muted);
+  display: inline-flex; align-items: center; gap: 8px; }
+.auth-box button { background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); border-radius: 4px; padding: 3px 10px;
+  font-size: 11px; cursor: pointer;
+  transition: color 140ms, border-color 140ms; }
+.auth-box button:hover { color: var(--accent); border-color: var(--accent); }
+.auth-box .auth-user { color: var(--text); font-weight: 600; }
+.login-panel { position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-card); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--rl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  width: min(340px, calc(100vw - 32px));
+  padding: 24px 28px; animation: about-in 200ms ease-out; }
+/* Gate mode: this is a landing-page lock, not a dismissible dialog.
+   The close button, cancel button, and backdrop dismissal are hidden /
+   disabled via JS. Backdrop is fully opaque so the background UI is
+   neither readable nor tantalizing. */
+.about-modal[data-gate="true"] .about-backdrop { background: rgba(10, 10, 14, 0.95); }
+.about-modal[data-gate="true"] .about-close { display: none; }
+.about-modal[data-gate="true"] .login-cancel { display: none; }
+.about-modal[data-gate="true"] .login-cta { justify-content: center; }
+.about-modal[data-gate="true"] .login-cta .login-submit { flex: 0 1 auto; min-width: 180px; }
+.login-panel h3 { margin: 0 0 4px 0; font-size: 14px; color: var(--text);
+  font-weight: 600; }
+.login-panel .login-tagline { margin: 0 0 16px 0; font-size: 11px;
+  color: var(--text-muted); letter-spacing: 0.04em; }
+.login-panel label { display: block; font-size: 10px; color: var(--text-muted);
+  margin: 10px 0 4px 0; text-transform: uppercase; letter-spacing: 0.08em;
+  font-weight: 600; }
+.login-panel input { width: 100%; background: var(--bg); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 8px 10px; font-size: 13px; font-family: inherit;
+  box-sizing: border-box; }
+.login-panel input:focus { outline: none; border-color: var(--accent); }
+.login-err { margin: 10px 0 0 0; font-size: 12px; color: var(--tone-stress);
+  min-height: 16px; }
+/* Restart-safe indicator hijacks the admin's own "Hi, adam" greeting
+   color: green = idle (safe to restart uvicorn), orange = job in
+   flight, dim italic = poll error. No separate badge -- the operator
+   already looks at their name in the corner so the signal goes there. */
+.auth-user { transition: color 200ms; }
+.auth-user[data-restart-safe="true"]  { color: var(--tone-final); }
+.auth-user[data-restart-safe="false"] { color: #ffb050; }
+.auth-user[data-restart-safe="err"]   { color: var(--text-dim);
+  font-style: italic; }
+.meetings-warn { display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px; background: var(--bg-card);
+  border-bottom: 1px solid var(--tone-stress);
+  color: var(--text); font-size: 12px; }
+.meetings-warn[hidden] { display: none; }
+.meetings-warn-icon { color: var(--tone-stress); font-weight: bold; }
+.meetings-warn-msg { flex: 1; }
+.meetings-warn-action { background: var(--accent-bg); color: var(--accent);
+  border: 1px solid var(--accent); border-radius: var(--r);
+  padding: 4px 10px; font-size: 11px; cursor: pointer; }
+.meetings-warn-action:hover { background: var(--accent); color: var(--bg); }
+.meetings-warn-close { background: transparent; border: none;
+  color: var(--text-dim); cursor: pointer; padding: 2px 6px;
+  font-size: 14px; }
+.meetings-warn-close:hover { color: var(--text); }
+.login-cta { display: flex; gap: 8px; margin-top: 16px; }
+.login-demo-request { margin: 14px 0 0 0; font-size: 12px;
+  color: var(--text-dim); text-align: center; }
+.login-demo-request a { color: var(--accent); cursor: pointer;
+  text-decoration: underline; text-decoration-color: var(--border);
+  text-underline-offset: 3px; }
+.login-demo-request a:hover { text-decoration-color: var(--accent); }
+.login-demo-toast { margin: 6px 0 0 0; font-size: 11px;
+  color: var(--accent); text-align: center;
+  min-height: 14px; opacity: 0;
+  transition: opacity 200ms; }
+.login-demo-toast[data-show="true"] { opacity: 1; }
+.login-cta button { flex: 1; padding: 8px 14px; border-radius: var(--r);
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: filter 140ms, color 140ms, border-color 140ms; }
+.login-submit { background: var(--accent); color: #fff;
+  border: 1px solid var(--accent); }
+.login-submit:hover:not(:disabled) { filter: brightness(1.12); }
+.login-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.login-cancel { background: transparent; color: var(--text-dim);
+  border: 1px solid var(--border); }
+.login-cancel:hover { color: var(--accent); border-color: var(--accent); }
+/* --- P2P chat panel (fixed dock, top-right) --------------------------- */
+.p2p-toggle { background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); border-radius: 4px; padding: 3px 10px;
+  font-size: 11px; cursor: pointer;
+  transition: color 140ms, border-color 140ms; }
+.p2p-toggle:hover { color: var(--accent); border-color: var(--accent); }
+@keyframes p2pPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent); }
+  50%      { box-shadow: 0 0 6px 2px var(--accent); }
+}
+.p2p-toggle[data-unread="true"] { animation: p2pPulse 1.6s ease-in-out infinite; }
+.p2p-toggle[data-unread="true"] { color: var(--accent); border-color: var(--accent);
+  font-weight: 700; }
+.p2p-panel { position: fixed; top: 70px; right: 16px; width: 320px;
+  max-height: calc(100vh - 100px);
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--rl);
+  box-shadow: 0 12px 40px rgba(0,0,0,.45), 0 0 0 1px var(--border-soft);
+  z-index: 600; display: flex; flex-direction: column;
+  font-size: 13px; color: var(--text); overflow: hidden; }
+.p2p-panel[hidden] { display: none; }
+.p2p-header { flex: 0 0 auto; display: flex; align-items: center;
+  padding: 10px 12px; gap: 10px;
+  border-bottom: 1px solid var(--border-soft); }
+.p2p-header h3 { margin: 0; flex: 1; font-size: 13px; font-weight: 600;
+  color: var(--text); }
+.p2p-header button { background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); width: 22px; height: 22px; border-radius: 4px;
+  cursor: pointer; padding: 0; line-height: 1;
+  font-size: 12px; }
+.p2p-header button:hover { color: var(--accent); border-color: var(--accent); }
+.p2p-status { flex: 0 0 auto; padding: 4px 12px; font-size: 11px;
+  color: var(--text-muted); border-bottom: 1px solid var(--border-soft);
+  letter-spacing: 0.04em; min-height: 16px; }
+.p2p-status[data-state="connected"] { color: var(--tone-primary); }
+.p2p-status[data-state="error"] { color: var(--tone-stress); }
+.p2p-online { flex: 1; min-height: 0; display: flex; flex-direction: column;
+  overflow: hidden; }
+.p2p-section-title { flex: 0 0 auto; padding: 8px 12px 4px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted); font-weight: 600; }
+.p2p-online ul { list-style: none; margin: 0; padding: 0 8px 8px;
+  overflow-y: auto; }
+.p2p-online li { padding: 6px 10px; border-radius: var(--r);
+  cursor: pointer; transition: background 120ms;
+  display: flex; align-items: center; gap: 8px;
+  color: var(--text-dim); }
+.p2p-online li:hover { background: var(--bg-chip); color: var(--text); }
+.p2p-online li[data-unread="true"] { color: var(--accent); font-weight: 600; }
+.p2p-online li::before { content: ''; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--tone-primary); flex: 0 0 auto; }
+.p2p-online li.empty { color: var(--text-muted); font-style: italic;
+  cursor: default; }
+.p2p-online li.empty:hover { background: transparent; }
+.p2p-online li.empty::before { display: none; }
+.p2p-chat { flex: 1; min-height: 0; display: flex; flex-direction: column;
+  overflow: hidden; }
+.p2p-peer-bar { flex: 0 0 auto; display: flex; align-items: center;
+  gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border-soft);
+  background: var(--bg-input); }
+.p2p-peer-bar #p2pPeerName { flex: 1; font-weight: 600; color: var(--text); }
+.p2p-peer-bar button { background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); border-radius: 4px; padding: 2px 8px;
+  font-size: 11px; cursor: pointer; }
+.p2p-peer-bar button:hover { color: var(--accent); border-color: var(--accent); }
+.p2p-msgs { flex: 1; min-height: 0; overflow-y: auto;
+  padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+.p2p-msgs::-webkit-scrollbar { width: 6px; }
+.p2p-msgs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.p2p-msg { max-width: 85%; padding: 6px 10px; border-radius: 10px;
+  word-wrap: break-word; white-space: pre-wrap; line-height: 1.4;
+  font-size: 12.5px; }
+.p2p-msg.outgoing { align-self: flex-end; background: var(--accent-bg);
+  color: var(--text); border: 1px solid var(--accent);
+  border-bottom-right-radius: 2px; }
+.p2p-msg.incoming { align-self: flex-start; background: var(--bg-chip);
+  color: var(--text); border: 1px solid var(--border-soft);
+  border-bottom-left-radius: 2px; }
+.p2p-msg.system { align-self: center; background: transparent;
+  color: var(--text-muted); font-style: italic; font-size: 11px;
+  border: none; padding: 2px 6px; }
+.p2p-input-row { flex: 0 0 auto; display: flex; gap: 6px;
+  padding: 8px 10px; border-top: 1px solid var(--border-soft); }
+.p2p-input-row input { flex: 1; background: var(--bg-input); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 6px 10px; font-size: 12.5px; outline: none; }
+.p2p-input-row input:focus { border-color: var(--accent); }
+.p2p-input-row input:disabled { opacity: 0.5; }
+.p2p-input-row button { font-size: 12px; font-weight: 600;
+  padding: 5px 12px; border-radius: var(--r); cursor: pointer;
+  border: 1px solid var(--accent); background: var(--accent);
+  color: #1a1a1a; }
+.p2p-input-row button:disabled { opacity: 0.4; cursor: not-allowed; }
+@media (max-width: 720px) {
+  .p2p-panel { width: calc(100vw - 20px); right: 10px;
+    top: 60px; max-height: calc(100vh - 80px); }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <h1 data-i18n="topbar.title">AI Council</h1>
+    <span class="api-status" id="apiStatus" title="Backend API status">
+      <span class="api-status-dot" data-state="unknown"></span>
+      <span class="api-status-label" data-i18n="api.status.checking">Checking</span>
+    </span>
+    <nav class="pills" id="pills"></nav>
+    <div class="topright-fixed">
+      <button id="p2pToggle" type="button" class="p2p-toggle" hidden data-i18n="p2p.toggle">P2P</button>
+      <span class="auth-box" id="authBox"></span>
+    </div>
+  </header>
+  <div class="meetings-warn" id="meetingsWarn" hidden role="alert">
+    <span class="meetings-warn-icon">[!]</span>
+    <span class="meetings-warn-msg" id="meetingsWarnMsg" data-i18n="meetings.warn_default">Saved sessions could not be loaded on this device.</span>
+    <button class="meetings-warn-action" id="meetingsWarnDownload" type="button" data-i18n="meetings.warn_download">Download backup</button>
+    <button class="meetings-warn-close" id="meetingsWarnDismiss" type="button" aria-label="Dismiss">x</button>
+  </div>
+  <div class="q-bar empty" id="qBar">
+    <span class="q-label" data-i18n="qbar.label">Q</span>
+    <span class="q-text" id="qText"></span>
+    <span class="q-meta" id="qMeta"></span>
+    <button class="resend" id="resendBtn" data-i18n="btn.resend" style="display:none">Resend to input</button>
+  </div>
+  <section class="panels-wrap">
+    <div class="panels-top">
+      <div class="panel" data-role="primary" data-status="idle" data-collapsed="false">
+        <div class="panel-head">
+          <span class="chevron">v</span><h3 data-i18n="panel.primary">Analysis</h3>
+          <span class="status" data-s="idle" data-i18n="status.idle">idle</span>
+          <button class="copy-btn" title="Copy" aria-label="Copy" disabled></button>
+        </div>
+        <div class="panel-body"><span class="placeholder" data-i18n="placeholder.waiting">Waiting...</span></div>
+      </div>
+      <div class="panel" data-role="peer" data-status="idle" data-collapsed="false">
+        <div class="panel-head">
+          <span class="chevron">v</span><h3 data-i18n="panel.peer">Peer Review A</h3>
+          <span class="status" data-s="idle" data-i18n="status.idle">idle</span>
+          <button class="retry-btn" data-i18n="btn.retry" data-phase="overseer">Retry</button>
+          <button class="copy-btn" title="Copy" aria-label="Copy" disabled></button>
+        </div>
+        <div class="panel-body"><span class="placeholder" data-i18n="placeholder.waiting">Waiting...</span></div>
+      </div>
+      <div class="panel" data-role="stress" data-status="idle" data-collapsed="false">
+        <div class="panel-head">
+          <span class="chevron">v</span><h3 data-i18n="panel.stress">Peer Review B</h3>
+          <span class="status" data-s="idle" data-i18n="status.idle">idle</span>
+          <button class="retry-btn" data-i18n="btn.retry" data-phase="adversary">Retry</button>
+          <button class="copy-btn" title="Copy" aria-label="Copy" disabled></button>
+        </div>
+        <div class="panel-body"><span class="placeholder" data-i18n="placeholder.waiting">Waiting...</span></div>
+      </div>
+    </div>
+    <div class="panels-bottom">
+      <div class="panel" data-role="final" data-status="idle" data-collapsed="false">
+        <div class="panel-head">
+          <span class="chevron">v</span><h3 data-i18n="panel.final">Analysis Report</h3>
+          <span class="thinking-timer" id="thinkingTimer" style="display:none"></span>
+          <span class="status" data-s="idle" data-i18n="status.idle">idle</span>
+          <button class="copy-btn" title="Copy" aria-label="Copy" disabled></button>
+        </div>
+        <div class="panel-body"><span class="placeholder" data-i18n="placeholder.waiting">Waiting...</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="input-area">
+    <textarea id="input" data-i18n-placeholder="placeholder.input.advise" placeholder="Describe the question: legal, investment, business, geopolitical..."></textarea>
+    <div class="input-row">
+      <select id="interaction" title="Interaction mode">
+        <option value="analysis" selected>Analysis</option>
+        <option value="chat">Chat</option>
+        <option value="quickchat">QuickChat</option>
+      </select>
+      <select id="mode" title="Mode">
+        <option value="advise">Advise</option>
+        <option value="medical">Medical</option>
+      </select>
+      <select id="sub-type" title="Type / Specialty"></select>
+      <select id="lang" title="Language">
+        <option value="zh">Chinese</option>
+        <option value="en">English</option>
+      </select>
+      <button id="submit" class="btn-primary" data-i18n="btn.submit">Submit (Ctrl+Enter)</button>
+      <button id="stop" class="btn-ghost" data-i18n="btn.stop" style="display:none">Stop</button>
+    </div>
+  </section>
+  <footer class="app-footer">
+    <span data-i18n="footer.line1">AI Council by Empire Integration Partners LLC</span>
+    <span class="sep">|</span>
+    <span data-i18n="footer.line2">Powered by our proprietary AI engine</span>
+    <span class="sep">|</span>
+    <span data-i18n="footer.line3">Analysis only -- decisions belong to the principal</span>
+    <span class="sep">|</span>
+    <button type="button" class="about-trigger" id="aboutTrigger" data-i18n="footer.feedback">About</button>
+    <span class="sep">|</span>
+    <a href="net_dashboard.html" title="NET Leading-Indicator Dashboard">NET Dashboard</a>
+    <span class="sep">|</span>
+    <span>(C) 2026 Empire Integration Partners LLC</span>
+    <span class="sep debug-sep">|</span>
+    <details class="debug-log" id="debugLog">
+      <summary data-i18n="footer.debug_log">Debug log</summary>
+      <button class="debug-close" id="debugClose" type="button" data-i18n="btn.close">close</button>
+      <pre id="debug"></pre>
+    </details>
+  </footer>
+</div>
+<aside class="chat-popup collapsed" id="chatPopup">
+  <div class="chat-handle" id="chatHandle">
+    <span class="title" data-i18n="chat.handle_title">Follow-up with analyst</span>
+    <span class="hint" data-i18n="chat.handle_hint">(available after a report completes)</span>
+    <span class="chev">v</span>
+  </div>
+  <div class="chat-body">
+    <div class="chat-history" id="chatHistory">
+      <div class="chat-nocontext" id="chatNoCtx" data-i18n="chat.nocontext.initial">Submit a question above first. Once Analysis Report is ready, you can ask follow-ups here.</div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" data-i18n-placeholder="placeholder.chat" placeholder="Ask a follow-up question about the report..." disabled />
+      <button id="chatSend" data-i18n="btn.send" disabled>Send</button>
+    </div>
+  </div>
+</aside>
+<aside class="p2p-panel" id="p2pPanel" hidden>
+  <header class="p2p-header">
+    <h3 data-i18n="p2p.title">P2P Chat</h3>
+    <button id="p2pClose" type="button" aria-label="Close">x</button>
+  </header>
+  <div class="p2p-status" id="p2pStatus" data-state="idle" data-i18n="p2p.disconnected">Disconnected</div>
+  <div class="p2p-online" id="p2pOnline">
+    <div class="p2p-section-title" data-i18n="p2p.online">Online</div>
+    <ul id="p2pOnlineList"></ul>
+  </div>
+  <div class="p2p-chat" id="p2pChat" hidden>
+    <div class="p2p-peer-bar">
+      <span id="p2pPeerName"></span>
+    </div>
+    <div class="p2p-msgs" id="p2pMsgs"></div>
+    <div class="p2p-input-row">
+      <input id="p2pInput" type="text" maxlength="4000" disabled />
+      <button id="p2pSend" type="button" disabled data-i18n="btn.send">Send</button>
+    </div>
+  </div>
+</aside>
+<div class="about-modal" id="aboutModal" data-open="false" aria-hidden="true">
+  <div class="about-backdrop" id="aboutBackdrop"></div>
+  <div class="about-panel" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <button class="about-close" id="aboutClose" type="button" aria-label="Close">x</button>
+    <h2 id="aboutTitle" data-i18n="about.title">Naughty Lao Ban</h2>
+    <p class="about-tagline" data-i18n="about.tagline">Unknown senior engineer. Goal: narrow AGI.</p>
+    <p class="about-lead" data-i18n="about.lead">Roadmap is clear. This site is the DEMO. Current focus: legal strategy optimizer, medical diagnosis, investment analysis, geopolitical insight. Try it; reach out to support@empireintegration.com.</p>
+    <h3 data-i18n="about.s1_title">What We Deliver</h3>
+    <ul>
+      <li data-i18n="about.s1_l1">AI solution architecture</li>
+      <li data-i18n="about.s1_l2">Software modernization</li>
+      <li data-i18n="about.s1_l3">Performance engineering</li>
+      <li data-i18n="about.s1_l4">Full-stack delivery</li>
+    </ul>
+    <h3 data-i18n="about.s2_title">Where We Have Been Applied</h3>
+    <ul>
+      <li data-i18n="about.s2_l1">Legal strategy optimizer</li>
+      <li data-i18n="about.s2_l2">Medical diagnosis support</li>
+      <li data-i18n="about.s2_l3">Investment analysis</li>
+      <li data-i18n="about.s2_l4">Geopolitical insight</li>
+    </ul>
+    <h3 data-i18n="about.s3_title">Our Value</h3>
+    <p class="about-retain" data-i18n="about.s3_body">Decision-support tooling for high-stakes commercial, strategic, and adversarial problems.</p>
+    <div class="about-cta">
+      <a class="cta-primary" href="mailto:support@empireintegration.com?subject=Engagement%20Inquiry" id="ctaHire" data-i18n="about.cta_hire">Work with us</a>
+      <a class="cta-secondary" href="mailto:support@empireintegration.com?subject=AI%20Council%20Feedback" id="ctaFeedback" data-i18n="about.cta_feedback">Send feedback</a>
+    </div>
+    <p class="about-email-display" id="aboutEmailDisplay">support@empireintegration.com</p>
+    <p class="about-email-toast" id="aboutEmailToast"></p>
+  </div>
+</div>
+<div class="about-modal" id="loginModal" data-open="false" aria-hidden="true">
+  <div class="about-backdrop" id="loginBackdrop"></div>
+  <div class="login-panel" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <button class="about-close" id="loginClose" type="button" aria-label="Close">x</button>
+    <h3 id="loginTitle" data-i18n="login.title">Sign in</h3>
+    <p class="login-tagline" data-i18n="login.tagline">Named users get a per-account daily quota.</p>
+    <form id="loginForm" onsubmit="event.preventDefault(); return false;">
+      <label for="loginUsername" data-i18n="login.username_label">Username</label>
+      <input id="loginUsername" type="text" autocomplete="username" autocapitalize="off" spellcheck="false">
+      <label for="loginPassword" data-i18n="login.password_label">Password</label>
+      <input id="loginPassword" type="password" autocomplete="current-password">
+      <p class="login-err" id="loginErr"></p>
+      <div class="login-cta">
+        <button class="login-cancel" id="loginCancel" type="button" data-i18n="login.cancel">Cancel</button>
+        <button class="login-submit" id="loginSubmit" type="button" data-i18n="login.submit">Sign in</button>
+      </div>
+      <p class="login-demo-request">
+        <span data-i18n="login.demo_prompt">No account?</span>
+        <a href="mailto:support@empireintegration.com?subject=Demo%20Access%20Request&amp;body=Hi%2C%20please%20send%20me%20demo%20user%2Fpassword%20to%20try%20EIP."
+           id="loginDemoRequest" data-i18n="login.demo_request">Request demo access</a>
+      </p>
+      <p class="login-demo-toast" id="loginDemoToast" data-show="false"></p>
+    </form>
+  </div>
+</div>
+<script>
+// --- i18n ---
+const I18N_LANG_KEY = 'eip_ui_lang';
+const I18N = {
+  zh: {
+    'topbar.title': 'AI \u8bae\u4f1a',
+    'panel.primary': '\u5206\u6790',
+    'panel.peer': '\u540c\u884c\u8bc4\u5ba1 A',
+    'panel.stress': '\u540c\u884c\u8bc4\u5ba1 B',
+    'panel.final': '\u5206\u6790\u62a5\u544a',
+    'panel.final.chat': '\u804a\u5929',
+    'panel.final.quickchat': '\u5feb\u901f\u804a\u5929',
+    'status.idle': '\u7a7a\u95f2',
+    'status.start': '\u601d\u8003\u4e2d...',
+    'status.thinking': '\u601d\u8003\u4e2d...',
+    'status.done': '\u5b8c\u6210',
+    'status.error': '\u9519\u8bef',
+    'btn.submit': '\u63d0\u4ea4 (Ctrl+Enter)',
+    'btn.stop': '\u505c\u6b62',
+    'btn.copy': '\u590d\u5236',
+    'btn.retry': '\u91cd\u8bd5',
+    'btn.copied': '\u5df2\u590d\u5236',
+    'btn.send': '\u53d1\u9001',
+    'btn.new': '+ \u65b0\u5efa',
+    'btn.resend': '\u91cd\u65b0\u53d1\u9001\u5230\u8f93\u5165\u6846',
+    'btn.copy_failed': '\u590d\u5236\u5931\u8d25',
+    'btn.close': '\u5173\u95ed',
+    'placeholder.input.advise': '\u63cf\u8ff0\u95ee\u9898: \u6cd5\u5f8b / \u6295\u8d44 / \u5546\u4e1a / \u5730\u7f18...',
+    'placeholder.input.medical': '\u63cf\u8ff0\u75c7\u72b6\u3001\u75c5\u53f2\u3001\u5316\u9a8c\u3001\u5f71\u50cf...',
+    'placeholder.chat': '\u5c31\u672c\u62a5\u544a\u63d0\u4e00\u4e2a\u8ddf\u8fdb\u95ee\u9898...',
+    'placeholder.thinking': '\u601d\u8003\u4e2d',
+    'placeholder.waiting': '\u7b49\u5f85...',
+    'qbar.label': '\u95ee',
+    'chat.handle_title': '\u4e0e\u5206\u6790\u5e08\u8ddf\u8fdb',
+    'chat.handle_hint': '(\u62a5\u544a\u5b8c\u6210\u540e\u53ef\u7528)',
+    'chat.nocontext.initial': '\u5148\u5728\u4e0a\u65b9\u63d0\u4ea4\u4e00\u4e2a\u95ee\u9898\u3002\u5206\u6790\u62a5\u544a\u751f\u6210\u540e\u53ef\u5728\u6b64\u8fdb\u884c\u8ddf\u8fdb\u3002',
+    'chat.nocontext.disabled': '\u672c\u8bae\u7a0b\u5c1a\u65e0\u5206\u6790\u62a5\u544a\uff0c\u804a\u5929\u5df2\u7981\u7528\u3002',
+    'chat.nocontext.ready': '\u5c31\u7eea\uff0c\u53ef\u5c31\u672c\u62a5\u544a\u63d0\u95ee\u3002',
+    'chat.msg.user': '\u7528\u6237',
+    'chat.msg.analyst': '\u5206\u6790\u5e08',
+    'chat.msg.error': '\u9519\u8bef',
+    'chat.analyst.thinking': '\u601d\u8003\u4e2d...',
+    'chat.analyst.error.unavailable': '\u5206\u6790\u5e08\u4e0d\u53ef\u7528',
+    'footer.line1': 'AI \u8bae\u4f1a by Empire Integration Partners LLC',
+    'footer.line2': '\u7531\u6211\u4eec\u4e13\u6709 AI \u5f15\u64ce\u9a71\u52a8',
+    'footer.line3': '\u4ec5\u4f9b\u5206\u6790\u53c2\u8003\uff0c\u88c1\u51b3\u6743\u5728\u51b3\u7b56\u8005',
+    'footer.feedback': '\u5173\u4e8e\u6211\u4eec',
+    'about.title': '\u7fd8\u811a\u8001\u677f',
+    'about.tagline': '\u975e\u8457\u540d\u9ad8\u7ea7\u5de5\u7a0b\u5e08, \u76ee\u6807\u72ed\u4e49 AGI.',
+    'about.lead': '\u6e05\u6670\u8def\u7ebf\u56fe, \u8fd9\u7f51\u7ad9 DEMO. \u73b0\u9636\u6bb5\u4e3b\u63a8: \u6cd5\u5f8b\u7b56\u7565\u4f18\u5316, \u533b\u751f\u8bca\u65ad, \u6295\u8d44\u5206\u6790, \u5730\u7f18\u6d1e\u5bdf. \u6b22\u8fce\u8bd5\u7528\u5782\u8be2 support@empireintegration.com.',
+    'about.s1_title': '\u6211\u4eec\u4ea4\u4ed8\u4ec0\u4e48',
+    'about.s1_l1': 'AI \u89e3\u51b3\u65b9\u6848\u67b6\u6784 -- \u591a\u667a\u80fd\u4f53\u534f\u4f5c\u3001\u5bf9\u6297\u5f0f\u63a8\u7406\u5f15\u64ce\u3001\u68c0\u7d22\u4e0e\u7efc\u5408\u7ba1\u7ebf\u3002',
+    'about.s1_l2': '\u8f6f\u4ef6\u73b0\u4ee3\u5316 -- Java / Python / .NET / Spring \u9057\u7559\u7cfb\u7edf\u8fc1\u79fb, API-first \u91cd\u8bbe\u8ba1, \u53ef\u89c2\u6d4b\u751f\u4ea7\u7ea7\u57fa\u7840\u8bbe\u65bd\u3002',
+    'about.s1_l3': '\u6027\u80fd\u5de5\u7a0b -- \u4ece UI reflow \u5230 syscall\u3001\u5185\u5b58\u3001\u7f13\u5b58\u4e00\u81f4\u6027\u3001\u6570\u636e\u5e93\u6267\u884c\u8ba1\u5212\u7684\u5168\u6808 profiling\u3002',
+    'about.s1_l4': '\u5168\u6808\u4ea4\u4ed8 -- Python (FastAPI, Django)\u3001Java (Spring Boot)\u3001.NET (C#, ASP.NET Core)\u3001TypeScript / React\u3001\u5bb9\u5668\u5316\u90e8\u7f72\u3001\u534f\u8bae\u5c42\u96c6\u6210 (JSON-RPC, SSE, WebSocket, gRPC)\u3002',
+    'about.s2_title': '\u5df2\u843d\u5730\u573a\u666f',
+    'about.s2_l1': '\u6cd5\u5f8b\u7b56\u7565\u4f18\u5316 -- \u98ce\u9669\u8bc4\u5206, \u8bc1\u636e\u94fe\u5ba1\u67e5, \u6982\u7387\u5206\u6790.',
+    'about.s2_l2': '\u533b\u751f\u8bca\u65ad\u8f85\u52a9 -- \u7ed3\u6784\u5316\u9274\u522b\u8bca\u65ad\u4e0e\u8bc1\u636e\u5206\u7ea7.',
+    'about.s2_l3': '\u6295\u8d44\u5206\u6790 -- \u4f53\u5236\u62d0\u70b9\u4fe1\u53f7, \u975e\u5bf9\u79f0\u8d54\u7387\u8bc6\u522b.',
+    'about.s2_l4': '\u5730\u7f18\u6d1e\u5bdf -- \u591a\u65b9\u5229\u76ca\u7ed3\u6784\u4e0e\u65f6\u95f4\u7a97\u53e3\u5206\u6790.',
+    'about.s3_title': '\u6211\u4eec\u7684\u4ef7\u503c',
+    'about.s3_body': '\u6211\u4eec\u7684\u4e13\u4e1a\u4f18\u5316\u786e\u5b9a\u6027\u5f15\u64ce\u9644\u52a0\u524d\u6cbf AI \u6a21\u578b. \u8fdb\u5316\u6027\u667a\u80fd\u8f85\u52a9\u51b3\u7b56\u7cfb\u7edf, \u6301\u7eed\u53cd\u54fa\u751f\u4ea7\u4ea4\u4ed8, \u4e3b\u63a8\u5b9e\u6218. \u81f4\u529b\u4e8e\u670d\u52a1\u4e8e\u590d\u6742\u9ad8\u98ce\u9669\u5546\u4e1a, \u6218\u7565, \u5bf9\u6297\u6027\u7b56\u7565\u548c\u5168\u9762\u6700\u4f73\u89e3\u51b3\u65b9\u6848.',
+    'about.cta_hire': '\u6d3d\u8c08\u5408\u4f5c ->',
+    'about.cta_feedback': '\u53d1\u9001\u53cd\u9988',
+    'login.button': '\u767b\u5f55',
+    'login.hi': '\u6b22\u8fce',
+    'login.logout': '\u767b\u51fa',
+    'login.title': '\u767b\u5f55',
+    'login.tagline': '\u6ce8\u518c\u7528\u6237\u6bcf\u65e5\u914d\u989d\u72ec\u7acb',
+    'login.username_label': '\u7528\u6237\u540d',
+    'login.password_label': '\u5bc6\u7801',
+    'login.cancel': '\u53d6\u6d88',
+    'login.submit': '\u767b\u5f55',
+    'login.demo_prompt': '\u6ca1\u8d26\u53f7?',
+    'login.demo_request': '\u7533\u8bf7 demo \u8bbf\u95ee',
+    'login.err.invalid': '\u7528\u6237\u540d\u6216\u5bc6\u7801\u9519\u8bef',
+    'login.err.network': '\u7f51\u7edc\u9519\u8bef, \u8bf7\u91cd\u8bd5',
+    'admin.restart': '\u91cd\u542f\u540e\u7aef',
+    'admin.restart_title': 'admin: \u91cd\u542f uvicorn \u8fdb\u7a0b',
+    'admin.restart_confirm': '\u786e\u8ba4\u91cd\u542f\u540e\u7aef? \u4ec5\u5728\u65e0\u4efb\u52a1\u8fd0\u884c\u65f6\u5141\u8bb8.',
+    'admin.restart_blocked': '\u540e\u7aef\u6709\u4efb\u52a1\u8fd0\u884c\u4e2d, \u62d2\u7edd\u91cd\u542f:',
+    'admin.restart_unauth': '\u6743\u9650\u9519\u8bef, \u8bf7\u91cd\u65b0\u767b\u5f55',
+    'admin.restart_failed': '\u91cd\u542f\u5931\u8d25:',
+    'admin.restart_in_progress': '\u6b63\u5728\u91cd\u542f\u540e\u7aef, 6 \u79d2\u540e\u9875\u9762\u81ea\u52a8\u5237\u65b0',
+    'meetings.warn_default': '\u672c\u8bbe\u5907\u4fdd\u5b58\u7684\u4f1a\u8bdd\u65e0\u6cd5\u8bfb\u53d6. \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
+    'meetings.warn_with_backup': '\u672c\u8bbe\u5907\u4fdd\u5b58\u7684\u4f1a\u8bdd\u65e0\u6cd5\u8bfb\u53d6 ({n} \u4efd\u52a0\u5bc6\u5907\u4efd\u4fdd\u7559). \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
+    'meetings.warn_no_backup': '\u672c\u8bbe\u5907\u65e0\u4fdd\u5b58\u7684\u4f1a\u8bdd. \u6570\u636e\u662f\u8bbe\u5907\u672c\u5730, \u4e0d\u8de8\u8bbe\u5907\u540c\u6b65.',
+    'meetings.warn_download': '\u4e0b\u8f7d\u5907\u4efd',
+    'footer.debug_log': '\u8c03\u8bd5\u65e5\u5fd7',
+    'api.status.online': '\u5728\u7ebf',
+    'api.status.offline': '\u79bb\u7ebf',
+    'api.status.checking': '\u68c0\u67e5\u4e2d',
+    'api.status.unknown': '\u672a\u77e5',
+    'api.offline.tooltip': '\u540e\u7aef API \u79bb\u7ebf\uff0c\u5f85\u6062\u590d\u540e\u91cd\u8bd5',
+    'mode.advise': '\u548b\u8be2',
+    'mode.medical': '\u533b\u7597',
+    'mode.bigidea': '\u80a1\u5e02\u673a\u4f1a',
+    'placeholder.input.bigidea': 'Tickers (\u53ef\u9009, \u9017\u53f7\u5206\u9694): NVDA,AMD,MU\u3002\u7559\u7a7a = \u5168\u626b\u63cf\u3002',
+    'advise_type.general': '\u901a\u7528',
+    'advise_type.legal': '\u6cd5\u5f8b',
+    'advise_type.investment': '\u80a1\u7968 / \u6295\u8d44',
+    'advise_type.business': '\u5546\u4e1a',
+    'advise_type.geopolitical': '\u5730\u7f18 / \u6218\u7565',
+    'advise_type.bazi': '\u516b\u5b57 / \u547d\u7406',
+    'medical_specialty.general': '\u5185\u79d1 (\u9ed8\u8ba4)',
+    'medical_specialty.cardiology': '\u5fc3\u8840\u7ba1',
+    'medical_specialty.dentistry': '\u7259\u79d1',
+    'medical_specialty.dermatology': '\u76ae\u80a4\u79d1',
+    'medical_specialty.emergency': '\u6025\u8bca',
+    'medical_specialty.gastroenterology': '\u6d88\u5316\u79d1',
+    'medical_specialty.neurology': '\u795e\u7ecf\u79d1',
+    'medical_specialty.obgyn': '\u5987\u4ea7\u79d1',
+    'medical_specialty.oncology': '\u80bf\u7626\u79d1',
+    'medical_specialty.orthopedics': '\u9aa8\u79d1',
+    'medical_specialty.pediatrics': '\u513f\u79d1',
+    'medical_specialty.psychiatry': '\u7cbe\u795e\u79d1',
+    'medical_specialty.pulmonology': '\u547c\u5438\u79d1',
+    'p2p.toggle': 'P2P',
+    'p2p.title': 'P2P \u804a\u5929',
+    'p2p.online': '\u5728\u7ebf',
+    'p2p.online.empty': '\u6682\u65e0\u5176\u4ed6\u7528\u6237\u5728\u7ebf',
+    'p2p.connecting': '\u8fde\u63a5\u4e2d...',
+    'p2p.connected': '\u5df2\u8fde\u63a5',
+    'p2p.disconnected': '\u5df2\u65ad\u5f00 (\u91cd\u8fde\u4e2d)',
+    'p2p.error': '\u8fde\u63a5\u5931\u8d25',
+    'p2p.replaced': '\u53e6\u4e00\u5904\u5df2\u767b\u5f55, \u8bf7\u5173\u95ed\u5176\u4ed6\u6807\u7b7e\u6216\u8bbe\u5907\u540e\u5237\u65b0',
+    'p2p.peer_offline': '\u5bf9\u65b9\u79bb\u7ebf',
+    'p2p.placeholder': '\u8f93\u5165\u6d88\u606f...',
+    'p2p.peer_left': '\u5bf9\u65b9\u4e0b\u7ebf',
+  },
+  en: {
+    'topbar.title': 'AI Council',
+    'panel.primary': 'Analysis',
+    'panel.peer': 'Peer Review A',
+    'panel.stress': 'Peer Review B',
+    'panel.final': 'Analysis Report',
+    'panel.final.chat': 'Chat',
+    'panel.final.quickchat': 'QuickChat',
+    'status.idle': 'idle',
+    'status.start': 'thinking...',
+    'status.thinking': 'thinking...',
+    'status.done': 'done',
+    'status.error': 'error',
+    'btn.submit': 'Submit (Ctrl+Enter)',
+    'btn.stop': 'Stop',
+    'btn.copy': 'Copy',
+    'btn.retry': 'Retry',
+    'btn.copied': 'Copied',
+    'btn.send': 'Send',
+    'btn.new': '+ New',
+    'btn.resend': 'Resend to input',
+    'btn.close': 'close',
+    'btn.copy_failed': 'Failed',
+    'placeholder.input.advise': 'Describe the question: legal, investment, business, geopolitical...',
+    'placeholder.input.medical': 'Describe symptoms, history, labs, imaging...',
+    'placeholder.chat': 'Ask a follow-up question about the report...',
+    'placeholder.thinking': 'thinking',
+    'placeholder.waiting': 'Waiting...',
+    'qbar.label': 'Q',
+    'chat.handle_title': 'Follow-up with analyst',
+    'chat.handle_hint': '(available after a report completes)',
+    'chat.nocontext.initial': 'Submit a question above first. Once Analysis Report is ready, you can ask follow-ups here.',
+    'chat.nocontext.disabled': 'This meeting has no Analysis Report yet. Chat disabled.',
+    'chat.nocontext.ready': 'Ready. Ask about this report.',
+    'chat.msg.user': 'user',
+    'chat.msg.analyst': 'analyst',
+    'chat.msg.error': 'error',
+    'chat.analyst.thinking': 'thinking...',
+    'chat.analyst.error.unavailable': 'analyst unavailable',
+    'footer.line1': 'AI Council by Empire Integration Partners LLC',
+    'footer.line2': 'Powered by our proprietary AI engine',
+    'footer.line3': 'Analysis only -- decisions belong to the principal',
+    'footer.feedback': 'About',
+    'about.title': 'Naughty Lao Ban',
+    'about.tagline': 'Unknown senior engineer. Goal: narrow AGI.',
+    'about.lead': 'Roadmap is clear. This site is the DEMO. Current focus: legal strategy optimizer, medical diagnosis, investment analysis, geopolitical insight. Try it; reach out to support@empireintegration.com.',
+    'about.s1_title': 'What We Deliver',
+    'about.s1_l1': 'AI solution architecture -- end-to-end design and delivery for high-stakes domains.',
+    'about.s1_l2': 'Software modernization -- legacy Java / Python / .NET / Spring migrations, API-first redesigns, observability-grade infrastructure.',
+    'about.s1_l3': 'Performance engineering -- profiling from UI reflow down to syscalls, memory, cache coherence, and DB execution plans.',
+    'about.s1_l4': 'Full-stack delivery -- Python (FastAPI, Django), Java (Spring Boot), .NET (C#, ASP.NET Core), TypeScript / React, containerized deployment, protocol-level integrations (JSON-RPC, SSE, WebSocket, gRPC).',
+    'about.s2_title': 'Where We Have Been Applied',
+    'about.s2_l1': 'Legal strategy optimizer.',
+    'about.s2_l2': 'Medical diagnosis support.',
+    'about.s2_l3': 'Investment analysis.',
+    'about.s2_l4': 'Geopolitical insight.',
+    'about.s3_title': 'Our Value',
+    'about.s3_body': 'Decision-support tooling that learns from production delivery, focused on real-world execution. Aimed at complex high-stakes commercial, strategic, and adversarial problems where an integrated answer matters more than a chat.',
+    'about.cta_hire': 'Work with us ->',
+    'about.cta_feedback': 'Send feedback',
+    'login.button': 'Login',
+    'login.hi': 'Hi,',
+    'login.logout': 'Logout',
+    'login.title': 'Sign in',
+    'login.tagline': 'Named users have their own daily quota.',
+    'login.username_label': 'Username',
+    'login.password_label': 'Password',
+    'login.cancel': 'Cancel',
+    'login.submit': 'Sign in',
+    'login.demo_prompt': 'No account?',
+    'login.demo_request': 'Request demo access',
+    'login.err.invalid': 'Invalid username or password',
+    'login.err.network': 'Network error, try again',
+    'admin.restart': 'Restart backend',
+    'admin.restart_title': 'admin: restart uvicorn process',
+    'admin.restart_confirm': 'Restart backend? Only allowed when no jobs are running.',
+    'admin.restart_blocked': 'Restart blocked:',
+    'admin.restart_unauth': 'Unauthorized -- please re-login',
+    'admin.restart_failed': 'Restart failed:',
+    'admin.restart_in_progress': 'Backend restarting, page will reload in 6s',
+    'meetings.warn_default': 'Saved sessions on this device could not be loaded. Data is device-local, not synced across devices.',
+    'meetings.warn_with_backup': 'Saved sessions on this device could not be loaded ({n} encrypted backups preserved). Data is device-local, not synced across devices.',
+    'meetings.warn_no_backup': 'No saved sessions on this device. Data is device-local, not synced across devices.',
+    'meetings.warn_download': 'Download backup',
+    'footer.debug_log': 'Debug log',
+    'api.status.online': 'Online',
+    'api.status.offline': 'Offline',
+    'api.status.checking': 'Checking',
+    'api.status.unknown': 'Unknown',
+    'api.offline.tooltip': 'Backend API offline; retry once restored',
+    'mode.advise': 'Advise',
+    'mode.medical': 'Medical',
+    'mode.bigidea': 'BigIdea',
+    'placeholder.input.bigidea': 'Tickers (optional, comma-separated): NVDA,AMD,MU. Empty = full scan.',
+    'advise_type.general': 'General',
+    'advise_type.legal': 'Legal',
+    'advise_type.investment': 'Stock / Investment',
+    'advise_type.business': 'Business',
+    'advise_type.geopolitical': 'Geopolitical / Strategy',
+    'advise_type.bazi': 'Bazi / Birth chart',
+    'medical_specialty.general': 'Internal medicine',
+    'medical_specialty.cardiology': 'Cardiology',
+    'medical_specialty.dentistry': 'Dentistry',
+    'medical_specialty.dermatology': 'Dermatology',
+    'medical_specialty.emergency': 'Emergency',
+    'medical_specialty.gastroenterology': 'Gastroenterology',
+    'medical_specialty.neurology': 'Neurology',
+    'medical_specialty.obgyn': 'OB/GYN',
+    'medical_specialty.oncology': 'Oncology',
+    'medical_specialty.orthopedics': 'Orthopedics',
+    'medical_specialty.pediatrics': 'Pediatrics',
+    'medical_specialty.psychiatry': 'Psychiatry',
+    'medical_specialty.pulmonology': 'Pulmonology',
+    'p2p.toggle': 'P2P',
+    'p2p.title': 'P2P Chat',
+    'p2p.online': 'Online',
+    'p2p.online.empty': 'No other users online',
+    'p2p.connecting': 'Connecting...',
+    'p2p.connected': 'Connected',
+    'p2p.disconnected': 'Disconnected (reconnecting)',
+    'p2p.error': 'Connection failed',
+    'p2p.replaced': 'Logged in elsewhere -- close other tabs/devices then refresh',
+    'p2p.peer_offline': 'Peer offline',
+    'p2p.placeholder': 'Type a message...',
+    'p2p.peer_left': 'Peer disconnected',
+  },
+};
+
+function currentLang() {
+  return (langEl && langEl.value) || 'zh';
+}
+
+function t(key) {
+  const lang = currentLang();
+  return (I18N[lang] && I18N[lang][key]) || (I18N.zh[key]) || key;
+}
+
+function applyLang() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    el.title = t(el.dataset.i18nTitle);
+  });
+  if (typeof fillSubType === 'function') fillSubType();
+  if (typeof renderPills === 'function') renderPills();
+  if (typeof applyInteractionMode === 'function') applyInteractionMode();
+  if (typeof renderAuthBox === 'function') renderAuthBox();
+  if (typeof rebuildFooterGlow === 'function') rebuildFooterGlow();
+}
+// --- end i18n ---
+
+const ADVISE_TYPES = [
+  ['general', 'advise_type.general'],
+  ['legal', 'advise_type.legal'],
+  ['investment', 'advise_type.investment'],
+  ['business', 'advise_type.business'],
+  ['geopolitical', 'advise_type.geopolitical'],
+  ['bazi', 'advise_type.bazi'],
+];
+const MEDICAL_SPECIALTIES = [
+  ['', 'medical_specialty.general'],
+  ['cardiology', 'medical_specialty.cardiology'],
+  ['dentistry', 'medical_specialty.dentistry'],
+  ['dermatology', 'medical_specialty.dermatology'],
+  ['emergency', 'medical_specialty.emergency'],
+  ['gastroenterology', 'medical_specialty.gastroenterology'],
+  ['neurology', 'medical_specialty.neurology'],
+  ['obgyn', 'medical_specialty.obgyn'],
+  ['oncology', 'medical_specialty.oncology'],
+  ['orthopedics', 'medical_specialty.orthopedics'],
+  ['pediatrics', 'medical_specialty.pediatrics'],
+  ['psychiatry', 'medical_specialty.psychiatry'],
+  ['pulmonology', 'medical_specialty.pulmonology'],
+];
+const PHASE_TO_ROLE = { creator: 'primary', overseer: 'peer', adversary: 'stress', final: 'final' };
+const ROLES = ['primary', 'peer', 'stress', 'final'];
+const STORAGE_KEY = 'eip_meetings_v1';
+const USER_SID_KEY = 'eip_user_session_id';
+
+// Stable per-tab UUID used by server to route all endpoints to the same
+// persistent Claude subprocess. Generated once on first use, kept across
+// reloads within the tab via sessionStorage.
+function getUserSessionId() {
+  let uid = sessionStorage.getItem(USER_SID_KEY);
+  if (!uid) {
+    uid = 'u_' + Date.now() + '_' + Math.random().toString(36).slice(2, 12);
+    sessionStorage.setItem(USER_SID_KEY, uid);
+  }
+  return uid;
+}
+
+const $ = (s) => document.querySelector(s);
+const debugEl = document.getElementById('debug');
+
+// Routing rule (see handoff 2026-04-21):
+//   ai.empireintegration.com / lo.empireintegration.com / localhost -> same origin
+//   ui-*.empireintegration.com (GitHub Pages UI) -> api-*.empireintegration.com
+// The ui-/api- swap keeps static UI on GH Pages while backend stays on uvicorn.
+function resolveApiHost() {
+  const h = location.hostname;
+  if (h.startsWith('ui-')) return 'api-' + h.slice(3);
+  return location.host;
+}
+const API_HOST = resolveApiHost();
+const HTTP_BASE = location.protocol + '//' + API_HOST;
+const WS_BASE = (location.protocol === 'https:' ? 'wss:' : 'ws:') + '//' + API_HOST;
+
+// WS diagnostics. Production issues on iPhone 14 report "WebSocket error"
+// with no detail. Capture CloseEvent.code / reason / wasClean and the
+// readyState at error time so the next user-reported failure has ground
+// truth instead of a bare "error" log line.
+//
+// Common close codes to watch:
+//   1000 normal       1001 going away (tab close/reload/backgrounded iOS)
+//   1005 no status    1006 abnormal (network kill, tunnel drop, NAT rebind)
+//   1011 server err   1012 service restart
+//   1013 try again later (cloudflared backpressure)
+function _wsClose(label, ws, e) {
+  try {
+    const code = (e && e.code != null) ? e.code : '?';
+    const reason = (e && e.reason) || '';
+    const clean = (e && e.wasClean != null) ? e.wasClean : '?';
+    const rs = ws ? ws.readyState : '?';
+    dbg(label + ' close code=' + code
+        + ' reason="' + String(reason).slice(0, 80) + '"'
+        + ' clean=' + clean + ' readyState=' + rs);
+    // Silent auto-report on abnormal close (anything other than a clean
+    // 1000 close initiated by client or server completion). Normal 1000
+    // closes are the happy path, no report needed.
+    if (e && e.code != null && e.code !== 1000) {
+      _reportWsIssue('close', label, ws, e);
+    }
+  } catch {}
+}
+function _wsError(label, ws, e) {
+  try {
+    const rs = ws ? ws.readyState : '?';
+    const msg = (e && e.message) ? String(e.message).slice(0, 120) : '';
+    dbg(label + ' error readyState=' + rs + ' msg="' + msg + '"');
+    // onerror always gets reported -- the event itself is the signal.
+    _reportWsIssue('error', label, ws, e);
+  } catch {}
+}
+
+// User-facing UI messages stay short and non-scary. Detailed diagnostics
+// (close code, reason, readyState, userAgent, network state, etc.) go
+// to POST /api/client_error so we can figure out root cause from the
+// server log without the user having to open DevTools / Web Inspector.
+function _wsUiError(_label, _ws, _e) {
+  return 'Connection error. Please retry.';
+}
+function _wsUiClose(_label, _ws, _e) {
+  return 'Connection closed unexpectedly. Please retry.';
+}
+
+// Silent diagnostics POST. `kind` is 'error' or 'close'. Uses
+// fetch({keepalive:true}) so iOS Safari lets it complete even if the
+// page is being unloaded / backgrounded. Failure is silent -- if the
+// POST itself fails there is nothing useful to do about it.
+function _reportWsIssue(kind, label, ws, e) {
+  try {
+    const body = {
+      kind: kind,
+      label: label,
+      timestamp: Date.now(),
+      readyState: ws ? ws.readyState : null,
+      code: (e && e.code != null) ? e.code : null,
+      reason: (e && e.reason) ? String(e.reason).slice(0, 200) : null,
+      wasClean: (e && e.wasClean != null) ? e.wasClean : null,
+      errMsg: (e && e.message) ? String(e.message).slice(0, 200) : null,
+      userAgent: navigator.userAgent,
+      platform: navigator.platform || null,
+      online: (typeof navigator.onLine === 'boolean') ? navigator.onLine : null,
+      visibilityState: document.visibilityState || null,
+      pageUrl: location.href.slice(0, 300),
+      wsUrl: (ws && ws.url) ? String(ws.url).slice(0, 200) : null,
+    };
+    fetch(HTTP_BASE + '/api/client_error', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {}
+}
+function dbg(msg) {
+  const t = new Date().toLocaleTimeString();
+  debugEl.textContent += '[' + t + '] ' + msg + '\n';
+  debugEl.scrollTop = debugEl.scrollHeight;
+}
+// Chat-path LLM call log. Trinity path gets llm_call meta from advise.py;
+// chat turns go through ws_chat -> session.turn() directly, no meta event,
+// so client emits its own breadcrumb. Format mirrors Trinity's log line.
+function dbgLLM(phase, role, model, ccSid) {
+  const sid = ccSid ? ' sess=' + String(ccSid).slice(0, 8) : '';
+  const modelId = model === 'haiku' ? 'claude-haiku-4-5'
+    : model === 'opus' ? 'claude-opus-4-7' : (model || 'unknown');
+  dbg('LLM: [' + phase + '] claude ' + modelId + sid + ' (role=' + role + ')');
+}
+
+// Meetings persist across tabs and sessions (paid-token reports are expensive).
+// user_session_id stays in sessionStorage -- it binds to a server Claude subprocess
+// that the idle reaper may kill, so a persisted UUID would point to a dead session.
+//
+// Reports are encrypted at rest with AES-GCM-256. Key is a non-extractable CryptoKey
+// stored in IndexedDB -- DevTools Application panel shows only base64 ciphertext,
+// and the key material cannot be dumped. Protects against casual browser-storage
+// inspection; does not attempt to stop someone running JS in the devtools console.
+const VAULT_DB = 'eip_vault', VAULT_STORE = 'keys', VAULT_KEY = 'report_key';
+function _idbOpen() {
+  return new Promise((res, rej) => {
+    const r = indexedDB.open(VAULT_DB, 1);
+    r.onupgradeneeded = () => r.result.createObjectStore(VAULT_STORE);
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  });
+}
+function _idbGet(db, k) {
+  return new Promise((res, rej) => {
+    const r = db.transaction(VAULT_STORE, 'readonly').objectStore(VAULT_STORE).get(k);
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  });
+}
+function _idbPut(db, k, v) {
+  return new Promise((res, rej) => {
+    const tx = db.transaction(VAULT_STORE, 'readwrite');
+    tx.objectStore(VAULT_STORE).put(v, k);
+    tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error);
+  });
+}
+let _keyPromise = null;
+function _ensureKey() {
+  if (_keyPromise) return _keyPromise;
+  _keyPromise = (async () => {
+    const db = await _idbOpen();
+    let k = await _idbGet(db, VAULT_KEY);
+    if (!k) {
+      k = await crypto.subtle.generateKey(
+        { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+      );
+      await _idbPut(db, VAULT_KEY, k);
+    }
+    return k;
+  })();
+  return _keyPromise;
+}
+function _b64enc(bytes) {
+  let s = ''; for (let i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+  return btoa(s);
+}
+function _b64dec(str) {
+  const s = atob(str); const out = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
+  return out;
+}
+async function _encryptJSON(key, obj) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const pt = new TextEncoder().encode(JSON.stringify(obj));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, pt));
+  const blob = new Uint8Array(iv.length + ct.length);
+  blob.set(iv, 0); blob.set(ct, iv.length);
+  return _b64enc(blob);
+}
+async function _decryptJSON(key, b64) {
+  const blob = _b64dec(b64);
+  const pt = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: blob.slice(0, 12) }, key, blob.slice(12)
+  );
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+
+// Load-failure protection: if decrypt fails, BACK UP the unreadable ciphertext
+// to a timestamped key AND set _meetingsLoadOk=false so subsequent saveMeetings
+// refuses to overwrite. Honors "never lose reports unless user deletes" rule.
+let _meetingsLoadOk = false;
+async function loadMeetings() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) { _meetingsLoadOk = true; return []; }
+  try {
+    const key = await _ensureKey();
+    // Legacy plaintext migration: JSON array -> re-encrypted in place.
+    if (raw.startsWith('[')) {
+      const parsed = JSON.parse(raw);
+      localStorage.setItem(STORAGE_KEY, await _encryptJSON(key, parsed));
+      _meetingsLoadOk = true;
+      return (parsed || []).map(_hydrateMeeting);
+    }
+    const parsed = await _decryptJSON(key, raw);
+    _meetingsLoadOk = true;
+    return (parsed || []).map(_hydrateMeeting);
+  } catch (e) {
+    dbg('load meetings FAILED: ' + (e.message || e));
+    // Snapshot the unreadable ciphertext so future save cannot wipe it.
+    try {
+      const backupKey = STORAGE_KEY + '_backup_' + Date.now();
+      localStorage.setItem(backupKey, raw);
+      dbg('backed up unreadable ciphertext to localStorage["' + backupKey + '"]');
+    } catch (_) { /* quota full? nothing we can do */ }
+    _meetingsLoadOk = false;
+    return [];
+  }
+}
+// Persist the full meeting -- pill metadata + Trinity phase analyses
+// + chat thread. The earlier strip (b9f0ef0) was over-aggressive: it
+// ate the analysis report along with the chat, so reloading the page
+// then downloading an old pill produced a near-empty MD (just the
+// question, no Final synthesis). User-facing report is the analysis,
+// not the metadata, so it must survive reload.
+function _stripMeetingForSave(m) { return m; }
+function _hydrateMeeting(m) {
+  // Per-role default ensures every ROLE in {primary, peer, stress, final}
+  // has {status, content} on load, even if the saved meeting has only
+  // some of them (legacy stripped pills, partial saves, older schemas).
+  // Without this, renderMeeting would throw on m.phases.primary.status
+  // for any meeting saved before phases were populated for all 4 roles.
+  const phases = (m && m.phases) || {};
+  const ensured = {};
+  ['primary', 'peer', 'stress', 'final'].forEach(r => {
+    const ph = phases[r] || {};
+    ensured[r] = {
+      status: ph.status || 'idle',
+      content: typeof ph.content === 'string' ? ph.content : '',
+    };
+  });
+  return {
+    ...(m || {}),
+    phases: ensured,
+    chat: Array.isArray(m && m.chat) ? m.chat : [],
+  };
+}
+async function saveMeetings(list) {
+  if (!_meetingsLoadOk) {
+    // Load failed -> refuse to overwrite. Ciphertext is preserved in a backup
+    // key; user must resolve (restore key or clear data explicitly) before
+    // new saves happen. This enforces "never lose reports unless user deletes".
+    dbg('saveMeetings BLOCKED: load failed, refusing to overwrite storage');
+    return;
+  }
+  try {
+    const stripped = list.map(_stripMeetingForSave);
+    const key = await _ensureKey();
+    const blob = await _encryptJSON(key, stripped);
+    localStorage.setItem(STORAGE_KEY, blob);
+    // Diagnostic log -- catches "save succeeded but content empty" bugs
+    // by tracking total content size persisted.
+    const phaseBytes = list.reduce((acc, m) => {
+      const ph = m && m.phases || {};
+      return acc + ['primary','peer','stress','final'].reduce(
+        (a, r) => a + ((ph[r] && ph[r].content || '').length), 0);
+    }, 0);
+    dbg('saveMeetings OK n=' + list.length +
+        ' phaseChars=' + phaseBytes +
+        ' blobLen=' + blob.length);
+  } catch (e) {
+    dbg('save meetings failed: ' + (e.message || e));
+    if (typeof console !== 'undefined') console.error('saveMeetings:', e);
+  }
+}
+function newMeeting(mode, subtype, lang, question) {
+  return { id: 'm_' + Date.now(), timestamp: Date.now(),
+    mode, subtype, lang, question,
+    cc_session_id: null,   // filled from the server's meta event on first spawn
+    phases: { primary:{status:'idle',content:''}, peer:{status:'idle',content:''},
+              stress:{status:'idle',content:''}, final:{status:'idle',content:''} },
+    chat: [] };
+}
+function meetingTitle(m) {
+  // Prefix MM/DD so pill bar is scannable by date; full timestamp still
+  // rendered in qBar on viewMeeting via toLocaleString().
+  const d = new Date(m.timestamp || Date.now());
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const text = (m.question || '').trim().slice(0, 36) || 'Empty';
+  return mm + '/' + dd + ' ' + text;
+}
+
+let meetings = [];   // populated by async init at script bottom
+let currentId = null;
+
+const modeEl = $('#mode'), subEl = $('#sub-type'), langEl = $('#lang');
+// Restore persisted lang preference before first applyLang() call
+(function() {
+  const saved = localStorage.getItem(I18N_LANG_KEY);
+  if (saved && ['zh', 'en'].includes(saved)) langEl.value = saved;
+})();
+langEl.addEventListener('change', () => {
+  localStorage.setItem(I18N_LANG_KEY, langEl.value);
+  applyLang();
+});
+const interactionEl = $('#interaction');
+const inputEl = $('#input'), submitBtn = $('#submit'), stopBtn = $('#stop');
+
+// Reflect interaction state onto <body> so CSS can hide mode/subtype + top
+// panels in chat modes. Panel h3 flips per selection.
+//   analysis  -> "Analysis Report"
+//   chat      -> "Chat"           (structured, high-quality, full Opus style)
+//   quickchat -> "QuickChat"      (brief, conversational, brevity-wrapped on server)
+function applyInteractionMode() {
+  const v = interactionEl.value;
+  document.body.dataset.interaction = v;
+  const finalTitleEl = document.querySelector('.panel[data-role="final"] h3');
+  if (finalTitleEl) {
+    finalTitleEl.textContent = v === 'chat' ? t('panel.final.chat')
+      : v === 'quickchat' ? t('panel.final.quickchat')
+      : t('panel.final');
+  }
+}
+interactionEl.addEventListener('change', applyInteractionMode);
+applyInteractionMode();
+const pillsEl = $('#pills');
+const qBar = $('#qBar'), qText = $('#qText'), qMeta = $('#qMeta'), resendBtn = $('#resendBtn');
+const chatPopup = $('#chatPopup'), chatHandle = $('#chatHandle');
+const chatHistory = $('#chatHistory'), chatNoCtx = $('#chatNoCtx');
+const chatInput = $('#chatInput'), chatSend = $('#chatSend');
+
+function fillSubType() {
+  const mode = modeEl.value;
+  const isMed = mode === 'medical';
+  const isBig = mode === 'bigidea';
+  // BigIdea has no sub-type taxonomy -- single CLI pipeline. CSS hides
+  // the select; clearing options also prevents stale ADVISE_TYPES values
+  // from leaking into submit when the user toggles back later.
+  const opts = isBig ? [] : (isMed ? MEDICAL_SPECIALTIES : ADVISE_TYPES);
+  subEl.innerHTML = opts.map(([v, k]) => '<option value="' + v + '">' + t(k) + '</option>').join('');
+  inputEl.placeholder = isBig
+    ? t('placeholder.input.bigidea')
+    : isMed
+      ? t('placeholder.input.medical')
+      : t('placeholder.input.advise');
+  // Drive the body[data-mode] CSS hooks for panel hiding.
+  document.body.dataset.mode = mode;
+}
+modeEl.addEventListener('change', fillSubType);
+fillSubType();
+
+// Admin-gated dynamic option: BigIdea reveals proprietary scan signals,
+// so we only expose the dropdown entry when the logged-in user has
+// is_admin=true. Toggle re-runs on every auth state change (login /
+// logout / token expiry) by being invoked from renderAuthBox().
+function _toggleBigIdeaModeOption() {
+  if (!modeEl) return;
+  const has = !!modeEl.querySelector('option[value="bigidea"]');
+  const wantShow = (typeof getAuthIsAdmin === 'function') && getAuthIsAdmin();
+  if (wantShow && !has) {
+    const opt = document.createElement('option');
+    opt.value = 'bigidea';
+    opt.textContent = t('mode.bigidea');
+    opt.setAttribute('data-i18n', 'mode.bigidea');
+    modeEl.appendChild(opt);
+  } else if (!wantShow && has) {
+    modeEl.querySelector('option[value="bigidea"]').remove();
+    if (modeEl.value === 'bigidea') {
+      modeEl.value = 'advise';
+      fillSubType();
+    }
+  }
+}
+
+// Singleton tooltip element mounted on body -- escapes pill/pills overflow
+// clipping. Reused across all pills; content swapped on hover. Hover-intent
+// delay keeps tooltip open when cursor crosses from pill into the tooltip
+// body, so the text is selectable/copyable.
+let _pillTip = null;
+let _pillTipHideTimer = null;
+const _PILL_TIP_HIDE_MS = 180;
+function _pillTipHideSoon() {
+  if (_pillTipHideTimer) clearTimeout(_pillTipHideTimer);
+  _pillTipHideTimer = setTimeout(() => {
+    if (_pillTip) _pillTip.style.display = 'none';
+    _pillTipHideTimer = null;
+  }, _PILL_TIP_HIDE_MS);
+}
+function _pillTipCancelHide() {
+  if (_pillTipHideTimer) { clearTimeout(_pillTipHideTimer); _pillTipHideTimer = null; }
+}
+function _getPillTip() {
+  if (_pillTip) return _pillTip;
+  _pillTip = document.createElement('div');
+  _pillTip.className = 'pill-tooltip-float';
+  _pillTip.addEventListener('mouseenter', _pillTipCancelHide);
+  _pillTip.addEventListener('mouseleave', _pillTipHideSoon);
+  document.body.appendChild(_pillTip);
+  return _pillTip;
+}
+// Inline SVG icons -- stroke:currentColor makes them track theme + hover.
+// Feather-style 14x14. No i18n needed; title attr for screen readers.
+const _SVG_COPY  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+const _SVG_CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+const _SVG_TRASH = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
+const _SVG_DOWNLOAD = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+
+// Build a single meeting as Markdown for "save md" download. Pulls from
+// the in-memory meeting object (phase content + chat thread are not
+// persisted in localStorage post b9f0ef0; user must save before tab
+// reload if they want a permanent copy).
+function _buildMeetingMd(m) {
+  if (!m) return '';
+  const lines = [];
+  const title = (m.question || '').slice(0, 80) || 'EIP analysis';
+  lines.push('# ' + title);
+  lines.push('');
+  const ts = m.timestamp ? new Date(m.timestamp).toISOString() : '';
+  lines.push('- Date: ' + ts);
+  if (m.mode) lines.push('- Mode: ' + m.mode +
+    (m.subtype ? ' / ' + m.subtype : ''));
+  if (m.lang) lines.push('- Lang: ' + m.lang);
+  lines.push('');
+  lines.push('## Question');
+  lines.push('');
+  lines.push(m.question || '');
+  lines.push('');
+  // Asymmetric MD scope: admin gets all four review panels (Creator
+  // draft, peer review, stress test, final synthesis); non-admin
+  // gets only the final analysis the user-facing UI is built around.
+  // Both sides keep the followup chat thread.
+  const isAdmin = getAuthIsAdmin();
+  const phaseLabels = isAdmin ? [
+    ['primary', 'Primary (Creator)'],
+    ['peer',    'Peer review'],
+    ['stress',  'Stress test'],
+    ['final',   'Final synthesis'],
+  ] : [
+    ['final',   'Final analysis'],
+  ];
+  const ph = m.phases || {};
+  phaseLabels.forEach(([key, label]) => {
+    const c = (ph[key] && ph[key].content) || '';
+    if (!c.trim()) return;
+    lines.push('## ' + label);
+    lines.push('');
+    lines.push(c);
+    lines.push('');
+  });
+  // Chat turns store the message under `content`, not `text` -- using
+  // the wrong field made every line render as "**user:** " with no
+  // body. Also drop empty turns so a stream that started but never
+  // received content does not show up as a phantom row.
+  const realTurns = (Array.isArray(m.chat) ? m.chat : [])
+    .filter(t => t && typeof t.content === 'string' && t.content.trim());
+  if (realTurns.length > 0) {
+    lines.push('## Chat thread');
+    lines.push('');
+    realTurns.forEach(turn => {
+      const role = turn.role || 'msg';
+      lines.push('**' + role + ':** ' + turn.content);
+      lines.push('');
+    });
+  }
+  return lines.join('\n');
+}
+function _safeMdFilename(m) {
+  const ts = m.timestamp ? new Date(m.timestamp) : new Date();
+  const ymd = ts.toISOString().slice(0, 10);
+  let slug = (m.question || 'pill').slice(0, 40)
+    .replace(/[\\\/:*?"<>|]/g, '')
+    .replace(/\s+/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^_+|_+$/g, '');
+  if (!slug) slug = 'pill';
+  const user = (getAuthUser() || 'anon').replace(/[\\\/:*?"<>|]/g, '_');
+  return user + '_' + ymd + '_' + slug + '.md';
+}
+function _downloadMd(meeting) {
+  const md = _buildMeetingMd(meeting);
+  const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = _safeMdFilename(meeting);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function _buildPillTipContent(tip, text, meetingId) {
+  tip.innerHTML = '';
+  const bar = document.createElement('div');
+  bar.className = 'pill-tip-bar';
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'pill-tip-btn';
+  copyBtn.setAttribute('aria-label', 'Copy');
+  copyBtn.title = 'Copy';
+  copyBtn.innerHTML = _SVG_COPY;
+  copyBtn.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (_) {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (_) {}
+      ta.remove();
+    }
+    copyBtn.innerHTML = _SVG_CHECK;
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.innerHTML = _SVG_COPY;
+      copyBtn.classList.remove('copied');
+    }, 1200);
+  });
+  bar.appendChild(copyBtn);
+  if (meetingId) {
+    const dlBtn = document.createElement('button');
+    dlBtn.className = 'pill-tip-btn';
+    dlBtn.setAttribute('aria-label', 'Save as Markdown');
+    dlBtn.title = 'Save as Markdown';
+    dlBtn.innerHTML = _SVG_DOWNLOAD;
+    dlBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const m = meetings.find(x => x.id === meetingId);
+      if (m) _downloadMd(m);
+    });
+    bar.appendChild(dlBtn);
+    const delBtn = document.createElement('button');
+    delBtn.className = 'pill-tip-btn danger';
+    delBtn.setAttribute('aria-label', 'Delete');
+    delBtn.title = 'Delete';
+    delBtn.innerHTML = _SVG_TRASH;
+    delBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // Remove from state, hide tooltip, drop its DOM, then re-render pills.
+      meetings = meetings.filter(x => x.id !== meetingId);
+      saveMeetings(meetings);
+      if (currentId === meetingId) { currentId = null; renderLive(); }
+      _pillTipCancelHide();
+      if (_pillTip) {
+        _pillTip.style.display = 'none';
+        _pillTip.innerHTML = '';
+      }
+      renderPills();
+    });
+    bar.appendChild(delBtn);
+  }
+  const body = document.createElement('div');
+  body.className = 'pill-tip-body';
+  body.textContent = text;
+  tip.appendChild(bar);
+  tip.appendChild(body);
+}
+
+function _attachPillTooltip(btn, text, meetingId) {
+  if (!text) return;
+  btn.addEventListener('mouseenter', () => {
+    _pillTipCancelHide();
+    const tip = _getPillTip();
+    _buildPillTipContent(tip, text, meetingId);
+    tip.style.display = 'block';
+    const r = btn.getBoundingClientRect();
+    tip.style.top = (r.bottom + 6) + 'px';
+    // Clamp right edge to viewport so long tooltips don't overflow.
+    const vw = window.innerWidth;
+    const maxRight = vw - 12;
+    let left = r.left;
+    const tipW = tip.offsetWidth;
+    if (left + tipW > maxRight) left = Math.max(8, maxRight - tipW);
+    tip.style.left = left + 'px';
+  });
+  btn.addEventListener('mouseleave', _pillTipHideSoon);
+}
+
+function renderPills() {
+  pillsEl.innerHTML = '';
+  _pillTipCancelHide();
+  if (_pillTip) _pillTip.style.display = 'none';
+  meetings.forEach(m => {
+    const b = document.createElement('button');
+    b.className = 'pill' + (currentId === m.id ? ' active' : '');
+    b.dataset.id = m.id;
+    b.textContent = meetingTitle(m);
+    _attachPillTooltip(b, m.question || '', m.id);
+    b.addEventListener('click', () => { viewMeeting(m.id); });
+    pillsEl.appendChild(b);
+  });
+  const live = document.createElement('button');
+  live.className = 'pill' + (currentId === null ? ' active' : '');
+  live.innerHTML = t('btn.new');
+  live.addEventListener('click', () => { currentId = null; renderLive(); renderPills(); });
+  pillsEl.appendChild(live);
+}
+
+// role -> { cancelled, timer, paused, step } for in-flight typewriter
+const panelAnims = {};
+function cancelPanelAnim(role) {
+  const a = panelAnims[role];
+  if (!a) return;
+  a.cancelled = true;
+  if (a.timer) clearTimeout(a.timer);
+  const p = document.querySelector('.panel[data-role="' + role + '"]');
+  if (p) {
+    p.removeAttribute('data-typing');
+    const pre = p.querySelector('pre.typing');
+    if (pre) pre.classList.remove('typing');
+  }
+  delete panelAnims[role];
+}
+
+// Reveal char-by-char at fast human typing speed, with rhythm pauses
+// aligned to natural boundaries: period (sentence end), comma (clause),
+// newline (paragraph). Blinking cursor at tail while typing.
+const TYPE_MS = 40;            // per-tick base delay (one tick = BATCH chars)
+const TYPE_BATCH = 20;         // chars revealed per tick -- cuts DOM mutation
+                               // frequency 20x vs per-char, which iOS Safari
+                               // kills the tab on for long reports. Tick rate
+                               // stays the same, so perceived speed jumps but
+                               // eye still reads it as streaming.
+const PERIOD_PAUSE_MS = 1000;  // after . 。
+const COMMA_PAUSE_MS = 200;    // after , ， ; ； : ：
+const NEWLINE_PAUSE_MS = 500;  // after \n  (paragraph breath)
+const PERIOD_RE = /[.。]/;
+const COMMA_RE  = /[,，;；:：]/;
+
+function typewriterReveal(role, fullText, onDone) {
+  cancelPanelAnim(role);
+  const p = document.querySelector('.panel[data-role="' + role + '"]');
+  if (!p) return;
+  const body = p.querySelector('.panel-body');
+  body.innerHTML = '<pre class="typing"></pre>';
+  const pre = body.querySelector('pre');
+  // Text node + cursor span as pre's children. Cursor stays inline,
+  // flows with text, sits immediately after the last revealed char.
+  const textNode = document.createTextNode('');
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-blink';
+  pre.appendChild(textNode);
+  pre.appendChild(cursor);
+  const total = fullText.length;
+  if (total === 0) { cursor.remove(); if (onDone) onDone(); return; }
+  const state = { cancelled: false, timer: null, paused: false, step: null };
+  panelAnims[role] = state;
+  p.setAttribute('data-typing', 'true');   // flowing border stays while we type
+  let idx = 0;
+  function step() {
+    if (state.cancelled || state.paused) return;
+    if (idx >= total) {
+      cursor.remove();
+      pre.classList.remove('typing');
+      p.removeAttribute('data-typing');
+      delete panelAnims[role];
+      if (onDone) onDone();
+      return;
+    }
+    idx = Math.min(idx + TYPE_BATCH, total);
+    textNode.data = fullText.slice(0, idx);
+    body.scrollTop = body.scrollHeight;
+    // Delay keyed on the LAST char of this batch -- if it's punctuation or
+    // a newline, give the reader a beat before the next batch.
+    const lastCh = fullText[idx - 1];
+    let delay = TYPE_MS;
+    if (PERIOD_RE.test(lastCh))      delay = PERIOD_PAUSE_MS;
+    else if (lastCh === '\n')        delay = NEWLINE_PAUSE_MS;
+    else if (COMMA_RE.test(lastCh))  delay = COMMA_PAUSE_MS;
+    state.timer = setTimeout(step, delay);
+  }
+  state.step = step;
+  step();
+}
+
+// Append mode: type new text INTO the existing pre (keeps prior content).
+// Used for follow-up Q&A answers that extend the Final Rec panel.
+// onDone callback fires when reveal completes (or immediately if text empty).
+function typewriterAppend(role, appendText, onDone) {
+  cancelPanelAnim(role);
+  const p = document.querySelector('.panel[data-role="' + role + '"]');
+  if (!p) { if (onDone) onDone(); return; }
+  const body = p.querySelector('.panel-body');
+  const pre = body.querySelector('pre');
+  if (!pre) { if (onDone) onDone(); return; }
+  const textNode = document.createTextNode('');
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-blink';
+  pre.appendChild(textNode);
+  pre.appendChild(cursor);
+  const total = appendText.length;
+  if (total === 0) {
+    cursor.remove();
+    if (onDone) onDone();
+    return;
+  }
+  pre.classList.add('typing');
+  p.setAttribute('data-typing', 'true');
+  const state = { cancelled: false, timer: null, paused: false, step: null };
+  panelAnims[role] = state;
+  let idx = 0;
+  function step() {
+    if (state.cancelled || state.paused) return;
+    if (idx >= total) {
+      cursor.remove();
+      pre.classList.remove('typing');
+      p.removeAttribute('data-typing');
+      delete panelAnims[role];
+      if (onDone) onDone();
+      return;
+    }
+    idx = Math.min(idx + TYPE_BATCH, total);
+    textNode.data = appendText.slice(0, idx);
+    body.scrollTop = body.scrollHeight;
+    const lastCh = appendText[idx - 1];
+    let delay = TYPE_MS;
+    if (PERIOD_RE.test(lastCh))      delay = PERIOD_PAUSE_MS;
+    else if (lastCh === '\n')        delay = NEWLINE_PAUSE_MS;
+    else if (COMMA_RE.test(lastCh))  delay = COMMA_PAUSE_MS;
+    state.timer = setTimeout(step, delay);
+  }
+  state.step = step;
+  step();
+}
+
+// Pause all typewriters while tab hidden (save CPU/battery). Resume on visible.
+document.addEventListener('visibilitychange', () => {
+  const hidden = document.hidden;
+  Object.values(panelAnims).forEach(a => {
+    if (!a || a.cancelled) return;
+    if (hidden) {
+      if (a.timer) { clearTimeout(a.timer); a.timer = null; }
+      a.paused = true;
+    } else if (a.paused && a.step) {
+      a.paused = false;
+      a.step();
+    }
+  });
+});
+
+// Live thinking-time ticker next to the final panel title. Shows MM:SS
+// elapsed while status=start, freezes at total on done/error, hides on idle.
+let _thinkTimer = null;
+let _thinkStart = 0;
+function _fmtElapsed(ms) {
+  const s = Math.floor(ms / 1000);
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+function startThinkingTimer() {
+  const el = document.getElementById('thinkingTimer');
+  if (!el) return;
+  _thinkStart = Date.now();
+  el.style.display = '';
+  el.textContent = '00:00';
+  if (_thinkTimer) clearInterval(_thinkTimer);
+  _thinkTimer = setInterval(() => {
+    el.textContent = _fmtElapsed(Date.now() - _thinkStart);
+  }, 1000);
+}
+function stopThinkingTimer(freeze) {
+  if (_thinkTimer) { clearInterval(_thinkTimer); _thinkTimer = null; }
+  const el = document.getElementById('thinkingTimer');
+  if (!el) return;
+  if (freeze) {
+    el.textContent = _fmtElapsed(Date.now() - _thinkStart) + ' total';
+    el.style.animation = 'none';   // stop pulse once frozen
+  } else {
+    el.style.display = 'none';
+    el.style.animation = '';
+  }
+}
+
+function setPanel(role, status, content, animate) {
+  const p = document.querySelector('.panel[data-role="' + role + '"]');
+  if (!p) return;
+  p.dataset.status = status;
+  const s = p.querySelector('.status');
+  s.dataset.s = status;
+  const STATUS_I18N = { start: 'status.thinking', done: 'status.done', error: 'status.error', idle: 'status.idle' };
+  const statusKey = STATUS_I18N[status];
+  s.textContent = statusKey ? t(statusKey) : status;
+  // Drive the MM:SS ticker only for the final panel (the one the user
+  // watches in client mode; Trinity side panels don't need their own).
+  if (role === 'final') {
+    if (status === 'start') startThinkingTimer();
+    else if (status === 'done' || status === 'error') stopThinkingTimer(true);
+    else if (status === 'idle') stopThinkingTimer(false);
+  }
+  const body = p.querySelector('.panel-body');
+  if (content) {
+    cancelPanelAnim(role);
+    if (animate) {
+      // Final panel typewriter completion is the single re-enable point for
+      // the submit button -- user must see "the content is fully out" before
+      // being able to submit again. For other roles no callback.
+      const done = role === 'final' ? _onFinalTypewriterDone : null;
+      typewriterReveal(role, content, done);
+    } else {
+      body.innerHTML = '<pre></pre>';
+      body.querySelector('pre').textContent = content;
+      if (role === 'final') _onFinalTypewriterDone();
+    }
+    const btn = p.querySelector('.copy-btn');
+    if (btn) btn.disabled = false;
+  } else if (status === 'start') {
+    cancelPanelAnim(role);
+    // data-i18n preserved on the dynamically-created span so applyLang()
+    // can re-translate it if the user switches language while the panel
+    // is in start/idle state (otherwise the text Claude wrote here stays
+    // in the prior language forever).
+    body.innerHTML = '<span class="placeholder" data-i18n="placeholder.thinking">' + t('placeholder.thinking') + '</span><span class="cursor-pulse"></span>';
+  } else if (status === 'idle') {
+    cancelPanelAnim(role);
+    body.innerHTML = '<span class="placeholder" data-i18n="placeholder.waiting">' + t('placeholder.waiting') + '</span>';
+    const btn = p.querySelector('.copy-btn');
+    if (btn) { btn.disabled = true; btn.innerHTML = _SVG_COPY; btn.dataset.copied = 'false'; }
+  }
+}
+function resetPanels() { ROLES.forEach(r => setPanel(r, 'idle', '')); }
+
+// Re-enables submit once the final panel's typewriter has fully revealed
+// the synthesis. Called from typewriterReveal's onDone AND from ws.onclose
+// when final is not animating (error / no-content paths).
+function _onFinalTypewriterDone() {
+  if (ws) return;  // WS still open -- defer until ws.onclose fires
+  submitBtn.disabled = false;
+  stopBtn.style.display = 'none';
+}
+
+// Single-phase retry: re-runs overseer / adversary on the backend with
+// the current meeting's Creator output + user question. Backend endpoint
+// is stateless (POST /api/phase/retry); no WS / Session involved.
+async function retryPhase(role, phaseName) {
+  const m = liveMeeting || (currentId ? meetings.find(x => x.id === currentId) : null);
+  if (!m) return;
+  const creatorText = m.phases.primary && m.phases.primary.content || '';
+  const userQ = m.question || inputEl.value || '';
+  if (!creatorText || !userQ) {
+    dbg('retry abort: missing creator or user_q');
+    return;
+  }
+  const panel = document.querySelector('.panel[data-role="' + role + '"]');
+  const btn = panel ? panel.querySelector('.retry-btn') : null;
+  if (btn) { btn.disabled = true; btn.textContent = t('placeholder.thinking'); }
+  setPanel(role, 'start', '');
+  try {
+    const res = await fetch(HTTP_BASE + '/api/phase/retry', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        user_session_id: getUserSessionId(),
+        phase_name: phaseName,
+        eval_type: m.subtype || 'general',
+        lang: m.lang || 'zh',
+        user_q: userQ,
+        creator_content: creatorText,
+        debug: localStorage.getItem('eip_debug') === '1',
+        auth_token: getAuthToken(),
+      }),
+    });
+    const d = await res.json();
+    if (res.ok && d.status === 'ok' && d.content) {
+      m.phases[role] = { status: 'done', content: d.content };
+      saveMeetings(meetings).catch(e => dbg('save failed: ' + e));
+      setPanel(role, 'done', d.content, true);
+    } else {
+      const reason = d.reason || d.detail || 'retry failed';
+      m.phases[role] = { status: 'error', content: reason };
+      setPanel(role, 'error', reason);
+    }
+  } catch (e) {
+    setPanel(role, 'error', 'retry error: ' + (e.message || e));
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = t('btn.retry'); }
+  }
+}
+
+// Delegate clicks on any .retry-btn to retryPhase (button carries
+// data-phase = backend phase name).
+document.addEventListener('click', (ev) => {
+  const btn = ev.target.closest && ev.target.closest('.retry-btn');
+  if (!btn) return;
+  const panel = btn.closest('.panel');
+  if (!panel) return;
+  retryPhase(panel.dataset.role, btn.dataset.phase);
+});
+// Final Rec panel shows the base final content plus any Q&A follow-ups
+// accumulated in m.chat. Used on render and as the pre-submit baseline.
+function buildFinalRecDisplay(m) {
+  let text = m.phases.final.content || '';
+  if (m.chat && m.chat.length > 0) {
+    let lastUser = null;
+    m.chat.forEach(turn => {
+      if (turn.role === 'user') {
+        lastUser = turn.content;
+      } else if (turn.role === 'analyst' && lastUser !== null) {
+        text += '\n\n----\n\nQ: ' + lastUser + '\n\nA: ' + turn.content;
+        lastUser = null;
+      }
+    });
+  }
+  return text;
+}
+function renderMeeting(m) {
+  ROLES.forEach(r => {
+    const ph = m.phases[r];
+    const content = (r === 'final') ? buildFinalRecDisplay(m) : ph.content;
+    setPanel(r, ph.status, content);
+  });
+  qBar.classList.remove('empty');
+  qText.textContent = m.question;
+  // Chat meetings have mode='chat' and no subtype; label accordingly.
+  let typeLabel;
+  if (m.mode === 'chat') typeLabel = t('panel.final.chat');
+  else if (m.mode === 'quickchat') typeLabel = t('panel.final.quickchat');
+  else if (m.mode === 'medical')
+    typeLabel = t(MEDICAL_SPECIALTIES.find(x => x[0] === (m.subtype||''))?.[1] || 'mode.medical');
+  else typeLabel = t(ADVISE_TYPES.find(x => x[0] === m.subtype)?.[1] || 'mode.advise');
+  const time = new Date(m.timestamp).toLocaleString();
+  qMeta.textContent = typeLabel + ' - ' + m.lang.toUpperCase() + ' - ' + time;
+  resendBtn.style.display = 'inline-block';
+  // Swap the final panel title based on meeting type so old chat meetings
+  // read as "Chat" and old Analysis meetings read as "Analysis Report".
+  const finalTitleEl = document.querySelector('.panel[data-role="final"] h3');
+  if (finalTitleEl) finalTitleEl.textContent = m.mode === 'chat' ? t('panel.final.chat')
+    : m.mode === 'quickchat' ? t('panel.final.quickchat')
+    : t('panel.final');
+  loadChatForMeeting(m);
+}
+function renderLive() {
+  resetPanels();
+  qBar.classList.add('empty');
+  qText.textContent = ''; qMeta.textContent = '';
+  resendBtn.style.display = 'none';
+  chatHistory.innerHTML = '';
+  chatNoCtx.style.display = 'block';
+  chatHistory.appendChild(chatNoCtx);
+  chatInput.disabled = true; chatSend.disabled = true;
+  // Restore panel title to whatever interaction mode the user currently has
+  // selected (renderMeeting may have swapped it to 'Chat' for an old chat meeting).
+  if (typeof applyInteractionMode === 'function') applyInteractionMode();
+}
+function viewMeeting(id) {
+  const m = meetings.find(x => x.id === id);
+  if (!m) return;
+  // Auto-sync dropdown to the pill's mode so the UI reflects what the
+  // backend will do on the next submit (Edge 2 alpha from the spec).
+  if (['analysis', 'chat', 'quickchat'].includes(m.mode)) {
+    interactionEl.value = m.mode;
+    applyInteractionMode();
+  } else if (m.mode === 'advise' || m.mode === 'medical') {
+    // Legacy pills created before the three-mode design use 'advise' /
+    // 'medical' as the mode label. Treat them as Analysis visually.
+    interactionEl.value = 'analysis';
+    applyInteractionMode();
+  }
+  currentId = id; renderMeeting(m); renderPills();
+}
+
+let ws = null;
+let liveMeeting = null;
+// Follow-up mode state: chat WS is shared with popup; these fields
+// track when the next chat response should be routed to Final Rec panel.
+let chatTurnTarget = null;        // 'panel' | null  (null = popup default)
+let pendingFollowupQ = null;      // queued Q to send once chat session ready
+let pendingFollowupMeeting = null;
+
+// Router: Final Rec has a done report -> follow-up Q&A; otherwise -> new
+// topic. New topic branches on interaction mode: 'chat' goes to ws_chat
+// (lightweight Opus subprocess), 'analysis' goes to Trinity via ws_advise.
+function submitCouncil() {
+  if (!inputEl.value.trim() || ws || submitBtn.disabled) return;
+  if (apiOnline === false) {
+    dbg('submit blocked: backend offline');
+    return;
+  }
+  const question = inputEl.value.trim();
+  const m = currentId ? meetings.find(x => x.id === currentId) : null;
+  // Chat / QuickChat: if the current pill is one of these modes, append
+  // a new turn to its thread (resuming its cc_session_id). Otherwise,
+  // fall through to the fresh-session branches below.
+  if (m && (m.mode === 'chat' || m.mode === 'quickchat')) {
+    continueChatTurn(m, question);
+    return;
+  }
+  const hasReport = m && m.phases.final.content && m.phases.final.status === 'done';
+  if (hasReport && m.mode !== 'chat' && m.mode !== 'quickchat') {
+    submitFollowup(m, question);
+  } else if (interactionEl.value === 'chat') {
+    startChatMode(question, 'opus');
+  } else if (interactionEl.value === 'quickchat') {
+    startChatMode(question, 'haiku');
+  } else {
+    startNewTrinity(question);
+  }
+}
+
+// Chat mode: one round-trip via ws_chat (persistent Opus subprocess).
+// Fills the final panel with the reply, saves as a meeting so the
+// follow-up popup works the same way it does for Analysis meetings.
+function startChatMode(question, model) {
+  const mode = model === 'haiku' ? 'quickchat' : 'chat';
+  currentId = null; renderLive(); renderPills();
+  const lang = langEl.value;
+  inputEl.value = '';
+  liveMeeting = newMeeting(mode, null, lang, question);
+  qBar.classList.remove('empty');
+  qText.textContent = question;
+  qMeta.textContent = (model === 'haiku' ? 'QuickChat' : 'Chat') + ' -- ' + lang.toUpperCase();
+  resendBtn.style.display = 'none';
+  submitBtn.disabled = true; stopBtn.style.display = 'inline-block';
+  setPanel('final', 'start', '');
+  const url = WS_BASE + '/api/ws/chat';
+  const uid = getUserSessionId();
+  dbg('WS ' + url + ' (chat mode)');
+  ws = new WebSocket(url);
+  ws.onopen = () => ws.send(JSON.stringify({
+    type: 'init', user_session_id: uid, report_context: '', lang, model,
+  }));
+  ws.onmessage = (evt) => {
+    let d; try { d = JSON.parse(evt.data); } catch { return; }
+    if (d.type === 'init_ack') {
+      if (d.cc_session_id && liveMeeting) {
+        liveMeeting.cc_session_id = d.cc_session_id;
+        dbg('chat captured cc_session_id=' + d.cc_session_id);
+      }
+      dbgLLM('chat_first', model === 'haiku' ? 'quickchat' : 'chat',
+             model, d.cc_session_id || (liveMeeting && liveMeeting.cc_session_id));
+      ws.send(JSON.stringify({
+        type: 'turn', user_session_id: uid,
+        session_id: d.session_id, message: question,
+      }));
+    } else if (d.type === 'turn_result' || d.status) {
+      if (d.status === 'ok' && d.content) {
+        liveMeeting.phases.final = { status: 'done', content: d.content };
+        setPanel('final', 'done', d.content, true);
+      } else {
+        const msg = d.reason || 'chat error';
+        liveMeeting.phases.final = { status: 'error', content: msg };
+        setPanel('final', 'error', msg);
+      }
+      try { ws.close(1000, 'chat turn complete'); } catch {}
+    }
+  };
+  ws.onerror = (e) => {
+    _wsError('chat-init', ws, e);
+    setPanel('final', 'error', _wsUiError('chat-init', ws, e));
+    if (liveMeeting) liveMeeting.phases.final.status = 'error';
+  };
+  ws.onclose = (e) => {
+    _wsClose('chat-init', ws, e);
+    ws = null; submitBtn.disabled = false; stopBtn.style.display = 'none';
+    if (liveMeeting) {
+      const hasContent = !!liveMeeting.phases.final.content;
+      if (hasContent) {
+        meetings.unshift(liveMeeting);
+        saveMeetings(meetings).catch(e => dbg('save failed: ' + e));
+        currentId = liveMeeting.id;
+        renderPills();
+        if (liveMeeting.phases.final.status === 'done') {
+          chatNoCtx.style.display = 'none';
+          chatInput.disabled = false; chatSend.disabled = false;
+        }
+      }
+      liveMeeting = null;
+    }
+  };
+}
+
+// Continue an existing Chat / QuickChat pill: send next turn with the
+// pill's cc_session_id so the server spawns --resume. Appends "Q\nA"
+// to the thread rendered in the final panel.
+function continueChatTurn(m, question) {
+  inputEl.value = '';
+  submitBtn.disabled = true; stopBtn.style.display = 'inline-block';
+  // Append Q to the thread (visually)
+  const priorText = m.phases.final.content || '';
+  const separator = priorText ? '\n\n----\n\n' : '';
+  const newQ = 'Q: ' + question + '\n\nA: ';
+  m.phases.final = { status: 'start', content: priorText + separator + newQ };
+  setPanel('final', 'start', m.phases.final.content, false);
+  qText.textContent = question;
+  qMeta.textContent = (m.mode === 'quickchat' ? 'QuickChat' : 'Chat')
+    + ' -- ' + (m.lang || 'zh').toUpperCase();
+  // Add pulse cursor at the tail so streaming deltas have a visible anchor.
+  const cPre = document.querySelector('.panel[data-role="final"] pre');
+  if (cPre) {
+    const pc = document.createElement('span');
+    pc.className = 'cursor-pulse';
+    cPre.appendChild(pc);
+  }
+  chatStreamedBuffer = '';
+
+  const url = WS_BASE + '/api/ws/chat';
+  const uid = getUserSessionId();
+  const model = m.mode === 'quickchat' ? 'haiku' : 'opus';
+  dbg('WS ' + url + ' (continue ' + m.mode + ', resume=' + m.cc_session_id + ')');
+  ws = new WebSocket(url);
+  ws.onopen = () => ws.send(JSON.stringify({
+    type: 'init', user_session_id: uid, report_context: '', lang: m.lang,
+    model, resume_cc_session_id: m.cc_session_id,
+  }));
+  ws.onmessage = (evt) => {
+    let d; try { d = JSON.parse(evt.data); } catch { return; }
+    if (d.type === 'init_ack') {
+      if (d.cc_session_id) m.cc_session_id = d.cc_session_id;
+      dbgLLM('chat_resume', m.mode || 'chat', model, m.cc_session_id);
+      ws.send(JSON.stringify({
+        type: 'turn', user_session_id: uid,
+        session_id: d.session_id, message: question,
+      }));
+    } else if (d.type === 'turn_delta') {
+      handleChatTurnDelta(d.text || '');
+      return;
+    } else if (d.type === 'turn_result' || d.status) {
+      // Clean up pulse cursor, deltas anchored there are done streaming.
+      const rpre = document.querySelector('.panel[data-role="final"] pre');
+      if (rpre) { const pc = rpre.querySelector('.cursor-pulse'); if (pc) pc.remove(); }
+      if (d.status === 'ok' && d.content) {
+        const finalText = m.phases.final.content + d.content;
+        m.phases.final = { status: 'done', content: finalText };
+        const p = document.querySelector('.panel[data-role="final"]');
+        if (p) {
+          p.dataset.status = 'done';
+          const sp = p.querySelector('.status');
+          if (sp) { sp.dataset.s = 'done'; sp.textContent = t('status.done'); }
+          const cb = p.querySelector('.copy-btn');
+          if (cb) cb.disabled = false;
+        }
+        // If deltas streamed and match scrubbed content, the text is
+        // already on screen (no action). If mismatch or no streaming,
+        // ensure final text is correct: append the delta between
+        // streamed-buffer tail and d.content, or typewriter if empty.
+        if (chatStreamedBuffer) {
+          if (chatStreamedBuffer !== d.content && rpre) {
+            // Replace streamed tail with scrubbed content
+            const streamedLen = chatStreamedBuffer.length;
+            const current = rpre.textContent;
+            const base = current.slice(0, current.length - streamedLen);
+            rpre.textContent = base + d.content;
+          }
+          chatStreamedBuffer = '';
+        } else {
+          typewriterAppend('final', d.content);
+        }
+      } else {
+        // Error path: also append (same reasoning). Error text is short,
+        // no animation buyback lost -- but we still skip the wipe.
+        const msg = d.reason || 'chat error';
+        const tail = '[error: ' + msg + ']';
+        m.phases.final = { status: 'error', content: m.phases.final.content + tail };
+        const p = document.querySelector('.panel[data-role="final"]');
+        if (p) {
+          p.dataset.status = 'error';
+          const sp = p.querySelector('.status');
+          if (sp) { sp.dataset.s = 'error'; sp.textContent = t('status.error'); }
+        }
+        typewriterAppend('final', tail);
+      }
+      try { ws.close(1000, 'chat turn complete'); } catch {}
+    }
+  };
+  ws.onerror = (e) => {
+    _wsError('chat-resume', ws, e);
+    setPanel('final', 'error', _wsUiError('chat-resume', ws, e));
+    // Defensive: unlock submit button in case onclose does not fire.
+    submitBtn.disabled = false; stopBtn.style.display = 'none';
+  };
+  ws.onclose = (e) => {
+    _wsClose('chat-resume', ws, e);
+    ws = null; submitBtn.disabled = false; stopBtn.style.display = 'none';
+    saveMeetings(meetings).catch(err => dbg('save failed: ' + err));
+    renderPills();
+  };
+}
+
+function submitFollowup(m, question) {
+  // Ensure Final Rec panel shows the full baseline (cancel any running typewriter)
+  cancelPanelAnim('final');
+  const finalPanel = document.querySelector('.panel[data-role="final"]');
+  const body = finalPanel.querySelector('.panel-body');
+  body.innerHTML = '<pre></pre>';
+  const pre = body.querySelector('pre');
+  pre.textContent = buildFinalRecDisplay(m);
+
+  // Save user turn; append Q + thinking cursor
+  m.chat = m.chat || [];
+  m.chat.push({ role: 'user', content: question });
+  saveMeetings(meetings);
+  pre.appendChild(document.createTextNode('\n\n----\n\nQ: ' + question + '\n\nA: '));
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-pulse';
+  pre.appendChild(cursor);
+  body.scrollTop = body.scrollHeight;
+
+  // Enable copy button since content exists
+  const copyBtn = finalPanel.querySelector('.copy-btn');
+  if (copyBtn) copyBtn.disabled = false;
+
+  inputEl.value = '';
+  submitBtn.disabled = true;
+  stopBtn.style.display = 'none';
+  chatTurnTarget = 'panel';
+  pendingFollowupQ = question;
+  pendingFollowupMeeting = m;
+  chatStreamedBuffer = '';
+
+  if (chatMeetingId !== m.id || !chatWs || chatWs.readyState !== WebSocket.OPEN) {
+    openChatWs(m);   // session init; onmessage handler consumes pendingFollowupQ
+  } else if (chatSessionId) {
+    dbgLLM('followup', 'followup',
+           m.mode === 'quickchat' ? 'haiku' : 'opus', m.cc_session_id);
+    chatWs.send(JSON.stringify({
+      type: 'turn',
+      user_session_id: getUserSessionId(),
+      session_id: chatSessionId,
+      message: question,
+    }));
+    pendingFollowupQ = null;
+    pendingFollowupMeeting = null;
+  }
+  // else: chat WS open but session not init'd yet -> init_ack handler sends
+}
+
+function handleFollowupResponse(d) {
+  const m = pendingFollowupMeeting || (chatMeetingId ? meetings.find(x => x.id === chatMeetingId) : null);
+  pendingFollowupMeeting = null;
+  const finalPanel = document.querySelector('.panel[data-role="final"]');
+  const body = finalPanel.querySelector('.panel-body');
+  const pre = body.querySelector('pre');
+  if (!pre) { submitBtn.disabled = false; return; }
+  // Remove the pulse cursor that was showing "thinking" between Q: and A:
+  const pulseCursor = pre.querySelector('.cursor-pulse');
+  if (pulseCursor) pulseCursor.remove();
+
+  if (d.status === 'ok' && d.content) {
+    if (m) {
+      m.chat = m.chat || [];
+      m.chat.push({ role: 'analyst', content: d.content });
+      saveMeetings(meetings);
+    }
+    if (chatStreamedBuffer) {
+      // Deltas already rendered into pre. Reconcile with authoritative
+      // (scrubbed) content if scrub changed it; otherwise leave as-is.
+      if (chatStreamedBuffer !== d.content) {
+        rebuildFinalPreFromChat(m);
+      }
+      chatStreamedBuffer = '';
+      submitBtn.disabled = false;
+      inputEl.focus();
+    } else {
+      // No streaming -- fallback path, animate from scratch
+      typewriterAppend('final', d.content, () => {
+        submitBtn.disabled = false;
+        inputEl.focus();
+      });
+    }
+  } else {
+    pre.appendChild(document.createTextNode('[error: ' + (d.reason || t('chat.analyst.error.unavailable')) + ']'));
+    body.scrollTop = body.scrollHeight;
+    chatStreamedBuffer = '';
+    submitBtn.disabled = false;
+    inputEl.focus();
+  }
+}
+
+function startNewTrinity(question) {
+  currentId = null; renderLive(); renderPills();
+  const mode = modeEl.value;
+  const subtype = subEl.value || (mode === 'medical' ? '' : 'general');
+  const lang = langEl.value;
+  inputEl.value = '';
+  liveMeeting = newMeeting(mode, subtype, lang, question);
+  qBar.classList.remove('empty');
+  qText.textContent = question;
+  qMeta.textContent = mode + ' / ' + (subtype || 'general') + ' / ' + lang.toUpperCase();
+  resendBtn.style.display = 'none';
+  // Flip Creator AND Final panels to "thinking" immediately on submit. The
+  // three top panels (primary / peer / stress) are hidden in non-debug mode
+  // via CSS, so on mobile clients the user only sees the final panel --
+  // if we flip primary alone, it stays "Waiting..." from the user's POV
+  // until synthesis fires, which feels broken. Flipping both covers both
+  // modes. Final will get re-flipped to start again when real synthesis
+  // begins; setPanel is idempotent.
+  liveMeeting.phases.primary.status = 'start';
+  setPanel('primary', 'start', '');
+  liveMeeting.phases.final.status = 'start';
+  setPanel('final', 'start', '');
+  const path = mode === 'bigidea'
+    ? '/api/ws/bigidea'
+    : mode === 'medical'
+      ? '/api/ws/medical'
+      : '/api/ws/advise';
+  const url = WS_BASE + path;
+  const uid = getUserSessionId();
+  const debug = document.body.classList.contains('debug-enabled');
+  const authTok = getAuthToken();
+  // BigIdea reuses the question textarea as a comma-separated tickers
+  // field (placeholder is swapped in fillSubType). Empty value means
+  // "full watchlist scan" -- backend defaults to var/output/watchlist.txt.
+  const body = mode === 'bigidea'
+    ? { tickers: question, path: 'a,b', lang, user_session_id: uid, debug, auth_token: authTok }
+    : mode === 'medical'
+      ? { symptoms: question, specialty: subtype || null, lang, user_session_id: uid, debug, auth_token: authTok }
+      : { description: question, eval_type: subtype || 'general', lang, user_session_id: uid, debug, auth_token: authTok };
+  submitBtn.disabled = true; stopBtn.style.display = 'inline-block';
+  dbg('WS ' + url);
+  ws = new WebSocket(url);
+  ws.onopen = () => { dbg('open'); ws.send(JSON.stringify(body)); };
+  ws.onmessage = (evt) => {
+    try {
+      const d = JSON.parse(evt.data);
+      // Meta events carry backend metadata (cc_session_id for pill resume).
+      // They don't map to a panel role -- handle and return.
+      if (d.phase === 'meta') {
+        if (d.status === 'session_id' && d.cc_session_id && liveMeeting) {
+          liveMeeting.cc_session_id = d.cc_session_id;
+          dbg('captured cc_session_id=' + d.cc_session_id);
+        } else if (d.status === 'llm_call' && d.content) {
+          // Parse llm_call metadata: {phase, role, provider, model, session_id}.
+          // Server emits this before each LLM call so debug log shows
+          // which model handled each Trinity phase AND (for Claude-
+          // persistent subprocess calls) the cc_session_id it ran in.
+          try {
+            const m = JSON.parse(d.content);
+            const sid = m.session_id ? ' sess=' + m.session_id.slice(0, 8) : '';
+            dbg('LLM: [' + m.phase + '] ' + m.provider + ' ' + m.model + sid + ' (role=' + m.role + ')');
+          } catch {
+            dbg('LLM: ' + d.content);
+          }
+        }
+        return;
+      }
+      const role = PHASE_TO_ROLE[d.phase];
+      if (!role) return;
+      if (d.status === 'delta') {
+        // Snapshot protocol: content is cumulative scrubbed text.
+        // Replace panel body instantly (no animation); keep status 'start'
+        // so the thinking pulse/border stays until 'done' arrives.
+        liveMeeting.phases[role] = { status: 'start', content: d.content };
+        setPanel(role, 'start', d.content || '', false);
+        return;
+      }
+      const body = d.content || (d.status === 'error' ? d.error : '') || '';
+      // If delta stream already rendered content into the panel, don't
+      // typewriter-replay on 'done' -- it wipes the pre and retypes from
+      // idx=0, producing the "restart in the middle" artifact. Claude
+      // Creator + Synthesis emit deltas (persistent session token stream);
+      // Gemini / Grok do not (safe_call returns whole text), so those
+      // phases still need the typewriter to reveal for the first time.
+      const hadDeltas = liveMeeting.phases[role].status === 'start'
+        && liveMeeting.phases[role].content
+        && liveMeeting.phases[role].content.length > 0;
+      liveMeeting.phases[role] = { status: d.status,
+        content: body || liveMeeting.phases[role].content };
+      setPanel(role, d.status, body, !hadDeltas);
+      dbg(d.phase + ' ' + d.status + ' ' + body.length);
+    } catch (e) { dbg('parse ' + e.message); }
+  };
+  ws.onerror = (e) => {
+    _wsError('trinity', ws, e);
+    setPanel('final', 'error', _wsUiError('trinity', ws, e));
+  };
+  ws.onclose = (e) => {
+    _wsClose('trinity', ws, e);
+    ws = null;
+    // If the final panel is still running its typewriter reveal, leave the
+    // submit button disabled -- typewriterReveal's onDone will re-enable it
+    // once the content is fully visible. Only auto-reenable when there is
+    // nothing left to animate (error path before any final content arrived).
+    if (!panelAnims.final) {
+      submitBtn.disabled = false;
+      stopBtn.style.display = 'none';
+    }
+    if (liveMeeting) {
+      const hasContent = ROLES.some(r => liveMeeting.phases[r].content);
+      if (hasContent) {
+        meetings.unshift(liveMeeting);
+        saveMeetings(meetings);
+        currentId = liveMeeting.id;
+        renderPills();
+        if (liveMeeting.phases.final.content) {
+          chatNoCtx.style.display = 'none';
+          chatInput.disabled = false; chatSend.disabled = false;
+        }
+      }
+      liveMeeting = null;
+    }
+  };
+}
+submitBtn.addEventListener('click', submitCouncil);
+stopBtn.addEventListener('click', () => { if (ws) ws.close(1000, 'user stop'); });
+inputEl.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') submitCouncil();
+});
+resendBtn.addEventListener('click', () => {
+  const m = meetings.find(x => x.id === currentId);
+  if (!m) return;
+  inputEl.value = m.question;
+  modeEl.value = m.mode;
+  fillSubType();
+  subEl.value = m.subtype || '';
+  langEl.value = m.lang;
+  inputEl.focus();
+  currentId = null; renderLive(); renderPills();
+});
+
+document.querySelectorAll('.panel-head').forEach(head => {
+  head.addEventListener('click', (e) => {
+    if (e.target.closest('.copy-btn')) return;
+    const panel = head.closest('.panel');
+    panel.dataset.collapsed = panel.dataset.collapsed === 'true' ? 'false' : 'true';
+  });
+});
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  // Seed the icon on first render (buttons are empty in HTML now).
+  if (!btn.innerHTML.trim()) btn.innerHTML = _SVG_COPY;
+  btn.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    const panel = btn.closest('.panel');
+    const pre = panel.querySelector('.panel-body pre');
+    if (!pre || !pre.textContent) return;
+    try {
+      await navigator.clipboard.writeText(pre.textContent);
+      btn.dataset.copied = 'true';
+      btn.innerHTML = _SVG_CHECK;
+      setTimeout(() => {
+        btn.dataset.copied = 'false';
+        btn.innerHTML = _SVG_COPY;
+      }, 1500);
+    } catch {
+      btn.dataset.copied = 'failed';
+      setTimeout(() => { btn.dataset.copied = 'false'; }, 1500);
+    }
+  });
+});
+
+// Chat: persistent WS per meeting view.
+// Protocol: client sends {type:'init',report_context,lang} once,
+// then {type:'turn', session_id, message} per follow-up.
+// Server holds history + context; client only ships the new turn.
+let chatWs = null;
+let chatSessionId = null;
+let chatMeetingId = null;          // which meeting this WS is bound to
+let chatPendingThinking = null;    // DOM node of in-flight "thinking..."
+// Accumulates text from streaming turn_delta events. Reset at each turn
+// start (submitFollowup / continueChatTurn / sendChat). Non-empty at
+// turn_result time means deltas streamed successfully; frontend then
+// skips the typewriter-from-scratch animation.
+let chatStreamedBuffer = '';
+
+// Append a streamed delta into the final panel pre, preserving the pulse
+// cursor at the tail so the user sees live typing.
+function handleChatTurnDelta(text) {
+  const pre = document.querySelector('.panel[data-role="final"] pre');
+  if (!pre) return;
+  const pc = pre.querySelector('.cursor-pulse');
+  if (pc) pc.remove();
+  pre.appendChild(document.createTextNode(text));
+  chatStreamedBuffer += text;
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-pulse';
+  pre.appendChild(cursor);
+  const body = pre.parentElement;
+  if (body) body.scrollTop = body.scrollHeight;
+}
+
+// On turn_result when deltas were streamed, rebuild the panel text from
+// the meeting's baseline + m.chat history to get the authoritative
+// (scrubbed) content. Replaces whatever was streamed with the canonical
+// version. Safe visually since scrub rarely changes chat text.
+function rebuildFinalPreFromChat(m) {
+  const pre = document.querySelector('.panel[data-role="final"] pre');
+  if (!pre || !m) return;
+  let text = buildFinalRecDisplay(m);
+  for (const t of (m.chat || [])) {
+    if (t.role === 'user') text += '\n\n----\n\nQ: ' + t.content + '\n\nA: ';
+    else text += t.content;
+  }
+  pre.textContent = text;
+  const body = pre.parentElement;
+  if (body) body.scrollTop = body.scrollHeight;
+}
+
+chatHandle.addEventListener('click', () => { chatPopup.classList.toggle('collapsed'); });
+
+function closeChatWs() {
+  if (chatWs) { try { chatWs.close(1000); } catch {} }
+  chatWs = null; chatSessionId = null; chatMeetingId = null;
+}
+
+function openChatWs(m) {
+  closeChatWs();
+  const url = WS_BASE + '/api/ws/chat';
+  chatMeetingId = m.id;
+  // Local ref: closures below use `ws` (the specific socket this function
+  // created) instead of the module-level `chatWs`. Fixes the race where
+  // rapid pill-switching ran closeChatWs() -> chatWs=null before the old
+  // ws's onopen fired, causing `chatWs.send` to NPE on null. Each callback
+  // also bails if it's been superseded (module chatWs no longer == ws).
+  const ws = new WebSocket(url);
+  chatWs = ws;
+  ws.onopen = () => {
+    if (chatWs !== ws) return;   // superseded by a later open; stale WS
+    dbg('chat WS open, init session');
+    ws.send(JSON.stringify({
+      type: 'init',
+      user_session_id: getUserSessionId(),
+      report_context: m.phases.final.content,
+      lang: m.lang,
+      resume_cc_session_id: m.cc_session_id || null,
+    }));
+  };
+  ws.onmessage = (evt) => {
+    if (chatWs !== ws) return;
+    let d; try { d = JSON.parse(evt.data); } catch { return; }
+    if (d.type === 'init_ack') {
+      chatSessionId = d.session_id;
+      dbg('chat session ' + chatSessionId);
+      chatInput.disabled = false; chatSend.disabled = false;
+      // Flush queued follow-up from main submit (set before openChatWs)
+      if (pendingFollowupQ) {
+        dbgLLM('followup', 'followup',
+               m && m.mode === 'quickchat' ? 'haiku' : 'opus',
+               (m && m.cc_session_id) || d.cc_session_id);
+        ws.send(JSON.stringify({
+          type: 'turn',
+          user_session_id: getUserSessionId(),
+          session_id: chatSessionId,
+          message: pendingFollowupQ,
+        }));
+        pendingFollowupQ = null;
+      }
+      return;
+    }
+    if (d.type === 'turn_delta' && chatTurnTarget === 'panel') {
+      handleChatTurnDelta(d.text || '');
+      return;
+    }
+    if (d.type === 'turn_result' || d.status) {
+      if (chatPendingThinking) { chatPendingThinking.remove(); chatPendingThinking = null; }
+      // Route: main submit -> Final Rec panel; popup send -> chat history
+      if (chatTurnTarget === 'panel') {
+        chatTurnTarget = null;
+        handleFollowupResponse(d);
+        return;
+      }
+      if (d.status === 'ok' && d.content) {
+        renderChatMsg('analyst', d.content);
+        const mm = meetings.find(x => x.id === chatMeetingId);
+        if (mm) {
+          mm.chat = mm.chat || [];
+          mm.chat.push({ role: 'analyst', content: d.content });
+          saveMeetings(meetings);
+        }
+      } else {
+        renderChatMsg('error', d.reason || t('chat.analyst.error.unavailable'));
+      }
+      chatInput.disabled = false; chatSend.disabled = false;
+      chatInput.focus();
+    }
+  };
+  ws.onerror = (e) => {
+    if (chatWs !== ws) return;
+    _wsError('chat-popup', ws, e);
+    if (chatPendingThinking) { chatPendingThinking.remove(); chatPendingThinking = null; }
+    const uiMsg = _wsUiError('chat-popup', ws, e);
+    if (chatTurnTarget === 'panel') {
+      chatTurnTarget = null;
+      handleFollowupResponse({ status: 'error', reason: uiMsg });
+    } else {
+      renderChatMsg('error', uiMsg);
+      chatInput.disabled = true; chatSend.disabled = true;
+    }
+  };
+  ws.onclose = (e) => {
+    _wsClose('chat-popup', ws, e);
+    // Only clear module state if WE are still the current WS; otherwise
+    // another openChatWs already replaced us and cleared/reset correctly.
+    if (chatWs === ws) { chatWs = null; chatSessionId = null; }
+  };
+}
+
+function loadChatForMeeting(m) {
+  chatHistory.innerHTML = '';
+  // Switching meeting -> close old WS
+  if (chatMeetingId && chatMeetingId !== m.id) closeChatWs();
+  const hasFinal = m.phases.final.content && m.phases.final.status === 'done';
+  if (!hasFinal) {
+    chatNoCtx.style.display = 'block';
+    chatNoCtx.textContent = t('chat.nocontext.disabled');
+    chatHistory.appendChild(chatNoCtx);
+    chatInput.disabled = true; chatSend.disabled = true;
+    closeChatWs();
+    return;
+  }
+  // Render stored history (visual only; server session is fresh on each connect)
+  if (!m.chat || m.chat.length === 0) {
+    const hint = document.createElement('div');
+    hint.className = 'chat-nocontext';
+    hint.textContent = t('chat.nocontext.ready');
+    chatHistory.appendChild(hint);
+  } else {
+    m.chat.forEach(c => renderChatMsg(c.role, c.content));
+  }
+  // Open one WS for this meeting; stays alive until switch/close
+  chatInput.disabled = true; chatSend.disabled = true;   // wait for init_ack
+  openChatWs(m);
+}
+
+function renderChatMsg(role, content) {
+  const d = document.createElement('div');
+  d.className = 'chat-msg ' + role;
+  const roleLabel = t('chat.msg.' + role) || role;
+  d.innerHTML = '<div class="role">' + roleLabel + '</div><div class="content"></div>';
+  d.querySelector('.content').textContent = content;
+  chatHistory.appendChild(d);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+  return d;
+}
+
+function sendChat() {
+  const msg = chatInput.value.trim();
+  if (!msg || !currentId || !chatWs || !chatSessionId) return;
+  if (chatWs.readyState !== WebSocket.OPEN) return;
+  const m = meetings.find(x => x.id === currentId);
+  if (!m) return;
+  const hint = chatHistory.querySelector('.chat-nocontext');
+  if (hint) hint.remove();
+  renderChatMsg('user', msg);
+  m.chat = m.chat || [];
+  m.chat.push({ role: 'user', content: msg });
+  saveMeetings(meetings);
+  chatInput.value = '';
+  chatInput.disabled = true; chatSend.disabled = true;
+  // Placeholder "thinking" node
+  chatPendingThinking = document.createElement('div');
+  chatPendingThinking.className = 'chat-msg analyst';
+  chatPendingThinking.innerHTML = '<div class="role">' + t('chat.msg.analyst') + '</div><div class="content"><em style="color:var(--text-muted)">' + t('chat.analyst.thinking') + '</em></div>';
+  chatHistory.appendChild(chatPendingThinking);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+  {
+    const _mm = meetings.find(x => x.id === chatMeetingId);
+    dbgLLM('chat_popup', 'followup',
+           _mm && _mm.mode === 'quickchat' ? 'haiku' : 'opus',
+           _mm && _mm.cc_session_id);
+  }
+  chatWs.send(JSON.stringify({
+    type: 'turn',
+    user_session_id: getUserSessionId(),
+    session_id: chatSessionId,
+    message: msg,
+  }));
+}
+chatSend.addEventListener('click', sendChat);
+chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(); });
+window.addEventListener('beforeunload', closeChatWs);
+
+(async function initDebug() {
+  const KEY = 'eip_debug';
+  // SHA-256 of the PIN. PIN itself is NOT in this file. URL carries
+  // ?debug=<pin>; we hash it and compare. Mismatch -> debug disabled.
+  const PIN_HASH = 'e0786231482674ee2bc7996f458e2a5d3c91f466b84a10582f0223b52000c91d';
+  const apply = () => document.body.classList.toggle('debug-enabled', localStorage.getItem(KEY) === '1');
+  const params = new URLSearchParams(location.search);
+  if (params.has('debug')) {
+    const v = params.get('debug') || '';
+    let ok = false;
+    try {
+      if (window.crypto && crypto.subtle) {
+        const buf = new TextEncoder().encode(v);
+        const digest = await crypto.subtle.digest('SHA-256', buf);
+        const hex = Array.from(new Uint8Array(digest))
+          .map(b => b.toString(16).padStart(2, '0')).join('');
+        ok = (hex === PIN_HASH);
+      }
+    } catch (_) { ok = false; }
+    localStorage.setItem(KEY, ok ? '1' : '0');
+  }
+  apply();
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+      e.preventDefault();
+      localStorage.setItem(KEY, localStorage.getItem(KEY) === '1' ? '0' : '1');
+      apply();
+    }
+  });
+  // Explicit close control: directly removes the `open` attribute on the
+  // <details>, bypassing any click-path interference with the native summary
+  // toggle. Belt-and-suspenders on the summary-click path.
+  const debugLog = document.getElementById('debugLog');
+  const debugClose = document.getElementById('debugClose');
+  if (debugLog && debugClose) {
+    debugClose.addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      debugLog.open = false;
+    });
+  }
+})();
+
+// Footer: split each non-sep item into per-word spans, then drive a
+// mouse-proximity spotlight -- nearest word glows brightest, intensity
+// falls off with distance. Called on init and on lang change to rebuild
+// word spans after i18n text has been applied.
+let _footerGlowBound = false;
+function rebuildFooterGlow() {
+  const targets = document.querySelectorAll(
+    '.app-footer > span:not(.sep), .app-footer > a, .app-footer .debug-log summary'
+  );
+  targets.forEach(el => {
+    const text = el.textContent;
+    el.textContent = '';
+    text.split(/(\s+)/).forEach(part => {
+      if (!part) return;
+      if (/^\s+$/.test(part)) {
+        el.appendChild(document.createTextNode(part));
+      } else {
+        const w = document.createElement('span');
+        w.className = 'word';
+        w.textContent = part;
+        el.appendChild(w);
+      }
+    });
+  });
+
+  const footer = document.querySelector('.app-footer');
+  if (!footer) return;
+  const words = footer.querySelectorAll('.word');
+  const RADIUS = 90;  // pixels of influence around cursor
+
+  function update(e) {
+    const mx = e.clientX, my = e.clientY;
+    words.forEach(w => {
+      const r = w.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const d = Math.hypot(mx - cx, my - cy);
+      const i = Math.max(0, 1 - d / RADIUS);
+      w.style.setProperty('--i', i.toFixed(3));
+      w.classList.toggle('hot', i > 0.55);
+    });
+  }
+  function clear() {
+    words.forEach(w => { w.style.setProperty('--i', 0); w.classList.remove('hot'); });
+  }
+  if (!_footerGlowBound) {
+    footer.addEventListener('mousemove', update);
+    footer.addEventListener('mouseleave', clear);
+    _footerGlowBound = true;
+  } else {
+    // Re-bind on rebuilt DOM so new word spans are captured in closure
+    footer.removeEventListener('mousemove', update);
+    footer.removeEventListener('mouseleave', clear);
+    footer.addEventListener('mousemove', update);
+    footer.addEventListener('mouseleave', clear);
+  }
+}
+rebuildFooterGlow();
+
+// Defensive init: any failure during async bootstrap (e.g. iOS Safari
+// Private Browsing denying IndexedDB / crypto.subtle quirks) must not
+// crash the tab. Wrap each step so one failure does not cascade.
+// Also expose ?safe=1 URL param to skip encrypted-storage path entirely
+// and run with in-memory meetings only -- useful as an emergency bypass
+// when a vault read crashes the page repeatedly on a given device.
+// Make decrypt failure visible: when loadMeetings flips _meetingsLoadOk
+// to false, show a banner so the user is not silently staring at an
+// empty pill bar. Honors SOUL principle "never lose reports unless user
+// deletes" by surfacing the failure + offering a backup download.
+function _showMeetingsWarn() {
+  const banner = document.getElementById('meetingsWarn');
+  if (!banner) return;
+  const backups = Object.keys(localStorage).filter(
+    k => k.startsWith(STORAGE_KEY + '_backup_')
+  );
+  const msgEl = document.getElementById('meetingsWarnMsg');
+  const dlBtn = document.getElementById('meetingsWarnDownload');
+  if (msgEl) {
+    let key;
+    if (backups.length > 0) {
+      key = 'meetings.warn_with_backup';
+    } else {
+      key = 'meetings.warn_no_backup';
+    }
+    const tpl = t(key);
+    msgEl.textContent = tpl.replace('{n}', String(backups.length));
+  }
+  if (dlBtn) dlBtn.hidden = backups.length === 0;
+  banner.hidden = false;
+}
+function _downloadMeetingsBackup() {
+  const keys = Object.keys(localStorage).filter(
+    k => k === STORAGE_KEY || k.startsWith(STORAGE_KEY + '_backup_')
+  );
+  const dump = {};
+  keys.forEach(k => { dump[k] = localStorage.getItem(k); });
+  const blob = new Blob([JSON.stringify(dump, null, 2)],
+    { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'eip_meetings_backup_' + Date.now() + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+(function initMeetingsWarn() {
+  const dl = document.getElementById('meetingsWarnDownload');
+  const dm = document.getElementById('meetingsWarnDismiss');
+  if (dl) dl.addEventListener('click', _downloadMeetingsBackup);
+  if (dm) dm.addEventListener('click', () => {
+    const b = document.getElementById('meetingsWarn');
+    if (b) b.hidden = true;
+  });
+})();
+
+(async () => {
+  const urlSafeMode = new URLSearchParams(location.search).has('safe');
+  let loadErrored = false;
+  try {
+    if (urlSafeMode) {
+      dbg('safe mode: skipping encrypted localStorage load');
+      meetings = [];
+    } else {
+      meetings = await loadMeetings();
+    }
+  } catch (e) {
+    console.error('[init] loadMeetings failed:', e);
+    dbg('init loadMeetings: ' + (e && e.message || e));
+    meetings = [];
+    loadErrored = true;
+  }
+  // Surface decrypt-failure as a visible banner. _meetingsLoadOk flips
+  // false inside loadMeetings on decrypt error; loadErrored covers the
+  // outer-catch unexpected-throw path.
+  if (loadErrored || _meetingsLoadOk === false) {
+    try { _showMeetingsWarn(); } catch (e) {
+      console.error('[init] _showMeetingsWarn:', e);
+    }
+  }
+  try { renderPills(); } catch (e) { console.error('[init] renderPills:', e); }
+  try { renderLive(); } catch (e) { console.error('[init] renderLive:', e); }
+  try { applyLang(); } catch (e) { console.error('[init] applyLang:', e); }
+})().catch(e => {
+  console.error('[init] fatal:', e);
+  try { dbg('init fatal: ' + (e && e.message || e)); } catch (_) {}
+});
+
+// Backend API online/offline indicator + submit button gate.
+// Polls GET ${HTTP_BASE}/api/health every 30s. On offline, disables submit
+// and sets a tooltip. WS onerror handlers also flip this flag to offline as
+// a last-known-bad signal (no wait for next poll).
+let apiOnline = null;
+const apiStatusEl = document.getElementById('apiStatus');
+const apiStatusDot = apiStatusEl.querySelector('.api-status-dot');
+const apiStatusLabel = apiStatusEl.querySelector('.api-status-label');
+
+function setApiStatus(state) {
+  apiOnline = (state === 'online');
+  apiStatusDot.dataset.state = state;
+  const key = 'api.status.' + state;
+  apiStatusLabel.dataset.i18n = key;
+  apiStatusLabel.textContent = t(key);
+  submitBtn.disabled = !apiOnline;
+  submitBtn.title = apiOnline ? '' : t('api.offline.tooltip');
+  apiStatusEl.title = apiOnline
+    ? (API_HOST + ' online')
+    : t('api.offline.tooltip') + ' (' + API_HOST + ')';
+}
+
+// Health poll with retry: transient CORS / network drops (Cloudflare edge
+// blip, HTTP/2 stale connection, Firefox preflight hiccup) should not
+// flip the UI to offline. Try up to 3 times with 0.5s / 1s backoff; only
+// after all three fail do we mark offline AND POST a detailed error
+// report so we can diagnose recurring failures server-side.
+async function pollApiHealth() {
+  const MAX_TRIES = 3;
+  const t0 = (typeof performance !== 'undefined' && performance.now)
+    ? performance.now() : Date.now();
+  let lastErr = null;
+  for (let i = 0; i < MAX_TRIES; i++) {
+    try {
+      const res = await fetch(HTTP_BASE + '/api/health',
+        { cache: 'no-store', credentials: 'omit' });
+      if (res.ok) {
+        setApiStatus('online');
+        return;
+      }
+      lastErr = { name: 'HttpError', message: 'HTTP ' + res.status };
+    } catch (e) {
+      lastErr = {
+        name: (e && e.name) ? String(e.name) : 'Error',
+        message: (e && e.message) ? String(e.message) : String(e),
+      };
+    }
+    if (i < MAX_TRIES - 1) {
+      await new Promise(r => setTimeout(r, 500 * (i + 1)));
+    }
+  }
+  // All retries failed: mark offline and report diagnostics silently.
+  setApiStatus('offline');
+  const t1 = (typeof performance !== 'undefined' && performance.now)
+    ? performance.now() : Date.now();
+  dbg('health poll failed after ' + MAX_TRIES + ' tries: ' + lastErr.message);
+  _reportHealthIssue(lastErr, MAX_TRIES, Math.round(t1 - t0));
+}
+
+// Silent diagnostics POST -- same contract as _reportWsIssue but
+// kind="health" and with fetch-specific extras (httpPath, tries,
+// durationMs, errName). Failure is silent; nothing useful to do if the
+// diagnostic POST itself fails.
+function _reportHealthIssue(errInfo, tries, durationMs) {
+  try {
+    const body = {
+      kind: 'health',
+      label: 'api_health_poll',
+      timestamp: Date.now(),
+      readyState: null,
+      code: null,
+      reason: null,
+      wasClean: null,
+      errMsg: errInfo && errInfo.message
+        ? String(errInfo.message).slice(0, 200) : null,
+      errName: errInfo && errInfo.name
+        ? String(errInfo.name).slice(0, 100) : null,
+      userAgent: navigator.userAgent,
+      platform: navigator.platform || null,
+      online: (typeof navigator.onLine === 'boolean') ? navigator.onLine : null,
+      visibilityState: document.visibilityState || null,
+      pageUrl: location.href.slice(0, 300),
+      wsUrl: null,
+      httpPath: (HTTP_BASE + '/api/health').slice(0, 250),
+      tries: tries,
+      durationMs: durationMs,
+    };
+    fetch(HTTP_BASE + '/api/client_error', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {}
+}
+setApiStatus('checking');
+pollApiHealth();
+setInterval(pollApiHealth, 30000);
+
+// When the page tab becomes visible again, re-poll immediately instead of
+// waiting up to 30s -- user likely just switched back and wants fresh state.
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) pollApiHealth();
+});
+
+// --- Auth state & login modal ---
+// Named users get a per-account daily quota; anonymous clients share the
+// global IP quota. Token lives in localStorage (server issues a short
+// opaque UUID; server restart invalidates, users relogin). Password is
+// never stored client-side -- only the token.
+const AUTH_TOKEN_KEY = 'eip_auth_token';
+const AUTH_USER_KEY = 'eip_auth_user';
+const AUTH_QUOTA_KEY = 'eip_auth_daily_quota';
+const AUTH_ADMIN_KEY = 'eip_auth_is_admin';
+
+function getAuthToken() {
+  try { return localStorage.getItem(AUTH_TOKEN_KEY) || null; } catch { return null; }
+}
+function getAuthUser() {
+  try { return localStorage.getItem(AUTH_USER_KEY) || null; } catch { return null; }
+}
+function getAuthIsAdmin() {
+  try { return localStorage.getItem(AUTH_ADMIN_KEY) === 'true'; } catch { return false; }
+}
+function setAuthSession(token, user, quota, isAdmin) {
+  try {
+    localStorage.setItem(AUTH_TOKEN_KEY, token);
+    localStorage.setItem(AUTH_USER_KEY, user);
+    localStorage.setItem(AUTH_QUOTA_KEY, String(quota));
+    localStorage.setItem(AUTH_ADMIN_KEY, isAdmin === true ? 'true' : 'false');
+  } catch {}
+}
+function clearAuthSession() {
+  try {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_USER_KEY);
+    localStorage.removeItem(AUTH_QUOTA_KEY);
+    localStorage.removeItem(AUTH_ADMIN_KEY);
+  } catch {}
+}
+function renderAuthBox() {
+  const box = document.getElementById('authBox');
+  if (!box) return;
+  box.innerHTML = '';
+  const u = getAuthUser();
+  const p2pBtn = document.getElementById('p2pToggle');
+  if (u) {
+    const greet = document.createElement('span');
+    greet.textContent = t('login.hi') + ' ';
+    const who = document.createElement('span');
+    who.className = 'auth-user';
+    who.textContent = u;
+    greet.appendChild(who);
+    const logout = document.createElement('button');
+    logout.type = 'button';
+    logout.textContent = t('login.logout');
+    logout.addEventListener('click', () => {
+      if (typeof p2pTeardown === 'function') p2pTeardown();
+      try { stopRestartPolling(); } catch (_) {}
+      clearAuthSession();
+      renderAuthBox();
+      openLoginGate();
+    });
+    box.appendChild(greet);
+    if (getAuthIsAdmin()) {
+      const restartBtn = document.createElement('button');
+      restartBtn.type = 'button';
+      restartBtn.textContent = t('admin.restart');
+      restartBtn.title = t('admin.restart_title');
+      restartBtn.addEventListener('click', adminRestart);
+      box.appendChild(restartBtn);
+    }
+    // Admin-only: inject the "股市机会" option into the #mode dropdown
+    // when the logged-in user is admin; remove on logout. Same gating
+    // as the restart button above, but applied to the input selector
+    // rather than the header. Defined in fillSubType section.
+    try { _toggleBigIdeaModeOption(); } catch (_) {}
+    box.appendChild(logout);
+    if (p2pBtn) p2pBtn.hidden = false;
+    // Re-apply cached restart color now that the .auth-user span has
+    // been freshly created. Without this the greeting goes uncolored
+    // until the next 10s poll tick.
+    if (typeof _applyRestartColor === 'function') _applyRestartColor();
+  } else {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = t('login.button');
+    btn.addEventListener('click', openLoginModal);
+    box.appendChild(btn);
+    if (p2pBtn) p2pBtn.hidden = true;
+    // Logout path -- ensure the admin-only BigIdea option is stripped
+    // so a previously-admin browser session doesn't leak it post-logout.
+    try { _toggleBigIdeaModeOption(); } catch (_) {}
+  }
+}
+function _openLoginModal(gate) {
+  const m = document.getElementById('loginModal');
+  if (!m) return;
+  document.getElementById('loginUsername').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginErr').textContent = '';
+  m.dataset.open = 'true';
+  m.dataset.gate = gate ? 'true' : 'false';
+  m.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    const u = document.getElementById('loginUsername');
+    if (u) u.focus();
+  }, 30);
+}
+function openLoginModal() { _openLoginModal(false); }
+function openLoginGate() { _openLoginModal(true); }
+function closeLoginModal() {
+  const m = document.getElementById('loginModal');
+  if (!m) return;
+  // Gate mode must only close via successful login, never via ESC /
+  // backdrop / close button. Guard at the function boundary.
+  if (m.dataset.gate === 'true') return;
+  m.dataset.open = 'false';
+  m.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+function forceCloseLoginModal() {
+  // Used only after successful login -- bypasses the gate guard.
+  const m = document.getElementById('loginModal');
+  if (!m) return;
+  m.dataset.open = 'false';
+  m.dataset.gate = 'false';
+  m.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+async function submitLogin() {
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  if (!username || !password) return;
+  const submitBtn = document.getElementById('loginSubmit');
+  const errEl = document.getElementById('loginErr');
+  submitBtn.disabled = true;
+  errEl.textContent = '';
+  try {
+    const res = await fetch(HTTP_BASE + '/api/auth/login', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (res.ok && body.status === 'ok' && body.token) {
+      setAuthSession(body.token, body.username, body.daily_quota || 0, body.is_admin === true);
+      forceCloseLoginModal();
+      renderAuthBox();
+      // Open the persistent p2p WS now -- DMs land in p2pThreads
+      // even before the user opens the P2P panel for the first time.
+      try { p2pConnect(); } catch (_) {}
+      // Admin-only: start polling backend restart safety.
+      if (body.is_admin === true) {
+        try { startRestartPolling(); } catch (_) {}
+      }
+    } else {
+      errEl.textContent = body.reason || t('login.err.invalid');
+    }
+  } catch (_) {
+    errEl.textContent = t('login.err.network');
+  } finally {
+    submitBtn.disabled = false;
+  }
+}
+(function initLoginModal() {
+  const m = document.getElementById('loginModal');
+  if (!m) return;
+  const bd = document.getElementById('loginBackdrop');
+  const cl = document.getElementById('loginClose');
+  const sb = document.getElementById('loginSubmit');
+  const cn = document.getElementById('loginCancel');
+  if (bd) bd.addEventListener('click', closeLoginModal);
+  if (cl) cl.addEventListener('click', closeLoginModal);
+  if (sb) sb.addEventListener('click', submitLogin);
+  if (cn) cn.addEventListener('click', closeLoginModal);
+  // Demo access request: mailto fires natively for users with mail
+  // client; copy + toast is the working fallback for browsers with
+  // no default handler (Chrome on Windows, etc.). Mirrors the about
+  // modal CTA pattern.
+  const dr = document.getElementById('loginDemoRequest');
+  const dt = document.getElementById('loginDemoToast');
+  const _demoEmail = 'support@empireintegration.com';
+  const _showDemoToast = (msg) => {
+    if (!dt) return;
+    dt.textContent = msg;
+    dt.dataset.show = 'true';
+    setTimeout(() => { dt.dataset.show = 'false'; }, 2500);
+  };
+  const _copyDemoEmail = async () => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(_demoEmail);
+        _showDemoToast(_demoEmail + ' copied');
+        return;
+      }
+    } catch (_) {}
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = _demoEmail;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      _showDemoToast(_demoEmail + ' copied');
+    } catch (_) {
+      _showDemoToast(_demoEmail);
+    }
+  };
+  if (dr) dr.addEventListener('click', () => { _copyDemoEmail(); });
+  ['loginUsername', 'loginPassword'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') submitLogin();
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && m.dataset.open === 'true') closeLoginModal();
+  });
+  renderAuthBox();
+  // Landing-page gate: if the user has no auth token, block the entire
+  // app behind a non-dismissable sign-in form. Logout drops back into
+  // the gate. If a token IS present (session restored from
+  // localStorage), open the persistent p2p WS so DMs route in while
+  // the panel is still closed.
+  if (!getAuthToken()) {
+    openLoginGate();
+  } else {
+    try { p2pConnect(); } catch (_) {}
+    if (getAuthIsAdmin()) {
+      try { startRestartPolling(); } catch (_) {}
+    }
+  }
+})();
+
+// --- Restart-safe indicator (admin only) -------------------------------
+// Polls /api/restart-status every 10s, paints a green "Safe" badge when
+// the backend has zero in-flight Trinity / chat / medical streams, or a
+// pulsing "Busy: N" badge while jobs are running. Lets the operator know
+// if a uvicorn restart will truncate a report mid-stream.
+// var (not let) so the temporal-dead-zone does not bite: renderAuthBox
+// fires during initLoginModal at script-eval time, BEFORE the let-line
+// would have been reached, and reads _restartCache via _applyRestartColor.
+// var is hoisted + initialized to undefined, so the existing falsy guard
+// inside _applyRestartColor handles it cleanly.
+var _restartPollTimer = null;
+// Cache last restart-safe result so renderAuthBox can immediately
+// repaint the color after rebuilding the auth-user span (otherwise
+// the greeting goes uncolored for up to one poll cycle each time
+// the auth box re-renders -- regression after the Restart button
+// was added).
+var _restartCache = null;  // {kind:'safe'|'busy'|'err', title:string} | null
+function _applyRestartColor() {
+  const el = document.querySelector('.auth-user');
+  if (!el) return;
+  if (!_restartCache) {
+    el.dataset.restartSafe = '';
+    el.removeAttribute('title');
+    return;
+  }
+  el.dataset.restartSafe = _restartCache.kind === 'safe'
+    ? 'true' : (_restartCache.kind === 'busy' ? 'false' : 'err');
+  if (_restartCache.title) el.title = _restartCache.title;
+  else el.removeAttribute('title');
+}
+var _restartPollInFlight = false;
+async function pollRestartStatus() {
+  if (!getAuthIsAdmin()) return;
+  const tok = getAuthToken();
+  if (!tok) return;
+  // setInterval tick can race a still-in-flight fetch during uvicorn
+  // cold-start when responses are slow. Without this guard the cold-
+  // start window stacks 4-6 concurrent fetches that all 401 in unison
+  // before the first response triggers stopRestartPolling. Skip ticks
+  // while a fetch is outstanding so we get exactly one in-flight at a
+  // time.
+  if (_restartPollInFlight) return;
+  _restartPollInFlight = true;
+  // Color the admin's own "Hi, adam" username: green safe / orange busy.
+  // No separate badge -- saves topbar real estate and puts the cue
+  // exactly where the operator already looks before deciding to restart.
+  try {
+    const res = await fetch(HTTP_BASE + '/api/restart-status', {
+      headers: { 'Authorization': 'Bearer ' + tok },
+    });
+    if (res.status === 401) {
+      // 401 means the backend does not recognize this token. The
+      // common case is uvicorn restart: in-memory _sessions dict
+      // cleared, browser still holds old token. Local session is
+      // dead -- clear it and bounce to the login modal so the user
+      // has an actionable path instead of a stuck red indicator.
+      _restartCache = { kind: 'err', title: 'restart-status 401 -- token unknown, re-login' };
+      console.warn('restart-status 401 -- token unknown, clearing session and reopening login');
+      _applyRestartColor();
+      stopRestartPolling();
+      try {
+        if (typeof p2pTeardown === 'function') p2pTeardown();
+        clearAuthSession();
+        renderAuthBox();
+        openLoginGate();
+      } catch (_) {}
+      return;
+    }
+    if (res.status === 403) {
+      // 403 means the token is valid but the user is not admin. This
+      // should be unreachable -- both startRestartPolling call sites
+      // gate on getAuthIsAdmin() / body.is_admin -- but if it does
+      // happen (localStorage is_admin flag drifted out of sync with
+      // the server users.json record) just stop polling silently
+      // without kicking the user out of the rest of the app.
+      _restartCache = { kind: 'err', title: 'restart-status 403 -- not admin' };
+      console.warn('restart-status 403 -- token valid but user not admin, stopping poll');
+      _applyRestartColor();
+      stopRestartPolling();
+      return;
+    }
+    if (res.status === 404) {
+      _restartCache = { kind: 'err', title: 'restart-status 404 -- uvicorn restart needed' };
+      console.warn('restart-status 404 -- backend route missing, uvicorn restart needed');
+      _applyRestartColor();
+      return;
+    }
+    if (!res.ok) {
+      _restartCache = { kind: 'err', title: 'restart-status HTTP ' + res.status };
+      _applyRestartColor();
+      return;
+    }
+    const body = await res.json();
+    if (body.safe_to_restart) {
+      _restartCache = { kind: 'safe', title: 'safe to restart uvicorn (no jobs in flight)' };
+    } else {
+      const age = body.oldest_age_s || 0;
+      _restartCache = {
+        kind: 'busy',
+        title: 'jobs running: ' + (body.active_count || 0) +
+          ' (oldest ' + age + 's) -- do not restart',
+      };
+    }
+    _applyRestartColor();
+    // First successful poll -- relax to 10s cadence.
+    _restartPollSwitchToSlow();
+  } catch (e) {
+    _restartCache = { kind: 'err', title: 'restart-status network error' };
+    console.warn('restart-status network error:', e && e.message);
+    _applyRestartColor();
+  } finally {
+    _restartPollInFlight = false;
+  }
+}
+function startRestartPolling() {
+  if (_restartPollTimer) clearInterval(_restartPollTimer);
+  // Show a "checking" placeholder immediately so the greeting is not
+  // a blank no-color span between page load (or post-restart reload)
+  // and the first successful poll. _applyRestartColor paints
+  // dim-italic for kind='err', visible-but-muted, with the title
+  // tooltip explaining we are checking.
+  if (!_restartCache) {
+    _restartCache = { kind: 'err', title: 'checking restart status...' };
+    _applyRestartColor();
+  }
+  // Adaptive cadence: 3s while we have not yet seen a healthy
+  // response (first poll after page load, recovery after a backend
+  // restart, etc.) and 10s once the indicator has settled. The 3s
+  // window covers the post-restart bring-up reliably; once we are in
+  // safe/busy state we drop to 10s to keep request volume low.
+  pollRestartStatus();
+  _restartPollTimer = setInterval(pollRestartStatus, 3000);
+}
+function _restartPollSwitchToSlow() {
+  if (!_restartPollTimer) return;
+  clearInterval(_restartPollTimer);
+  _restartPollTimer = setInterval(pollRestartStatus, 10000);
+}
+function stopRestartPolling() {
+  if (_restartPollTimer) {
+    clearInterval(_restartPollTimer);
+    _restartPollTimer = null;
+  }
+  _restartCache = null;
+  _applyRestartColor();
+}
+
+// Admin button -> request a clean restart. Server refuses with 409 if
+// any job is in flight (busy gate) so this cannot truncate a report.
+// Manual Ctrl+C path remains unchanged: console-side stop drops the
+// restart flag and the bat loop exits.
+async function adminRestart() {
+  if (!getAuthIsAdmin()) return;
+  if (!confirm(t('admin.restart_confirm'))) return;
+  const tok = getAuthToken();
+  if (!tok) return;
+  try {
+    const res = await fetch(HTTP_BASE + '/api/admin/restart', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + tok },
+    });
+    if (res.status === 409) {
+      const body = await res.json().catch(() => ({}));
+      alert(t('admin.restart_blocked') + '\n' +
+        (body.detail || 'jobs in flight'));
+      return;
+    }
+    if (res.status === 401) {
+      alert(t('admin.restart_unauth'));
+      return;
+    }
+    if (!res.ok) {
+      alert(t('admin.restart_failed') + ' HTTP ' + res.status);
+      return;
+    }
+    // Success: server is dying within ~500ms, bat will relaunch in ~2s,
+    // give it 6s of slack then reload to pick up new build.
+    const el = document.querySelector('.auth-user');
+    if (el) {
+      el.dataset.restartSafe = 'err';
+      el.title = t('admin.restart_in_progress');
+    }
+    setTimeout(() => window.location.reload(), 6000);
+  } catch (e) {
+    alert(t('admin.restart_failed') + ' ' + (e && e.message || ''));
+  }
+}
+
+// About modal: footer "About" button opens a pitch + contact popup. ESC
+// and backdrop click close it. Focus is not trapped (one-screen modal,
+// low stakes); screen readers get aria-hidden toggle.
+(function initAboutModal() {
+  const modal = document.getElementById('aboutModal');
+  const trigger = document.getElementById('aboutTrigger');
+  const backdrop = document.getElementById('aboutBackdrop');
+  const closeBtn = document.getElementById('aboutClose');
+  if (!modal || !trigger) return;
+  const open = () => {
+    modal.dataset.open = 'true';
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+  const close = () => {
+    modal.dataset.open = 'false';
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+  trigger.addEventListener('click', (e) => { e.preventDefault(); open(); });
+  if (backdrop) backdrop.addEventListener('click', close);
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.dataset.open === 'true') close();
+  });
+  // Click handler on cta buttons + email display: copy email to
+  // clipboard + show toast. mailto: link still fires natively for
+  // users with a configured mail client. For users without one
+  // (Chrome with no default handler), copy + visible email is the
+  // working fallback.
+  const _email = 'support@empireintegration.com';
+  const _toast = document.getElementById('aboutEmailToast');
+  const _showToast = (msg) => {
+    if (!_toast) return;
+    _toast.textContent = msg;
+    _toast.dataset.show = 'true';
+    setTimeout(() => { _toast.dataset.show = 'false'; }, 2500);
+  };
+  const _copyEmail = async () => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(_email);
+        _showToast(_email + ' copied');
+        return;
+      }
+    } catch (_) {}
+    // Fallback: textarea select + execCommand (older browsers)
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = _email;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      _showToast(_email + ' copied');
+    } catch (_) {
+      _showToast(_email);
+    }
+  };
+  ['ctaHire', 'ctaFeedback'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('click', () => { _copyEmail(); });
+  });
+  const emailDisplay = document.getElementById('aboutEmailDisplay');
+  if (emailDisplay) emailDisplay.addEventListener('click', _copyEmail);
+})();
+
+// --- P2P chat (named users only) ---------------------------------------
+// Razor: in-memory state, no history persistence, no rooms. Connects to
+// /api/ws/p2p with the auth token; backend rejects bad tokens at handshake
+// (close code 4401) so a logged-out user never sees a connected state.
+//
+// Protocol (mirrors src/backend/trinity_api/p2p_hub.py):
+//   send: {type:'msg', to: <peer>, text: '...'}
+//   recv: {type:'msg', from, to, text, ts, echo?}     -- echo=true means our own send round-tripped
+//   recv: {type:'peer_offline', to, ts}              -- target was not online
+//
+// Reconnect: exponential backoff 1s / 3s / 9s. After 3 failed attempts we
+// stop trying and surface "error" status; user can click P2P toggle to
+// retry by re-opening.
+let p2pWs = null;
+let p2pState = 'idle'; // idle | connecting | connected | error
+let p2pPanelOpen = false;
+let p2pCurrentPeer = null;
+let p2pReconnectAttempts = 0;
+let p2pReconnectTimer = null;
+// Rapid open->close detection. Server-side hub.register kicks the
+// previous socket of the same user with code 1000 "replaced" (see
+// p2p_hub.py:36-44). When the user has another tab / device logged
+// in as the same account, the two clients ping-pong each other:
+// each connect kicks the other, both reschedule, infinite loop. We
+// distinguish this from a normal idle close by lifespan: <3s means
+// the socket never settled in long enough for a real conversation.
+// After 5 such rapid cycles we stop and show a clear error so the
+// user knows to close the other session.
+let p2pSocketOpenedAt = 0;
+let p2pRapidCloseCount = 0;
+const _P2P_RAPID_THRESHOLD_MS = 3000;
+const _P2P_RAPID_MAX = 5;
+let p2pOnlinePollTimer = null;
+// Cloudflare's WS proxy idle-closes connections with zero frames in either
+// direction at ~100s. Without traffic the socket dies, ws.onclose fires,
+// reconnect succeeds, idle again, repeat. Send a {type:'ping'} every 30s
+// while open; the server ignores non-'msg' frames (routes.py), so this is
+// purely a keep-alive pulse on the TCP/CF path.
+let p2pPingTimer = null;
+// Threads keyed by peer username -> array of {kind:'in'|'out'|'sys', text, ts}
+const p2pThreads = {};
+const p2pUnread = new Set();
+
+function p2pSetStatus(state, key) {
+  p2pState = state;
+  const el = document.getElementById('p2pStatus');
+  if (!el) return;
+  el.dataset.state = state;
+  el.textContent = t(key);
+}
+
+function p2pUpdateToggleBadge() {
+  const btn = document.getElementById('p2pToggle');
+  if (!btn) return;
+  btn.dataset.unread = p2pUnread.size > 0 ? 'true' : 'false';
+  btn.textContent = p2pUnread.size > 0
+    ? t('p2p.toggle') + ' (' + p2pUnread.size + ')'
+    : t('p2p.toggle');
+}
+
+function p2pRenderOnline(list) {
+  const ul = document.getElementById('p2pOnlineList');
+  if (!ul) return;
+  ul.innerHTML = '';
+  if (!list || list.length === 0) {
+    const li = document.createElement('li');
+    li.className = 'empty';
+    li.textContent = t('p2p.online.empty');
+    ul.appendChild(li);
+    return;
+  }
+  list.forEach(name => {
+    const li = document.createElement('li');
+    li.textContent = name;
+    if (p2pUnread.has(name)) li.dataset.unread = 'true';
+    li.addEventListener('click', () => p2pOpenChat(name));
+    ul.appendChild(li);
+  });
+}
+
+async function p2pPollOnline() {
+  const tok = getAuthToken();
+  if (!tok) return;
+  try {
+    const res = await fetch(HTTP_BASE + '/api/p2p/online', {
+      headers: { 'Authorization': 'Bearer ' + tok },
+    });
+    if (res.status === 401) {
+      // Token rejected (server restart wiped sessions, or expired).
+      // Drop the stale token and prompt re-login. Sessions persistence
+      // (auth.py:_SESSIONS_FILE) should make this rare, but the
+      // self-heal stays for the cases where the file is wiped or 12h
+      // TTL expires.
+      try { localStorage.removeItem(AUTH_TOKEN_KEY); } catch {}
+      try { openLoginGate(); } catch {}
+      return;
+    }
+    if (!res.ok) return;
+    const body = await res.json();
+    p2pRenderOnline(body.online || []);
+  } catch (_) {}
+}
+
+function p2pAppendMsg(peer, kind, text, ts) {
+  if (!p2pThreads[peer]) p2pThreads[peer] = [];
+  p2pThreads[peer].push({ kind, text, ts: ts || Date.now() });
+  if (p2pCurrentPeer === peer) p2pRenderThread(peer);
+}
+
+function p2pRenderThread(peer) {
+  const wrap = document.getElementById('p2pMsgs');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  const thread = p2pThreads[peer] || [];
+  thread.forEach(m => {
+    const div = document.createElement('div');
+    if (m.kind === 'sys') {
+      div.className = 'p2p-msg system';
+    } else if (m.kind === 'out') {
+      div.className = 'p2p-msg outgoing';
+    } else {
+      div.className = 'p2p-msg incoming';
+    }
+    div.textContent = m.text;
+    wrap.appendChild(div);
+  });
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+function p2pOpenChat(peer) {
+  p2pCurrentPeer = peer;
+  p2pUnread.delete(peer);
+  p2pUpdateToggleBadge();
+  // Online list stays visible alongside the chat so the user can
+  // switch peers by clicking another name -- no separate back step.
+  const chat = document.getElementById('p2pChat');
+  chat.hidden = false;
+  document.getElementById('p2pPeerName').textContent = peer;
+  const inp = document.getElementById('p2pInput');
+  const snd = document.getElementById('p2pSend');
+  inp.placeholder = t('p2p.placeholder');
+  const wsReady = p2pWs && p2pWs.readyState === 1;
+  inp.disabled = !wsReady;
+  snd.disabled = !wsReady;
+  p2pRenderThread(peer);
+  // Re-render online list so the unread badge for this peer clears.
+  p2pPollOnline();
+  if (wsReady) inp.focus();
+}
+
+// No "back" button anymore -- the user switches peers by clicking
+// another name in the always-visible online list. This helper is
+// still used to reset to the no-peer-selected state when the panel
+// first opens without a previously-active peer.
+function p2pBackToList() {
+  p2pCurrentPeer = null;
+  document.getElementById('p2pChat').hidden = true;
+  document.getElementById('p2pOnline').hidden = false;
+  p2pPollOnline();
+}
+
+function p2pSend() {
+  const inp = document.getElementById('p2pInput');
+  if (!inp) return;
+  const text = (inp.value || '').trim();
+  if (!text || !p2pCurrentPeer) return;
+  if (!p2pWs || p2pWs.readyState !== 1) return;
+  if (text.length > 4000) return;
+  try {
+    p2pWs.send(JSON.stringify({ type: 'msg', to: p2pCurrentPeer, text }));
+    inp.value = '';
+  } catch (e) {
+    dbg('p2p send failed: ' + (e && e.message));
+  }
+}
+
+function p2pHandleFrame(frame) {
+  if (!frame || typeof frame !== 'object') return;
+  if (frame.type === 'msg') {
+    const peer = frame.echo ? frame.to : frame.from;
+    const kind = frame.echo ? 'out' : 'in';
+    p2pAppendMsg(peer, kind, frame.text || '', frame.ts);
+    if (!frame.echo && p2pCurrentPeer !== peer) {
+      p2pUnread.add(peer);
+      p2pUpdateToggleBadge();
+      // Asymmetric incoming behavior:
+      //   non-admin (user side) receiving from admin -> auto-pop the
+      //     panel + auto-switch to that admin's thread. Users can
+      //     only DM admins anyway, so an inbound msg always means
+      //     the admin reached out and wants the user to see it.
+      //   admin side -> never auto-pop; just glow the toggle and
+      //     the unread badge in the online list. Admin chooses when
+      //     to switch contexts.
+      if (!getAuthIsAdmin()) {
+        if (!p2pPanelOpen) {
+          try { p2pOpen(); } catch (_) {}
+        }
+        try { p2pOpenChat(peer); } catch (_) {}
+      } else {
+        // Admin side: keep current view, refresh online list so the
+        // unread badge appears next to the sender there.
+        if (p2pPanelOpen) p2pPollOnline();
+      }
+    }
+  } else if (frame.type === 'peer_offline') {
+    const peer = frame.to;
+    p2pAppendMsg(peer, 'sys', t('p2p.peer_offline'), frame.ts);
+  }
+}
+
+function p2pConnect() {
+  const tok = getAuthToken();
+  if (!tok) return;
+  if (p2pWs && (p2pWs.readyState === 0 || p2pWs.readyState === 1)) return;
+  p2pSetStatus('connecting', 'p2p.connecting');
+  const url = WS_BASE + '/api/ws/p2p?token=' + encodeURIComponent(tok);
+  let ws;
+  try {
+    ws = new WebSocket(url);
+  } catch (e) {
+    dbg('p2p ws ctor failed: ' + (e && e.message));
+    p2pScheduleReconnect();
+    return;
+  }
+  p2pWs = ws;
+  ws.onopen = () => {
+    p2pReconnectAttempts = 0;
+    p2pSocketOpenedAt = Date.now();
+    p2pSetStatus('connected', 'p2p.connected');
+    const inp = document.getElementById('p2pInput');
+    const snd = document.getElementById('p2pSend');
+    if (p2pCurrentPeer) {
+      if (inp) inp.disabled = false;
+      if (snd) snd.disabled = false;
+    }
+    p2pPollOnline();
+    if (p2pPingTimer) clearInterval(p2pPingTimer);
+    p2pPingTimer = setInterval(() => {
+      if (p2pWs && p2pWs.readyState === 1) {
+        try { p2pWs.send(JSON.stringify({ type: 'ping' })); } catch {}
+      }
+    }, 30000);
+  };
+  ws.onmessage = (ev) => {
+    let frame;
+    try { frame = JSON.parse(ev.data); } catch { return; }
+    p2pHandleFrame(frame);
+  };
+  ws.onerror = (e) => {
+    _wsError('p2p', ws, e);
+    p2pSetStatus('error', 'p2p.error');
+  };
+  ws.onclose = (e) => {
+    _wsClose('p2p', ws, e);
+    if (p2pPingTimer) { clearInterval(p2pPingTimer); p2pPingTimer = null; }
+    const inp = document.getElementById('p2pInput');
+    const snd = document.getElementById('p2pSend');
+    if (inp) inp.disabled = true;
+    if (snd) snd.disabled = true;
+    if (e && e.code === 4401) {
+      // Auth rejected -- token stale (e.g. sessions file wiped or TTL
+      // expired). Drop the token and prompt re-login. No retry: the WS
+      // would just close again until a fresh token is in localStorage.
+      p2pSetStatus('error', 'p2p.error');
+      try { localStorage.removeItem(AUTH_TOKEN_KEY); } catch {}
+      try { openLoginGate(); } catch {}
+      return;
+    }
+    // Rapid replace detection: if this socket was alive for less than
+    // _P2P_RAPID_THRESHOLD_MS, treat as evidence of a replace race
+    // (another tab/device for the same user). Cap at _P2P_RAPID_MAX
+    // before giving up.
+    const lifeMs = p2pSocketOpenedAt > 0
+      ? Date.now() - p2pSocketOpenedAt : 0;
+    p2pSocketOpenedAt = 0;
+    if (lifeMs > 0 && lifeMs < _P2P_RAPID_THRESHOLD_MS) {
+      p2pRapidCloseCount += 1;
+      dbg('p2p rapid close #' + p2pRapidCloseCount +
+          ' (life=' + lifeMs + 'ms, code=' + (e && e.code) + ')');
+      if (p2pRapidCloseCount >= _P2P_RAPID_MAX) {
+        p2pSetStatus('error', 'p2p.replaced');
+        return;
+      }
+    } else if (lifeMs >= _P2P_RAPID_THRESHOLD_MS) {
+      // Long-lived socket that just dropped -- normal idle close,
+      // start the rapid count fresh.
+      p2pRapidCloseCount = 0;
+    }
+    // Reconnect as long as we are authenticated, not just when the
+    // panel is open. Persistent WS is what keeps "open it later --
+    // messages will be there" working: an admin DM that arrives while
+    // the panel is hidden still routes to a live socket and lands
+    // in p2pThreads, ready to render when the user clicks P2P.
+    if (getAuthToken()) p2pScheduleReconnect();
+  };
+}
+
+function p2pScheduleReconnect() {
+  // Backoff schedule: 1s, 3s, 9s, then cap at 30s. No max attempts --
+  // idle disconnects (Cloudflare ~100s, NAT translation aging,
+  // 15 min mobile bg) are normal life events, not failures. Keep
+  // trying as long as the panel is open. visibilitychange handler
+  // below also forces an immediate retry when the tab refocuses,
+  // skipping the backoff wait.
+  const delays = [1000, 3000, 9000, 30000];
+  const wait = delays[p2pReconnectAttempts] || 30000;
+  p2pReconnectAttempts += 1;
+  p2pSetStatus('idle', 'p2p.disconnected');
+  if (p2pReconnectTimer) clearTimeout(p2pReconnectTimer);
+  p2pReconnectTimer = setTimeout(() => {
+    if (p2pPanelOpen && getAuthToken()) p2pConnect();
+  }, wait);
+}
+
+// Tab refocus is a strong signal that the user expects the chat to
+// be live -- but only kick a reconnect when the socket is actually
+// gone. readyState 0 (CONNECTING) and 1 (OPEN) both mean "leave it
+// alone"; firing p2pConnect() while a handshake is in flight would
+// race with hub.register on the server and produce the open<->close
+// thrash that the previous loop fix was supposed to prevent.
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'visible') return;
+  if (!p2pPanelOpen) return;
+  if (!getAuthToken()) return;
+  if (p2pWs && p2pWs.readyState <= 1) return;
+  if (p2pReconnectTimer) {
+    clearTimeout(p2pReconnectTimer);
+    p2pReconnectTimer = null;
+  }
+  p2pReconnectAttempts = 0;
+  p2pConnect();
+});
+
+function p2pOpen() {
+  if (!getAuthToken()) return;
+  p2pPanelOpen = true;
+  document.getElementById('p2pPanel').hidden = false;
+  if (!p2pCurrentPeer) p2pBackToList();
+  p2pConnect();
+  p2pPollOnline();
+  if (p2pOnlinePollTimer) clearInterval(p2pOnlinePollTimer);
+  // 30s matches /api/health poll cadence. Presence transitions arrive
+  // over the live WS so the poll is just a slow reconciler, not the
+  // primary signal -- 5s was 12 reqs/min for a near-static list.
+  p2pOnlinePollTimer = setInterval(p2pPollOnline, 30000);
+}
+
+function p2pClose() {
+  // Hide panel + stop the online-list HTTP poll, but KEEP the WS
+  // alive so DMs received while the panel is hidden still land in
+  // p2pThreads. Reopening the panel later just unhides the existing
+  // state -- no reconnect, no missed messages. The 30s ws ping
+  // continues so Cloudflare / NAT do not idle-kill the socket.
+  // Logout (p2pTeardown) is the only path that actually closes WS.
+  p2pPanelOpen = false;
+  document.getElementById('p2pPanel').hidden = true;
+  if (p2pOnlinePollTimer) {
+    clearInterval(p2pOnlinePollTimer);
+    p2pOnlinePollTimer = null;
+  }
+}
+
+function p2pTeardown() {
+  // Called on logout: drop everything including in-memory threads
+  // AND close the WS (p2pClose deliberately keeps it alive).
+  p2pClose();
+  if (p2pReconnectTimer) {
+    clearTimeout(p2pReconnectTimer);
+    p2pReconnectTimer = null;
+  }
+  if (p2pPingTimer) {
+    clearInterval(p2pPingTimer);
+    p2pPingTimer = null;
+  }
+  if (p2pWs) {
+    try { p2pWs.close(1000, 'logout'); } catch {}
+    p2pWs = null;
+  }
+  p2pCurrentPeer = null;
+  p2pUnread.clear();
+  Object.keys(p2pThreads).forEach(k => delete p2pThreads[k]);
+  p2pUpdateToggleBadge();
+}
+
+(function initP2P() {
+  const toggle = document.getElementById('p2pToggle');
+  const closeBtn = document.getElementById('p2pClose');
+  const back = null;  // p2p back button removed -- switch peers via list click
+  const sendBtn = document.getElementById('p2pSend');
+  const input = document.getElementById('p2pInput');
+  if (!toggle) return;
+  toggle.addEventListener('click', () => {
+    if (p2pPanelOpen) p2pClose(); else p2pOpen();
+  });
+  if (closeBtn) closeBtn.addEventListener('click', p2pClose);
+  if (back) back.addEventListener('click', p2pBackToList);
+  if (sendBtn) sendBtn.addEventListener('click', p2pSend);
+  if (input) {
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        p2pSend();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
