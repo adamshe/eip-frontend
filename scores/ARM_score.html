@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ARM 做多评分  as-of 2026-09-27</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+</style></head>
+<body><main>
+<div class="meta">EIP report | source var/output/scores/ARM_score.md</div>
+<nav class="toc"><a href="#arm-做多评分-as-of-2026-09-27" style="padding-left:0px">ARM 做多评分  as-of 2026-09-27</a><a href="#三道门" style="padding-left:14px">三道门</a><a href="#终态一句话" style="padding-left:14px">终态一句话</a><a href="#天选之子-f" style="padding-left:14px">天选之子 F</a><a href="#打分" style="padding-left:14px">打分</a><a href="#kill-switch" style="padding-left:14px">Kill switch</a><a href="#改分触发" style="padding-left:14px">改分触发</a><a href="#最像的锚-crwd-总分-66-距离-6-2-差异-d1--2-d2--2-d3-2-d4--3-d5--1-d6-4" style="padding-left:14px">最像的锚: CRWD (总分 66, 距离 6.2; 差异: D1 -2, D2 -2, D3 +2, D4 -3, D5 -1, D6 +4)</a><a href="#sources" style="padding-left:14px">Sources</a></nav>
+<h1 id="arm-做多评分-as-of-2026-09-27">ARM 做多评分  as-of 2026-09-27</h1>
+<p>市值 $331B (yfinance) | 品类天花板 $3.0T (platform) | 马色: grey</p>
+<h2 id="三道门">三道门</h2>
+<ul>
+<li>adversary: 通过 -- 假设 AI / 数据中心叙事不成立, 手机 99% 份额的存量 royalty $715M/季 +22% + licensing $574M 仍在, non-GAAP EPS $0.45 -- 存量自己能活</li>
+<li>paradigm: 通过 -- RISC-V 攻 ISA 本层, 未成功 (无头部手机 SoC / 超大规模云 CPU 量产替换); Arm 自己下场做 AGI CPU 芯片 = 与客户竞争, 客户 (Qualcomm 诉讼) 反攻它的关系; 替换未发生</li>
+<li>type: 通过 -- structural -- ISA 标准 + 每颗芯片抽税自增; 形态是收租</li>
+</ul>
+<h2 id="终态一句话">终态一句话</h2>
+<p>它最终是 它最终是 计算指令集的默认收租者 (每颗芯片抽税) + 自家数据中心 CPU 卖家, 后者会伤前者。第一层: 手机 / 嵌入式 ISA 99% + Armv9 royalty 率翻倍 + 数据中心 royalty 同比翻倍 (已锁, 确认事件: 所有超大规模云自研 CPU (Graviton / Axion / Cobalt / Grace) 均在 Arm 上 = 客户合规; Qualcomm 诉讼 2024-12 判 Qualcomm 胜但 ISA 未换 (对手挑战失败)). 第二层: 自家 AGI CPU 芯片销售 (与客户竞争) + 数据中心 CPU 份额 (估 25% -&gt; 50%) (概率 0.4)</p>
+<h2 id="天选之子-f">天选之子 F</h2>
+<p>Rene Haas (CEO, 2022-02-08 上任, 非创始人; 2026-04 兼 SoftBank Group International CEO, 向孙正义汇报) | F = 0 (经历 0 / 信而见 0 / 在位 0) | 职业 CEO 非天选之子: 职业经理人, 履历顺滑, 无控制权, 唯一亲手大注(诉高通)已败诉 -- F1=0: 履历顺滑 (Clarkson EE-&gt;TI/NEC/Tensilica/Nvidia-&gt;2013 Arm-&gt;2022 CEO), 移民是父辈, 挫折皆公司层面. F2=0: 2017 接 IPG 前 AWS 已购 Annapurna (2015), Qualcomm/Cavium/AMD 已出 Arm 服务器芯片, 需求已见非逆共识; Neoverse 2018-10 发布署名 Drew Henry 非 Haas; Graviton 自 G2 (2019-12) 才用 Neoverse; 本人唯一大注 2022 诉 Qualcomm, 2024-12 陪审团败, 2025-09 终判败, 上诉中. F3=0: 20-F (2026-05-21) SoftBank 持 86.4%, Haas 396,007 股 (&lt;0.04%), controlled company; 2026-09-09 AGM 薪酬案 939M 赞成/36M 反对, 靠 SoftBank 票过关.</p>
+<h2 id="打分">打分</h2>
+<table><thead><tr><th>维度</th><th>分</th><th>置信度</th><th>证据</th></tr></thead><tbody>
+<tr><td>D1 关系图</td><td>20 / 30</td><td>H</td><td>tier multi_host 基 20 调整 +0; +2 关系按构造自增: 每颗芯片抽税, Armv9 率翻倍, 数据中心 royalty +100% YoY; -2 关系持有人不是它: 芯片设计与终端客户关系在 Apple / Qualcomm / NVDA / 云厂手里, Arm 只是 ISA 授权方</td></tr>
+<tr><td>D2 End game</td><td>13 / 25</td><td>M</td><td>第一层已锁且有客户合规确认, 但形态永远收租 (royalty); 第二层 (自家芯片) 会伤客户关系且份额目标是估的 -&gt; 8-13 档上端; F 0 无修正</td></tr>
+<tr><td>D3 盘子</td><td>15 / 15</td><td>H</td><td>市值 $331B (yfinance 2026-09-27), 类 platform 天花板 $3.0T, 倍数 9.1x</td></tr>
+<tr><td>D4 结构性资金</td><td>2 / 10</td><td>H</td><td>起 5 -3pledge_or_cash_need</td></tr>
+<tr><td>D5 L2+范式</td><td>5 / 10</td><td>M</td><td>not_software_scarcity=1 senior_ai_cost_down=1 ai_enhances=2 founder_dual_class=0 paradigm=1</td></tr>
+<tr><td>D6 位置</td><td>9 / 10</td><td>H</td><td>回撤段 (离窗口高点 -29%, RSI 61); 马色 grey +1</td></tr>
+</tbody></table>
+<p><strong>总分 64 (区间 64-64) -&gt; 拿着</strong> 动作: beta 仓: 单边持有不加仓不收租; 若有空篓子, 作其多头对冲腿 (D1 高 D3 低 = 不崩也不涨, 只抵 beta)</p>
+<h2 id="kill-switch">Kill switch</h2>
+<ul>
+<li>SoftBank margin call / 一次减持 ARM &gt;5% (Arm 股价跌触 LTV) -&gt; D4 -, D6 -; SoftBank 持股 90% 的流通盘结构本身是价格放大器</li>
+<li>RISC-V 拿到首个头部手机 SoC 或超大规模云 CPU 量产 -&gt; D1 multi_host -&gt; single_hub (-7)</li>
+<li>Qualcomm 类大客户改 RISC-V / x86 (Nuvia 判决余波) -&gt; royalty 增速 &lt;10%</li>
+<li>Arm 自家芯片抢客户订单引发 Apple / Qualcomm / NVDA 转向 -&gt; tier2 伤 tier1</li>
+</ul>
+<h2 id="改分触发">改分触发</h2>
+<ul>
+<li>SoftBank 偿还 / 缩减 margin loan 或质押降 -&gt; D4 +3</li>
+<li>AGI CPU 芯片首个 hyperscaler 合同披露 -&gt; tier2 prob 0.4 -&gt; 0.55</li>
+<li>Armv9 royalty 占比 &gt;50% 且数据中心 royalty 占比 &gt;20% -&gt; D2 +2</li>
+</ul>
+<h2 id="最像的锚-crwd-总分-66-距离-6-2-差异-d1--2-d2--2-d3-2-d4--3-d5--1-d6-4">最像的锚: CRWD (总分 66, 距离 6.2; 差异: D1 -2, D2 -2, D3 +2, D4 -3, D5 -1, D6 +4)</h2>
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Arm Q1 FY27 6-K Ex.99.1, 2026-07-29: <a href="https://www.sec.gov/Archives/edgar/data/0001973239/000197323926000113/exhibit991fye27q130-junx26.htm">https://www.sec.gov/Archives/edgar/data/0001973239/000197323926000113/exhibit991fye27q130-junx26.htm</a></li>
+<li>Bloomberg SoftBank raises Arm margin loan to $25B, 2026-09-18: <a href="https://www.bloomberg.com/news/articles/2026-09-18/softbank-raises-arm-margin-loan-to-25-billion-as-ai-bets-grow">https://www.bloomberg.com/news/articles/2026-09-18/softbank-raises-arm-margin-loan-to-25-billion-as-ai-bets-grow</a></li>
+<li>Reuters via TradingView, 2026-09: <a href="https://www.tradingview.com/news/reuters.com,2026:newsml_FWN4590UH:0-softbank-has-increased-its-margin-loan-backed-by-shares-of-its-chip-unit-arm-holdings-by-5-billion-to-25-billion-bloomberg-news/">https://www.tradingview.com/news/reuters.com,2026:newsml_FWN4590UH:0-softbank-has-increased-its-margin-loan-backed-by-shares-of-its-chip-unit-arm-holdings-by-5-billion-to-25-billion-bloomberg-news/</a></li>
+<li>Seoul Economic Daily SoftBank $11B junk bonds, 2026-09-21: <a href="https://en.sedaily.com/international/2026/09/21/softbank-to-sell-11-billion-in-junk-bonds-to-fund-openai-bet">https://en.sedaily.com/international/2026/09/21/softbank-to-sell-11-billion-in-junk-bonds-to-fund-openai-bet</a></li>
+</ul>
+</main></body></html>
