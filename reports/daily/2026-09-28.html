@@ -33,7 +33,9 @@ tr:hover td{background:var(--panel)}
 
 .nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
 .digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
-.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}</style></head>
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650}</style></head>
 <body><main><div class="nav"><a href="../index.html">全部日期</a><a href="2026-09-25.html">上一日 2026-09-25</a><a href="2026-09-29.html">下一日 2026-09-29</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a> <a href="../dashboard/2026-09-28.html">Dashboard 快照 2026-09-28</a></div><h1>EIP 每日报告 2026-09-28</h1><p class="digest">当日 dashboard 快照: <a href="../dashboard/2026-09-28.html">dashboard/2026-09-28.html</a></p><section class="sec" id="hunt"><h1 id="期权活动日报-2026-09-28----猎场-好车加速-坏车崩塌-农场-收租位">期权活动日报 2026-09-28 -- 猎场 (好车加速 / 坏车崩塌) + 农场 (收租位)</h1>
 <p>VIX 16.07 (LOW) | 同一份数据两个出口: 猎场 A 只在做多榜 买房 / 拿着 的票里抓加速起点, 猎场 B 只在 不碰 + 空头名单里抓崩塌起点; 票按回测权重加总 (RSI 带 1.5 / 突破或跌破 20 日 1.5 / 腿早段 1 / 偏移率带 1 或 0.5 / 期权流 1 / 跨日 1; 量比不投票), 加权 &gt;= 3 = 候选, &gt;= 2 = 预热; 已到顶区 = 加速尾段, 归农场收租。gamma 墙 / 地板 / flip 给农场定 strike。</p>
 <h2 id="猎场-a----好车加速候选-宇宙-做多榜-买房-拿着-已到顶区归农场">猎场 A -- 好车加速候选 (宇宙 = 做多榜 买房 / 拿着; 已到顶区归农场)</h2>
@@ -64,26 +66,26 @@ tr:hover td{background:var(--panel)}
 <h2 id="三周预测-15-个交易日-到-2026-10-19-目标-高-低-时点">三周预测 (15 个交易日, 到 2026-10-19): 目标 / 高 / 低 / 时点</h2>
 <p>机械规则: 区间 = ATM IV 的 15 日一倍标准差 (flip 之上正 gamma 钉住 x0.8, 之下 x1.2; 财报在窗内 x1.5); 高被最大 +gamma call 墙压, 低托在 SMA50 -3% 地板 (无财报时); 倾向 = 今日流 / 跨日 / gamma 判定 / 腿位置 / 鲸群策略 各一票 (腿半票), 目标 = 现价偏移 半个标准差 x 倾向; 时点 = 财报日, 否则当前腿到中位的日期 + 窗内 opex。三周后 forward_account 对账: 收盘落在高低之间 / 方向对错 / 目标误差。</p>
 <table><thead><tr><th>票</th><th>现价</th><th>低</th><th>目标</th><th>高</th><th>倾向 (票)</th><th>依据</th><th>时点</th><th>鲸群策略 (主动大单)</th><th>窗内事件</th></tr></thead><tbody>
-<tr><td>AAPL</td><td>338.4</td><td>323.1</td><td><strong>333.6</strong></td><td>340 (高被 call 墙 340 压)</td><td>空 (-2.5)</td><td>今日流空, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>封顶 @332.5 ($2.1M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>AMD</td><td>607.87</td><td>547.8</td><td><strong>626.6</strong></td><td>650 (高被 call 墙 650 压)</td><td>多 (+2.5)</td><td>今日流多, 跨日多 3/3, 涨腿到中位 (衰竭), 鲸群偏多</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>合成多头 @700 ($7.9M) + 封顶 @750 ($4.5M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>AMZN</td><td>246.15</td><td>231.5</td><td><strong>250.7</strong></td><td>260 (高被 call 墙 260 压)</td><td>多 (+2.5)</td><td>今日流多, 跨日多 2/3, gamma 反转向下, 跌腿到中位 (见底), 鲸群偏多</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>远期 call 买方 @210 ($5.7M) + 封顶 @250 ($1.2M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>ARM</td><td>283.33</td><td>257</td><td><strong>276.1</strong></td><td>322 (低托在 SMA50 -3% 地板 257)</td><td>空 (-1.5)</td><td>今日流空, gamma 反转向下, 跌腿到中位 (见底)</td><td>腿到中位约 2026-09-29; opex 2026-10-16 gamma 解锁</td><td>合成多头 @560 ($2.6M) + 封顶 @150 ($1.8M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>CRWD</td><td>259.25</td><td>231.4</td><td><strong>250.6</strong></td><td>270 (高被 call 墙 270 压)</td><td>空 (-2.5)</td><td>今日流空, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>封顶 @260 ($3.4M) + 近月 put 买方 @250 ($3.0M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>CRWV</td><td>85.07</td><td>83</td><td><strong>83</strong></td><td>96.7 (低托在 SMA50 -3% 地板 83)</td><td>空 (-3.5)</td><td>今日流空, gamma 反转向下, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿到中位约 2026-09-29; opex 2026-10-16 gamma 解锁</td><td>封顶 @100 ($1.1M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>GOOGL</td><td>342.75</td><td>334</td><td><strong>344.1</strong></td><td>364 (低托在 SMA50 -3% 地板 334)</td><td>多 (+0.5)</td><td>跌腿到中位 (见底)</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>无主动大单</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>META</td><td>715.62</td><td>659.9</td><td><strong>712.1</strong></td><td>750 (高被 call 墙 750 压)</td><td>空 (-0.5)</td><td>今日流空, 跨日多 2/3, 涨腿到中位 (衰竭)</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>合成空头 @1020 ($32.2M) + 合成多头 @1020 ($24.4M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>MSFT</td><td>509.22</td><td>482</td><td><strong>510</strong></td><td>510 (高被 call 墙 510 压)</td><td>多 (+1.5)</td><td>今日流多, 涨腿到中位 (衰竭), 鲸群偏多</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>接货地板 @505 ($1.5M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>NET</td><td>353.99</td><td>311.4</td><td><strong>351.3</strong></td><td>380 (高被 call 墙 380 压)</td><td>空 (-0.5)</td><td>涨腿到中位 (衰竭)</td><td>腿已到中位, 转折随时</td><td>无主动大单</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>NVDA</td><td>228.86</td><td>214.7</td><td><strong>228</strong></td><td>235 (高被 call 墙 235 压)</td><td>空 (-0.5)</td><td>今日流空, 跨日多 2/3, 涨腿早段, 鲸群偏空</td><td>腿到中位约 2026-10-06; opex 2026-10-16 gamma 解锁</td><td>封顶 @250 ($5.1M) + 远期 call 买方 @260 ($1.8M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>ORCL</td><td>132.6</td><td>113</td><td><strong>133.8</strong></td><td>152.2</td><td>多 (+0.5)</td><td>今日流多, gamma 反转向下, 跌腿到中位 (见底)</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>远期 call 买方 @180 ($1.4M) + 合成空头 @170 ($1.1M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>QQQ</td><td>736.53</td><td>695.8</td><td><strong>718.7</strong></td><td>777.3</td><td>空 (-3.5)</td><td>今日流空, 跨日空 2/3, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿到中位约 2026-10-02; opex 2026-10-16 gamma 解锁</td><td>近月 put 买方 @720 ($7.9M) + 风险逆转看空 @650 ($6.4M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>SPCX</td><td>145.47</td><td>132</td><td><strong>135.6</strong></td><td>165.2 (低托在 SMA50 -3% 地板 132)</td><td>空 (-4.5)</td><td>今日流空, 跨日空 3/3, gamma 反转向下, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>风险逆转看空 @150 ($6.7M) + 合成多头 @200 ($4.2M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>SPY</td><td>765.61</td><td>739</td><td><strong>771.1</strong></td><td>795 (低托在 SMA50 -3% 地板 739)</td><td>多 (+1.5)</td><td>今日流多, 跨日多 2/3, gamma 反转向下, 涨腿到中位 (衰竭), 鲸群偏多</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>远期 call 买方 @770 ($14.7M) + 接货地板 @730 ($1.8M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>TSLA</td><td>357.45</td><td>337</td><td><strong>343.4</strong></td><td>377.5 (高被 call 墙 377.5 压; 低托在 SMA50 -3% 地板 337)</td><td>空 (-4.5)</td><td>今日流空, 跨日空 3/3, gamma 反转向下, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>风险逆转看空 @350 ($14.9M) + 风险逆转看空 @630 ($10.3M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
-<tr><td>TSM</td><td>452.88</td><td>420.6</td><td><strong>458.9</strong></td><td>460 (高被 call 墙 460 压)</td><td>多 (+1.5)</td><td>今日流多, 涨腿到中位 (衰竭), 鲸群偏多</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>合成多头 @500 ($5.4M) + 远期 call 买方 @540 ($1.2M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bear">AAPL</span></td><td>338.4</td><td>323.1</td><td><strong>333.6</strong></td><td>340 (高被 call 墙 340 压)</td><td>空 (-2.5)</td><td>今日流空, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>封顶 @332.5 ($2.1M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bull">AMD</span></td><td>607.87</td><td>547.8</td><td><strong>626.6</strong></td><td>650 (高被 call 墙 650 压)</td><td>多 (+2.5)</td><td>今日流多, 跨日多 3/3, 涨腿到中位 (衰竭), 鲸群偏多</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>合成多头 @700 ($7.9M) + 封顶 @750 ($4.5M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bull">AMZN</span></td><td>246.15</td><td>231.5</td><td><strong>250.7</strong></td><td>260 (高被 call 墙 260 压)</td><td>多 (+2.5)</td><td>今日流多, 跨日多 2/3, gamma 反转向下, 跌腿到中位 (见底), 鲸群偏多</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>远期 call 买方 @210 ($5.7M) + 封顶 @250 ($1.2M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bear">ARM</span></td><td>283.33</td><td>257</td><td><strong>276.1</strong></td><td>322 (低托在 SMA50 -3% 地板 257)</td><td>空 (-1.5)</td><td>今日流空, gamma 反转向下, 跌腿到中位 (见底)</td><td>腿到中位约 2026-09-29; opex 2026-10-16 gamma 解锁</td><td>合成多头 @560 ($2.6M) + 封顶 @150 ($1.8M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bear">CRWD</span></td><td>259.25</td><td>231.4</td><td><strong>250.6</strong></td><td>270 (高被 call 墙 270 压)</td><td>空 (-2.5)</td><td>今日流空, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>封顶 @260 ($3.4M) + 近月 put 买方 @250 ($3.0M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bear">CRWV</span></td><td>85.07</td><td>83</td><td><strong>83</strong></td><td>96.7 (低托在 SMA50 -3% 地板 83)</td><td>空 (-3.5)</td><td>今日流空, gamma 反转向下, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿到中位约 2026-09-29; opex 2026-10-16 gamma 解锁</td><td>封顶 @100 ($1.1M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bull">GOOGL</span></td><td>342.75</td><td>334</td><td><strong>344.1</strong></td><td>364 (低托在 SMA50 -3% 地板 334)</td><td>多 (+0.5)</td><td>跌腿到中位 (见底)</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>无主动大单</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bear">META</span></td><td>715.62</td><td>659.9</td><td><strong>712.1</strong></td><td>750 (高被 call 墙 750 压)</td><td>空 (-0.5)</td><td>今日流空, 跨日多 2/3, 涨腿到中位 (衰竭)</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>合成空头 @1020 ($32.2M) + 合成多头 @1020 ($24.4M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bull">MSFT</span></td><td>509.22</td><td>482</td><td><strong>510</strong></td><td>510 (高被 call 墙 510 压)</td><td>多 (+1.5)</td><td>今日流多, 涨腿到中位 (衰竭), 鲸群偏多</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>接货地板 @505 ($1.5M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bear">NET</span></td><td>353.99</td><td>311.4</td><td><strong>351.3</strong></td><td>380 (高被 call 墙 380 压)</td><td>空 (-0.5)</td><td>涨腿到中位 (衰竭)</td><td>腿已到中位, 转折随时</td><td>无主动大单</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bear">NVDA</span></td><td>228.86</td><td>214.7</td><td><strong>228</strong></td><td>235 (高被 call 墙 235 压)</td><td>空 (-0.5)</td><td>今日流空, 跨日多 2/3, 涨腿早段, 鲸群偏空</td><td>腿到中位约 2026-10-06; opex 2026-10-16 gamma 解锁</td><td>封顶 @250 ($5.1M) + 远期 call 买方 @260 ($1.8M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bull">ORCL</span></td><td>132.6</td><td>113</td><td><strong>133.8</strong></td><td>152.2</td><td>多 (+0.5)</td><td>今日流多, gamma 反转向下, 跌腿到中位 (见底)</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>远期 call 买方 @180 ($1.4M) + 合成空头 @170 ($1.1M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bear">QQQ</span></td><td>736.53</td><td>695.8</td><td><strong>718.7</strong></td><td>777.3</td><td>空 (-3.5)</td><td>今日流空, 跨日空 2/3, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿到中位约 2026-10-02; opex 2026-10-16 gamma 解锁</td><td>近月 put 买方 @720 ($7.9M) + 风险逆转看空 @650 ($6.4M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bear">SPCX</span></td><td>145.47</td><td>132</td><td><strong>135.6</strong></td><td>165.2 (低托在 SMA50 -3% 地板 132)</td><td>空 (-4.5)</td><td>今日流空, 跨日空 3/3, gamma 反转向下, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>风险逆转看空 @150 ($6.7M) + 合成多头 @200 ($4.2M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bull">SPY</span></td><td>765.61</td><td>739</td><td><strong>771.1</strong></td><td>795 (低托在 SMA50 -3% 地板 739)</td><td>多 (+1.5)</td><td>今日流多, 跨日多 2/3, gamma 反转向下, 涨腿到中位 (衰竭), 鲸群偏多</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>远期 call 买方 @770 ($14.7M) + 接货地板 @730 ($1.8M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bear">TSLA</span></td><td>357.45</td><td>337</td><td><strong>343.4</strong></td><td>377.5 (高被 call 墙 377.5 压; 低托在 SMA50 -3% 地板 337)</td><td>空 (-4.5)</td><td>今日流空, 跨日空 3/3, gamma 反转向下, 涨腿到中位 (衰竭), 鲸群偏空</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>风险逆转看空 @350 ($14.9M) + 风险逆转看空 @630 ($10.3M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
+<tr><td><span class="bull">TSM</span></td><td>452.88</td><td>420.6</td><td><strong>458.9</strong></td><td>460 (高被 call 墙 460 压)</td><td>多 (+1.5)</td><td>今日流多, 涨腿到中位 (衰竭), 鲸群偏多</td><td>腿已到中位, 转折随时; opex 2026-10-16 gamma 解锁</td><td>合成多头 @500 ($5.4M) + 远期 call 买方 @540 ($1.2M)</td><td>2026-10-16 月度 opex（NET Oct $350 call 大</td></tr>
 </tbody></table>
 <h2 id="主动大单-premium-1m-方向-trade-vs-中点">主动大单 (premium &gt;= $1M, 方向 = trade vs 中点)</h2>
-<h3 id="aapl-spot-340-6">AAPL (spot 340.6)</h3>
+<h3 id="aapl-spot-340-6"><span class="bear">AAPL</span> (spot 340.6)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>11:08:32 ET</td><td>2027-04-16</td><td>200</td><td>Call</td><td>315</td><td>1412</td><td>-0.77</td><td>卖方</td><td>bid</td><td>SellToOpen</td><td>$6.38M</td><td>日历 / roll = 换月, 不计新方向</td></tr>
 <tr><td>11:08:32 ET</td><td>2026-12-18</td><td>81</td><td>Call</td><td>305</td><td>1412</td><td>+0.08</td><td>买方</td><td>mid</td><td>nan</td><td>$5.93M</td><td>日历 / roll = 换月, 不计新方向</td></tr>
@@ -93,7 +95,7 @@ tr:hover td{background:var(--panel)}
 <tr><td>11:31:47 ET</td><td>2026-12-18</td><td>81</td><td>Put</td><td>330</td><td>1150</td><td>+0.00</td><td>中点</td><td>mid</td><td>nan</td><td>$1.16M</td><td></td></tr>
 <tr><td>09:48:23 ET</td><td>2026-10-16</td><td>18</td><td>Call</td><td>330</td><td>706</td><td>+0.28</td><td>买方</td><td>ask</td><td>nan</td><td>$1.08M</td><td></td></tr>
 </tbody></table>
-<h3 id="amzn-spot-246-41">AMZN (spot 246.41)</h3>
+<h3 id="amzn-spot-246-41"><span class="bull">AMZN</span> (spot 246.41)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>10:56:47 ET</td><td>2026-11-20</td><td>53</td><td>Call</td><td>260</td><td>17500</td><td>+0.02</td><td>买方</td><td>mid</td><td>ToOpen</td><td>$16.05M</td><td>组合单 (多腿)</td></tr>
 <tr><td>10:56:47 ET</td><td>2026-11-20</td><td>53</td><td>Call</td><td>270</td><td>17500</td><td>-0.03</td><td>卖方</td><td>mid</td><td>nan</td><td>$10.94M</td><td>组合单 (多腿)</td></tr>
@@ -113,7 +115,7 @@ tr:hover td{background:var(--panel)}
 <tr><td>13:33:52 ET</td><td>2027-01-15</td><td>109</td><td>Put</td><td>280</td><td>325</td><td>-0.38</td><td>卖方</td><td>mid</td><td>nan</td><td>$1.24M</td><td></td></tr>
 <tr><td>14:44:15 ET</td><td>2027-06-17</td><td>262</td><td>Put</td><td>280</td><td>200</td><td>-0.95</td><td>卖方</td><td>bid</td><td>SellToOpen</td><td>$1.19M</td><td></td></tr>
 </tbody></table>
-<h3 id="crwd-spot-258-41">CRWD (spot 258.41)</h3>
+<h3 id="crwd-spot-258-41"><span class="bear">CRWD</span> (spot 258.41)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>12:08:01 ET</td><td>2026-10-16</td><td>18</td><td>Call</td><td>260</td><td>1711</td><td>-0.03</td><td>卖方</td><td>bid</td><td>nan</td><td>$2.20M</td><td>近月 call 卖方 = 封顶 / 收租</td></tr>
 <tr><td>10:25:21 ET</td><td>2026-10-16</td><td>18</td><td>Put</td><td>250</td><td>1920</td><td>+0.30</td><td>买方</td><td>ask</td><td>BuyToOpen</td><td>$1.95M</td><td>近月 put 买方 = 空头方向 / 保护</td></tr>
@@ -143,7 +145,7 @@ tr:hover td{background:var(--panel)}
 <tr><td>11:37:02 ET</td><td>2028-01-21</td><td>480</td><td>Call</td><td>900</td><td>266</td><td>-0.11</td><td>卖方</td><td>mid</td><td>nan</td><td>$2.63M</td><td>牛市 call 价差 = 多头方向, 目标 900</td></tr>
 <tr><td>12:22:49 ET</td><td>2026-10-23</td><td>25</td><td>Call</td><td>760</td><td>1582</td><td>-0.17</td><td>卖方</td><td>bid</td><td>SellToOpen</td><td>$2.40M</td><td>近月 call 卖方 = 封顶 / 收租</td></tr>
 </tbody></table>
-<h3 id="msft-spot-508-95">MSFT (spot 508.95)</h3>
+<h3 id="msft-spot-508-95"><span class="bull">MSFT</span> (spot 508.95)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>12:13:57 ET</td><td>2026-12-18</td><td>81</td><td>Call</td><td>525</td><td>1050</td><td>-0.08</td><td>卖方</td><td>mid</td><td>nan</td><td>$2.53M</td><td></td></tr>
 <tr><td>09:44:08 ET</td><td>2026-09-30</td><td>2</td><td>Put</td><td>505</td><td>2895</td><td>-0.23</td><td>卖方</td><td>bid</td><td>SellToOpen</td><td>$1.51M</td><td>OTM put 卖方 = 接货地板</td></tr>
@@ -151,7 +153,7 @@ tr:hover td{background:var(--panel)}
 <tr><td>09:50:56 ET</td><td>2026-10-02</td><td>4</td><td>Put</td><td>510</td><td>1466</td><td>-0.03</td><td>卖方</td><td>bid</td><td>nan</td><td>$1.36M</td><td></td></tr>
 <tr><td>12:15:07 ET</td><td>2026-12-18</td><td>81</td><td>Call</td><td>525</td><td>450</td><td>-0.08</td><td>卖方</td><td>mid</td><td>nan</td><td>$1.09M</td><td></td></tr>
 </tbody></table>
-<h3 id="qqq-spot-736-49">QQQ (spot 736.49)</h3>
+<h3 id="qqq-spot-736-49"><span class="bear">QQQ</span> (spot 736.49)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>11:23:35 ET</td><td>2027-03-19</td><td>172</td><td>Put</td><td>670</td><td>191000</td><td>+0.13</td><td>买方</td><td>mid</td><td>ToOpen</td><td>$348.96M</td><td>日历 / roll = 换月, 不计新方向</td></tr>
 <tr><td>11:23:35 ET</td><td>2026-12-18</td><td>81</td><td>Put</td><td>660</td><td>191000</td><td>-0.04</td><td>卖方</td><td>bid</td><td>nan</td><td>$150.32M</td><td>日历 / roll = 换月, 不计新方向</td></tr>
@@ -162,7 +164,7 @@ tr:hover td{background:var(--panel)}
 <tr><td>14:04:17 ET</td><td>2026-10-02</td><td>4</td><td>Call</td><td>725</td><td>5000</td><td>-0.13</td><td>卖方</td><td>bid</td><td>nan</td><td>$7.86M</td><td>组合单 (多腿)</td></tr>
 <tr><td>10:27:51 ET</td><td>2026-12-18</td><td>81</td><td>Put</td><td>650</td><td>10000</td><td>+0.01</td><td>买方</td><td>mid</td><td>nan</td><td>$6.38M</td><td>风险逆转看空 (卖 call 买 put) = 空头方向 / 持股领口锁价</td></tr>
 </tbody></table>
-<h3 id="spcx-spot-147-19">SPCX (spot 147.19)</h3>
+<h3 id="spcx-spot-147-19"><span class="bear">SPCX</span> (spot 147.19)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>14:23:34 ET</td><td>2026-12-18</td><td>81</td><td>Call</td><td>150</td><td>5000</td><td>-0.06</td><td>卖方</td><td>mid</td><td>nan</td><td>$6.71M</td><td>风险逆转看空 (卖 call 买 put) = 空头方向 / 持股领口锁价</td></tr>
 <tr><td>15:17:20 ET</td><td>2028-06-16</td><td>627</td><td>Call</td><td>150</td><td>1500</td><td>+0.00</td><td>中点</td><td>mid</td><td>nan</td><td>$6.58M</td><td></td></tr>
@@ -173,7 +175,7 @@ tr:hover td{background:var(--panel)}
 <tr><td>13:31:25 ET</td><td>2029-01-19</td><td>844</td><td>Call</td><td>295</td><td>740</td><td>-0.15</td><td>卖方</td><td>mid</td><td>nan</td><td>$1.59M</td><td></td></tr>
 <tr><td>10:24:43 ET</td><td>2027-09-17</td><td>354</td><td>Put</td><td>105</td><td>1400</td><td>+0.10</td><td>买方</td><td>mid</td><td>nan</td><td>$1.31M</td><td></td></tr>
 </tbody></table>
-<h3 id="spy-spot-765-96">SPY (spot 765.96)</h3>
+<h3 id="spy-spot-765-96"><span class="bull">SPY</span> (spot 765.96)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>11:10:54 ET</td><td>2027-03-19</td><td>172</td><td>Put</td><td>700</td><td>61840</td><td>+0.03</td><td>买方</td><td>ask</td><td>nan</td><td>$75.07M</td><td>日历 / roll = 换月, 不计新方向</td></tr>
 <tr><td>11:10:54 ET</td><td>2026-12-18</td><td>81</td><td>Put</td><td>660</td><td>118000</td><td>-0.02</td><td>卖方</td><td>bid</td><td>nan</td><td>$38.94M</td><td>日历 / roll = 换月, 不计新方向</td></tr>
@@ -184,7 +186,7 @@ tr:hover td{background:var(--panel)}
 <tr><td>10:18:26 ET</td><td>2026-10-16</td><td>18</td><td>Put</td><td>736</td><td>20000</td><td>-0.01</td><td>卖方</td><td>bid</td><td>nan</td><td>$3.44M</td><td>组合单 (多腿)</td></tr>
 <tr><td>10:18:26 ET</td><td>2026-10-16</td><td>18</td><td>Put</td><td>732</td><td>20000</td><td>+0.00</td><td>中点</td><td>ask</td><td>nan</td><td>$2.96M</td><td>组合单 (多腿)</td></tr>
 </tbody></table>
-<h3 id="tsm-spot-449-07">TSM (spot 449.07)</h3>
+<h3 id="tsm-spot-449-07"><span class="bull">TSM</span> (spot 449.07)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>10:32:11 ET</td><td>2027-12-17</td><td>445</td><td>Call</td><td>470</td><td>3000</td><td>+0.92</td><td>买方</td><td>ask</td><td>BuyToOpen</td><td>$23.35M</td><td>双到期同向买入 = 远端凸性多头</td></tr>
 <tr><td>10:32:11 ET</td><td>2027-06-17</td><td>262</td><td>Call</td><td>470</td><td>3000</td><td>+0.38</td><td>买方</td><td>ask</td><td>BuyToOpen</td><td>$15.87M</td><td>双到期同向买入 = 远端凸性多头</td></tr>
@@ -195,7 +197,7 @@ tr:hover td{background:var(--panel)}
 <tr><td>15:13:02 ET</td><td>2027-06-17</td><td>262</td><td>Put</td><td>440</td><td>270</td><td>-0.26</td><td>卖方</td><td>mid</td><td>ToOpen</td><td>$1.18M</td><td></td></tr>
 <tr><td>09:36:08 ET</td><td>2026-10-16</td><td>18</td><td>Call</td><td>460</td><td>1190</td><td>+0.22</td><td>买方</td><td>ask</td><td>nan</td><td>$1.11M</td><td>近月 call 买方 = 追涨 / gamma 燃料</td></tr>
 </tbody></table>
-<h3 id="amd-spot-607-07">AMD (spot 607.07)</h3>
+<h3 id="amd-spot-607-07"><span class="bull">AMD</span> (spot 607.07)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>10:14:49 ET</td><td>2026-12-18</td><td>81</td><td>Put</td><td>700</td><td>665</td><td>-0.48</td><td>卖方</td><td>mid</td><td>nan</td><td>$7.87M</td><td>深 ITM put 卖方 = 合成多头建仓 (有效成本 582)</td></tr>
 <tr><td>15:54:13 ET</td><td>2026-11-20</td><td>53</td><td>Put</td><td>560</td><td>2311</td><td>+0.17</td><td>买方</td><td>mid</td><td>nan</td><td>$6.66M</td><td></td></tr>
@@ -206,7 +208,7 @@ tr:hover td{background:var(--panel)}
 <tr><td>15:54:12 ET</td><td>2026-11-20</td><td>53</td><td>Call</td><td>750</td><td>1599</td><td>-0.17</td><td>卖方</td><td>mid</td><td>nan</td><td>$2.26M</td><td>近月 call 卖方 = 封顶 / 收租</td></tr>
 <tr><td>15:48:12 ET</td><td>2026-11-20</td><td>53</td><td>Call</td><td>750</td><td>1600</td><td>-0.15</td><td>卖方</td><td>mid</td><td>nan</td><td>$2.25M</td><td>近月 call 卖方 = 封顶 / 收租</td></tr>
 </tbody></table>
-<h3 id="crwv-spot-85-36">CRWV (spot 85.36)</h3>
+<h3 id="crwv-spot-85-36"><span class="bear">CRWV</span> (spot 85.36)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>12:58:09 ET</td><td>2028-06-16</td><td>627</td><td>Put</td><td>40</td><td>2600</td><td>+0.08</td><td>买方</td><td>mid</td><td>nan</td><td>$1.81M</td><td></td></tr>
 <tr><td>11:54:16 ET</td><td>2027-09-17</td><td>354</td><td>Put</td><td>70</td><td>1200</td><td>-0.15</td><td>卖方</td><td>mid</td><td>ToOpen</td><td>$1.75M</td><td></td></tr>
@@ -214,7 +216,7 @@ tr:hover td{background:var(--panel)}
 <tr><td>11:06:07 ET</td><td>2027-02-19</td><td>144</td><td>Put</td><td>75</td><td>1500</td><td>-0.03</td><td>卖方</td><td>mid</td><td>nan</td><td>$1.50M</td><td></td></tr>
 <tr><td>14:24:09 ET</td><td>2026-10-23</td><td>25</td><td>Call</td><td>100</td><td>4948</td><td>-0.03</td><td>卖方</td><td>bid</td><td>SellToOpen</td><td>$1.10M</td><td>近月 call 卖方 = 封顶 / 收租</td></tr>
 </tbody></table>
-<h3 id="nvda-spot-230-98">NVDA (spot 230.98)</h3>
+<h3 id="nvda-spot-230-98"><span class="bear">NVDA</span> (spot 230.98)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>10:26:24 ET</td><td>2028-06-16</td><td>627</td><td>Put</td><td>230</td><td>2300</td><td>+0.05</td><td>买方</td><td>mid</td><td>nan</td><td>$8.70M</td><td></td></tr>
 <tr><td>09:47:03 ET</td><td>2026-10-16</td><td>18</td><td>Call</td><td>200</td><td>1537</td><td>+0.00</td><td>中点</td><td>ask</td><td>nan</td><td>$5.07M</td><td>组合单 (多腿)</td></tr>
@@ -236,7 +238,7 @@ tr:hover td{background:var(--panel)}
 <tr><td>11:09:10 ET</td><td>2027-06-17</td><td>262</td><td>Put</td><td>125</td><td>840</td><td>-0.20</td><td>卖方</td><td>bid</td><td>nan</td><td>$1.59M</td><td></td></tr>
 <tr><td>11:53:19 ET</td><td>2027-12-17</td><td>445</td><td>Call</td><td>180</td><td>676</td><td>+0.02</td><td>买方</td><td>mid</td><td>nan</td><td>$1.39M</td><td>远期 call 买方 = 凸性多头</td></tr>
 </tbody></table>
-<h3 id="tsla-spot-360-08">TSLA (spot 360.08)</h3>
+<h3 id="tsla-spot-360-08"><span class="bear">TSLA</span> (spot 360.08)</h3>
 <table><thead><tr><th>时间</th><th>到期</th><th>dte</th><th>类型</th><th>行权</th><th>张数</th><th>成交 vs 中点</th><th>主动方</th><th>Side</th><th>开平</th><th>premium</th><th>读法</th></tr></thead><tbody>
 <tr><td>11:54:56 ET</td><td>2029-01-19</td><td>844</td><td>Put</td><td>350</td><td>2000</td><td>+0.53</td><td>买方</td><td>mid</td><td>ToOpen</td><td>$14.91M</td><td>风险逆转看空 (卖 call 买 put) = 空头方向 / 持股领口锁价</td></tr>
 <tr><td>11:54:56 ET</td><td>2029-01-19</td><td>844</td><td>Call</td><td>630</td><td>2000</td><td>-0.52</td><td>卖方</td><td>mid</td><td>ToOpen</td><td>$10.26M</td><td>风险逆转看空 (卖 call 买 put) = 空头方向 / 持股领口锁价</td></tr>
