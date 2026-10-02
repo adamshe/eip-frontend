@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Gemini (gemini-3.5-flash) 对 双轨估值范式 提案的评审 2026-09-29</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><h1 id="gemini-gemini-3-5-flash-对-双轨估值范式-提案的评审-2026-09-29">Gemini (gemini-3.5-flash) 对 双轨估值范式 提案的评审 2026-09-29</h1>
+<p>作为 Trinity 框架下的外部评审 (Adversary + Operator 角色), 我对 Adam 提出的 "双轨估值范式审查" 提案审计意见如下:</p>
+<h3 id="1-真正新增的是什么">1. 真正新增的是什么</h3>
+<p>该提案并非全新框架, 而是对现有 Law 的一次<strong>结构化重组与局部机制补漏</strong>。具体映射与去冗余分析如下:</p>
+<ul>
+<li><strong>重叠部分</strong>:</li>
+<ul>
+<li><strong>模式 B (国家意志)</strong> 对应 <strong>"泡沫国家意志论"</strong> 与 <strong>"Pipeline 轮换原则"</strong>。国家通过泡沫实现理性目标的逻辑已在旧法中阐明。</li>
+<li><strong>模式 B 的价格防御</strong> 对应 <strong>"三元判断 Law" 的 Mirror 层</strong> (价格是玩家下注的合力, 包含国家级主权资金的下注)。</li>
+<li><strong>模式 A (微观重力)</strong> 对应 <strong>"盘子 Law"</strong>、<strong>"结构性买盘 vs 卖盘 Law"</strong> 以及做多打分框架中的 <strong>D3 (空间) 与 D4 (资金)</strong>。</li>
+</ul>
+<li><strong>真正新增的增量 (框架此前缺失的)</strong>:</li>
+<ul>
+<li><strong>资产负债表外化机制 (Off-balance sheet externalization)</strong>: 提案首次提出将电力、重型基建等高昂 CapEx 剥离到表外 SPV 或基础设施债券的机制。这是微观本体 (Entity) 向环境 (Context) 转移成本的具体路径, 补充了 "商业终极形态 Law" 的质料因分析。</li>
+<li><strong>双轨估值差 (Sovereign Premium)</strong>: 明确将 "经典 DCF 估值 (模式 A)" 与 "战略溢价估值 (模式 B)" 并列对比, 迫使分析师对 "叙事溢价" 进行显性定量挂钩, 而非模糊的 "估值底"。</li>
+<li><strong>跨系统 Kill Criteria</strong>: 首次将宏观硬约束 (美债、物理 Scaling Law 撞墙) 作为击穿微观护城河的充要条件, 建立了从宏观 (模式 B) 到微观 (模式 A) 的传导链条。</li>
+</ul>
+</ul>
+<hr>
+<h3 id="2-逻辑漏洞">2. 逻辑漏洞</h3>
+<p>该提案在方法论上存在四个核心漏洞, 容易导致评审流于形式:</p>
+<ul>
+<li><strong>不可证伪的循环解释 (Unfalsifiability)</strong>: 两个模式合起来容易变成 "涨了是因为模式 B 国家意志护盘, 跌了是因为模式 A 价值引力回归"。若无前置的、可测量的 "轨道切换开关", 该框架将失去预测与证伪能力, 沦为后视镜解释工具。</li>
+<li><strong>类别错误 (Category Mistake)</strong>: 将 "国家意志" 与 "地缘博弈" 命名为 "模式 B 估值"。国家意志是 Context (环境水位) 或 Mirror (他人下注), 它本身不产生现金流, 无法进行 "估值 (Valuation)"。将环境溢价伪装成一种 "估值范式", 会误导分析师调高本体 (Entity) 的安全边际。</li>
+<li><strong>隐性前提假设过强 (Implicit Assumption)</strong>: 模式 B 假设了政治决策与主权资本的 "超高理性与稳定性"。事实上, 地缘战略决策具有极高的离散性与非连续性 (如大选、预算案卡死)。将 "国家兜底" 视为常设机制, 忽视了政治出价的边际成本。</li>
+<li><strong>叙事偏置 (Narrative Bias)</strong>: 提案中大量使用 "战时金融"、"霸权"、"碾碎空头" 等高情绪电荷词汇。这违反了 Adversary 的去偏见原则, 会诱导评审员产生 "顺从国家意志即安全" 的认知偏差, 从而低估模式 A 的物理毁灭性。</li>
+</ul>
+<hr>
+<h3 id="3-可测量性">3. 可测量性</h3>
+<p>双轨估值必须能够机械化落地, 否则会沦为写小作文的工具。</p>
+<ul>
+<li><strong>模式 A 估值 (可机械算)</strong>:</li>
+<ul>
+<li><strong>输入</strong>: 剔除补贴后的 ARR、推断算力折旧 (按 3 年加速折旧)、实际电力成本、无风险利率 (10 年期美债)。</li>
+<li><strong>算法</strong>: 采用标准 DCF (WACC 设为 10% 惩罚值) 或 行业成熟期倍数 (SaaS 按 15x P/E, 硬件按 12x P/E)。</li>
+<li><strong>更新频率</strong>: 每季财报日自动更新。</li>
+</ul>
+<li><strong>模式 B 估值 (不可直接算, 但溢价可测)</strong>:</li>
+<ul>
+<li>"模式 B 估值" 无法直接计算, 但可以通过定义 <strong>"双轨差 (Sovereign Premium Ratio, SPR)"</strong> 来间接测量。</li>
+<li><strong>最小可行定义</strong>:</li>
+<p>$$SPR = \frac{Market\_Cap - Valuation_{Mode\_A}}{Valuation_{Mode\_A}}$$</p>
+<li><strong>指标应用</strong>: SPR 成为每天算的指标。当 SPR &gt; 1.5 (即市场价超模式 A 真实估值 150% 以上) 且宏观指标 (如 10 年期美债收益率 &gt; 4.5% 或 散户净流入连续 4 周为负) 恶化时, 触发 "高位破位警报"。</li>
+</ul>
+</ul>
+<hr>
+<h3 id="4-落法">4. 落法</h3>
+<ul>
+<li><strong>推荐落法</strong>: **作为 <code>long_score</code> (做多打分框架) 的前置 "Adversary 门" (第 0 节) 的专项 Vet 模板。**</li>
+<ul>
+<li><strong>理由</strong>: 模式 B 涉及大量地缘与宏观定性判断, 绝不能放入 <code>score.py</code> 进行机械打分 (会污染 D1-D6 的客观数据)。将其作为 "过门" 阶段的 Adversary 专项审计, 强迫分析师在打分前写清 "如果模式 B 崩塌, 模式 A 的底在哪里", 起到安全阀作用。</li>
+</ul>
+<li><strong>不推荐选项一</strong>: <strong>作为新 Law 写入 SOUL。</strong></li>
+<ul>
+<li><strong>原因</strong>: 现有 "泡沫国家意志论" 与 "三元判断 Law" 已经提供了足够的哲学底层, 新增 Law 会造成框架臃肿和概念多余。</li>
+</ul>
+<li><strong>不推荐选项二</strong>: **作为 <code>long_score</code> 的第七个维度 (D7)。**</li>
+<ul>
+<li><strong>原因</strong>: 这会引入大量无法标准化的主观分, 破坏 v2.1 引擎 "机械项不许手输" 的硬约束。</li>
+</ul>
+</ul>
+<hr>
+<h3 id="5-结论">5. 结论</h3>
+<p><strong>有条件接受 (Conditional Acceptance)。</strong></p>
+<p>为了消除叙事偏置并确保可证伪性, 必须对提案的结构与措辞进行以下三处修改:</p>
+<ul>
+<li><strong>修改一 (去情绪化措辞)</strong>: 将维度二标题及正文中的 "非正常战时金融 / 霸权 / 碾碎空头" 替换为 <strong>"非经典宏观流动性支持 / 国家战略产业保护 / 卖方空头挤压"</strong>。</li>
+<li><strong>修改二 (增加轨道切换的硬指标, 解决不可证伪问题)</strong>: 在双轨碰撞部分增加以下强制条款:</li>
+</ul>
+<blockquote>"审计必须在前言明确定义当前主导轨道。若定义为模式 B 主导, 必须同时列出 3 个可观测的宏观维持指标 (如: 10 年期美债收益率 &lt; 4.5%, 政策性采购订单环比增长 &gt; 10%, 行业 IV 百分位 &gt; 50%)。一旦其中任意两个指标连续 30 天失效, 估值体系必须无条件切换为模式 A 审查, 战略溢价归零。"</blockquote>
+<ul>
+<li><strong>修改三 (重定义对比表结构, 明确本体与环境的关系)</strong>: 将第一部分的对比表结构修改为:</li>
+</ul>
+<blockquote>"第一部分 核心结论与双轨定价差异对比表 (模式 A 基础估值 vs 模式 A + 战略溢价)。禁止给出无锚定的 '模式 B 估值', 战略溢价部分必须写明对应的国家信用担保额度或财政补贴折现值。"</blockquote></main></body></html>
