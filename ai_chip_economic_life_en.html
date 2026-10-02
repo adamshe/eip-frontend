@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Long Does an AI Chip Really Last?</title>
+<meta name="description" content="A first-principles depreciation test for AI accelerators: revenue per unit of electricity, the floor below which a chip is not worth running, and what each pricing regime implies for hyperscaler earnings.">
+<link rel="stylesheet" href="theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  .prob-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:var(--s-5)}
+  .prob-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--s-4);text-align:center}
+  .prob-box .v{font-family:var(--font-mono);font-size:24px;font-weight:600;color:var(--text)}
+  .prob-box .l{font-family:var(--font-sans);font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5}
+  .formula{font-family:var(--font-mono);font-size:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--s-4);margin:var(--s-4) 0;overflow-x:auto}
+  .est{font-family:var(--font-mono);font-size:10.5px;color:var(--accent);white-space:nowrap}
+  td.num,th.num{text-align:right;font-family:var(--font-mono)}
+  .kill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:var(--s-4)}
+  .kill{border:1px solid var(--border);border-left:3px solid var(--tone-warn);border-radius:var(--r-sm);padding:var(--s-4);background:var(--bg-card)}
+  .kill h5{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--tone-warn);margin:0 0 var(--s-2) 0}
+  .kill p{font-size:14px;margin:0}
+  .tablewrap{overflow-x:auto}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<header class="masthead">
+  <div class="top-rule">
+    <span>EMPIRE INTEGRATION PARTNERS</span>
+    <span class="compass">Research Note</span>
+    <span>2026-10-02</span>
+  </div>
+  <h1 class="title">How Long Does an AI Chip Really Last?</h1>
+  <p class="subtitle">A first-principles depreciation test. Not the useful life a company chooses for its books, but the life the economics allow: how much revenue each kilowatt-hour of electricity earns, how fast that ratio falls, and the floor below which a chip is no longer worth switching on.</p>
+  <p class="author-line">BY <strong>NAUGHTY BOSS</strong> <span class="dot">.</span> EIP RESEARCH <span class="dot">.</span> 2026-10-02 <span class="dot">.</span> NOT INVESTMENT ADVICE</p>
+  <p class="lead">Verdict first: at today's scarcity prices, a five-to-six-year book life for AI servers is defensible, even conservative. But if rental prices start to follow efficiency gains, as they do in every competitive hardware market, a frontier accelerator's economic life is about four years, and straight-line depreciation would overstate the large cloud platforms' earnings by roughly a fifth in 2027 and 2028. The swing variable is not the chip. It is when scarcity ends.</p>
+</header>
+
+<article class="wide">
+
+<section>
+  <div class="section-mark"><span class="numeral">0</span><span class="kicker">The answer in four numbers</span></div>
+  <h2>One ratio decides the life of the machine</h2>
+  <div class="panel tldr">
+    <h4>One-line verdict</h4>
+    <p><strong>A frontier AI accelerator needs to start life earning about 30 dollars of revenue for every dollar of electricity it burns, and it stops being worth running when that falls below about 3.7. Whether that takes four years or twelve depends on how fast rental prices fall, and that depends on whether compute is still scarce.</strong></p>
+  </div>
+  <div class="prob-strip">
+    <div class="prob-box"><div class="v">32x</div><div class="l">Launch-year revenue per dollar of power, current-generation chip at today's on-demand price</div></div>
+    <div class="prob-box"><div class="v">3.7x</div><div class="l">Floor: below this, revenue no longer covers power, operations and building rent</div></div>
+    <div class="prob-box"><div class="v">~4 yrs</div><div class="l">Economic life if prices follow efficiency (about 44% a year)</div></div>
+    <div class="prob-box"><div class="v">9-12 yrs</div><div class="l">Economic life if today's scarcity pricing persists (about 17% a year)</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">I</span><span class="kicker">The test</span></div>
+  <h2>Revenue per kilowatt-hour, not years on a schedule</h2>
+  <p>Accounting depreciation spreads the cost of a server evenly over a useful life that management chooses. Economics asks a different question: how much cash can this machine still earn, and when does it stop being worth the electricity? For an AI accelerator the cleanest single measure is the ratio of revenue per kilowatt-hour to the price of a kilowatt-hour.</p>
+  <div class="formula">revenue / energy ratio = (rental price per GPU-hour / all-in kW per GPU) / power price per kWh</div>
+  <p>A chip earns its rent in its first years and then loses ground, because each new generation produces more output per kilowatt-hour and the market reprices older chips against it. Two thresholds fall out of the arithmetic.</p>
+  <div class="lane">
+    <p class="lane-label">The floor (about 3.7x)</p>
+    <p>Below this ratio, revenue after operating costs no longer covers the electricity plus the rent on the building, power gear and cooling the chip occupies. At that point the chip is not worth keeping on, whatever its book value says.</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">The payback bar (18x to 30x at launch)</p>
+    <p>To earn back its purchase price plus a 10% cost of capital before it hits the floor, a chip must start high enough. The faster its price falls, the higher it must start: about 18x if prices fall 17% a year, about 30x if they fall 44% a year.</p>
+  </div>
+  <p>The life itself follows from one line:</p>
+  <div class="formula">economic life (years) = ln(launch ratio / floor ratio) / ln(1 / (1 - annual price decline))</div>
+  <p>Starting at 32x with a floor of 3.7x, a five-year life requires rental prices for that chip to fall no faster than about <strong>35% a year</strong>. That single threshold is the whole debate.</p>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">II</span><span class="kicker">Three regimes, one chip</span></div>
+  <h2>Same machine, three pricing worlds</h2>
+  <p>The model places one current-generation accelerator (GB300 class) on one megawatt of capacity and runs it year by year. Inputs: 2.58 kW per GPU all-in at the wall, about $60,000 per GPU, US industrial power at $90.3 per MWh, 80% of hours billed.</p>
+  <div class="tablewrap">
+  <table>
+    <tr><th>Regime</th><th class="num">Launch ratio</th><th class="num">Needed to pay back</th><th>Ratio, years 1 to 6</th><th class="num">Economic life</th><th class="num">Payback</th><th class="num">Return on capital</th></tr>
+    <tr><td><strong>Scarcity</strong>: today's on-demand price, list prices falling 17% a year</td><td class="num">32.2x</td><td class="num">18.0x</td><td>32 / 27 / 22 / 18 / 15 / 13</td><td class="num">12 yrs</td><td class="num">year 2</td><td class="num">69%</td></tr>
+    <tr><td><strong>Efficiency equilibrium</strong>: prices fall with output per kWh, 44% a year</td><td class="num">32.2x</td><td class="num">29.9x</td><td>32 / 18 / 10 / 5.7 / 3.2 / 1.8</td><td class="num">4 yrs</td><td class="num">year 2</td><td class="num">20%</td></tr>
+    <tr><td><strong>Five-year take-or-pay</strong>: a published long-term contract price, then equilibrium</td><td class="num">9.8x</td><td class="num">23.9x</td><td>9.8 flat for five years, then 0.5</td><td class="num">5 yrs</td><td class="num">year 5</td><td class="num">1%</td></tr>
+  </table>
+  </div>
+  <p>Read across the rows. Under scarcity, the chip pays back in two years and could run for a decade. Under efficiency pricing, it still pays back, barely, but is finished in four years. Under the long-term contract, the provider earns almost nothing above its cost of capital: the contract shifts the obsolescence risk to the buyer, who keeps paying the fixed price after the market price has fallen below it.</p>
+  <h3>What that means for the depreciation schedule</h3>
+  <table>
+    <tr><th>Schedule</th><th>Share of cost written off each year</th></tr>
+    <tr><td>Straight line, 5 years</td><td>20 / 20 / 20 / 20 / 20</td></tr>
+    <tr><td>Straight line, 6 years</td><td>17 / 17 / 17 / 17 / 17 / 17</td></tr>
+    <tr><td>Economic, scarcity (9 years)</td><td>26 / 21 / 16 / 13 / 10 / 7 / 5 / 3 / 1</td></tr>
+    <tr><td>Economic, efficiency equilibrium (4 years)</td><td>56 / 28 / 13 / 3</td></tr>
+  </table>
+  <p>Economic depreciation is the fall in what the machine is worth, which is the fall in the cash it can still earn. It is front-loaded in both regimes. The difference is how front-loaded.</p>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">III</span><span class="kicker">Which world are we in?</span></div>
+  <h2>The evidence points to scarcity now, efficiency later</h2>
+  <div class="lane">
+    <p class="lane-label">Efficiency is moving fast</p>
+    <p>In the MLPerf Inference v5.1 results, per-GPU throughput on the DeepSeek-R1 benchmark was 5,842 tokens per second for GB300, 4,024 for GB200 and 1,253 for H200. Adjusted for power, output per kilowatt-hour has been rising roughly 1.8x a year. In a competitive market, that is the speed at which an older chip's price should fall: about 44% a year.</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">Prices are not following yet</p>
+    <p>AWS's on-demand list price for an 8-GPU H100 instance fell from $98.32 an hour in August 2023 to $55.04 in September 2026, about 17% a year, including a cut of up to 45% in June 2025. But in April 2026 Lambda raised prices across its range (H100 from $2.99 to $3.99 per GPU-hour, even V100 from $0.55 to $0.79), AWS's V100 price has not moved since 2023, and CoreWeave's list prices have been unchanged since early 2025. Old chips are still in demand. That is scarcity pricing: power and advanced packaging, not chips, are the binding constraint.</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">Long contracts lock in thin margins</p>
+    <p>IREN's GPU services contract with Microsoft is about $9.7 billion over an average of five years for 200 MW of IT capacity, against about $5.8 billion of GPU capex. That is about $1.11 per IT kilowatt-hour, a ratio near 9.8x. Contracted capacity elsewhere looks similar in structure: CoreWeave reports take-or-pay commitments with a weighted term of about five years. Contracts protect the provider's revenue; they do not change the chip's economics, they move the risk.</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">Book lives have moved the other way</p>
+    <p>Between 2022 and 2026, most large operators lengthened the useful lives of their servers, each change adding billions to reported profit. One company moved in the opposite direction: Amazon shortened part of its server fleet from six years to five in 2025, citing the faster pace of AI and machine learning, adding $1.4 billion of depreciation, and took about $920 million of accelerated depreciation in late 2024 for servers retired early. A company that changes its own estimate against its own earnings is the most credible witness in this table.</p>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <tr><th>Company</th><th>Server life change</th><th>Effect in the year of change (company disclosure)</th></tr>
+    <tr><td>Amazon</td><td>4 to 5 yrs (2022); 5 to 6 yrs (2024); 6 to 5 yrs for part of the fleet (2025)</td><td>Depreciation -$3.6B (2022); -$3.2B (2024); +$1.4B (2025)</td></tr>
+    <tr><td>Microsoft</td><td>4 to 6 yrs (fiscal 2023); now "two to six years"</td><td>Operating income +$3.7B</td></tr>
+    <tr><td>Alphabet</td><td>4 to 6 yrs (2023)</td><td>Depreciation -$3.9B</td></tr>
+    <tr><td>Meta</td><td>To 5.5 yrs (2025)</td><td>Depreciation -$2.9B</td></tr>
+    <tr><td>CoreWeave</td><td>5 to 6 yrs (2023)</td><td>Expense -$20M</td></tr>
+    <tr><td>Nebius</td><td>4 to 5 yrs planned (2026)</td><td>Depreciation about -$168M</td></tr>
+  </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">IV</span><span class="kicker">What it means for earnings</span></div>
+  <h2>If efficiency pricing arrives, about a fifth of earnings is depreciation not yet taken</h2>
+  <p>We restated each company's server spending, historical from filings and forward from our base-case capex paths, using the economic schedules above in place of the company's straight line. Only the server share of capex is affected; buildings and power gear keep their long lives. The figures are the change in earnings per share as a share of our base-case EPS, before any separate write-down from prices falling below cost.</p>
+  <div class="tablewrap">
+  <table>
+    <tr><th>Company (book life)</th><th class="num">Scarcity 2027</th><th class="num">Scarcity 2028</th><th class="num">Equilibrium 2027</th><th class="num">Equilibrium 2028</th></tr>
+    <tr><td>Amazon (5 yrs)</td><td class="num">-2%</td><td class="num">-1%</td><td class="num">-24%</td><td class="num">-21%</td></tr>
+    <tr><td>Alphabet (6 yrs)</td><td class="num">-5%</td><td class="num">-6%</td><td class="num">-22%</td><td class="num">-24%</td></tr>
+    <tr><td>Meta (5.5 yrs)</td><td class="num">-4%</td><td class="num">-4%</td><td class="num">-23%</td><td class="num">-25%</td></tr>
+    <tr><td>Microsoft (6 yrs, fiscal years)</td><td class="num">-5%</td><td class="num">-6%</td><td class="num">-21%</td><td class="num">-26%</td></tr>
+  </table>
+  </div>
+  <p>Under scarcity pricing, the book lives are close to right, and Amazon's five years is if anything conservative. Under efficiency pricing, every company's straight line is too slow by a similar margin, because the spending wave of 2025 to 2027 is written off over four years instead of five or six. The gap is largest in 2027 and 2028 and narrows after, when the early vintages are fully written off under both methods. The order of magnitude, not the decimal, is the point: these are model estimates resting on the assumptions listed below.</p>
+  <div class="pullquote">The depreciation question is not about the chip. It is a question about when the shortage ends.</div>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">V</span><span class="kicker">Signposts</span></div>
+  <h2>What would tell us the regime is changing</h2>
+  <div class="kill-grid">
+    <div class="kill"><h5>OLD-CHIP RENTS</h5><p>H100 and H200 rental prices falling faster than about 35% a year for two consecutive quarters. That is the line where a five-year life stops working.</p></div>
+    <div class="kill"><h5>SUPPLY CATCH-UP</h5><p>New power and advanced-packaging capacity arriving faster than demand: list prices cut for the newest chips, not only the old ones.</p></div>
+    <div class="kill"><h5>CONTRACT RENEWALS</h5><p>Renewal prices for expiring multi-year contracts below the original price. The first renewals of 2023-24 contracts are the cleanest read.</p></div>
+    <div class="kill"><h5>BOOK-LIFE CHANGES</h5><p>Another round of life extensions points one way; a second company shortening lives or booking accelerated depreciation points the other.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">VI</span><span class="kicker">Assumptions and limits</span></div>
+  <h2>What this model does not know</h2>
+  <ul>
+    <li><strong>Estimates.</strong> Per-GPU cost <span class="est">EST</span> is anchored on disclosed per-megawatt GPU capex, not a unit price. All-in power per GPU <span class="est">EST</span> includes network and a 1.25 PUE; the GB300 rack power is not published. Operating cost at 12% of revenue, 80% billed utilization, building and power gear at $12M per MW over 20 years, and a 10% cost of capital are all estimates.</li>
+    <li><strong>Prices.</strong> The launch price uses independent-cloud on-demand rates. The large platforms' list prices are two to two-and-a-half times higher, and their effective prices after discounts are not disclosed; if they realize more, every ratio here is higher and lives are longer.</li>
+    <li><strong>Resale.</strong> The model gives a retired chip no resale value. An active secondary market for used accelerators would lengthen effective life.</li>
+    <li><strong>Server shares.</strong> Amazon (42%) and Meta (43%) come from disclosed property schedules; Alphabet (50%) and Microsoft (65%) are estimates, because neither breaks out servers on a comparable line. EPS effects scale with this share.</li>
+    <li><strong>Base case.</strong> The EPS percentages are measured against our own base-case forecasts, not consensus.</li>
+  </ul>
+</section>
+
+<div class="sources">
+  <h3>Sources</h3>
+  <ul>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm">Amazon 10-K 2025: server life shortened from six to five years, depreciation +$1.4B</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1018724/000101872425000004/amzn-20241231.htm">Amazon 10-K 2024: early retirement, about $920M accelerated depreciation; life extended five to six years</a><span class="pub">SEC, 2025</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1018724/000101872423000004/amzn-20221231.htm">Amazon 10-K 2022: server life extended four to five years</a><span class="pub">SEC, 2023</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm">Microsoft 10-K fiscal 2023: server life extended four to six years</a><span class="pub">SEC, 2023</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm">Microsoft 10-K fiscal 2026: servers and network equipment two to six years</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1652044/000165204424000022/goog-20231231.htm">Alphabet 10-K 2023: server life four to six years</a><span class="pub">SEC, 2024</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm">Meta 10-K 2025: servers and network assets to 5.5 years</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm">CoreWeave 10-K 2025: technology equipment six years; take-or-pay commitments, weighted term about five years</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm">Nebius 20-F 2025: GPU life four to five years planned</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1878848/000187884826000015/iren-20251231.htm">IREN filing: Microsoft GPU services contract about $9.7B, 200 MW IT, about $5.8B GPU capex</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1144879/000114487926000048/apld-20260531.htm">Applied Digital 10-K: data-centre component lives and 15-year lease economics</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://developer.nvidia.com/blog/nvidia-blackwell-ultra-sets-new-inference-records-in-mlperf-debut/">MLPerf Inference v5.1 results: GB300, GB200, H200 throughput</a><span class="pub">NVIDIA DEVELOPER BLOG, 2025-09</span></li>
+    <li><a href="https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html">DGX GB200 NVL72 hardware guide: about 120 kW per rack</a><span class="pub">NVIDIA DOCS</span></li>
+    <li><a href="https://aws.amazon.com/about-aws/whats-new/2025/06/pricing-usage-model-ec2-instances-nvidia-gpus/">AWS price reduction on NVIDIA GPU instances, up to 45%</a><span class="pub">AWS, 2025-06-05</span></li>
+    <li><a href="https://web.archive.org/web/20260401163040/https://lambda.ai/pricing">Lambda pricing, April 2026 increase</a><span class="pub">INTERNET ARCHIVE</span></li>
+    <li><a href="https://www.coreweave.com/pricing">CoreWeave on-demand pricing</a><span class="pub">COREWEAVE, accessed 2026-10-02</span></li>
+    <li><a href="https://www.runpod.io/pricing">RunPod on-demand pricing</a><span class="pub">RUNPOD, accessed 2026-10-02</span></li>
+    <li><a href="https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_b">EIA Electric Power Monthly, Table 5.6.B: industrial price 9.03 cents per kWh, Jan-Jul 2026</a><span class="pub">EIA</span></li>
+    <li><a href="https://datacenters.google/efficiency/">Google data-centre fleet PUE 1.09</a><span class="pub">GOOGLE</span></li>
+  </ul>
+</div>
+
+<footer class="colophon">
+  METHOD: one accelerator on one megawatt, revenue decaying with the market price of its generation <span class="dot">.</span> floor = power plus operations plus building rent <span class="dot">.</span> economic depreciation = decline in the present value of remaining cash <span class="dot">.</span> company figures restate server capex only <span class="dot">.</span> not investment advice
+</footer>
+
+</article>
+
+<script>
+  var bar = document.getElementById('progress');
+  addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var p = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = p + '%';
+  }, {passive:true});
+</script>
+</body>
+</html>
