@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 芯片到底能用几年</title>
+<meta name="description" content="AI 加速器的第一性原理折旧测试: 每度电换回多少收入, 低于多少就不值得开机, 以及不同定价环境下大型云平台的盈利含义。">
+<link rel="stylesheet" href="theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  .prob-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:var(--s-5)}
+  .prob-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--s-4);text-align:center}
+  .prob-box .v{font-family:var(--font-mono);font-size:24px;font-weight:600;color:var(--text)}
+  .prob-box .l{font-family:var(--font-sans);font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5}
+  .formula{font-family:var(--font-mono);font-size:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--s-4);margin:var(--s-4) 0;overflow-x:auto}
+  .est{font-family:var(--font-mono);font-size:10.5px;color:var(--accent);white-space:nowrap}
+  td.num,th.num{text-align:right;font-family:var(--font-mono)}
+  .kill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:var(--s-4)}
+  .kill{border:1px solid var(--border);border-left:3px solid var(--tone-warn);border-radius:var(--r-sm);padding:var(--s-4);background:var(--bg-card)}
+  .kill h5{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--tone-warn);margin:0 0 var(--s-2) 0}
+  .kill p{font-size:14px;margin:0}
+  .tablewrap{overflow-x:auto}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<header class="masthead">
+  <div class="top-rule">
+    <span>EMPIRE INTEGRATION PARTNERS</span>
+    <span class="compass">研究笔记 <a href="ai_chip_economic_life_en.html">English</a></span>
+    <span>2026-10-02</span>
+  </div>
+  <h1 class="title">AI 芯片到底能用几年</h1>
+  <p class="subtitle">一个第一性原理的折旧测试。不看公司给自己账本选的使用寿命, 只看经济上允许它活多久: 每度电能换回多少收入, 这个比值每年掉多快, 掉到多低就不值得再开机。</p>
+  <p class="author-line">BY <strong>NAUGHTY BOSS</strong> <span class="dot">.</span> EIP RESEARCH <span class="dot">.</span> 2026-10-02 <span class="dot">.</span> 非投资建议</p>
+  <p class="lead">先说结论: 按今天的稀缺价格, AI 服务器按 5 到 6 年折旧站得住, 甚至偏保守。但只要租价开始跟着能效进步走 (每一个充分竞争的硬件市场最终都会这样), 一代前沿加速器的经济寿命大约只有 4 年; 直线折旧会让大型云平台 2027 和 2028 年的利润多算约五分之一。决定结果的不是芯片, 而是稀缺什么时候结束。</p>
+</header>
+
+<article class="wide">
+
+<section>
+  <div class="section-mark"><span class="numeral">0</span><span class="kicker">四个数字说完答案</span></div>
+  <h2>一个比值决定这台机器的寿命</h2>
+  <div class="panel tldr">
+    <h4>一句话结论</h4>
+    <p><strong>一颗前沿 AI 加速器, 起步时要做到每花 1 美元电费换回约 30 美元收入; 掉到约 3.7 美元以下就不值得再开机。走完这段路要 4 年还是 12 年, 取决于租价跌多快, 而租价跌多快取决于算力是否还稀缺。</strong></p>
+  </div>
+  <div class="prob-strip">
+    <div class="prob-box"><div class="v">32x</div><div class="l">首年每 1 美元电费换回的收入, 当代芯片按今天的按需价</div></div>
+    <div class="prob-box"><div class="v">3.7x</div><div class="l">续命门槛: 低于它, 收入付不起电费 + 运维 + 机房租</div></div>
+    <div class="prob-box"><div class="v">约 4 年</div><div class="l">租价跟着能效走时的经济寿命 (每年约降 44%)</div></div>
+    <div class="prob-box"><div class="v">9-12 年</div><div class="l">今天的稀缺定价持续时的经济寿命 (每年约降 17%)</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">I</span><span class="kicker">测试方法</span></div>
+  <h2>看每度电的收入, 不看账本上的年限</h2>
+  <p>会计折旧把一台服务器的成本按管理层选定的使用寿命平摊。经济学问的是另一件事: 这台机器还能挣多少现金, 什么时候挣的钱连电费都不值。对 AI 加速器来说, 最干净的单一指标是 "每度电换来的收入" 与 "一度电的价格" 之比。</p>
+  <div class="formula">收入 / 能耗比 = (每卡每小时租价 / 每卡全包千瓦数) / 每度电价格</div>
+  <p>一颗芯片在头几年挣回租金, 之后逐年失地: 每一代新芯片每度电的产出更多, 市场会拿新芯片给旧芯片重新定价。从算术里直接得出两道门槛。</p>
+  <div class="lane">
+    <p class="lane-label">续命门槛 (约 3.7 倍)</p>
+    <p>比值低于它, 扣掉运营成本后的收入就付不起电费, 加上这颗芯片占用的机房、电力设备和冷却的租金。到这一步, 不管账面价值还剩多少, 这颗芯片都不值得再开着。</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">回本门槛 (首年 18 到 30 倍)</p>
+    <p>要在跌到续命门槛之前收回买价, 再加 10% 的资本成本, 起点必须够高。价格跌得越快, 起点要求越高: 年降 17% 时约 18 倍, 年降 44% 时约 30 倍。</p>
+  </div>
+  <p>寿命本身只需要一行:</p>
+  <div class="formula">经济寿命 (年) = ln(首年比值 / 续命门槛) / ln(1 / (1 - 年降幅))</div>
+  <p>首年 32 倍、门槛 3.7 倍时, 要撑满 5 年, 这颗芯片的租价每年降幅不能超过约 <strong>35%</strong>。整个争论就在这一条线上。</p>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">II</span><span class="kicker">同一颗芯片, 三种定价环境</span></div>
+  <h2>同一台机器, 三个世界</h2>
+  <p>模型把一颗当代加速器 (GB300 级) 放在 1 兆瓦容量上逐年运行。输入: 每卡全包 2.58 千瓦 (墙插口径), 每卡约 6 万美元, 美国工业电价每兆瓦时 90.3 美元, 80% 的时间计费。</p>
+  <div class="tablewrap">
+  <table>
+    <tr><th>环境</th><th class="num">首年比值</th><th class="num">回本所需</th><th>第 1 至 6 年比值</th><th class="num">经济寿命</th><th class="num">回本</th><th class="num">资本回报率</th></tr>
+    <tr><td><strong>稀缺定价</strong>: 今天的按需价, 表价每年降 17%</td><td class="num">32.2x</td><td class="num">18.0x</td><td>32 / 27 / 22 / 18 / 15 / 13</td><td class="num">12 年</td><td class="num">第 2 年</td><td class="num">69%</td></tr>
+    <tr><td><strong>能效均衡</strong>: 价格跟着每度电产出走, 每年降 44%</td><td class="num">32.2x</td><td class="num">29.9x</td><td>32 / 18 / 10 / 5.7 / 3.2 / 1.8</td><td class="num">4 年</td><td class="num">第 2 年</td><td class="num">20%</td></tr>
+    <tr><td><strong>五年长约</strong>: 一份公开的 take-or-pay 合同价, 期满后按能效均衡</td><td class="num">9.8x</td><td class="num">23.9x</td><td>五年持平 9.8, 之后 0.5</td><td class="num">5 年</td><td class="num">第 5 年</td><td class="num">1%</td></tr>
+  </table>
+  </div>
+  <p>横着读每一行。稀缺定价下, 芯片两年回本, 可以跑十年。能效均衡下, 它仍然勉强回本, 但四年就到头。长约下, 供应方几乎只挣回资本成本: 合同把过时风险转给了买方, 市场价跌破合同价之后, 买方还得照付。</p>
+  <h3>这对折旧表意味着什么</h3>
+  <table>
+    <tr><th>折旧方式</th><th>每年摊销的成本占比 (%)</th></tr>
+    <tr><td>直线 5 年</td><td>20 / 20 / 20 / 20 / 20</td></tr>
+    <tr><td>直线 6 年</td><td>17 / 17 / 17 / 17 / 17 / 17</td></tr>
+    <tr><td>经济折旧, 稀缺定价 (9 年)</td><td>26 / 21 / 16 / 13 / 10 / 7 / 5 / 3 / 1</td></tr>
+    <tr><td>经济折旧, 能效均衡 (4 年)</td><td>56 / 28 / 13 / 3</td></tr>
+  </table>
+  <p>经济折旧就是这台机器价值的下降, 也就是它还能挣的现金的下降。两种环境下都是前高后低, 区别只在于前面压得有多重。</p>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">III</span><span class="kicker">我们在哪个世界</span></div>
+  <h2>证据指向: 现在是稀缺, 以后是能效</h2>
+  <div class="lane">
+    <p class="lane-label">能效进步很快</p>
+    <p>MLPerf Inference v5.1 的 DeepSeek-R1 测试里, 每卡吞吐 GB300 为每秒 5,842 token, GB200 为 4,024, H200 为 1,253。按功耗折算, 每度电的产出大约每年提升 1.8 倍。在竞争市场里, 这就是旧芯片价格该跌的速度: 每年约 44%。</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">价格还没跟上</p>
+    <p>AWS 8 卡 H100 实例的按需表价从 2023 年 8 月的每小时 98.32 美元降到 2026 年 9 月的 55.04 美元, 约每年 17%, 其中包括 2025 年 6 月最高 45% 的降价。但 2026 年 4 月 Lambda 全线涨价 (H100 每卡时 2.99 涨到 3.99, 连 V100 都从 0.55 涨到 0.79), AWS 的 V100 价格自 2023 年起没动过, CoreWeave 的表价自 2025 年初不变。旧芯片仍有人抢。这就是稀缺定价: 卡脖子的是电和先进封装, 不是芯片。</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">长约锁住的是薄利</p>
+    <p>IREN 与微软的 GPU 服务合同约 97 亿美元, 平均 5 年, 对应 200 兆瓦 IT 容量, GPU 相关投入约 58 亿美元。折合每 IT 千瓦时约 1.11 美元, 比值约 9.8 倍。其它长约结构类似: CoreWeave 披露其 take-or-pay 承诺的加权期限约 5 年。合同保护的是供应方的收入, 不改变芯片的经济性, 只是挪动了风险。</p>
+  </div>
+  <div class="lane">
+    <p class="lane-label">账面寿命走的是反方向</p>
+    <p>2022 到 2026 年间, 大多数大型运营商都延长过服务器的使用寿命, 每次延长都给当年报表利润加了几十亿美元。只有一家走了反方向: 亚马逊 2025 年以 AI 与机器学习技术节奏加快为由, 把部分服务器的寿命从 6 年缩回 5 年, 多计折旧 14 亿美元; 2024 年底还为提前退役的服务器计提了约 9.2 亿美元的加速折旧。一家公司做出不利于自己利润的估计变更, 是这张表里最可信的证人。</p>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <tr><th>公司</th><th>服务器寿命变更</th><th>变更当年的影响 (公司披露)</th></tr>
+    <tr><td>亚马逊</td><td>4 改 5 年 (2022); 5 改 6 年 (2024); 部分机群 6 改 5 年 (2025)</td><td>折旧 -36 亿 (2022); -32 亿 (2024); +14 亿 (2025)</td></tr>
+    <tr><td>微软</td><td>4 改 6 年 (2023 财年); 现为 "2 到 6 年"</td><td>营业利润 +37 亿</td></tr>
+    <tr><td>Alphabet</td><td>4 改 6 年 (2023)</td><td>折旧 -39 亿</td></tr>
+    <tr><td>Meta</td><td>延长到 5.5 年 (2025)</td><td>折旧 -29 亿</td></tr>
+    <tr><td>CoreWeave</td><td>5 改 6 年 (2023)</td><td>费用 -2,000 万</td></tr>
+    <tr><td>Nebius</td><td>4 改 5 年 (2026 年拟)</td><td>折旧约 -1.68 亿</td></tr>
+  </table>
+  </div>
+  <p>表中金额单位为美元。</p>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">IV</span><span class="kicker">对利润意味着什么</span></div>
+  <h2>如果能效定价到来, 约五分之一的利润是还没提的折旧</h2>
+  <p>我们把每家公司的服务器支出 (历史取自财报, 未来取自我们的基准 capex 路径) 改用上面的经济折旧表重算, 替换公司的直线折旧。只影响 capex 里的服务器部分; 建筑和电力设备保持长寿命。下表是每股收益的变化占我们基准 EPS 的比例, 不含价格跌破成本时另行计提的减值。</p>
+  <div class="tablewrap">
+  <table>
+    <tr><th>公司 (账面寿命)</th><th class="num">稀缺 2027</th><th class="num">稀缺 2028</th><th class="num">均衡 2027</th><th class="num">均衡 2028</th></tr>
+    <tr><td>亚马逊 (5 年)</td><td class="num">-2%</td><td class="num">-1%</td><td class="num">-24%</td><td class="num">-21%</td></tr>
+    <tr><td>Alphabet (6 年)</td><td class="num">-5%</td><td class="num">-6%</td><td class="num">-22%</td><td class="num">-24%</td></tr>
+    <tr><td>Meta (5.5 年)</td><td class="num">-4%</td><td class="num">-4%</td><td class="num">-23%</td><td class="num">-25%</td></tr>
+    <tr><td>微软 (6 年, 财年口径)</td><td class="num">-5%</td><td class="num">-6%</td><td class="num">-21%</td><td class="num">-26%</td></tr>
+  </table>
+  </div>
+  <p>在稀缺定价下, 各家的账面寿命基本合理, 亚马逊的 5 年甚至偏保守。在能效定价下, 每一家的直线折旧都慢了差不多同样的幅度, 因为 2025 到 2027 年的投资浪潮要在 4 年而不是 5 到 6 年里摊完。差距在 2027、2028 年最大, 之后收窄, 因为早期批次在两种方法下都已摊完。要看的是量级, 不是小数点: 这些是模型估计, 建立在下面列出的假设上。</p>
+  <div class="pullquote">折旧问题不在芯片本身, 而在短缺什么时候结束。</div>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">V</span><span class="kicker">路标</span></div>
+  <h2>什么信号说明环境在切换</h2>
+  <div class="kill-grid">
+    <div class="kill"><h5>旧卡租价</h5><p>H100、H200 租价连续两个季度以每年超过约 35% 的速度下跌。这就是 5 年寿命不再成立的那条线。</p></div>
+    <div class="kill"><h5>供给追上</h5><p>新增的电力和先进封装产能快于需求: 最新一代芯片的表价也开始下调, 而不只是旧卡。</p></div>
+    <div class="kill"><h5>合同续约</h5><p>到期的多年合同续约价低于原价。2023 到 2024 年签的合同第一次续约是最干净的读数。</p></div>
+    <div class="kill"><h5>账面寿命变更</h5><p>再一轮延长寿命指向一个方向; 第二家公司缩短寿命或计提加速折旧, 指向另一个方向。</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-mark"><span class="numeral">VI</span><span class="kicker">假设与局限</span></div>
+  <h2>这个模型不知道什么</h2>
+  <ul>
+    <li><strong>估计值。</strong> 每卡成本 <span class="est">估</span> 锚在公司披露的每兆瓦 GPU 投入上, 不是单价。每卡全包功耗 <span class="est">估</span> 含网络与 PUE 1.25; GB300 机架功率未公开。运营成本占收入 12%、计费利用率 80%、机房与电力设备每兆瓦 1,200 万美元按 20 年摊、资本成本 10%, 均为估计。</li>
+    <li><strong>价格。</strong> 首年价格用的是独立云厂商的按需价。大型平台的表价高出 2 到 2.5 倍, 折扣后的实际成交价未披露; 如果它们实际收得更高, 这里的每个比值都更高, 寿命也更长。</li>
+    <li><strong>残值。</strong> 模型不给退役芯片任何残值。若二手加速器市场活跃, 实际寿命会更长。</li>
+    <li><strong>服务器占比。</strong> 亚马逊 (42%) 与 Meta (43%) 取自财报的资产明细推算; Alphabet (50%) 与微软 (65%) 为估计, 因为两家都没有可比口径的服务器分行。每股收益影响与这个占比成正比。</li>
+    <li><strong>基准。</strong> 每股收益的百分比是相对我们自己的基准预测, 不是市场一致预期。</li>
+  </ul>
+</section>
+
+<div class="sources">
+  <h3>来源</h3>
+  <ul>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm">Amazon 10-K 2025: 服务器寿命 6 年缩为 5 年, 折旧 +14 亿美元</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1018724/000101872425000004/amzn-20241231.htm">Amazon 10-K 2024: 提前退役, 约 9.2 亿美元加速折旧; 寿命 5 年延至 6 年</a><span class="pub">SEC, 2025</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1018724/000101872423000004/amzn-20221231.htm">Amazon 10-K 2022: 服务器寿命 4 年延至 5 年</a><span class="pub">SEC, 2023</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm">Microsoft 10-K 2023 财年: 服务器寿命 4 年延至 6 年</a><span class="pub">SEC, 2023</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm">Microsoft 10-K 2026 财年: 服务器与网络设备 2 到 6 年</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1652044/000165204424000022/goog-20231231.htm">Alphabet 10-K 2023: 服务器寿命 4 年改 6 年</a><span class="pub">SEC, 2024</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm">Meta 10-K 2025: 服务器与网络资产延至 5.5 年</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm">CoreWeave 10-K 2025: 技术设备 6 年; take-or-pay 承诺加权期限约 5 年</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm">Nebius 20-F 2025: GPU 寿命拟由 4 年改 5 年</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1878848/000187884826000015/iren-20251231.htm">IREN 披露: 微软 GPU 服务合同约 97 亿美元, 200 MW IT, GPU 投入约 58 亿美元</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1144879/000114487926000048/apld-20260531.htm">Applied Digital 10-K: 机房组件寿命与 15 年租约经济性</a><span class="pub">SEC, 2026</span></li>
+    <li><a href="https://developer.nvidia.com/blog/nvidia-blackwell-ultra-sets-new-inference-records-in-mlperf-debut/">MLPerf Inference v5.1: GB300、GB200、H200 吞吐</a><span class="pub">NVIDIA 开发者博客, 2025-09</span></li>
+    <li><a href="https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html">DGX GB200 NVL72 硬件指南: 每机架约 120 kW</a><span class="pub">NVIDIA 文档</span></li>
+    <li><a href="https://aws.amazon.com/about-aws/whats-new/2025/06/pricing-usage-model-ec2-instances-nvidia-gpus/">AWS NVIDIA GPU 实例降价, 最高 45%</a><span class="pub">AWS, 2025-06-05</span></li>
+    <li><a href="https://web.archive.org/web/20260401163040/https://lambda.ai/pricing">Lambda 价目, 2026 年 4 月涨价</a><span class="pub">INTERNET ARCHIVE</span></li>
+    <li><a href="https://www.coreweave.com/pricing">CoreWeave 按需价目</a><span class="pub">COREWEAVE, 2026-10-02 读取</span></li>
+    <li><a href="https://www.runpod.io/pricing">RunPod 按需价目</a><span class="pub">RUNPOD, 2026-10-02 读取</span></li>
+    <li><a href="https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_b">EIA 电力月报表 5.6.B: 2026 年 1-7 月美国工业电价每千瓦时 9.03 美分</a><span class="pub">EIA</span></li>
+    <li><a href="https://datacenters.google/efficiency/">Google 数据中心全舰队 PUE 1.09</a><span class="pub">GOOGLE</span></li>
+  </ul>
+</div>
+
+<footer class="colophon">
+  方法: 一颗加速器放在一兆瓦上, 收入随其代际的市场价衰减 <span class="dot">.</span> 续命门槛 = 电费 + 运维 + 机房租 <span class="dot">.</span> 经济折旧 = 剩余现金现值的下降 <span class="dot">.</span> 公司数字只重算服务器 capex <span class="dot">.</span> 非投资建议
+</footer>
+
+</article>
+
+<script>
+  var bar = document.getElementById('progress');
+  addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var p = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = p + '%';
+  }, {passive:true});
+</script>
+</body>
+</html>
