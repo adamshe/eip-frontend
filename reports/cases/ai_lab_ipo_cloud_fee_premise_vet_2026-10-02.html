@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Vet: 超大规模 FCF 回正的前提 = AI 实验室 (OpenAI / Anthropic) 卖股票的钱付云费再记成利润? (2026-10-02)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><h1 id="vet-超大规模-fcf-回正的前提-ai-实验室-openai-anthropic-卖股票的钱付云费再记成利润-2026-10-02">Vet: 超大规模 FCF 回正的前提 = AI 实验室 (OpenAI / Anthropic) 卖股票的钱付云费再记成利润? (2026-10-02)</h1>
+<p>Adam 的命题 (AO = Anthropic + OpenAI): FCF 为什么失效; 实验室 IPO 后, 卖股票的钱可以付云费, 然后在云厂商那里记成利润 -- 这是不是前提。</p>
+<h2 id="0-结论">0. 结论</h2>
+<p><strong>对 AMZN / GOOGL / MSFT / ORCL 的增量部分: 是前提, 置信约 75%。对 META: 不是, 它的前提是广告主付钱。</strong> 再补一处 Adam 命题没说到的: 这条资金环里有一段是云厂商自己的钱绕回来的, 那一段按定义不进 FCF 的减项, 却进 FCF 的加项, 所以 FCF 本身被抬高了; 另有一段是账面重估, 只进 GAAP 利润不进现金。</p>
+<h2 id="1-拆命题-前提---推理---结论">1. 拆命题 (前提 -&gt; 推理 -&gt; 结论)</h2>
+<ul>
+<li>前提 1: 现在 FCF 为负是因为 capex 先花、收入后到 (META / AMZN / GOOGL 的 FY26 每股 FCF 为负)。[T1, 各家 10-Q]</li>
+<li>前提 2: FCF 回正要靠这批产能被卖掉, 即云费收入。</li>
+<li>前提 3: 增量产能的边际买家是两家烧钱的实验室。</li>
+<li>前提 4: 实验室付云费的钱来自股权融资 (私募 -&gt; IPO), 不来自自己的客户。</li>
+<li>结论: 云厂商 2027-2029 的 FCF 回正 = 公开市场股民的钱经实验室流过。</li>
+<li>逻辑检查: 前提 1-3 有一手证据; 前提 4 是全命题最弱的一环, 取决于实验室自己的收入 / 算力承诺之比, 这个数没有一手披露 (实验室的 S-1 才会给)。推理本身有效 (无形式谬误), 结论成立的范围 = 增量, 不是存量。</li>
+</ul>
+<h2 id="2-证据-今天各份-case-报告已入库的一手数">2. 证据 (今天各份 case 报告已入库的一手数)</h2>
+<table><thead><tr><th>公司</th><th>实验室进 backlog 的量</th><th>云厂商自己付给实验室的钱 (绕回)</th><th>账面重估 / 担保</th></tr></thead><tbody>
+<tr><td>AMZN</td><td>AWS RPO 半年 $244B -&gt; $496B (+$252B); OpenAI 再扩 $100B / 8 年 + Anthropic 再增 &gt;$100B / 10 年 = 增量至少 79% 来自两家 [T1 10-Q]</td><td>投 OpenAI $50B ($15B 已付 + $35B 承诺至 2028-12) = OpenAI 对 AWS 承诺 $138B 的 36%; Anthropic 可转债 $8B</td><td>H1 2026 Anthropic 上调 $62.8B, Q2 税前非经营收益 $53.4B 进 GAAP EPS</td></tr>
+<tr><td>GOOGL</td><td>云积压 $513.9B, Q1 环比近翻倍; 采购义务 $811B [T1]</td><td>对一家私营公司 2030 前出资承诺 $20B (推断 Anthropic)</td><td>backstop 信用衍生 $43.8B + 待定 $24.1B + 担保 $7.6B = 为他人数据中心债务兜底</td></tr>
+<tr><td>MSFT</td><td>商业 RPO $678B (+84%) [T1]; 其中 OpenAI 占比未核</td><td>OpenAI 持股 (重组后经济利益未核)</td><td>--</td></tr>
+<tr><td>ORCL</td><td>RPO $455B -&gt; $664B, 增量主要来自重大云合同; 只有 13% 在 12 个月内 [T1]</td><td>--</td><td>--</td></tr>
+<tr><td>NVDA (上游一层)</td><td>供给承诺 $119B -&gt; $279B [T1]</td><td>生态股权投资 $99B + 承诺 $25B; H1 买股权 $42.4B = 同期 FCF $69.9B 的 61%</td><td>OpenAI / SB Energy 残值担保上限 $105B; 应收 +$24.6B (客户延长付款期); 回租云 $36B</td></tr>
+<tr><td>AMD (上游一层)</td><td>OpenAI 6 GW + Anthropic 2 GW</td><td>给 OpenAI 与 META 各 1.6 亿股 $0.01 认股权 (付给客户的是自己的股票); 对 Anthropic 最高 $5B</td><td>--</td></tr>
+<tr><td>对照: TSM</td><td>客户预付 (temporary receipts) NT$234B, 半年 +23%</td><td>无</td><td>这是现金先到, 最干净</td></tr>
+<tr><td>对照: META</td><td>自己就是客户 (广告)</td><td>无</td><td>表外: Hyperion 残值担保 $28B, El Paso $13B (融资的是 capex, 不是客户)</td></tr>
+</tbody></table>
+<p>另: AMZN 预收款 $25B 没有随 RPO 翻倍而增长 -- 实验室给的是承诺, 不是押金。OpenAI 900M 周活、广告 $1B 年化、估值 $852B (T3, 未核)。</p>
+<h2 id="3-资金环的三层-adam-命题的补全">3. 资金环的三层 (Adam 命题的补全)</h2>
+<ol>
+<li><strong>外部钱 (真的)</strong>: 实验室用股民 / 私募的钱付云费 -&gt; 云厂商收入 -&gt; CFO -&gt; FCF。这是 Adam 说的那一层。</li>
+<li><strong>绕回的钱 (抬高 FCF)</strong>: 云厂商投资实验室, 现金流量表记在 "投资活动 - 购买股权", FCF = CFO - capex 不减它; 实验室把同一笔钱付回云费, 记在 CFO, FCF 加上它。同一美元出去不扣、回来算数。AMZN 的 OpenAI 承诺里约 36% 是这一层。</li>
+<li><strong>账面重估 (只进 GAAP 利润)</strong>: 实验室估值升 -&gt; 云厂商持股按公允价上调 -&gt; 非经营收益进 EPS (AMZN H1 $62.8B)。不进 CFO / FCF, 但进 PE 的分母。IPO 定价会给这一层一个公开的价: 若 IPO 低于最后一轮私募价, 这层反转成亏损。</li>
+</ol>
+<h2 id="4-反例-对-adam-命题的三个最强反驳">4. 反例 (对 Adam 命题的三个最强反驳)</h2>
+<ul>
+<li>历史同型 (支持命题, 强度高): 1999-2001 电信设备商向 CLEC 放贷 / 入股, CLEC 用这钱买设备, 设备商记收入; 2000-01 高收益债与 IPO 窗口关, CLEC 断粮, 设备商收入塌、贷款核销。形状完全一致: 供应商的收入 = 客户进入资本市场的能力。</li>
+<li>反例 1 (数据, 强度中): 实验室自有收入在长 (订阅 + 广告 + API)。若其增速快于算力承诺增速, 股权钱只是桥, 不是源。方向未定, 缺一手数。</li>
+<li>反例 2 (结构, 强度中高): 若实验室断粮, capex 可以砍, FCF 反而回升 (AMZN 报告 C 情景 FY30 每股 FCF $6.79 &gt; B 情景 $5.81)。真正受伤的是 EPS (已建产能的折旧照摊) 与已签的租约 / 担保 (GOOGL 未开始租赁 $85.2B + 兜底 $75.5B, NVDA 残值担保 $105B), 不是 FCF 本身。所以命题对 "FCF 回正" 成立, 对 "FCF 崩" 的方向要改成 "EPS 崩 + 表外负债落地"。</li>
+<li>反例 3 (边界, 强度中): 存量 (AWS 核心、M365、搜索广告) 本身赚钱, 前提只管增量。</li>
+<li>加权: 命题对增量成立约 75%; 对存量不成立; 风险落点是 EPS 与表外承诺, 不是 FCF。</li>
+</ul>
+<h2 id="5-对裁判尺的含义-待-adam-裁">5. 对裁判尺的含义 (待 Adam 裁)</h2>
+<p>原选项 (a) 三年尺记 "不可裁" / (b) D&amp;A 替代 capex 之外, 本 vet 给出第三个:</p>
+<ul>
+<li>(c) <strong>对账版 FCF = CFO - capex - 对自己客户的股权 / 贷款投资净额</strong>, 并把 backlog 按质量分三档: 现金预付 (TSM / GEV 押金) &gt; 投资级客户承诺 &gt; 烧钱实验室承诺且由卖方自己出资。XBRL 可机械取 (投资活动里的股权购买项), 不需判断。</li>
+</ul>
+<h2 id="6-时点与可观测量">6. 时点与可观测量</h2>
+<ul>
+<li>决定性的 T1 文件是实验室的 S-1: 第一次给出收入、算力承诺、现金消耗、资金来源; 它把前提 4 从已知的未知变成已知。</li>
+<li>IPO 后 6 个月 (解禁) 与第一次增发是 "第四池 (公开股权) 能否持续吸收" 的检验; 失败信号 = 破发 / 增发失败 / 估值低于最后一轮私募。</li>
+<li>云厂商侧: 预收款是否开始随 RPO 增长 (承诺变押金 = 前提变硬); 投资活动里的股权购买额; NVDA 应收天数。</li>
+</ul>
+<h2 id="7-未核">7. 未核</h2>
+<p>MSFT RPO 中 OpenAI 占比; ORCL RPO 的客户构成; 两家实验室的收入与算力承诺总额 (只有 T3); GOOGL $20B 对象 = Anthropic 为推断; MSFT 在 OpenAI 重组后的经济利益。</p>
+<pre><code>[{&quot;domain&quot;: &quot;financing&quot;, &quot;ticker&quot;: &quot;AMZN&quot;, &quot;claim&quot;: &quot;AWS RPO H1 2026 增量 $252B 中至少 $200B 来自 OpenAI (+$100B / 8 年) 与 Anthropic (&gt;$100B / 10 年), 约 79%; AMZN 投 OpenAI $50B = OpenAI 对 AWS 承诺 $138B 的 36% (绕回段, 不减 FCF 却回流 CFO)&quot;, &quot;value&quot;: 0.79, &quot;unit&quot;: &quot;share of incremental RPO&quot;, &quot;as_of&quot;: &quot;2026-06-30&quot;, &quot;source_url&quot;: &quot;var/output/scores_candidates/AMZN_forward_valuation_2026-10-01.md&quot;, &quot;source_tier&quot;: &quot;T2&quot;, &quot;confidence&quot;: &quot;M&quot;, &quot;relation&quot;: &quot;financed_by&quot;, &quot;counterparty&quot;: &quot;OpenAI&quot;, &quot;counterparty_type&quot;: &quot;private_company&quot;},
+ {&quot;domain&quot;: &quot;financing&quot;, &quot;ticker&quot;: &quot;NVDA&quot;, &quot;claim&quot;: &quot;H1 FY27 买入生态股权 $42.4B = 同期 FCF $69.9B 的 61%; 生态股权投资 $99B + 承诺 $25B, OpenAI / SB Energy 残值担保上限 $105B, 应收 +$24.6B (客户延长付款期)&quot;, &quot;value&quot;: 0.61, &quot;unit&quot;: &quot;equity purchases / FCF&quot;, &quot;as_of&quot;: &quot;2026-07-26&quot;, &quot;source_url&quot;: &quot;var/output/scores_candidates/NVDA_forward_valuation_2026-10-01.md&quot;, &quot;source_tier&quot;: &quot;T2&quot;, &quot;confidence&quot;: &quot;M&quot;, &quot;relation&quot;: &quot;financed_by&quot;, &quot;counterparty&quot;: &quot;OpenAI&quot;, &quot;counterparty_type&quot;: &quot;private_company&quot;},
+ {&quot;domain&quot;: &quot;financing&quot;, &quot;ticker&quot;: &quot;GOOGL&quot;, &quot;claim&quot;: &quot;云积压 $513.9B; 对一家私营公司 2030 前出资承诺 $20B (推断 Anthropic); backstop 信用衍生 $43.8B + 待定 $24.1B + 担保 $7.6B = 为他人数据中心债务兜底 $75.5B&quot;, &quot;value&quot;: 75.5, &quot;unit&quot;: &quot;USD bn contingent support&quot;, &quot;as_of&quot;: &quot;2026-06-30&quot;, &quot;source_url&quot;: &quot;var/output/scores_candidates/GOOGL_forward_valuation_2026-10-01.md&quot;, &quot;source_tier&quot;: &quot;T2&quot;, &quot;confidence&quot;: &quot;M&quot;},
+ {&quot;domain&quot;: &quot;thesis&quot;, &quot;ticker&quot;: null, &quot;claim&quot;: &quot;Vet (Adam 2026-10-02): 超大规模 FCF 回正前提 = AI 实验室股权钱付云费; 对 AMZN / GOOGL / MSFT / ORCL 增量成立约 75%, 对 META 不成立; 资金环三层 = 外部钱 / 绕回钱 (抬高 FCF) / 账面重估 (只进 GAAP); 决定性 T1 = 实验室 S-1&quot;, &quot;value&quot;: 0.75, &quot;unit&quot;: &quot;confidence&quot;, &quot;as_of&quot;: &quot;2026-10-02&quot;, &quot;source_url&quot;: &quot;var/output/scores_candidates/ai_lab_ipo_cloud_fee_premise_vet_2026-10-02.md&quot;, &quot;source_tier&quot;: &quot;T3&quot;, &quot;confidence&quot;: &quot;L&quot;}]</code></pre></main></body></html>
