@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMD 五年估值 (2026-10-01)</title><meta name="description" content="现价 = 39.5x FY27 共识 EPS $15.58 = 27x A 情景 FY28 非GAAP EPS $22.8 (FY28 共识无数据), 市场已按 &quot;14 GW 协议全部交付 + GPU 份额升到 10% + 毛利率不降 + warrant 稀释不计&quot; 零折现付清; 三情景倒算 IRR 到 FY28 末 (2.24 年): A 公司自述全兑现 +4.8% (30x) / B 中性 -27% (22x) / C 下行 -59% (15x); 到 FY30 末 (4.24 年): A +1.7% / B -17% / C -42%。 与 GEV 不同, AMD 的风险不只在倍数, 在">
+<link rel="canonical" href="https://research.empireintegration.com/valuations/amd"><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;margin-bottom:1em} .nav a{margin-right:14px}</style></head>
+<body><main><p class="nav"><a href="./">全部估值</a> <a href="/">EIP Research 首页</a></p><h1 id="amd-五年估值-2026-10-01">AMD 五年估值 (2026-10-01)</h1>
+<p>独立研究, 非投资建议。价格与一致预期为发布日数据, 估算值已在文中标注。</p>
+<h2 id="结论">结论</h2>
+<p>现价 = 39.5x FY27 共识 EPS $15.58 = 27x A 情景 FY28 非GAAP EPS $22.8 (FY28 共识无数据), 市场已按 "14 GW 协议全部交付 + GPU 份额升到 10% + 毛利率不降 + warrant 稀释不计" 零折现付清; 三情景倒算 IRR 到 FY28 末 (2.24 年): A 公司自述全兑现 +4.8% (30x) / B 中性 -27% (22x) / C 下行 -59% (15x); 到 FY30 末 (4.24 年): A +1.7% / B -17% / C -42%。 与 GEV 不同, AMD 的风险不只在倍数, 在 FY28 EPS 本身 (稀释 + ASP 年降 + CoWoS / HBM 配额)。</p>
+<h2 id="三情景五年表">三情景五年表</h2>
+<p>A = 公司自述全兑现, B = 中性, C = 下行。</p>
+<table><thead><tr><th>财年</th><th>收入</th><th>非GAAP GM</th><th>非GAAP 营业利润</th><th>GAAP 营业利润</th><th>GAAP 净利</th><th>稀释 EPS (GAAP)</th><th>非GAAP EPS</th><th>CFO</th><th>capex</th><th>FCF</th><th>稀释股数 M</th><th>每股 FCF</th></tr></thead><tbody>
+<tr><td>FY26</td><td>50.9</td><td>56.0%</td><td>14.1</td><td>9.7</td><td>9.2</td><td>5.53</td><td>7.86</td><td>11.9</td><td>2.6</td><td>9.3</td><td>1,660</td><td>5.62</td></tr>
+<tr><td>FY27</td><td>88.2</td><td>57.0%</td><td>32.8</td><td>27.6</td><td>24.6</td><td>14.33</td><td>16.95</td><td>26.2</td><td>4.0</td><td>22.2</td><td>1,713</td><td>12.93</td></tr>
+<tr><td>FY28</td><td>116.8</td><td>57.5%</td><td>46.2</td><td>40.8</td><td>36.1</td><td>20.20</td><td>22.80</td><td>39.7</td><td>5.2</td><td>34.5</td><td>1,788</td><td>19.30</td></tr>
+<tr><td>FY29</td><td>135.8</td><td>58.0%</td><td>54.3</td><td>48.6</td><td>43.0</td><td>22.89</td><td>25.51</td><td>48.7</td><td>6.0</td><td>42.7</td><td>1,878</td><td>22.73</td></tr>
+<tr><td>FY30</td><td>149.2</td><td>58.0%</td><td>59.0</td><td>53.1</td><td>47.0</td><td>23.87</td><td>26.50</td><td>54.2</td><td>6.5</td><td>47.7</td><td>1,968</td><td>24.22</td></tr>
+</tbody></table>
+<table><thead><tr><th>财年</th><th>收入</th><th>非GAAP GM</th><th>非GAAP 营业利润</th><th>GAAP 营业利润</th><th>GAAP 净利</th><th>稀释 EPS (GAAP)</th><th>非GAAP EPS</th><th>CFO</th><th>capex</th><th>FCF</th><th>稀释股数 M</th><th>每股 FCF</th></tr></thead><tbody>
+<tr><td>FY26</td><td>49.8</td><td>55.8%</td><td>13.4</td><td>8.9</td><td>8.6</td><td>5.16</td><td>7.49</td><td>11.3</td><td>2.6</td><td>8.7</td><td>1,660</td><td>5.25</td></tr>
+<tr><td>FY27</td><td>70.0</td><td>55.0%</td><td>21.7</td><td>16.7</td><td>15.0</td><td>8.84</td><td>11.43</td><td>17.9</td><td>3.6</td><td>14.3</td><td>1,698</td><td>8.43</td></tr>
+<tr><td>FY28</td><td>85.8</td><td>54.0%</td><td>27.0</td><td>21.9</td><td>19.6</td><td>11.27</td><td>13.84</td><td>24.2</td><td>4.4</td><td>19.8</td><td>1,743</td><td>11.39</td></tr>
+<tr><td>FY29</td><td>94.3</td><td>53.0%</td><td>28.5</td><td>23.2</td><td>20.9</td><td>11.69</td><td>14.25</td><td>27.2</td><td>4.8</td><td>22.4</td><td>1,788</td><td>12.53</td></tr>
+<tr><td>FY30</td><td>99.7</td><td>52.5%</td><td>28.8</td><td>23.5</td><td>21.2</td><td>11.61</td><td>14.16</td><td>28.6</td><td>5.0</td><td>23.6</td><td>1,828</td><td>12.92</td></tr>
+</tbody></table>
+<table><thead><tr><th>财年</th><th>收入</th><th>非GAAP GM</th><th>非GAAP 营业利润</th><th>GAAP 营业利润</th><th>GAAP 净利</th><th>稀释 EPS (GAAP)</th><th>非GAAP EPS</th><th>CFO</th><th>capex</th><th>FCF</th><th>稀释股数 M</th><th>每股 FCF</th></tr></thead><tbody>
+<tr><td>FY26</td><td>49.2</td><td>55.5%</td><td>13.0</td><td>8.6</td><td>8.2</td><td>4.96</td><td>7.29</td><td>11.0</td><td>2.5</td><td>8.5</td><td>1,660</td><td>5.11</td></tr>
+<tr><td>FY27</td><td>55.3</td><td>52.0%</td><td>13.3</td><td>8.4</td><td>7.7</td><td>4.59</td><td>7.09</td><td>12.8</td><td>2.8</td><td>10.0</td><td>1,688</td><td>5.95</td></tr>
+<tr><td>FY28</td><td>54.3</td><td>49.5%</td><td>10.6</td><td>5.9</td><td>5.6</td><td>3.25</td><td>5.60</td><td>12.4</td><td>2.6</td><td>9.8</td><td>1,720</td><td>5.69</td></tr>
+<tr><td>FY29</td><td>52.8</td><td>48.5%</td><td>8.8</td><td>4.4</td><td>4.2</td><td>2.44</td><td>4.68</td><td>11.0</td><td>2.4</td><td>8.6</td><td>1,730</td><td>4.99</td></tr>
+<tr><td>FY30</td><td>53.7</td><td>48.5%</td><td>8.7</td><td>4.4</td><td>4.3</td><td>2.46</td><td>4.65</td><td>10.6</td><td>2.4</td><td>8.2</td><td>1,730</td><td>4.72</td></tr>
+</tbody></table>
+<h2 id="判断与推翻条件">判断与推翻条件</h2>
+<ul>
+<li>机会窗口: 不在做多现价。(a) 买入区间: 保守公允价 $236 (22x) 至 $268 (25x) 是 B 情景的价; B 情景 FY28 EPS x 25x 零折现 $346 与 FY27 共识 x 25x $390 之间是卖出期权买入区间 $300-390 (估), 需现价 -40% 到 -50%; 大额期权交易者布局隐含的买入区间 $444 (2028-12 P600 保本) 与 $560 (2027-06 合成多头成本) 是 A 情景的价, 不跟。(b) 持有者在 $600+ 做收取期权权利金: 卖 2028-12 $1,000 call (IV 62%, 约 $130) 或 2027-01 $800 call; 不卖 put。(c) 同链错价候选: NVDA 前瞻 14.7x 对 AMD 39.5x, 同一客户同一 capex, 关系持有人反而便宜 (未 vet); INTC 涨价 48% 的 CPU 盘子 (未 vet)。</li>
+<li>转为看多的条件: 11-03 财报 Q4 指引 &gt;= $15.5B 且 DC &gt;= $9B 且非GAAP GM &gt;= 57%; 2027-03 前 10-Q 披露 warrant 首档 vest (= 1 GW 交付实证); 2027-01/02 四家 2027 capex 指引 +30% 以上; NVDA GM 保持 &gt;= 73% (不降价)。四条全中 = A 情景 35x, IRR +12%。硬数字 + 日期: FY27 收入 &gt;= $88B 且非GAAP EPS &gt;= $16 (2028-02 财报); FY28 非GAAP EPS &gt;= $28 且稀释股 &lt;= 1,750M (2029-02)。</li>
+<li>转为看空的条件: 任一季 DC 收入 q/q 下降; 10-K FY26 (2027-02) 采购义务 2027 列低于 $5.5B; NVDA GM &lt; 70%; 超大规模 2027 capex 指引持平; OpenAI 采购延后公告或应收集中 &gt; 25%; 出口管制再收紧。</li>
+</ul>
+<h2 id="来源">来源</h2>
+<p>"source_url": "https://finance.yahoo.com/quote/AMD", "source_url": "https://www.sec.gov/Archives/edgar/data/0000002488/000000248826000121/q22026991.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000119312525230895/d28189d8k.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000045/amd-20260223.htm", "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000123/amd-20260627.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000182/amd-20260926.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000119312526354029/d142696d8k.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000123/amd-20260627.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000014/q42025991.htm", "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0000002488&amp;type=4", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000119312526129057/d85856ddef14a.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000123/amd-20260627.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000119312526129057/d85856ddef14a.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/intc-20260627.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/1571996/000157199626000046/dell-20260731.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/meta-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000451/a2q26e_withguidancexfinal.htm", "source_url": "https://finance.yahoo.com/quote/AMD/analysis/", "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000123/amd-20260627.htm", "source_url": "https://finance.yahoo.com/quote/AMD/options", "source_url": "https://finance.yahoo.com/quote/%5ETNX",</p><p class="nav">Empire Integration Partners . EIP Research . 非投资建议</p></main></body></html>

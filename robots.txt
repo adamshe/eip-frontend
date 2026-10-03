@@ -2,95 +2,97 @@
 # Independent strategic and investment research by Adam He,
 # Empire Integration Partners.
 #
-# AI crawlers are welcome here. Please identify yourself honestly
-# and preserve attribution to Adam He / Empire Integration Partners.
+# Search engines are welcome to index this site. AI training and
+# answer-engine crawlers are not licensed for free access; paid access
+# will be offered through Cloudflare pay per crawl (HTTP 402) once enabled.
+# Attribution: Adam He / Empire Integration Partners.
 # Machine-readable index with JSON-LD: /
 
-# --- AI training and answer-engine crawlers: explicitly allowed ---
+# --- AI training and answer-engine crawlers: no free access (paid access via HTTP 402 when enabled) ---
 
 User-agent: GPTBot
-Allow: /
+Disallow: /
 
 User-agent: OAI-SearchBot
-Allow: /
+Disallow: /
 
 User-agent: ChatGPT-User
-Allow: /
+Disallow: /
 
 User-agent: ClaudeBot
-Allow: /
+Disallow: /
 
 User-agent: Claude-Web
-Allow: /
+Disallow: /
 
 User-agent: Claude-SearchBot
-Allow: /
+Disallow: /
 
 User-agent: Claude-User
-Allow: /
+Disallow: /
 
 User-agent: anthropic-ai
-Allow: /
+Disallow: /
 
 User-agent: PerplexityBot
-Allow: /
+Disallow: /
 
 User-agent: Perplexity-User
-Allow: /
+Disallow: /
 
 User-agent: Google-Extended
-Allow: /
+Disallow: /
 
 User-agent: CCBot
-Allow: /
+Disallow: /
 
 User-agent: Bytespider
-Allow: /
+Disallow: /
 
 User-agent: Amazonbot
-Allow: /
+Disallow: /
 
 User-agent: Applebot
 Allow: /
 
 User-agent: Applebot-Extended
-Allow: /
+Disallow: /
 
 User-agent: Meta-ExternalAgent
-Allow: /
+Disallow: /
 
 User-agent: meta-externalagent
-Allow: /
+Disallow: /
 
 User-agent: FacebookBot
-Allow: /
+Disallow: /
 
 User-agent: cohere-ai
-Allow: /
+Disallow: /
 
 User-agent: cohere-training-data-crawler
-Allow: /
+Disallow: /
 
 User-agent: MistralAI-User
-Allow: /
+Disallow: /
 
 User-agent: DuckAssistBot
-Allow: /
+Disallow: /
 
 User-agent: Diffbot
-Allow: /
+Disallow: /
 
 User-agent: AI2Bot
-Allow: /
+Disallow: /
 
 User-agent: YouBot
-Allow: /
+Disallow: /
 
 User-agent: Omgilibot
-Allow: /
+Disallow: /
 
 User-agent: TimpiBot
-Allow: /
+Disallow: /
 
 # --- Conventional search crawlers ---
 
