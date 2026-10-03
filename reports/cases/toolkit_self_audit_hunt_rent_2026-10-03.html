@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>投资工具链自审: 猎场与房东两条决策链 + 鲸群多日布局的信息缺口 (2026-10-03)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><h1 id="投资工具链自审-猎场与房东两条决策链-鲸群多日布局的信息缺口-2026-10-03">投资工具链自审: 猎场与房东两条决策链 + 鲸群多日布局的信息缺口 (2026-10-03)</h1>
+<p>范围: 17:00 链 (config/investment_monitor.yaml) 的全部决策相关步骤与 10-02 日页 (var/output/html/reports/daily/2026-10-02.html, 已按今天提交的 65a105e 新版面重建)。价格与持仓数字取自 10-02 收盘的链产物; 财报日期为 2026-10-03 yfinance 现场拉取 (可能是估计日期)。已有三份审查 (rent_stats 设计审查 / 卖方工具对标 / 日内统计 vet) 的结论只引用不重复。两个模式按 Adam 10-03 的命名写作 猎场 与 房东。</p>
+<h2 id="0-裁定">0. 裁定</h2>
+<p>零件强, 整链弱。rent_stats 的 strike 级定价、OPRA 成交码读单、链完整性检查都是同级以上的零件; 但同一个决定 (哪一边、哪个 strike、方向) 被 4 到 6 个互不知情的工具各算一遍, 10-02 一页里至少 7 处同票同日给出相反动作: NET 持仓 (LLM 写 C380 继续收租, 持仓块写已卷入 C375 且到期前不再卖 call)、TSM (卖 ITM call vs 持有)、ORCL (坏车 vs 卖 put 买股)、周一 (call 倾向 vs 不卖 call)、ARM (腿早段 vs 腿衰竭)、NET 租金 (便宜 vs 噪声)、SPY (三周最空 -4.5 vs 底区卖 put)。证据面更薄: 猎场的 101 条票记录与 99 条三周预测 0 条到期 (首批 10-19 预测 / 10-26 票), 期权流票的权重 1.0 是假设; 房东没有任何记分 (open_price 全空)。鲸群多日布局这一侧, 我们每天其实已经下载了整条期权链的逐 strike OI, 却只存前 3 档汇总就丢掉; 唯一的跨日战役检测器 (whale_campaign) 09-27 起已停跑; 单日读单读得准, 但没有一张把同一合约跨日累计、用 OI 确认 "开了并留过夜" 的账本, 所以看不穿 2-6 周的布局。今天的版面重排只改位置, 冲突在源头, 要靠四件事去掉: 每个量一个 owner, 一张规则表, 一个读结构化数据的决策摘要步, 一本逐 strike 的战役账本。P0 五项约 9 小时, 应在 10-05 周一开盘前做完: 四项会直接让人下错单, 一项 (OI 落盘) 每晚不做就永久丢一天数据。</p>
+<h2 id="1-决策链地图">1. 决策链地图</h2>
+<h3 id="1-1-猎场-好车加速-a-坏车崩塌-b">1.1 猎场 (好车加速 A / 坏车崩塌 B)</h3>
+<table><thead><tr><th>步骤</th><th>回答它的工具 (file:line)</th><th>状态</th></tr></thead><tbody>
+<tr><td>1 猎什么</td><td>daily_hunt.universe / short_universe (daily_hunt.py:205, 295) 读 long_score 类别 + short_watchlist.yaml</td><td>有; 宇宙外票照算照印 (10-02 A 表 16 行里 11 行宇宙外)</td></tr>
+<tr><td>2 哪一边, 进不进</td><td>(a) acceleration / collapse 加权票 (daily_hunt.py:218, 328); (b) 三周预测倾向, 另一套票 (daily_hunt.py:486-546); (c) gex 判定 REVERSAL / ON_FLIP (gex.py:184); (d) 鲸群 LLM Type A / B / C (whale_daily_llm.py:202)</td><td>四套, 无对账 [多源]</td></tr>
+<tr><td>3 目标价</td><td>三周预测 目标 / 高 / 低 (daily_hunt.py:554-565); LLM "调整为 X"</td><td>两处, LLM 多数写 "维持" = 重复</td></tr>
+<tr><td>4 用什么工具, 哪个 strike</td><td>无; rent_stats 只跑 positions.yaml 里有期权的票 (rent_stats.py:767)</td><td>无工具</td></tr>
+<tr><td>5 何时</td><td>三周预测时点 = 腿到中位日 / opex / 财报 (events_2026.yaml, 财报只覆盖 22 票中 9 只)</td><td>有, 数据源残缺</td></tr>
+<tr><td>6 退出 / 止损 / 时间止损</td><td>无</td><td>无工具</td></tr>
+<tr><td>7 记分</td><td>whale_ambush/forward_account.py (A &gt;= +8% / B &lt;= -8% 20 日; 预测 15 日)</td><td>有, 0 到期</td></tr>
+</tbody></table>
+<h3 id="1-2-房东-地板卖-put-顶部卖-call-便宜买回-按规则-roll">1.2 房东 (地板卖 put, 顶部卖 call, 便宜买回, 按规则 roll)</h3>
+<table><thead><tr><th>步骤</th><th>回答它的工具 (file:line)</th><th>状态</th></tr></thead><tbody>
+<tr><td>1 拥有什么</td><td>long_score 类别 + NET dashboard 13 针 + positions.yaml 手填</td><td>有, 分工清楚</td></tr>
+<tr><td>2 今天卖 put 还是 call</td><td>涨跌日时钟 (daily_brief.py:243); 星期 (daily_brief.py:244-248); 股性信号星期 (stock_character.py:290-291); ACTION 顶 / 底 (daily_brief.py:95-100); hunt "已到顶区 -&gt; 交房东收租" (daily_hunt.py:255); positions mode (positions.yaml:12-17); LLM 剧本</td><td>六源, 有相反 [多源]</td></tr>
+<tr><td>3 哪个 strike</td><td>ACTION "ITM put 现价上 5-8% / ITM call 现价下 8-10%" (daily_brief.py:96, 100); 收租位 = gamma 墙 / 负 gamma 档 + SMA50 带 (daily_hunt.py:267-283); rent_stats 阶梯 (只含 OTM +/-12%, rent_stats.py:525); positions 备注 (positions.yaml:8, 10); NET 预判日历 (周五对照); LLM</td><td>六源; 只有 rent_stats 给钱数, 且不定价 ACTION 推荐的 ITM 档</td></tr>
+<tr><td>4 价格与下单时点</td><td>时钟 14:30-15:45 + 10:30 量比 (daily_brief.py:243); rent_stats 执行行 (rent_stats.py:681)</td><td>两条; 无限价阶梯 (对标报告差距 #1)</td></tr>
+<tr><td>5 买回 / roll / 交货</td><td>规则 6 提醒 (daily_hunt.py:424-425) + rent_stats roll 定价 (rent_stats.py:553-572); 到期与 ITM 提醒 (daily_hunt.py:426-429); 50% 买回 (positions.yaml:21)</td><td>50% 买回无代码读 [无工具]</td></tr>
+<tr><td>6 财报</td><td>规则 7 (daily_hunt.py:411-416, 读 events yaml + 写死票单 386); earnings_action / rent_stats (yfinance)</td><td>两个日期源 [多源]</td></tr>
+<tr><td>7 记分</td><td>无; open_price 全 null (positions.yaml:8-10); rent 快照 10-03 才开始</td><td>无工具</td></tr>
+</tbody></table>
+<p>例: 10-02 页面对 "NET 在哪卖 put" 同时给出 342.5 / 345 (收租位, gamma 量级 0M)、298-317 (SMA50 带)、314.2 (三周低)、320 (持仓计划)、330 (预判日历) 五个价。只有 rent_stats 给钱: 10-16 P320 每张 -$60 (区间 -$152..+$35, 不定), 11-20 P320 +$230 (区间 +$27..+$544, 含财报样本)。持仓计划把 P270 11-20 滚进 10-16 P320 (positions.yaml:10), 正好从唯一 "正且确定" 的到期滚向不定的到期; 这是 Adam 的裁量, 但页面应把这两行钱数放在一起。</p>
+<h2 id="2-重复与冲突-按-下错单-风险排序">2. 重复与冲突 (按 "下错单" 风险排序)</h2>
+<table><thead><tr><th>#</th><th>冲突 (10-02 实例)</th><th>位置</th><th>修法</th><th>工时</th></tr></thead><tbody>
+<tr><td>1</td><td>LLM 持仓动作过期且有编造: 鲸群日报写 "C380 10-09 x51 ... 浮盈 &gt;50% -&gt; 周一买回; 继续 380 收租", 同页持仓块写 "已卷入 C375 10-16 x50, 到期前不再加卖 call"。机制: prompt 写死 "(C380 / P270 / 新腿)"; LLM 17:20 跑完, positions.yaml 23:31-23:36 三次提交 (9c19bfb / c63bae7 / 2b542bf) 后只重跑了 hunt; README 的补跑配方本身就跳过 whale_daily; open_price 为空, "浮盈 &gt;50%" 无从计算</td><td>whale_daily_llm.py:204; README.md:124, 1133</td><td>prompt 删写死行权价, 持仓事实只注入 position_alerts + rent_stats 行, LLM 不出持仓动作; report_site 比对各节源文件 mtime 与 positions.yaml, 旧于 hunt 的节加 "过期" 横幅; 补跑配方加 whale_daily</td><td>1.5</td></tr>
+<tr><td>2</td><td>涨跌日时钟 "跌日 = 卖 put 日, 涨日 = 卖 call 日" 印在简报第一行并被 prompt 要求复述。vet 实测: 次 5 日 1 sigma 触及 全部 30.2% / 27.5%, 涨日后 30.0 / 27.8, 跌日后 30.4 / 27.0, 当天方向对路径零信息; 权利金腿 跌日 IV -1.38 点, 涨日 +1.65 (n=25)。put 半边两条腿都不成立, call 半边只剩权利金腿</td><td>daily_brief.py:243, 257-258; whale_daily_llm.py:198; vet 第 2.2 节与 104 行</td><td>简报首行换成 rent_stats 的租金判定 + 前月阶梯结论; prompt 删时钟; Law 文字 (NET_rent_system 第 4 节) 待 Adam 裁</td><td>1</td></tr>
+<tr><td>3</td><td>星期规则三处相反: 简报 "周一偏涨 -&gt; call 倾向"; 股性信号 "周一(不卖call; 卖put日)"; profile "周一收盘卖 call、周五收盘卖 put"。10-05 周一页面还会叠加 mode "到期前不再加卖 call"、日历 "周一/二卖 $330 ITM put"、持仓计划 "周一滚进 P320"</td><td>daily_brief.py:245; stock_character.py:290-291, 364</td><td>星期只留一处 (附录, 带置换检验 p 值); 删信号里的星期字符串</td><td>0.5</td></tr>
+<tr><td>4</td><td>顶 / 底两套阈值, 且坏车拿到买入动作。TSM: 信号 "顶部区(布林上轨+RSI&gt;=70) -&gt; 卖ITM call", ACTION "顶部区边缘 -&gt; 不是大顶, 持有", hunt "已到顶区 -&gt; 交房东收租"。底 = abs(close/SMA50-1) &lt;= 3% 不分方向: SPY 在 UP 腿 +18% 第 90 天、高于 SMA50 0.8% 被判 "底 -&gt; 卖 ITM put / 第 2 档买股"; ORCL 在坏车名单, 同日 B 表 "无崩塌 1.5"、三周 "多 +3.5"、简报 "第 2 档买股"、LLM "Type A 静默吸筹, 需 Adam 裁"。同一天还可同时触发 "底 -&gt; 卖 put" 与 "真跌, 不接"</td><td>stock_character.py:287-289; daily_brief.py:95-104; daily_hunt.py:226</td><td>一张规则表 (config, 两个脚本同读), 信号列不再重复 ACTION; 底 = 自上方进带且非真跌; B 宇宙不出卖 put / 买股动作; 侧别冲突进决策区的冲突清单</td><td>2.5</td></tr>
+<tr><td>5</td><td>财报日期两源, 三周预测漏财报。events_2026.yaml 只列 9 只票的财报; yfinance (10-03 拉取) TSM 10-15、ISRG 10-20、TSLA 10-21 都在 10-02 窗内 (到 10-23), 预测没有 x1.5、倾向没归零, TSM 高点被 500 call 墙压、ISRG 被 420 压, 违背代码自己的注释 "a gap through earnings resets the walls"; 这些行会按普通窗口记分。规则 7 还用写死的 15 票元组</td><td>daily_hunt.py:386, 456-463, 539-545, 559; events_2026.yaml:21-27</td><td>hunt / 规则 7 / LLM 读 earnings_action 的 next_reaction_day (链里已全宇宙跑), yaml 只留宏观</td><td>1.5</td></tr>
+<tr><td>6</td><td>贵贱三算。NET: gex ATM IV 51.2 (Yahoo 字段, 最近 strike 的 call) / RV20 59.7 (简单收益, 含财报日) -&gt; LLM 写 "便宜"; rent_stats 中价 IV 49.1% / 预测 0.85-1.03 倍 -&gt; "噪声带内, 不判贵贱", RV20 57.7。三周区间也用 Yahoo IV (README 记偏高 2.5-5.6 点), 区间偏宽会抬高 in_range 命中率。审查改动 9 未做</td><td>gex.py:91-96, 125-127; daily_hunt.py:500; whale_daily_llm.py:201</td><td>波动状态单一 owner: 每票一份 vol_state (中价 IV 期限、EWMA94、RV20x), gex / 三周预测 / LLM 只读; prompt 删 "ATM IV vs RV20 (贵 / 便宜)"</td><td>3</td></tr>
+<tr><td>7</td><td>"今日流方向" 三个定义 + 双计票。persistence 用 dir_w 且剔 0DTE, 封顶不算空; forecast 的 net_today 不用 dir_w (挂股包与 delta &lt; 0.80 的 put 照样全权投票)、含 0DTE、封顶算空; 同一批大单又经 whale_strategy 再投一票。SPY -4.5 (全表最空) 的五票里两票来自同一组 封顶 @810 $11.0M + @785 $10.7M, 与 "派发 != 看空" 教训相反</td><td>daily_hunt.py:308-311, 509-516, 536-538, 439</td><td>一个 flow_direction(prints) 函数 (dir_w, dte &gt; 0) 全文件共用; 预测里删其一; 封顶方向权重待 Adam 裁 (建议 0, 仅作上限信息)</td><td>1.5</td></tr>
+<tr><td>8</td><td>腿位置两个 "早段" 定义 + 预测腿票近乎常数。ARM: A 表 "新涨腿早段 +8.5%/4d", 三周表 "涨腿到中位 (衰竭)" (4 &gt; 0.6 x 6.0)。09-28..10-02 三周表 99 行里 96 行是 "到中位", 3 行 "早段" -&gt; 每个涨腿固定 -0.5、跌腿 +0.5 的均值回归偏置。简报 ACTION 29 行中 17 行是 "到中位 -&gt; 顶/底区", 不说顶还是底</td><td>daily_hunt.py:228, 528-535; daily_brief.py:113-115</td><td>一个早段定义; 腿票只在 "到中位 + 另一顶 / 底条件" 同时成立时投; ACTION 标明顶或底</td><td>1</td></tr>
+<tr><td>9</td><td>量比: 回测判起涨无判别力 (50/42, 跌侧反向 28/42, daily_hunt.py:35-37), 却驱动假摔 / 真跌 ACTION、10:30 规则、to_run 模式开关; "10:30 推全天 x4" 实测 x5.05 (729 日) / x5.08 (最近 60 日)</td><td>daily_brief.py:101-104, 243; positions.yaml:16; NET_rent_system.md:58</td><td>文字待 Adam 裁 (x5 + 比值门); 这些用途进记分 (第 6 节 F9) 后再定去留</td><td>0.25</td></tr>
+<tr><td>10</td><td>发起方三定义: daily_hunt 用成交价对中点 +/-0.01; gex flow_gamma 用 Barchart Side; LLM 摘要按 Side 合计。Side=mid 但成交高于中点的单, 前者算买方, 后两者丢弃</td><td>daily_hunt.py:113; gex.py:166-177; whale_daily_llm.py:115</td><td>共用一个分类器</td><td>1</td></tr>
+<tr><td>11</td><td>roll 目标三写法: "+8-10% 更远" / "roll 到 400 两周" / "C375 上卷到 400 以上更远"; 50% 买回规则无代码</td><td>daily_hunt.py:425; positions.yaml:8, 16, 21</td><td>rules 加 roll_to 一项, rent_stats 报组合单净 credit (对标 #1); 50% 买回待 open_price</td><td>1</td></tr>
+<tr><td>12</td><td>文档与代码不符: gex docstring 称有单票 IV 1 年百分位 (未算); LLM 读 flow 的键名 dealer_gamma_musd, gex 写的是 dealer_gamma_chg_musd, LLM 永远看到 "--"; README 称 whale_daily 读简报, 代码读 stock_character/latest.json, rent_stats 行到不了 LLM; hunt 页首 "期权流 CSV 17/22, 今日无流数据: AXON, ISRG, KLAC ..." 实为 "无 $1M 大单", 这三票当天 CSV 有 21 / 27 / 201 行</td><td>gex.py:19-20, 179; whale_daily_llm.py:140, 144-156; daily_hunt.py:580-581</td><td>改键名、文案与文档</td><td>0.5</td></tr>
+<tr><td>13</td><td>噪声: opex 事件名 "月度 opex（NET Oct $350 call 大 OI）" 截断后印在 22 行, 且因 \bNET\b 匹配被当成 NET 自己的事件, NET 时点反而丢了 opex; 每行 "周五(不买; 等周一)" 与 "9月 非农"; 收租位里 0M 的 "墙"; 周五对照已出区间 ($290-315 vs 349.07) 仍印 "周一/二卖 $330 ITM put"; 简报转录日历里的非 ASCII 破折号与减号; 折叠块标题重复</td><td>events_2026.yaml:15; daily_hunt.py:461; stock_character.py:291; daily_brief.py:180-182, 282; report_site.py assemble</td><td>逐条小改</td><td>1</td></tr>
+</tbody></table>
+<h2 id="3-日页-现状与建议结构">3. 日页: 现状与建议结构</h2>
+<p>现状 (10-02 重建后): 可见文字约 42,300 字符。top 318 / 决策-猎场 2,691 / 决策-房东 2,517 / 依据 24,095 / 附录 12,637。两个决策组没有一行带钱数 (10-02 简报早于 rent_stats 上线; 10-05 起才会有), 猎场决策表 22 行里真正可行动的是 3 行 (META A 4.5、SPCX A 4.5、NVDA B 预热 2.5)。同一信息重复: gamma 墙 / flip 4 处 (收租位、gamma 表、LLM 期权布局、三周表压顶注), 腿状态 5 处, 三周目标 2 处, 大单 4 处, NET 持仓动作 3 处 (含过期一处)。读者要手工对照的: 候选是否与三周倾向同向、是否有窗内财报、持仓提醒与 rent_stats 钱数、哪个 put 价位才是建议、今天的大单属于哪一场多日战役。欠缺: 猎场没有入场工具 / 失效位 / 退出 / 战役视图; 房东没有新卖候选的钱数、买回进度、P&amp;L。</p>
+<p>建议结构 (版面引擎 65a105e 可直接承载, 关键是新增一个读结构化数据的决策步, 不在 markdown 上做正则):</p>
+<table><thead><tr><th>区</th><th>内容</th><th>来源</th><th>处理</th></tr></thead><tbody>
+<tr><td>A0 状态行</td><td>链状态, CSV 覆盖 (文件数与有大单票数分开), 过期节列表 (源 mtime 早于 hunt 或 positions.yaml)</td><td>investment_monitor latest.json + 文件 mtime</td><td>新增</td></tr>
+<tr><td>A1 今日决策 猎场 (&lt;= 6 行)</td><td>宇宙内候选与预热: 票 / 侧 / 分 / 主票 / 三周倾向同向否 / 窗内财报 / 所属战役 (年龄, OI 留存) / 失效位 (20 日低或 flip)</td><td>history.jsonl 当日记录 + forecast_&lt;day&gt;.json + earnings_action + 战役账本</td><td>新决策步 decisions.py; 宇宙外行移附录</td></tr>
+<tr><td>A2 今日决策 房东 (每持仓一行, 先说钱)</td><td>每张 edge 与合计、触及 / 收在外、roll 触发率与保险费、mode 触发线、规则 7 倒计时、50% 买回 (有 open_price 后); 新卖候选 = 前月阶梯 "正且确定" 档, 无则写 "不卖新周权, 胜负在成交价"; 持仓票上有无反向鲸群战役</td><td>rent_stats json + position_alerts + 战役账本</td><td>合并持仓提醒与 rent_stats 行; 收租位表移到依据</td></tr>
+<tr><td>A3 冲突清单</td><td>同票同日两源侧别相反 (A/B 表 vs 三周倾向 vs ACTION vs LLM 类型 vs 战役方向), 一行一票, 交 Adam 裁</td><td>决策步机械比对</td><td>新增; 10-02 会列 ORCL、SPY、TSM、ARM</td></tr>
+<tr><td>B1 依据: 战役视图</td><td>每票一张 (见 5.3), 只列有活跃战役的票</td><td>战役账本</td><td>新增, 取代 LLM 的两日大单摘要</td></tr>
+<tr><td>B2 依据: 价位表</td><td>每票 call 墙 / put 口袋 / flip / SMA50 带 / 20 日高低 / 三周 低-目标-高, 一张表; 墙 &lt; $1M 写 --</td><td>gex + stock_character + 三周预测</td><td>合并收租位、gamma 表、三周表三张</td></tr>
+<tr><td>B3 依据: 猎场 A / B 全表</td><td>宇宙内行</td><td>hunt md</td><td>保留</td></tr>
+<tr><td>B4 依据: 股性表</td><td>数值列</td><td>简报表</td><td>删信号列 (与 ACTION 重复)、每行非农 / 星期字符串</td></tr>
+<tr><td>C 附录 (折叠)</td><td>主动大单; LLM 三周详细 (删 "期权布局" 段与 "维持" 预测行, 只留意图与剧本, 过期整节标出); rent_stats 阶梯 / 触及表链接; 宇宙外 A 行; Doctrine; 读法; 月度 diff; 周五对照 (出区间时不印动作)</td><td>现有</td><td>移入</td></tr>
+<tr><td>删除</td><td>涨跌日时钟行 (待裁前); 星期字符串; ACTION 中 17 条 "到中位" 行 (并入表的腿列); LLM 市场层时钟提示</td><td></td><td></td></tr>
+</tbody></table>
+<p>目标: A 区 &lt;= 2,500 字符且每行可直接下单或明确 "不动"; 全页可见文字降到约 25,000。</p>
+<h2 id="4-证据状态">4. 证据状态</h2>
+<table><thead><tr><th>信号</th><th>用在</th><th>证据</th><th>状态</th></tr></thead><tbody>
+<tr><td>价格票 RSI 带 / BIAS 带 / 20 日突破</td><td>猎场 A</td><td>backtest_onsets 09-27 (15 票 2 年): 57/15、70/35、33/5; 门 3.0 精确率 83% vs 基率 64% (lift 1.31x, 召回 50%)</td><td>回测有边, 但样本取在事后 ZigZag 拐点后第 k 日 (backtest_onsets.py:52, 85-99), 起点要事后才知道, 母体只含最终 &gt;= 8% 的腿; 成功定义 (+25% 腿) 与前向 (+8% / 20 日) 不同; 前向 0 到期</td></tr>
+<tr><td>跌侧价格票</td><td>猎场 B</td><td>代码自述 "barely separate" (daily_hunt.py:329-331)</td><td>回测近无边</td></tr>
+<tr><td>量比</td><td>假摔 / 真跌 / 10:30 / to_run</td><td>起涨判别 50/42, 跌侧 28/42</td><td>已测无边 (起涨); 其余用途未测</td></tr>
+<tr><td>期权流票 (主动 call 买盘 / 远端多头资金 / 合成空头 / gamma 燃料 / 跨日持续)</td><td>猎场 A / B, 三周倾向</td><td>无历史, 权重 1.0 为假设 (daily_hunt.py:38)</td><td>未测, 前向 0/101</td></tr>
+<tr><td>OPRA 码方向因子, SYN_DELTA 0.80</td><td>读单</td><td>规范阅读 + 单例 (NET P520)</td><td>机制成立, 未测</td></tr>
+<tr><td>大单 "开仓并留过夜"</td><td>读单</td><td>09-30..10-02 两对日: 397 个 $1M 合约中 76 个次日可见 OI, 其中 54 个 OI 增幅超过成交量一半</td><td>可测但只覆盖 19%</td></tr>
+<tr><td>whale_campaign 战役判定</td><td>(已停跑)</td><td>05-10..09-27 共 104 份输出, 无前向对账</td><td>未测</td></tr>
+<tr><td>gamma 判定 REVERSAL / ON_FLIP</td><td>三周倾向, 崩塌票</td><td>gex 文件 09-22 起 9 份, 无对账</td><td>未测</td></tr>
+<tr><td>三周预测 区间 / 方向 / 目标</td><td>页面排序, LLM</td><td>99 条待到期, 首批 10-19</td><td>未测; 区间用偏高 IV 会虚高命中</td></tr>
+<tr><td>鲸群 LLM 类型 / 调整 / 剧本</td><td>依据, 持仓动作</td><td>无结构化输出, 无对账</td><td>不可测</td></tr>
+<tr><td>简报 ACTION (三共振 / SMA50 +/-3% / 假摔 / 砸 2.5% / 腿中位)</td><td>房东侧别与 strike</td><td>NET 6 个月样本 + 文档阈值; signals_log 累积无评分</td><td>未测</td></tr>
+<tr><td>涨跌日时钟</td><td>房东侧别</td><td>vet 次 5 日触及 涨后 30.0/27.8, 跌后 30.4/27.0; 跌日 IV -1.38 点 (n=25)</td><td>put 半边被反驳, call 半边仅权利金腿</td></tr>
+<tr><td>14:30-15:45 下单, 避开 9:30-10:00</td><td>执行</td><td>方向一致 78% -&gt; 91%; 点差 17.7% vs 10.5%</td><td>已测成立</td></tr>
+<tr><td>10:30 推全天 x4</td><td>执行</td><td>实测 x5.05 / x5.08</td><td>数字过期</td></tr>
+<tr><td>星期效应 (周一 +1.96%, 72%)</td><td>房东侧别</td><td>stock_character 置换检验, 6 个月窗</td><td>样本内; 三处写法相反</td></tr>
+<tr><td>rent_stats 公允价 / edge / 触及</td><td>房东 strike</td><td>设计审查 GBM 与块自助; 预测器样本外 RMSE EWMA 0.362 vs RV20 0.426</td><td>模型层已测; 多数 edge 区间跨零</td></tr>
+<tr><td>租金贵 / 贱</td><td>卖不卖</td><td>链快照 10-03 起</td><td>约 25 个周到期后可校准, 现未测</td></tr>
+<tr><td>规则 6 roll</td><td>管理</td><td>roll_sim (固定买回 IV): C375 x50 期望多花 $4,380, p5 -$158k -&gt; -$69k</td><td>模拟定价, 无真实权利金</td></tr>
+<tr><td>规则 7 财报前平 call</td><td>财报</td><td>NET 12 次: 财报前 10 日上涨 9/12, 中位 +6.0%</td><td>方向支持, n=12</td></tr>
+<tr><td>50% 买回</td><td>管理</td><td>无代码, 无成交价</td><td>未测</td></tr>
+<tr><td>记分覆盖</td><td></td><td>forward_account 只记猎场; long_score/forward_account.py 记 "拥有什么" (63/126/252 日, 不在链里); 房东零记分</td><td>房东缺口 = 对标报告差距 #2</td></tr>
+</tbody></table>
+<h2 id="5-缺什么关键信息-鲸群多日布局">5. 缺什么关键信息 (鲸群多日布局)</h2>
+<p>Adam 10-03: 鲸群布局时间长, 不需要实时, 需要及时看穿动机和布局。机制上这意味着: 我们要的不是更快的成交流, 而是每晚一张 "谁在哪个合约上开了仓、留过夜、加了几天" 的累计表。现在缺的正是这张表的两个原料 (逐 strike OI 历史、跨日合约身份) 和把它们拼起来的账本。</p>
+<h3 id="5-1-现有日数据能看到什么-看不到什么">5.1 现有日数据能看到什么, 看不到什么</h3>
+<table><thead><tr><th>数据</th><th>能看到</th><th>看不到 / 限制</th><th>证据</th></tr></thead><tbody>
+<tr><td>Barchart flow CSV</td><td>当日被 Barchart 标记的成交, 每笔有 Side、码、Delta、开盘前 OI</td><td>每票每日上限 200 行, premium &gt;= $5,000; 10-02 SPY 第 200 行只有 $5,700 而中位 $126,550, 说明是 Barchart 的筛选口径, 不是当日最大的 200 笔 (推断), 口径外的切片单看不到; 开平标记稀: 10-02 20 个 CSV 3,530 行只有 134 行 (3.8%) 带 ToOpen / ToClose, $1M 以上 246 笔中 29 笔 (11.8%)</td><td>download_flow config.yaml:39; README.md:471</td></tr>
+<tr><td>次日 OI 确认</td><td>某合约若次日又被标记, 其 "Open Int" 就是隔夜后的 OI</td><td>09-30..10-02 两对日: 397 个 $1M 大单合约只有 76 个 (19%) 次日再现; 其余 81% 无法确认开仓留过夜; 在 76 个里 54 个 OI 增幅超过成交量一半</td><td>本次实测</td></tr>
+<tr><td>整链逐 strike OI</td><td>gex.py 每天为全宇宙下载整条链 OI (gex.py:71-90)</td><td>只取周五到期且 &lt;= 45 天 (gex.py:77), 2027-2028 远月 (远端建仓所在) 不抓; 只存每票前 3 个 +/- strike (gex.py:121-122, 134-135), 逐 strike OI 当晚丢弃, yfinance 不留历史</td><td>gex_&lt;date&gt;.json 9 份</td></tr>
+<tr><td>rent_stats 链快照</td><td>NET 6 个到期整链</td><td>只存 ATM / 25d 摘要 (rent_stats.py:406-420), 10-03 起, 只有持仓票</td><td>snapshots/NET.jsonl</td></tr>
+<tr><td>跨日持续</td><td>每票每日净 L / S / -</td><td>只读最近 3 份 (daily_hunt.py:303-325), 合约身份丢失, 反向战役互相抵消; 每票只展示前 8 笔 (daily_hunt.py:610); LLM 只读今天 + 前一交易日两份摘要 (whale_daily_llm.py:180-183, 215)</td><td>flow_&lt;date&gt;.json 9 份</td></tr>
+<tr><td>whale_campaign + option_flow_snapshot</td><td>CBOE 延迟链 (.venv_openbb) 含 OI 与 greeks, 跨日 UOA 连续天数 / put-call 漂移 / 隐蔽背离</td><td>只存每票汇总, 无 strike; 不在 investment_monitor.yaml, 09-27 起已停 (05-10..09-27 共 113 份快照); 周末文件复制周五数据 (NET 09-25 / 26 / 27 三份相同), load_snapshots 不过滤交易日 (whale_campaign.py:57-75), 连续天数会被周末灌水; tests/test_whale_campaign.py 只测合成数据</td><td>var/output/option_flow_*.json</td></tr>
+<tr><td>CSV 存档深度</td><td>NET / SPCX / SPY / QQQ 约 26-27 个交易日 (08-16 起)</td><td>其余多数 5-7 天 (09-24 起), MU / SNDK 没有; 战役账本现在只能回看 1-1.5 周</td><td>docs/01_archive/stock</td></tr>
+<tr><td>股票侧</td><td>日线量比</td><td>无每日空头成交量、无大宗 / 暗池; FINRA 空头持仓 (半月) 只在手动工具 symbol_leading_indicator.py:137; Form 4 与 13F 只在手动 openbb_wrapper.py:183, 238</td><td></td></tr>
+</tbody></table>
+<h3 id="5-2-缺的输入-按改变读法的大小排序">5.2 缺的输入 (按改变读法的大小排序)</h3>
+<table><thead><tr><th>#</th><th>输入</th><th>免费源与频率</th><th>加入成本</th><th>改变哪个决定</th></tr></thead><tbody>
+<tr><td>1</td><td>逐 strike x 到期 每日 OI 存档, 全到期含远月</td><td>yfinance 链 (gex 已在下载) 或 CBOE 延迟链 (.venv_openbb, option_flow_snapshot 已接); 每日, OI = 前一收盘</td><td>2 小时 (每票每日一份 csv, 约 2-5 千行); 不做则每晚永久丢一天</td><td>猎场: 大单是否开仓并留过夜; CSV 看不到的 "无单 OI 跳升" = 隐藏建仓。房东: 鲸群自己的仓位档 = 它要守的价, 比全体 OI 算出的 gamma 墙更直接</td></tr>
+<tr><td>2</td><td>每票战役账本: CSV 存档 + OI 存档按合约簇 (到期 x 类型 x strike) 与结构 (单腿 / 价差 / 跨日 roll / 挂股) 跨日累计</td><td>数据已在库</td><td>5 小时</td><td>猎场: 战役年龄、均价 (= 鲸群成本线, 作失效位)、加码还是减码。房东: 不在正在加码的 call 战役下卖 call; put 卖在鲸群卖 put 的档</td></tr>
+<tr><td>3</td><td>每日 skew 与期限结构 (25d put / call IV, ATM 期限, straddle), 全宇宙</td><td>同一条链, 每日</td><td>1.5 小时 (rent_stats 快照扩到全宇宙)</td><td>动机: 买 call 同时 put skew 抬升 = 有对冲的多头; 前端 IV 单独抬升 = 事件押注。房东: 每票贵贱</td></tr>
+<tr><td>4</td><td>隐含 vs 实现 逐日</td><td>F6 vol_state 的副产品</td><td>0.5 小时增量</td><td>动机: IV 便宜时买 = 方向, IV 贵时卖 = 收租</td></tr>
+<tr><td>5</td><td>内部人 Form 4 每日扫宇宙</td><td>SEC, 2 个工作日内; openbb_wrapper 已有</td><td>1 小时</td><td>猎场 B: 高位内部人卖出配 put 战役; "拥有什么"</td></tr>
+<tr><td>6</td><td>FINRA 每日空头成交量</td><td>Reg SHO 日文件, 收盘后</td><td>1.5 小时</td><td>猎场 B 旁证; 做市商对冲占底数, 单独不可用</td></tr>
+<tr><td>7</td><td>13F、暗池 / 大宗</td><td>13F 季度且滞后 45 天; FINRA ATS 周数据滞后约 2-4 周; 实时暗池需付费源 (档位与价格未核)</td><td>不建议现在做</td><td>对 2-6 周战役不及时, 只作 "鲸是谁" 背景</td></tr>
+</tbody></table>
+<h3 id="5-3-动机读法-对在哪-错在哪-最小战役视图">5.3 动机读法: 对在哪, 错在哪, 最小战役视图</h3>
+<p>对的部分: 单笔的执行机制读得准。Side-first 定发起方, OPRA 码分开电子单 / 扫单 / 拍卖 / 场内 / 对敲 / 挂股, delta 门把长期限的锁利 put 排除, 同一秒多腿合成组合, 双到期同向不误判为 roll。错的部分都在 "跨日": 第一, 同一合约连续 5 天被买, 是 5 张互不相干的 "主动 call 买盘" 票, 没有累计张数、均价与留存; 第二, 三周前建的仓今天平掉 (例如买回之前卖出的 call) 在单日读里像新开的多头, 而开平标记只覆盖 3.8% 的行, 没有 OI 就分不出; 第三, roll 只认同一秒的两腿 (daily_hunt.py:157-202), 今天平 C380 明天开 C400 读成一空一多; 第四, gamma 墙来自全体 OI, 是人群的布局不是鲸群的布局; 第五, LLM 只见两天, 用 "公开看法 diff" 判 hidden / priced, 但不知道战役年龄与成本, 判不出 "布局已完成待发动" 还是 "刚起步"; 第六, 动机缺 方向 / 对冲 / 收入 / 波动率 四分的查表判据, 现在把收租式卖 call 算成看空 (冲突 7)。</p>
+<p>最小战役视图, 每票一张表, 放依据区; 当日有战役新动作时进 A1 / A2 / A3:</p>
+<table><thead><tr><th>合约簇或结构</th><th>首见</th><th>出现天数 / 窗口</th><th>主动方净 premium</th><th>累计张数</th><th>OI 首见 -&gt; 最新 (留存)</th><th>码分布</th><th>均价 -&gt; 现价 (鲸群浮盈)</th><th>建仓期股价</th><th>判读</th></tr></thead><tbody>
+<tr><td>例: 2027-06 C350 (组合腿)</td><td>日期</td><td>3 / 10</td><td>+$x.xM 买</td><td>n</td><td>a -&gt; b (c%)</td><td>组合 / 撮合</td><td>p0 -&gt; p1</td><td>横盘 / 逆势</td><td>方向建仓, 已确认</td></tr>
+</tbody></table>
+<p>表头一行给 票 / 现价 / 活跃战役数 / 鲸群口径净 delta 美元 / 主战役动机。动机按查表判, 不交给 LLM: 同簇多日 + 打 ask + OI 留存 &gt;= 50% + 无股票腿 = 方向建仓; 挂股包或与持股配对的远端 put = 对冲; 近月 OTM call 卖且挂股或已知持有者 = 收入; 跨式 / 两边价差 = 波动率; 留存 &lt; 20% = 日内或平仓, 不计战役。LLM 改为读这张表写意图与剧本, 不再读两日原始大单。</p>
+<h2 id="6-修复清单-按优先级">6. 修复清单 (按优先级)</h2>
+<table><thead><tr><th>优先级</th><th>修复</th><th>对应</th><th>工时</th></tr></thead><tbody>
+<tr><td>P0</td><td>F1 LLM 不出持仓动作, 删写死行权价, 持仓事实只来自机械行; 页面过期横幅; 补跑配方含 whale_daily</td><td>冲突 1</td><td>1.5</td></tr>
+<tr><td>P0</td><td>F2 删简报与 prompt 的涨跌日时钟和星期字符串, 换租金判定 + 阶梯结论 (Law 文字待 Adam)</td><td>冲突 2, 3</td><td>1.5</td></tr>
+<tr><td>P0</td><td>F3 顶 / 底一张规则表, 底改为自上方进带且非真跌, B 宇宙不出卖 put / 买股</td><td>冲突 4</td><td>2.5</td></tr>
+<tr><td>P0</td><td>F4 财报日期统一读 earnings_action, 删写死票单</td><td>冲突 5</td><td>1.5</td></tr>
+<tr><td>P0</td><td>C1 逐 strike OI 每晚落盘 (gex 已下载的链 + 远月到期), 先落盘后分析</td><td>5.2 #1</td><td>2</td></tr>
+<tr><td>P1</td><td>F5 决策步 decisions.py (json + md) 与 A0-A3 区, 价位表合并</td><td>第 3 节</td><td>4</td></tr>
+<tr><td>P1</td><td>C2 战役账本 + 每票战役视图 + 动机查表; LLM 改读战役表</td><td>5.2 #2, 5.3</td><td>6</td></tr>
+<tr><td>P1</td><td>F6 波动状态单一 owner (审查改动 9), 顺带逐日隐含 vs 实现</td><td>冲突 6, 5.2 #4</td><td>3</td></tr>
+<tr><td>P1</td><td>C3 skew / 期限结构快照扩到全宇宙</td><td>5.2 #3</td><td>1.5</td></tr>
+<tr><td>P1</td><td>C4 whale_campaign / option_flow_snapshot: C2 落地后退役 (汇总层被账本取代); 若保留则进链并按交易日过滤</td><td>5.1</td><td>0.5</td></tr>
+<tr><td>P1</td><td>F7 flow_direction 单函数, 预测去双计, 封顶权重待裁</td><td>冲突 7</td><td>1.5</td></tr>
+<tr><td>P1</td><td>F8 腿: 一个早段定义, 腿票加条件, ACTION 标顶或底</td><td>冲突 8</td><td>1</td></tr>
+<tr><td>P1</td><td>F9 记分口径: 成功 = k x 该票 sigma x sqrt(h) 而非固定 8%; 候选按起点去重 (META 连续 5 天 = 1 个事件); 宇宙内外分开; ACTION、LLM "调整为" 值、战役判读进对账</td><td>证据表</td><td>3</td></tr>
+<tr><td>P1</td><td>F10 小 bug 与文档 (键名、docstring、README、覆盖文案、opex 名、周五对照、转录、折叠标题)</td><td>冲突 12, 13</td><td>1.5</td></tr>
+<tr><td>P2</td><td>F11 发起方共用分类器</td><td>冲突 10</td><td>1</td></tr>
+<tr><td>P2</td><td>F12 roll_to 规则 + 50% 买回 (需 open_price, 配对标报告 #2 成交日志)</td><td>冲突 11</td><td>1 + Adam 填数</td></tr>
+<tr><td>P2</td><td>C5 Form 4 每日扫宇宙 + FINRA 每日空头成交量</td><td>5.2 #5, #6</td><td>2.5</td></tr>
+<tr><td>P2</td><td>F13 猎场入场层: 候选票跑 rent_stats 阶梯 (买 call / 卖 put 的钱数) + 失效位 (战役均价或 20 日低) + 时间止损; 先过 Adam 设计</td><td>1.1 第 4、6 步</td><td>4</td></tr>
+</tbody></table>
+<p>合计 P0 9 小时, P1 22.5 小时, P2 约 8.5 小时。待 Adam 裁的五条 (不是工程问题): 涨跌日时钟去留; x4 改 x5 加比值门; 封顶是否算空; 坏车宇宙是否禁房东动作; roll 目标统一写法。</p></main></body></html>
