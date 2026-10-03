@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>rent_stats 设计审查: 周权收租的定价 + 执行层 (2026-10-03)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><h1 id="rent_stats-设计审查-周权收租的定价-执行层-2026-10-03">rent_stats 设计审查: 周权收租的定价 + 执行层 (2026-10-03)</h1>
+<p>视角: 做过单票科技股周权卖方做市与风控的量化。数据 yfinance 取于 2026-10-03 (周六, 报价为 10-02 收盘, NET 349.07)。代码按 2026-10-03 快照审 (主线程并行修改中, 行号按当前文件)。所有检查脚本在 C:\Users\adams\.claude\jobs\f67d58ba\tmp\review_rent\, 未改 repo 文件 (按 brief 跑过一次工具, 它自己写了 var/output 与 var/cache)。金额均为估计。</p>
+<h2 id="0-裁定-improve_then_ship">0. 裁定: IMPROVE_THEN_SHIP</h2>
+<p>不是 SHIP: 简报给 Adam 的三个数字都会改决策, 而且都偏。C375 10-16 "盘中触及 56%" 用的是最旧的尺子 (RV20 57.7%, 而 RV5 只有 19%) 并混进了财报窗, 剔财报 + 状态感知尺度后约 43%; "ATM IV 53.0%" 取自 Yahoo 字段, 比中价反解高约 4 点; "租金 持平" 的 12 周比值本身 95% 带是 x[0.79, 1.36], 而且有结构性 bug, 周二到周四跑会机械地偏向 "便宜"。</p>
+<p>不是 REDESIGN: 分工对 (方向归长期层与鲸群流, 这里只管价格与执行); 日线 High / Low 估路径极值、5 年深度、Wilson 区间、财报分列, 这些地基经下面 GBM 与块自助检验是站得住的。缺的那块 (每个 strike 的美元 edge、持仓策略的 P&amp;L 分布) 我直接复用 excursions() 的样本池在 scratch 里算出来了, 是加法不是推倒。</p>
+<p>但 "改完再上" 改的是输出契约: 简报第一行要从 "概率" 换成 "钱"。</p>
+<h2 id="1-排序改动">1. 排序改动</h2>
+<table><thead><tr><th>#</th><th>改动</th><th>机制</th><th>决策影响</th><th>工时</th></tr></thead><tbody>
+<tr><td>1</td><td>尺度换成剔财报日的预测波动 (HAR = RV5 / RV20 / RV60 方差均值, 或 EWMA, 按票样本外 RMSE 选), 历史样本用同一尺度标准化</td><td>RV20 含财报日收益, 在 6 个候选里样本外最差 (h=10 RMSE 0.426 vs EWMA 0.362); 现在 RV5 19% / RV10 47% / RV20 58%, RV20 已过期</td><td>C375 10-16 触及 56.5% -&gt; 约 43%, 收在外 30% -&gt; 约 23%; 每张 edge -$64 翻成 +$37</td><td>4</td></tr>
+<tr><td>2</td><td>主输出改成 strike 阶梯 edge 表: 公允价 = 经验形状 x 预测波动 (财报状态匹配, 去漂移 / 论文漂移两列) 对 mid 与 bid, 每张 $ 与持仓总额, 区间取各预测器范围, 加 OI 与点差列</td><td>卖方按 strike 卖, 不按 k sigma 卖; 触及概率不是成本</td><td>卖不卖 / 哪个 strike / 几张, 都直接读这张表</td><td>5</td></tr>
+<tr><td>3</td><td>持仓策略模拟: 拿到期 vs roll 规则 vs 50% 买回, 期望成本与 p5 / p1, 含两腿点差</td><td>roll 规则是止损式 short gamma: 成本 = 点差 + 在 IV 高于后续实现时买回</td><td>C375 x50: 规则期望多花约 $7.5k, p5 从 -$129k 收到 -$69k; 这是 Adam 要裁的保险价</td><td>6</td></tr>
+<tr><td>4</td><td>修 5 个正确性 bug (3.A 表)</td><td></td><td>周二至周四租金判定、周五批跑、--date、财报失败</td><td>3</td></tr>
+<tr><td>5</td><td>IV 用中价反解 (py_vollib 在 .venv_pricing, 子进程带 timeout) + 报价过滤 (bid &gt; 0, 相对点差 &lt; 50%, 否则相邻 strike 拟合)</td><td>Yahoo impliedVolatility 在前周 ATM 偏高 2.5-5.6 点; 10-09 P290 bid 0 / ask 2.29 的 "中价" 是垃圾</td><td>IV / RV 从 0.92 变成 0.85-1.0 (视预测器)</td><td>2</td></tr>
+<tr><td>6</td><td>每日链快照落盘 (append-only): 每个到期 10 / 25 / 50 delta 的中价 IV、straddle、现价; 到期后算事后方差溢价</td><td>yfinance 无期权历史, 不落盘的每一天永久丢失; 没有它 "贵 / 便宜" 对 NET 永远无法校准</td><td>约 25 个周到期后, 租金判定从意见变成数据; skew 与期限结构顺带有了</td><td>4</td></tr>
+<tr><td>7</td><td>财报接入 (第 4 节)</td><td>10 日窗里财报窗占 16%, 却贡献 C375 无条件公允价的 33%</td><td>P270 与周一计划的 P320 定价, 规则 7 平仓成本</td><td>4</td></tr>
+<tr><td>8</td><td>简报降级: 删 "方向确定度"; 第一小时量比移到月度校准; 执行行改报 "本合约当前点差 + OI"</td><td>方向确定度就是随机游走的方差时钟; 17:00 批跑时全天量已知</td><td>少两行噪声, 多一行真实成本</td><td>1</td></tr>
+<tr><td>9</td><td>波动状态单一 owner: gex / rent_stats / daily_hunt 读同一份 (现价、RV 族、预测、中价 IV、skew)</td><td>同日同票两份 RV20 (gex 59.7 简单收益 vs 57.7 对数收益) 与两份 ATM IV (51.2 只取 call vs 53.0 call / put 均值)</td><td>一份日报一套数</td><td>2</td></tr>
+<tr><td>10</td><td>零假设与测试: 形状对比改用同估计器的模拟零假设 (隔夜跳空、离散监控、RV 噪声); 测试加 k=2 相对误差</td><td>2(1-N(k)) 不是这个估计器的零假设</td><td>"形状不是边" 这类结论才站得住</td><td>1.5</td></tr>
+</tbody></table>
+<p>合计约 32 小时; 1、2、4、5 是继续上简报之前必须做的 (约 14 小时)。</p>
+<h2 id="2-每个输出改变哪个决定">2. 每个输出改变哪个决定</h2>
+<table><thead><tr><th>输出</th><th>改变的决定</th><th>卖方会据此行动吗</th><th>处理</th></tr></thead><tbody>
+<tr><td>持仓盘中触及 [95%]</td><td>是否预备 roll 单</td><td>会, 但它只是成本的一个输入</td><td>保留, 改尺度 + 财报匹配</td></tr>
+<tr><td>收在行权价外</td><td>被行权交货</td><td>会 (covered call 的核心)</td><td>保留</td></tr>
+<tr><td>roll 线触发概率</td><td>roll 准备</td><td>配上成本才会</td><td>并入改动 3</td></tr>
+<tr><td>租金判定 (12 周比值)</td><td>卖不卖</td><td>会, 但带宽大于阈值且有星期几偏差</td><td>隐含方差 / 预测方差 + 区间</td></tr>
+<tr><td>ATM IV / RV20</td><td>卖不卖</td><td>会, 但两个分量都偏</td><td>中价 IV / 预测波动</td></tr>
+<tr><td>周触及表 (k x h)</td><td>理论上是 strike</td><td>不会直接用</td><td>降到附录, 由 strike 阶梯表替代</td></tr>
+<tr><td>方向确定度</td><td>下单时点</td><td>不会: T 之后价格无漂移 (vet 2.2)</td><td>删</td></tr>
+<tr><td>第一小时量比</td><td>to_run 模式开关</td><td>只在 10:30 盘中有用</td><td>月度校准</td></tr>
+<tr><td>时段点差</td><td>避开 9:30-10:00</td><td>会, 但这是静态规则</td><td>规则化, 每日改报本合约点差</td></tr>
+<tr><td>早晚 IV 差 (n=15)</td><td>vega 单时点</td><td>样本不够</td><td>只留 md</td></tr>
+</tbody></table>
+<p>专业卖方认为必不可少而现在没有的: strike 级 edge (改动 2)、实际持仓的 P&amp;L 分布与 roll 成本 (改动 3)、方差溢价历史与 skew / 期限结构 (改动 6; 现成快照: 10-16 P300 IV 55.8 / ATM 52.8 / C400 52.6, 跨财报的 11-20 ATM 66.6)。保证金效率排后: 50 张 call 有股票覆盖; P270 x4 现金担保 $108k, 一行可算, 不改决策。</p>
+<h2 id="3-检查结果">3. 检查结果</h2>
+<h3 id="3-a-正确性-bug-已运行确认-b2-除外">3.A 正确性 bug (已运行确认, B2 除外)</h3>
+<table><thead><tr><th>#</th><th>问题</th><th>位置</th><th>实测 / 依据</th><th>改法</th></tr></thead><tbody>
+<tr><td>B1</td><td>租金判定星期几偏差</td><td>rent_stats.py:228</td><td>weeks = max(1, round(交易日/5)); 喂同一波动定价的 straddle: 剩 5 日 12 周比值 1.32 (rich), 4 日 1.18, 3 日 1.02, 2 日 0.83 (cheap), 1 日 0.59 (cheap)</td><td>实际波动按相同交易日数取重叠窗 abs(log 收益) 均值; 租金只看剩余 &gt;= 5 日的到期</td></tr>
+<tr><td>B2</td><td>周五批跑的当日到期</td><td>rent_stats.py:196-202</td><td>接收 today 却不用, 不过滤到期 &lt;= today; gex.py:74-77 的注释与过滤表明收盘后当天到期仍在链里。若出现: sessions_to = 0, weeks = 1, straddle 只剩内在价值, 判 "便宜" (今天周六无法实测)</td><td>过滤 expiry &lt;= today</td></tr>
+<tr><td>B3</td><td>持仓概率未按财报状态匹配</td><td>rent_stats.py:265-268, 280-281</td><td>C375 10-16 窗内无财报, 却用含财报窗的样本: 触及 56.6% vs 剔财报 52.4%, 收在外 30.1% vs 27.6%, 公允价 8.50 vs 6.54; 财报窗内触及 79%</td><td>按持仓窗是否含反应日选子样本</td></tr>
+<tr><td>B4</td><td>--date 不是 as-of</td><td>rent_stats.py:417 起, 550</td><td>跑 2026-09-18: 现价 323.60, 链却是 10-03 的 (10-09 "ATM" 322.5 在今天是实值), 照样给比值 0.90 / 0.89; 10-02 才开的持仓被套到 9-18; Barchart 读全部 26 天 (含之后); 输出文件不带日期, 会覆盖 daily_brief 正在读的文件 (同 "子集跑覆盖" 旧案)</td><td>非最新交易日时拒绝链 / 持仓 / flow 段, 写带日期文件</td></tr>
+<tr><td>B5</td><td>财报日期取不到时静默为空</td><td>rent_stats.py:131-137</td><td>吞掉所有异常返回 []: 财报分列与 "窗口含财报" 一起消失, P270 会显示无财报; daily_hunt 用手维护的 events_2026.yaml (daily_hunt.py:382-388), 两源无交叉校验</td><td>写 earnings_error 进简报, 回退并交叉校验 events yaml</td></tr>
+</tbody></table>
+<h3 id="3-b-链报价质量-10-02-收盘报价-中价反解用-scipy-t-按日历时间">3.B 链报价质量 (10-02 收盘报价; 中价反解用 scipy, T 按日历时间)</h3>
+<table><thead><tr><th>合约</th><th>bid / ask</th><th>相对点差</th><th>OI</th><th>Yahoo IV</th><th>中价反解 IV</th></tr></thead><tbody>
+<tr><td>C350 10-09</td><td>8.15 / 9.95</td><td>20%</td><td>143</td><td>53.9</td><td>48.6</td></tr>
+<tr><td>P350 10-09</td><td>9.30 / 10.55</td><td>13%</td><td>25</td><td>52.2</td><td>49.7</td></tr>
+<tr><td>C375 10-09</td><td>1.15 / 2.40</td><td>70%</td><td>55</td><td>53.7</td><td>48.1</td></tr>
+<tr><td>C350 10-16</td><td>13.75 / 14.65</td><td>6%</td><td>1111</td><td>53.7</td><td>52.8</td></tr>
+<tr><td>C375 10-16 (持仓)</td><td>4.05 / 6.50</td><td>46%</td><td>44</td><td>52.2</td><td>51.6</td></tr>
+<tr><td>C380 10-16</td><td>3.70 / 4.80</td><td>26%</td><td>2540</td><td>52.3</td><td>51.7</td></tr>
+</tbody></table>
+<p>工具的前周 ATM IV 53.0% 实际约 49%。Adam 的 C375 10-16 OI 只有 44, 半个点差 $1.22, x50 进出一次约 $6k; 相邻 C380 OI 2540、点差 26%。Barchart 大单样本给的中位点差 10-12%, 低估他实际合约成本 3-4 倍。strike 选择必须带流动性列。</p>
+<h3 id="3-c-经验公允价-vs-中价-同一样本池-第-60-日起-剔财报窗-去漂移-估计">3.C 经验公允价 vs 中价 (同一样本池: 第 60 日起, 剔财报窗, 去漂移; 估计)</h3>
+<table><thead><tr><th>合约</th><th>mid</th><th>bid</th><th>公允价 RV20 尺度</th><th>公允价 HAR 尺度</th><th>每张 edge (中价) RV20 / HAR</th><th>持仓合计 (HAR)</th></tr></thead><tbody>
+<tr><td>C375 10-16 x50</td><td>5.28</td><td>4.05</td><td>5.92</td><td>4.90</td><td>-$64 / +$37</td><td>中价 +$1.9k; 卖在 bid -$4.3k</td></tr>
+<tr><td>C365 10-09 x1</td><td>3.95</td><td>3.00</td><td>5.14</td><td>4.17</td><td>-$119 / -$22</td><td>-$22</td></tr>
+<tr><td>C380 10-16</td><td>4.25</td><td>3.70</td><td>4.74</td><td>3.86</td><td>-$49 / +$39</td><td></td></tr>
+<tr><td>C400 10-16</td><td>1.73</td><td>1.43</td><td>1.83</td><td>1.43</td><td>-$11 / +$29</td><td></td></tr>
+</tbody></table>
+<p>当前 HAR 47.9%, EWMA 55.0%, RV60 (剔财报) 56.4%, RV20 57.7%, RV252 (剔财报) 58.2%; 保留历史漂移的公允价高约 5%。结论: edge 的符号取决于预测器, 量级 (每张 40-60 美元) 小于半个点差 (55-122 美元)。执行价比 "卖不卖" 更值钱, 工具该首先说出这句。</p>
+<h3 id="3-d-波动预测器样本外-net-5-年-剔财报窗-h-10-约-85-个独立窗">3.D 波动预测器样本外 (NET 5 年, 剔财报窗, h=10, 约 85 个独立窗)</h3>
+<table><thead><tr><th>预测器</th><th>log(后续实现 / 预测) 均值</th><th>RMSE</th><th>p10 / p90</th></tr></thead><tbody>
+<tr><td>RV20 (现用, 含财报日)</td><td>-0.150</td><td>0.426</td><td>-0.67 / +0.35</td></tr>
+<tr><td>RV20 剔财报日</td><td>-0.047</td><td>0.377</td><td>-0.49 / +0.44</td></tr>
+<tr><td>RV60 剔财报日</td><td>-0.097</td><td>0.363</td><td>-0.51 / +0.36</td></tr>
+<tr><td>EWMA 0.94</td><td>-0.071</td><td>0.362</td><td>-0.52 / +0.38</td></tr>
+<tr><td>HAR</td><td>-0.065</td><td>0.372</td><td>-0.53 / +0.41</td></tr>
+</tbody></table>
+<p>均值里约 -0.05 是 10 个样本 RMS 取对数的机械偏差。状态条件化 (h=10, k=0.62, 剔财报): 20 日涨幅 &gt; 15% (现在 +22.7%) 时上触 37% [21, 59] vs 全样本 52%; RV5 / RV20 &lt; 0.5 (现在 0.33) 时后续实现 / RV20 中位 0.73 vs 0.85。分桶只有 14-35 个独立窗, 所以用回归式预测器吸收状态, 不分桶。</p>
+<h3 id="3-e-合成-gbm-200-条-x-1260-日-日内-39-步-隔夜跳空占方差-30-rv20-标准化-无漂移">3.E 合成 GBM (200 条 x 1260 日, 日内 39 步, 隔夜跳空占方差 30%, RV20 标准化, 无漂移)</h3>
+<table><thead><tr><th>h</th><th>k</th><th>反射公式 %</th><th>估计均值 % (常数波动 / GARCH)</th><th>估计实际标准差</th><th>Wilson 隐含标准差</th><th>覆盖率</th></tr></thead><tbody>
+<tr><td>5</td><td>0.5</td><td>61.7</td><td>58.9 / 58.1</td><td>2.5</td><td>3.1</td><td>99%</td></tr>
+<tr><td>5</td><td>1.0</td><td>31.7</td><td>30.6 / 30.2</td><td>2.4</td><td>2.9</td><td>99%</td></tr>
+<tr><td>5</td><td>2.0</td><td>4.6</td><td>5.4 / 5.8</td><td>1.0</td><td>1.5</td><td>98-100%</td></tr>
+<tr><td>10</td><td>1.0</td><td>31.7</td><td>31.3 / 30.8</td><td>3.2</td><td>4.1</td><td>99%</td></tr>
+<tr><td>10</td><td>2.0</td><td>4.6</td><td>5.6 / 6.0</td><td>1.5</td><td>2.1</td><td>99%</td></tr>
+</tbody></table>
+<p>len // h 的 Wilson 偏保守 (宽约 25-30%), 波动聚集下也成立; 真实 NET (k=1, h=5) 块自助 (块长 60) [28.1, 36.7] vs Wilson [27.8, 39.3], 前后各 2.5 年 31.5% / 34.8%。抽样误差不是问题, 尺度才是 (3.D)。但反射公式不是这个估计器的零假设: k &lt;= 1 偏低 1-3 点, k=2 偏高 20-30% (相对)。tests/test_rent_stats.py 的 GBM 测试只查 k=1、容差 5 点、无隔夜跳空, 抓不到。</p>
+<h3 id="3-f-其它检查">3.F 其它检查</h3>
+<table><thead><tr><th>检查</th><th>结果</th><th>含义</th></tr></thead><tbody>
+<tr><td>方向确定度 vs 随机游走零假设 (60m 实测 "到 T 已实现日方差占比" 代入反正弦律)</td><td>10:30 零假设 83.0% / 实测 77.9%; 14:30 95.5% / 91.2%</td><td>实测还低于零假设 (日内均值回归), 无超出方差时钟的信息</td></tr>
+<tr><td>第一小时量比三档</td><td>69.6% vs 猜多数 42.0% vs 昨日档位 58.1%; 预测剩余时段 (去掉部分-整体重叠) 60.3% vs 43.1%</td><td>信息为真, 但只在 10:30 有用</td></tr>
+<tr><td>roll 规则成本 (C375 x50; 买回 IV 固定 52.8%, 每腿半点差 $1.00)</td><td>HAR: 触发 46%, 期望成本 拿到期 $4.90 / 股 vs 规则 $6.40 (差 $1.50, 约 $7.5k, 点差占 $0.92); call 腿 p5 -$128.8k -&gt; -$69.1k。RV20: 触发 51%, 差 $1.51, p5 -$156k -&gt; -$80k</td><td>规则是保险; NET 当前涨日 IV 上升 (vet +1.65 点), 实际买回更贵</td></tr>
+<tr><td>租金比值</td><td>去财报周: 12 周 0.97 -&gt; 1.00, 52 周 0.86 -&gt; 0.92; 按预测器: HAR 1.01, 中价 IV 0.99, EWMA 0.88, RV20 0.84; straddle 不变时 12 周判定每周翻档 16%</td><td>判定在噪声带内</td></tr>
+<tr><td>Barchart 点差组成</td><td>早盘 / 尾盘成交中位权利金 5.90 / 5.75, 中位 DTE 8 / 8; 同合约同日配对 n=10, 尾盘窄 11 点 (70%)</td><td>方向成立, 样本太小</td></tr>
+<tr><td>30m 缓存</td><td>781 行 = 60 日 x 13, 合并写入正确</td><td>无问题</td></tr>
+</tbody></table>
+<h3 id="3-g-工程">3.G 工程</h3>
+<table><thead><tr><th>问题</th><th>位置</th><th>改法</th></tr></thead><tbody>
+<tr><td>阈值在代码里: mid &gt; 0.2 与点差 0-2、早晚 IV 时段、limit=40、n_expiries=2; md 把 "rich &gt;= 1.1, cheap &lt;= 0.9, 按 12 周" 写死</td><td>rent_stats.py:363, 373, 135, 196, 497</td><td>进 config; md 从 cfg 渲染</td></tr>
+<tr><td>sessions_between 每次调用都 sys.path.insert (每票 8 次以上); roll_min_days_left 的 <code>or 1</code> 让 0 无法配置</td><td>rent_stats.py:241, 254</td><td>顶部导入; 显式判 None</td></tr>
+<tr><td>盘中手动跑: 现价是盘中价, RV20 含半天收益, 剩余交易日不算今天, 无标记</td><td>build</td><td>16:15 前标 "未收盘" 或用前收</td></tr>
+<tr><td>excursions 每个持仓与 roll 线各重算 (8 次); 现在 9 秒以网络为主</td><td>rent_stats.py:265, 280</td><td>改动 1 时按 h 缓存</td></tr>
+<tr><td>无 requests、无 subprocess、文件全 ASCII + CJK (已扫描)</td><td></td><td>改动 5 调 .venv_pricing 时 subprocess 必带 timeout</td></tr>
+</tbody></table>
+<h2 id="4-财报模块怎么接">4. 财报模块怎么接</h2>
+<p>rent_stats 只消费, 不重算: (1) 反应日以 earnings_action 为唯一来源, 与 events_2026.yaml 交叉校验, 尺度与扩散样本都剔除反应日; (2) 跨财报持仓的公允价 = 剔财报扩散 (预测波动, 非事件日数) 叠加最近 12 次反应日跳空 (按当时隐含事件 move 标准化更好, 原始 % 次之); (3) 市场隐含事件 move (term_structure_jump) 对经验 abs(跳空) 中位, 即事件方差溢价; (4) 规则 7 (财报前 7 个交易日平近月 call) 的成本用同一模拟给数。12 个事件的区间很宽 (3/12 = 9%-53%), 必须照印。</p>
+<h2 id="5-反谄媚三问">5. 反谄媚三问</h2>
+<p>(a) 多付 50% 让我更狠, 改三处: 裁定改 REDESIGN, 理由是输出契约整体是概率不是钱, 属设计错误而非实现瑕疵; 执行窗整段 (点差 + 早晚 IV) 移出日报, 直到有同合约盘中报价日志, 大单样本加 n=10 的配对撑不起任何规则; 周触及表从 md 删除而不是降级, 没有人按 k sigma 下单。</p>
+<p>(b) 我的一条论据不足的建议: "尺度换成 HAR"。反驳: HAR 与剔财报 RV20 的样本外 RMSE 是 0.372 vs 0.377, 在约 85 个独立窗下是噪声; 真正的改进来自剔除财报日 (0.426 -&gt; 0.377), HAR 只在 RV5 极低的状态下有差别, 而这种状态历史上只有约 14 个独立窗。</p>
+<p>(c) 全部采纳后 6 个月内最可能的误导: strike 阶梯表给出 "+$37 / 张" 这种看似精确的数, 而它在各预测器间的区间多数周跨零; Adam 在 "正 edge" 周加张数, 结果由尾部决定 (一次穿过 call strike 的跳空, 或 P320 跨 10-29 财报), 之前几十次小赢会让工具显得被验证。同时 IV 快照只积到约 25 个到期, 不足以校准方差溢价, 却会以 "历史" 的样子显示。对策: edge 列只在区间不跨零时标色, 并在简报写出 p5 金额。</p></main></body></html>

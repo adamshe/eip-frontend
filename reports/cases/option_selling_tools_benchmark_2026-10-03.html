@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>短期期权卖方的定价与择时工具对标 + EIP 差距 (2026-10-03)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><h1 id="短期期权卖方的定价与择时工具对标-eip-差距-2026-10-03">短期期权卖方的定价与择时工具对标 + EIP 差距 (2026-10-03)</h1>
+<p>口径: 产品功能一律以 2026-10-03 用 WebFetch 读到的页面为准, 编号见第 5 节; 页面读不到 (403 / 404 / 空白) 的标 [未核实], 不进排名。表里 "--" = 读到的页面没提到, 不等于产品没有。EIP 按 2026-10-03 17:27 的工作树判定 (rent_stats.py / rent_model.py / config/rent_stats.yaml 未提交, 主线程正按设计审查 var/output/scores_candidates/rent_stats_design_review_2026-10-03.md 修改, 行号会漂移; 审查已列的改动这里不重复)。NET 报价取自 yfinance, 是 2026-10-02 收盘报价 (周六读取, 收盘点差偏宽), NET 收 349.07。金额均为估计, 规模按 50 张 x 100 股 = 5000 股, 期权价每 $0.10 / 股 = $500。</p>
+<h2 id="0-裁定">0. 裁定</h2>
+<p>在 "这个 strike 值不值" 的统计层, EIP 已和付费工具同级, 有几处还更强: 用 5 年经验路径、剔财报的预测波动 (EWMA94 / RV20x / RV60x / HAR 区间) 给每个 strike 算公允价、每张和整仓的美元 edge, 并标出区间是否跨零; 给出触及 / 收在行权价外概率 (Wilson 区间, 旁列模型公式); 把 roll 规则当保险定价 (期望多花多少, p5 / p1); 财报隐含变动从期限结构的远期方差里拆出来, 并核对日期。已核实的零售产品页面里, 只看到 IV 模型推出的概率 (ORATS 平滑 delta、tastylive POP) 或 EV 排名 (Option Alpha), 没有一家把经验分布、置信区间和持仓规则模拟放在一起。EIP 落后的三处都在 "钱" 这一侧。(1) 没有历史期权数据: IV rank、方差溢价历史、过往财报的隐含变动、盘中报价, 多家都有 (ORATS 字段可回溯到 2007, ThetaData $40 / 月起); EIP 自己的链快照今天才开始攒。(2) 执行层只有 "开盘 30 分钟不下单" 一条静态规则, 没有限价阶梯, roll 不走组合单, 也不记成交; 按审查 3.B, C375 10-16 x50 每成交一边 (开或平) 光半个点差就约 $6.1k, 比 strike 级 edge (每张 $40-60) 大一个量级。(3) 没有反馈环: positions.yaml 的 open_price 全是 null, 不知道实际成交价和滑点, 也分不清收租的钱来自方差溢价、方向还是运气。结论: 统计层先停, 下一笔工时投到执行 + 记账, 下一笔钱花在买历史数据。</p>
+<h2 id="1-能力地图">1. 能力地图</h2>
+<table><thead><tr><th>能力</th><th>EIP (工作树)</th><th>ORATS</th><th>Market Chameleon</th><th>tastytrade</th><th>Option Alpha</th><th>SpotGamma</th><th>Unusual Whales</th><th>MenthorQ</th><th>数据商 / 券商</th></tr></thead><tbody>
+<tr><td>(a) IV rank / 百分位</td><td>无 (gex.py 19-20 行 docstring 写了单票 1 年百分位, 代码 127-136 行只给当前值)</td><td>有 ivRank1m/1y, ivPct1m/1y [O2]</td><td>有 IV Rankings [M1]</td><td>定义 52 周 IVR / IVP [T3]; 平台显示 [未核实]</td><td>--</td><td>--</td><td>有 /api/stock/iv-rank [U2]</td><td>有 [Q1]</td><td>原始数据自算 [D1][D3]</td></tr>
+<tr><td>(a) 方差溢价 / 预测波动</td><td>有: 中价 IV (py_vollib) 对四个预测器区间; straddle 对同期实际 [E1][E2]</td><td>有 orFcst20d, orIvFcst20d, fcstR2, orHvXern* [O2]</td><td>IV vs HV 页 (数值 [未核实])</td><td>--</td><td>--</td><td>Volatility Dashboard [S2]</td><td>realized-volatility [U2]</td><td>VRP [Q1]</td><td>--</td></tr>
+<tr><td>(a) 期限结构 / 剔财报 IV</td><td>6 个到期 + 财报远期方差 [E1][E3]</td><td>atmFcstIvM1-4, exErnIv10d..1y [O2]</td><td>Volatility Compare [M1]</td><td>--</td><td>--</td><td>--</td><td>IV term structure [U2]</td><td>有 [Q1]</td><td>--</td></tr>
+<tr><td>(a) skew</td><td>25 delta 中价 IV 入快照 [E1]; dashboard 25d skew [E5]</td><td>exErnDlt5/25/75/95Iv [O2]; 平滑 skew [O5]</td><td>--</td><td>--</td><td>--</td><td>Composite View [S3]</td><td>interpolated-iv [U2]</td><td>有 [Q1]</td><td>--</td></tr>
+<tr><td>(b) 触及 / 收在外概率</td><td>经验 5 年 + Wilson + 反射公式并列 [E1][E2]</td><td>平滑 IV 的 delta [O4]</td><td>--</td><td>POP 定义 [T4]; 算法与触及 [未核实]</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+<tr><td>(b) strike 级 $ edge / EV</td><td>有: 每张与整仓, 中价与 bid, 区间跨零标记, OI / 点差 / 流动邻居 [E1]</td><td>Scanner 按 theoretical values 排 [O1]</td><td>Covered Call / Naked Put 筛选 [M1]</td><td>--</td><td>Trade Ideas 按 EV 排 [A1]</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+<tr><td>(b) delta 目标 / 预期变动</td><td>梯子带 delta; straddle 占现价 [E1]</td><td>strikes 按 DTE / delta 取 [O2]</td><td>--</td><td>回测按 delta [T2]</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+<tr><td>(c) 当次隐含 vs 历史财报变动</td><td>有 (12 次 T-10..T+10) [E3]</td><td>impliedEarningsMove, absAvgErnMv [O2]</td><td>Implied Move Charts [M1]</td><td>--</td><td>--</td><td>--</td><td>historical-ticker-earnings [U2]</td><td>--</td><td>LiveVol 财报分析 [D4]</td></tr>
+<tr><td>(c) 过往每次的隐含 vs 实际 / IV crush 历史</td><td>无</td><td>近 12 次 implied vs actual, Inter-Earnings IV [O5]</td><td>Straddle Performance [M1]</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>需历史数据 [D1][D3]</td></tr>
+<tr><td>(c) 财报日期确认</td><td>数据源日期对市场定价的那一周 [E3]</td><td>--</td><td>标 "estimated Oct 30 - Nov 9, 未公布" [M3]</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+<tr><td>(d) 日内 IV / 点差按时段</td><td>Barchart 大单 26 天 (大单偏差), 早晚 IV n 小 [E1]</td><td>1 分钟链 2020-08 起 [O1]; 盘中回测按分钟 [O4]</td><td>--</td><td>--</td><td>--</td><td>--</td><td>intraday-data 端点 [U2]</td><td>--</td><td>ThetaData 1 分钟 / 每笔 NBBO [D1]; Cboe 1 分钟 NBBO [D3]</td></tr>
+<tr><td>(d) 中价挂单 / 阶梯改价</td><td>无</td><td>--</td><td>--</td><td>[未核实]</td><td>SmartPricing: 中价起步向 bid 走, Normal 4 档 x 10 秒, 末价挂 2 分钟 [A3]</td><td>--</td><td>--</td><td>--</td><td>IBKR VOL 单 (按 IV 报价, 随标的动态改价) + BOX 价格改善竞价 [B1]; Cboe AIM / C-AIM / COB [未核实]</td></tr>
+<tr><td>(d) 中价成交概率</td><td>无</td><td>回测滑点 = 点差百分比 [O4]</td><td>--</td><td>--</td><td>不公布成交率 [A3]</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+<tr><td>(e) roll 分析</td><td>触发率 + 规则对拿到期的期望多花 + p5 / p1 [E2]; 无组合单净 credit 菜单</td><td>Trade Builder [O1]</td><td>--</td><td>订单链跟踪每次 roll [T1]</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+<tr><td>(e) P&amp;L 情景 / Greeks</td><td>无组合 Greeks</td><td>--</td><td>--</td><td>Visual Risk Analysis 价格与 IV 压力 [T1]</td><td>--</td><td>Options Calculator [S2]</td><td>--</td><td>--</td><td>OptionStrat [未核实]</td></tr>
+<tr><td>(e) 指派 / 提前行权</td><td>无</td><td>--</td><td>--</td><td>[未核实]</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+<tr><td>(f) GEX / 墙 / flip</td><td>有, 日终, yfinance OI, 只算周五到期 [E4]</td><td>--</td><td>Open Interest 面板 [M1]</td><td>--</td><td>--</td><td>Equity Hub 3500+ 票 dealer gamma / delta / OI, 1 年回看 [S3]</td><td>全美实时 GEX $50 / 月 [U1]; greek-exposure [U2]</td><td>call resistance / put support / HVL / 净 GEX [Q1]</td><td>--</td></tr>
+<tr><td>(f) vanna / charm</td><td>无</td><td>--</td><td>--</td><td>--</td><td>--</td><td>Charm Pressure (TRACE, 标普) [S4]; 单票 [未核实]</td><td>端点名未见 [U2]</td><td>--</td><td>Volland [未核实]</td></tr>
+<tr><td>(f) 0DTE</td><td>不适用 (NET 只有周五到期)</td><td>盘中回测 [O4]</td><td>Zero DTE Straddles [M1]</td><td>--</td><td>0DTE 回测 [A4]</td><td>HIRO / TRACE [S2]</td><td>--</td><td>0DTE Levels [Q1]</td><td>--</td></tr>
+<tr><td>(g) 交易日志</td><td>无 (open_price null; forward_account.py 只对账猎场预测) [E8]</td><td>--</td><td>--</td><td>订单链 [T1]</td><td>回测交易日志 [A4]</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+<tr><td>(g) P&amp;L 归因 (VRP / 方向 / 时点 / 成本)</td><td>无</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+<tr><td>(g) 卖方规则回测 (真实权利金)</td><td>只有股价路径模拟 (roll_sim) [E2]</td><td>Options Backtester 2007 起; Intraday Backtester ~140 票, $0.65 / 张 [O1][O4]</td><td>Straddle &amp; Wing Backtest [M1]</td><td>10+ 年, delta / DTE / 止盈止损, 成本假设未写 [T2]</td><td>有 [A2][A4]</td><td>--</td><td>--</td><td>--</td><td>OptionNet Explorer 5 分钟历史 [D5]</td></tr>
+<tr><td>(h) 盘中期权报价历史</td><td>无 (Barchart 每日前 200 笔大单)</td><td>1 分钟 2020-08 起 [O1]</td><td>成交文件 $2500 / 年份 [M2]</td><td>--</td><td>--</td><td>--</td><td>historic / intraday 端点; 历史成交 $250 / 月 [U2][U3]</td><td>--</td><td>ThetaData $40-160 / 月 [D1]; Cboe Option Quotes [D3]</td></tr>
+<tr><td>(h) 历史 IV 曲面</td><td>无 (快照 2026-10-03 起) [E1]</td><td>EOD 2007 起 [O1][O3]</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>Cboe EOD + 15:45 快照 [D3]; LiveVol Pro [D4]</td></tr>
+</tbody></table>
+<p>价格 (均 2026-10-03 页面): ORATS Trading Tools $99 / 月 (含 Options Backtester / Intraday Backtester / Scanner / Ticker Analysis) [O4], Data API Delayed $199 / Live $299 / Live Intraday $599 / All-In $899 [O3]; Market Chameleon Premium $99 / 月 [M2]; Option Alpha Pro $149 / 月 (年付 $99), 在 tastytrade / Tradier 账户 &gt;= $5k 或 TradeStation &gt;= $10k 时 $0 [A2]; SpotGamma Essential $99 / Alpha $299 [S2]; Unusual Whales Basic $50 / Pro $75 / Max $120 [U1]; MenthorQ Premium $129 / Pro $349 [Q2]; ThetaData Value $40 / Standard $80 / Pro $160 [D1]; LiveVol Pro $420 / 月 (年付 $350) [D4]。</p>
+<p>EIP 出处: [E1] src/tools/stock_character/rent_stats.py (fetch_chain 199 行, atm_summary 235, edge_cols 294, spread_stats 358, append_snapshot 406); [E2] src/tools/stock_character/rent_model.py (forecasters 40, fair_value 84, touch_beyond 92, roll_sim 101); [E3] src/tools/stock_character/earnings_action.py (term_structure_jump 135, implied_move 161); [E4] src/tools/gamma_reversal/gex.py (chain_gex 62); [E5] src/tools/net_dashboard/net_dashboard/fetchers/market.py (fetch_options_skew 82); [E6] src/tools/whale_ambush/daily_hunt.py (trade_code 56, farm_read 267); [E7] config/rent_stats.yaml; [E8] src/tools/whale_ambush/positions.yaml。</p>
+<h2 id="2-差距排名-按对-adam-的决策价值">2. 差距排名 (按对 Adam 的决策价值)</h2>
+<table><thead><tr><th>#</th><th>差距</th><th>改哪个决定 / 频率</th><th>金额量级 (估计)</th><th>build / buy</th><th>工时 (天)</th></tr></thead><tbody>
+<tr><td>1</td><td>执行: 每张单印出本合约 NBBO / OI / 流动邻居 + 限价阶梯; roll 一律报组合单净 credit</td><td>挂价、改价、roll 走单腿还是组合; 每周 2-4 张</td><td>C375 10-16 收盘报价半点差 $1.22 = 每边 $6.1k; 盘中大单中位相对点差 10-18% (约 $0.30-0.50 / 股) = 每边 $1.5k-2.6k; 回收三分之一 = 每边 $0.5k-0.9k, 一年 100 边以上</td><td>Build 阶梯计算器 + 规则进 config; 单型 buy / 用现成: 券商的 VOL 单 / 价格改善竞价 (IBKR 已核实), 或 Option Alpha SmartPricing ($0-149 / 月)</td><td>1</td></tr>
+<tr><td>2</td><td>成交日志 + P&amp;L 归因 (方差溢价 / 方向 / 时点 / 成本四段)</td><td>规则去留: roll 线 $10、50% 买回、涨势里卖不卖 call; 月度复盘, 覆盖全部收租</td><td>每次周 call 毛租金约 $1.5 万-2.5 万 (0.25-0.3 delta x50); 一次 roll 规则的期望保险费约 $7.5k (审查 3.F); 归因回答这些钱实际流向哪里</td><td>Build (已核实页面里没有零售产品做归因); 需要券商成交导出</td><td>2-3</td></tr>
+<tr><td>3</td><td>历史期权数据回填: IV rank / 方差溢价历史 / 剔财报 IV / 盘中 NBBO</td><td>每周卖不卖、卖几张; 时段规则 (一次性定)</td><td>strike edge 每张 $40-60、符号随预测器翻 (审查 3.C), 即每周 $2k-3k 的判断无法校准; 自建快照要约 25 个周到期 (半年) 才能用</td><td>Buy: ThetaData Value $40 / 月 (1 分钟, 6 年) 或 Standard $80 (每笔 NBBO, 10 年); 要现成 IV rank / 预测 / 财报字段则 ORATS Delayed API $199 / 月。回填 1-2 个月后停订, 之后靠自建快照</td><td>2-3</td></tr>
+<tr><td>4</td><td>卖方规则的真实权利金回测</td><td>delta 目标、50% 买回、roll 触发线、财报前平仓; 季度一次</td><td>roll 规则把 p5 从约 -$129k 收到 -$69k (审查 3.F) 是固定买回 IV 的路径模拟; 涨日 IV 上升时实际买回更贵, 要用真实价格核</td><td>Buy 快核: tastytrade 回测 (开户可用) 或 ORATS Trading Tools $99 / 月; 长期在 #3 数据上 build</td><td>0.5 / 3-4</td></tr>
+<tr><td>5</td><td>过往每次财报的 "隐含 vs 实际" 与 IV crush 历史</td><td>财报周卖不卖、strike 放多远; 一年 4 次; P270 11-20 已跨 10-30 财报</td><td>NET 财报日变动中位 10.3%、最大 23.6% (earnings_action, 12 次); 5% OTM 的 x50 call 遇 15% 跳空, 少赚约 $17 万 (有股票覆盖, 是机会成本)</td><td>在 #3 数据上 build; 或财报前订 Market Chameleon $99 / 月, 看 Straddle Performance / Implied Move Charts</td><td>0.5</td></tr>
+</tbody></table>
+<p>#1 执行。审查 3.B 已指出 C375 10-16 的 OI 只有 44, 而邻档 C380 有 2540; 10-02 这档成交 53 张, Adam 的 50 张很可能占了当天这档成交的大半 [推断]。这时他的单子本身就是这档的价格, 流动性和挂单方式比几点下单更值钱。业界做法有两种。一种是 Option Alpha 的 SmartPricing: 从中价起步, 每 10 秒向 bid 让一档, 最多 4 档, 末价挂 2 分钟后撤单。另一种是 IBKR 的 VOL 单, 按 IV 报价, 标的一动就自动改价, 正好对上 "早晚 IV 差" 这类信号。EIP 不必自建下单系统, 只需每天给出 "本合约中价、阶梯 (中价、中价 -10% 点差、中价 -20% 点差)、流动邻居、组合 roll 的净 credit 中价", 剩下交给券商单型。阶梯参数的初值要等 #2 的日志来校。</p>
+<p>#2 记账与归因。每笔成交按下单时的 NBBO 中价拆成四段: 成本 (成交价对中价)、时点 (成交价对当日 VWAP 中价)、方向 (delta 乘以标的变动)、方差溢价 (余下部分, 约等于 theta 收入减去 gamma 实现损失)。这件事每个卖方都该做, 但读到的零售页面里没有一家提供 (tastytrade 只做订单链跟踪)。输入是券商成交导出, 格式取决于券商 [未知]。</p>
+<p>#3 数据。审查改动 6 的自建快照是对的, 但它只能从今天往后攒。买 1-2 个月历史数据, 当天就能回答 "过去 5 年 NET 周 ATM IV 对事后实际, 平均贵还是便宜"、"9:30-16:00 每半小时的真实 NBBO 点差曲线"。ThetaData 每月 $40 最便宜; ORATS 每月 $199, 但 IV rank、预测波动、剔财报 IV、impliedEarningsMove 都是现成字段。按 EIP 第 6 节规则, 两者都放隔离 venv, 走子进程并设 timeout。</p>
+<p>#4 与 #5 都建在 #3 的数据上, 增量很小; 等不及时, 先用现成产品快核一次。</p>
+<h2 id="3-不要做的">3. 不要做的</h2>
+<ul>
+<li>Greeks / P&amp;L 曲线 / 情景图: 券商平台已经有 (tastytrade Visual Risk Analysis [T1]), 自建是重复。</li>
+<li>实时 GEX、HIRO、vanna / charm、synthetic OI: 卖周 call 用日终墙就够。真要看, Unusual Whales Basic $50 / 月有全美实时 GEX, SpotGamma Essential $99 / 月也行; 单票 vanna / charm 有没有 [未核实]。EIP 只做审查改动 9 (波动状态单一 owner)。</li>
+<li>0DTE 工具: NET 只有周五到期 (2026-10-02 链: 10-09、10-16、10-23、10-30 ...)。</li>
+<li>自动交易机器人 (Option Alpha bots): 方向归 Adam 的长期层, 机器人反了分工; 只借它的改价逻辑。</li>
+<li>自建期权 tick 库或波动率曲面拟合: 直接买 (ThetaData / ORATS / Cboe DataShop)。</li>
+<li>把 IV rank 单独当卖出信号 (tastylive 的高于 50 就卖 [T3]): 它不和实际波动比; EIP 的 "中价 IV 对预测区间" 更接近卖方真实的 edge。IV rank 回填后只放背景列。</li>
+<li>更多日内价格统计 (方向确定度之类): 审查已判定是方差时钟, 不再加。</li>
+<li>再接一个期权流扫描器: Barchart + daily_hunt 已覆盖, Unusual Whales / Market Chameleon 的 flow 不改变收租决策。</li>
+</ul>
+<h2 id="4-未知与未核实">4. 未知与未核实</h2>
+<ul>
+<li>Adam 用哪家券商未知, 这决定 #1 能用哪些单型。IBKR 的 VOL 单和 BOX 价格改善竞价已核实 [B1]; IBKR Adaptive / Pegged-to-Midpoint 是否支持期权, 页面没写; Schwab / tastytrade 的算法单 [未核实]。</li>
+<li>实际成交价未知 (open_price: null)。#1 的金额是按点差上限推算的, 实际滑点要等日志出来。</li>
+<li>[未核实], 不进排名: Bloomberg OVME 与财报隐含变动 (bloomberg.com 403); Cboe AIM / C-AIM / 复杂单簿规则细节 (cboe.com 404, 规则手册 PDF 403); OptionStrat (403); Volland (页面空白); tastytrade 平台内 POP / 触及概率 / expected move 的显示方式; ORATS 盘中回测的约 140 只票里有没有 NET; SpotGamma / MenthorQ 对 NET 单票的指标覆盖; ThetaData Value 档带不带 IV / greeks; Market Chameleon $99 档的历史深度; ORATS 网页工具除 Trading Tools $99 外的价格 (pricing 页 404)。</li>
+<li>EIP 文档与代码不一致: gex.py docstring (19-20 行) 写有单票 ATM IV 1 年百分位, 代码 (127-136 行) 只给当前值; brief 说 gex 走 CBOE / OpenBB, 实际 gex.py 用 yfinance (11、64 行), 走 CBOE 的是 scripts/option_flow_snapshot.py。</li>
+<li>rent_stats 工作树正在被并行修改; EIP 列按 17:27 的代码和 config 判定, 没有跑新版输出。</li>
+</ul>
+<h2 id="5-来源-均为-2026-10-03-webfetch">5. 来源 (均为 2026-10-03 WebFetch)</h2>
+<table><thead><tr><th>编号</th><th>URL</th><th>读到的要点</th></tr></thead><tbody>
+<tr><td>O1</td><td><a href="https://orats.com/">https://orats.com/</a></td><td>Scanner, Options Backtester (2007 起), Intraday Backtester (1 分钟, 2020-10 起), Ticker Analysis, Trade Builder, 1 分钟历史 2020-08 起</td></tr>
+<tr><td>O2</td><td><a href="https://orats.com/docs/delayed-data-api">https://orats.com/docs/delayed-data-api</a></td><td>ivrank / cores / summaries / strikes 端点及字段名</td></tr>
+<tr><td>O3</td><td><a href="https://orats.com/data-api">https://orats.com/data-api</a></td><td>API 价格 $199 / $299 / $599 / $899, 加购项</td></tr>
+<tr><td>O4</td><td><a href="https://orats.com/intraday-backtester">https://orats.com/intraday-backtester</a></td><td>~140 票, 按 delta 选 strike, 分钟级止盈止损, 滑点 = 点差百分比, $0.65 / 张, Trading Tools $99 / 月</td></tr>
+<tr><td>O5</td><td><a href="https://orats.com/ticker-analysis">https://orats.com/ticker-analysis</a></td><td>近 12 次财报 implied vs actual, 平滑 skew, Inter-Earnings IV</td></tr>
+<tr><td>M1</td><td><a href="https://marketchameleon.com/">https://marketchameleon.com/</a></td><td>IV Rankings, Implied Move Charts, Straddle Performance, 卖方筛选, Straddle &amp; Wing Backtest</td></tr>
+<tr><td>M2</td><td><a href="https://marketchameleon.com/Subscription">https://marketchameleon.com/Subscription</a></td><td>Premium $99 / 月, 成交文件 $2500 / 年份</td></tr>
+<tr><td>M3</td><td><a href="https://marketchameleon.com/Overview/NET/Earnings/Earnings-Dates">https://marketchameleon.com/Overview/NET/Earnings/Earnings-Dates</a></td><td>NET 下次财报为估计窗口 10-30 至 11-09, 公司未公布</td></tr>
+<tr><td>T1</td><td><a href="https://tastytrade.com/">https://tastytrade.com/</a></td><td>订单链跟踪 roll, Visual Risk Analysis, 回测</td></tr>
+<tr><td>T2</td><td><a href="https://tastytrade.com/learn/platforms-and-tools/research/backtest/">https://tastytrade.com/learn/platforms-and-tools/research/backtest/</a></td><td>10+ 年, delta / DTE 入场, 止盈 / 止损 / DTE 出场</td></tr>
+<tr><td>T3</td><td><a href="https://www.tastylive.com/concepts-strategies/implied-volatility-rank-percentile">https://www.tastylive.com/concepts-strategies/implied-volatility-rank-percentile</a></td><td>IVR / IVP 52 周定义, 高于 50 偏卖</td></tr>
+<tr><td>T4</td><td><a href="https://www.tastylive.com/concepts-strategies/probability-of-profit">https://www.tastylive.com/concepts-strategies/probability-of-profit</a></td><td>POP 定义</td></tr>
+<tr><td>A1</td><td><a href="https://optionalpha.com/">https://optionalpha.com/</a></td><td>bots, 回测, Trade Ideas 按 EV, 券商</td></tr>
+<tr><td>A2</td><td><a href="https://optionalpha.com/pricing">https://optionalpha.com/pricing</a></td><td>Pro $149 / 月 (年付 $99), 券商账户 $0</td></tr>
+<tr><td>A3</td><td><a href="https://docs.optionalpha.com/tools/bots/smartpricing">https://docs.optionalpha.com/tools/bots/smartpricing</a></td><td>中价起步, 档数与秒数, 末价 2 分钟, 无成交率</td></tr>
+<tr><td>A4</td><td><a href="https://docs.optionalpha.com/tools/backtesting.md">https://docs.optionalpha.com/tools/backtesting.md</a></td><td>0DTE / 次日策略回测, 交易日志</td></tr>
+<tr><td>S2</td><td><a href="https://spotgamma.com/pricing/">https://spotgamma.com/pricing/</a></td><td>Essential $99 / Alpha $299, 功能清单</td></tr>
+<tr><td>S3</td><td><a href="https://spotgamma.com/equity-hub/">https://spotgamma.com/equity-hub/</a></td><td>3500+ 票 dealer gamma / delta / OI, 1 年回看</td></tr>
+<tr><td>S4</td><td><a href="https://spotgamma.com/vanna/">https://spotgamma.com/vanna/</a></td><td>Charm Pressure (TRACE, 标普)</td></tr>
+<tr><td>U1</td><td><a href="https://unusualwhales.com/pricing">https://unusualwhales.com/pricing</a></td><td>$50 / $75 / $120, 实时 GEX</td></tr>
+<tr><td>U2</td><td><a href="https://api.unusualwhales.com/docs/llms.txt">https://api.unusualwhales.com/docs/llms.txt</a></td><td>端点路径 (iv-rank, term structure, greek-exposure, earnings, intraday)</td></tr>
+<tr><td>U3</td><td><a href="https://api.unusualwhales.com/docs">https://api.unusualwhales.com/docs</a></td><td>历史成交 $250 / 月</td></tr>
+<tr><td>Q1</td><td><a href="https://menthorq.com/">https://menthorq.com/</a></td><td>IV rank, VRP, skew, 期限结构, gamma 位, 0DTE</td></tr>
+<tr><td>Q2</td><td><a href="https://menthorq.com/pricing/">https://menthorq.com/pricing/</a></td><td>$129 / $349</td></tr>
+<tr><td>D1</td><td><a href="https://www.thetadata.net/pricing">https://www.thetadata.net/pricing</a></td><td>$40 / $80 / $160, 历史深度, NBBO</td></tr>
+<tr><td>D3</td><td><a href="https://datashop.cboe.com/">https://datashop.cboe.com/</a></td><td>Option EOD Summary (含 15:45 快照), Option Quotes 1 分钟, Option Trades</td></tr>
+<tr><td>D4</td><td><a href="https://datashop.cboe.com/livevol-pro">https://datashop.cboe.com/livevol-pro</a></td><td>2011 起成交明细, 财报事件分析, $420 / $350</td></tr>
+<tr><td>D5</td><td><a href="https://www.optionnetexplorer.com/">https://www.optionnetexplorer.com/</a></td><td>回测, 5 分钟历史数据</td></tr>
+<tr><td>B1</td><td><a href="https://www.ibkrguides.com/traderworkstation/order-types.htm">https://www.ibkrguides.com/traderworkstation/order-types.htm</a></td><td>Price Improvement Auction (BOX), Volatility Trading (VOL) 单型</td></tr>
+</tbody></table></main></body></html>
