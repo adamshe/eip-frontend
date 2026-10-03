@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Oracle AI 基建: 血亏概率与时间表 (2026-10-03)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><h1 id="oracle-ai-基建-血亏概率与时间表-2026-10-03">Oracle AI 基建: 血亏概率与时间表 (2026-10-03)</h1>
+<p>数据日 2026-10-02 收盘 (ORCL $142.30, 市值约 $431B, 现查 yfinance)。血亏 = 一块容量在整个寿命内的净现值低于投入 capex 的 -30%。T1 = SEC 文件 / 公司新闻稿; T2 = 三家以上独立来源或电话会转录; T3 = 一到两家来源; 估 = 本文推算。</p>
+<h2 id="结论">结论</h2>
+<ol>
+<li><strong>OpenAI 这块账最终血亏的概率约 20% (区间 12-29%)。</strong> 期望净现值仍为正, 约 +18% capex。分布是两头的: 要么赚, 要么血亏, 中间很少。</li>
+<li><strong>血亏要两件事同时发生。</strong> 一是 OpenAI 停付或大幅降价; 二是 GPU 租价进入能效均衡 (旧卡租价每年跌约 44%)。只发生第一件不够: 在今天的稀缺价格下, OpenAI 违约反而能以更高市价转租, 模型里这种情形净现值是正的。</li>
+<li><strong>单价是唯一能单独翻盘的变量。</strong> 若真实每 MW-年合同价只有 IREN-微软水平 ($9.7M), 不论 OpenAI 付不付, 血亏概率都是 60%。合同单价目前只有单一媒体来源。</li>
+<li><strong>最危险的窗口是 2027 下半年到 2029 (Oracle FY28-FY29)。</strong> OpenAI 付款从 FY28 起爬坡到每年 $30B 以上, 15-19 年的机房租约在 FY27 Q2 到 FY29 集中起租, OpenAI 价格战情景的现金在 2028 年见底, Amazon 的 $35B 认购承诺在 2028-12-31 前不投完就失效。第二次检验在 2031-2032 合同到期重新定价。租约尾巴拖到 2042-2046。</li>
+<li><strong>血亏不等于破产。</strong> 最坏路径 (FY29 停付 + 均衡价) 的名义缺口约 $66-96B, 对 $431B 市值、$125B 债务是重伤不是致命。传导链是: 评级跌出投资级, 再融资利率上升, 股权稀释。</li>
+<li><strong>股价已提前定价近端恐慌。</strong> 股价从 2025-09-10 的 $324.63 跌到 $142.30, 跌 56%。期权大资金没有押近端崩塌: 近月押反弹, 尾部保护放在 2028 年, 与模型的风险窗口一致。</li>
+</ol>
+<h2 id="1-口径与模型">1 口径与模型</h2>
+<p>单位是 1 MW IT 负载。Oracle 出 GPU 与网络设备 (capex), 机房向开发商租 15-19 年。OpenAI 按固定价照付; 停付或合同到期后, 这块容量按当年市场租价转租。市场租价每年按体制衰减, 转租毛利转负就停机。停机后机房租金继续付到租约结束, 一半面积能转租。所有 (违约率情景 x 价格体制 x 违约年份) 组合按概率逐一枚举, 不抽样。</p>
+<pre><code>python src/tools/econ_depreciation/econ_dep.py --contracts</code></pre>
+<table><thead><tr><th>参数</th><th>取值</th><th>依据</th><th>T 级</th></tr></thead><tbody>
+<tr><td>合同价 每 MW-年</td><td>13.3 (中) / 9.7 (低) / 19.4 (高), 权重 60 / 15 / 25</td><td>$300B / 5 年 / 4.5 GW; 4.5 GW 若为园区电力按 0.69 折 IT; 低档取 IREN-微软价</td><td>输入 T3, 推算估</td></tr>
+<tr><td>合同年限</td><td>5 年, FY28 起</td><td>WSJ; Oracle 8-K: 一份合同 FY28 起年收入超 $30B</td><td>T3 / T1</td></tr>
+<tr><td>GPU capex 每 MW</td><td>$28M</td><td>设备毛值增量 $21M/MW 与报表 capex $33.5M/MW 之间</td><td>T1 推算</td></tr>
+<tr><td>机房租金 每 MW-年</td><td>$2.0M, 租 17 年, 停机后转租一半</td><td>开发商造价 $12.5-18.2M/MW; 10-Q 租期 15-19 年</td><td>T1 / T2 / 估</td></tr>
+<tr><td>市场租价起点</td><td>$7.50 / GPU 小时 (约 $20.4M / MW-年)</td><td>B300 按需价</td><td>T3</td></tr>
+<tr><td>价格体制</td><td>稀缺年降 17% (权重 40%) / 均衡年降 44% (60%)</td><td>AWS p5 表价 2023-08 至 2026-09 年降 17%; 能效每年约 1.8 倍</td><td>T1 / T2</td></tr>
+<tr><td>电价 / 运维</td><td>$90.3/MWh, 负载 0.85; 运维占收入 12%</td><td>EIA 2026 工业电价</td><td>T1 / 估</td></tr>
+<tr><td>折现率</td><td>9%, capex 早一年投入</td><td>2056 票据收益率首破 8%</td><td>T2 / 估</td></tr>
+<tr><td>OpenAI 年违约率</td><td>1.5% / 5% / 12%, 权重 35 / 40 / 25</td><td>2026-2030 融资覆盖率 2.7x / 1.07x / 0.61x</td><td>估</td></tr>
+</tbody></table>
+<h2 id="2-模型结果">2 模型结果</h2>
+<table><thead><tr><th>合同</th><th>合同价 $M/MW-年</th><th>NPV &lt; 0</th><th>血亏</th><th>本金收不回</th><th>期望 NPV / capex</th></tr></thead><tbody>
+<tr><td>IREN -&gt; 微软 (校准对照, 违约率 1%)</td><td>9.7</td><td>60%</td><td>2%</td><td>3%</td><td>-3%</td></tr>
+<tr><td>Oracle -&gt; OpenAI, 4.5 GW = IT 负载</td><td>13.3</td><td>14%</td><td>12%</td><td>14%</td><td>+10%</td></tr>
+<tr><td>Oracle -&gt; OpenAI, 低价</td><td>9.7</td><td>94%</td><td>60%</td><td>60%</td><td>-26%</td></tr>
+<tr><td>Oracle -&gt; OpenAI, 4.5 GW = 园区电力</td><td>19.4</td><td>9%</td><td>6%</td><td>9%</td><td>+72%</td></tr>
+</tbody></table>
+<p>按单价权重 15 / 60 / 25 加总:</p>
+<table><thead><tr><th>违约与价格体制的关系</th><th>NPV &lt; 0</th><th>血亏</th><th>本金收不回</th><th>期望 NPV / capex</th></tr></thead><tbody>
+<tr><td>两者独立</td><td>25%</td><td>18%</td><td>20%</td><td>+20%</td></tr>
+<tr><td>两者相关 (价格战既压垮 OpenAI 又压低租价)</td><td>28%</td><td>20%</td><td>23%</td><td>+18%</td></tr>
+<tr><td>全部落在均衡体制</td><td>33%</td><td>29%</td><td>33%</td><td>+3%</td></tr>
+<tr><td>全部落在稀缺体制</td><td>13%</td><td>0%</td><td>0%</td><td>+46%</td></tr>
+</tbody></table>
+<p>相关情形是本报告的中心值。OpenAI 的价格战情景 (收入停在现速附近慢涨) 本身就是 token 价格崩、旧卡租价跟着崩的世界, 两件事不独立。</p>
+<p><strong>违约率 x 合同价 (血亏概率 / 期望 NPV):</strong></p>
+<table><thead><tr><th>年违约率</th><th>$6.7M</th><th>$9.7M</th><th>$13.3M</th><th>$19.4M</th></tr></thead><tbody>
+<tr><td>0%</td><td>100% / -60%</td><td>60% / -25%</td><td>0% / +17%</td><td>0% / +88%</td></tr>
+<tr><td>1.5%</td><td>98% / -59%</td><td>60% / -25%</td><td>4% / +15%</td><td>2% / +83%</td></tr>
+<tr><td>5%</td><td>93% / -56%</td><td>60% / -26%</td><td>11% / +11%</td><td>6% / +73%</td></tr>
+<tr><td>12%</td><td>84% / -51%</td><td>60% / -26%</td><td>24% / +3%</td><td>14% / +54%</td></tr>
+<tr><td>25%</td><td>73% / -42%</td><td>60% / -25%</td><td>41% / -5%</td><td>26% / +29%</td></tr>
+</tbody></table>
+<p>$6.7M 只是 FY28 首年 "超 $30B" 除以 4.5 GW 的爬坡年数字, 不是全期均价, 只作下界参照。</p>
+<p><strong>capex x 机房转租比例 (中心价 $13.3M, 血亏 / 期望 NPV):</strong></p>
+<table><thead><tr><th>capex $M/MW</th><th>转租 0</th><th>转租一半</th><th>全部转租</th></tr></thead><tbody>
+<tr><td>21 (客户自带硬件多)</td><td>12% / +31%</td><td>6% / +47%</td><td>0% / +63%</td></tr>
+<tr><td>28 (中心)</td><td>14% / -2%</td><td>12% / +10%</td><td>6% / +23%</td></tr>
+<tr><td>33.5 (报表 capex 口径)</td><td>14% / -18%</td><td>14% / -8%</td><td>12% / +2%</td></tr>
+</tbody></table>
+<p><strong>违约年份决定损失大小 (中心价, 净现值 / capex):</strong></p>
+<table><thead><tr><th>OpenAI 停付的年份</th><th>稀缺体制</th><th>均衡体制</th></tr></thead><tbody>
+<tr><td>FY28 (第 0 年, 从未付)</td><td>+56%</td><td>-40%</td></tr>
+<tr><td>FY29</td><td>+36%</td><td>-60%</td></tr>
+<tr><td>FY30</td><td>+27%</td><td>-55%</td></tr>
+<tr><td>FY31</td><td>+26%</td><td>-39%</td></tr>
+<tr><td>FY32</td><td>+29%</td><td>-18%</td></tr>
+<tr><td>付满 5 年</td><td>+36%</td><td>+4%</td></tr>
+</tbody></table>
+<p>两个读法:</p>
+<ul>
+<li>稀缺体制下违约是好事。合同价约为当时按需市价的 65%, 收回容量按市价转租反而多赚。这正是 Oracle 电话会说 4 年以上旧卡续约溢价 20% 的机制 (T2)。</li>
+<li>均衡体制下, 只有 FY28-FY31 的停付才构成血亏, FY29-FY30 最重。付满 5 年也只剩 +4%: 回本靠合同期, 租约尾巴吃掉大部分利润。</li>
+</ul>
+<h2 id="3-交易对手-openai-付得起吗">3 交易对手: OpenAI 付得起吗</h2>
+<p>2026-2030 OpenAI 算力与基础设施账单约 $856B (公司 7 月材料, T3)。</p>
+<table><thead><tr><th>情景 (权重)</th><th>2030 收入</th><th>累计缺口</th><th>可得融资覆盖率 (中值 / 低值)</th><th>对应年违约率</th></tr></thead><tbody>
+<tr><td>A 现速外推 (35%)</td><td>$350B</td><td>$123B</td><td>2.7x / 0.79x</td><td>1.5%</td></tr>
+<tr><td>B 增速逐年折半 (40%)</td><td>$260B</td><td>$317B</td><td>1.07x / 0.31x</td><td>5%</td></tr>
+<tr><td>C 价格战 (25%)</td><td>$110B</td><td>$558B</td><td>0.61x / 0.17x</td><td>12%</td></tr>
+</tbody></table>
+<p>可得融资中值 $338B, 由现金、私募过桥、IPO、增发、债务和供应商出资组成。IPO 现实可募 $50-100B, 参照沙特阿美 $29.4B、阿里巴巴 $25B、SpaceX $86.25B (T1)。旁证: NVIDIA 为 OpenAI 租约做的残值担保写明 "OpenAI 取得满意信用评级即终止" (NVDA 8-K, T1), 供应商自己把 OpenAI 当未达投资级的信用。</p>
+<p>模型 (常数违约率) 下 OpenAI 停付的累计概率:</p>
+<table><thead><tr><th>截至</th><th>累计概率</th></tr></thead><tbody>
+<tr><td>FY28 末 (2028-05)</td><td>5.5%</td></tr>
+<tr><td>FY29 末 (2029-05)</td><td>10.6%</td></tr>
+<tr><td>FY30 末</td><td>15.2%</td></tr>
+<tr><td>FY31 末</td><td>19.5%</td></tr>
+<tr><td>FY32 末</td><td>23.4%</td></tr>
+</tbody></table>
+<p>常数违约率把风险平摊在 5 年。结构上应前移: C 情景现金 2028 年见底, Amazon $35B 认购 2028-12-31 失效, 新租约同时起租。按结构判断, FY28-FY29 约占全部停付概率的 55-65% (估), 模型给 45%。失败形态更可能是展期、降量、重谈价格, 而不是一次性停付; Oracle 已对新墨西哥 Jupiter 园区发出不可抗力通知 (2026-09-23, T2)。</p>
+<h2 id="4-时间表">4 时间表</h2>
+<table><thead><tr><th>阶段</th><th>时间</th><th>发生什么</th><th>血亏能否落地</th></tr></thead><tbody>
+<tr><td>一 信用信号期</td><td>现在至 2027 上半年</td><td>CDS 纪录 227.5bp (09-24, T3); S&amp;P BBB- 距投机级一档 (07-09, T2); 2056 票据收益率破 8%; 开发商贷款约 89-91 美分 (T3); Abilene 扩建取消; Jupiter 不可抗力。公司 2026 日历年不再发债, FY27 计划融资约 $40B (T1)</td><td>不能。OpenAI 合同 FY28 才开始付款, 损失还没有载体</td></tr>
+<tr><td>二 交易对手检验</td><td>2027 下半年至 2029</td><td>OpenAI 付款爬坡; $288B 未起租租约在 FY27 Q2 至 FY29 起租 (T1), 满租后每年租金约 $15-19B (估); OpenAI C 情景 2028 现金见底; Amazon $35B 截止 2028-12-31</td><td>主窗口。均衡体制下在此期间停付, 净现值 -40% 到 -60%</td></tr>
+<tr><td>三 到期重定价</td><td>2031-2032</td><td>5 年合同到期, 容量按当时市价续租或转租</td><td>均衡体制下付满也只剩 +4%; 若此前已重谈降价, 在此确认</td></tr>
+<tr><td>四 租约尾巴</td><td>2033-2046</td><td>机房租金继续, 转租比例决定失血速度</td><td>损失慢慢兑现, 不是一次性事件</td></tr>
+</tbody></table>
+<p>会计上的确认会更晚。服务器折旧年限 6 年 (10-Q, T1), 减值只在违约或重谈之后才会出现。信用市场和股价会先于报表反映。</p>
+<h2 id="5-期权布局-09-28-至-10-02-现价-133---142">5 期权布局 (09-28 至 10-02, 现价 133 -&gt; 142)</h2>
+<p>先读布局:</p>
+<ul>
+<li><strong>近月押反弹。</strong> 09-29 11:47:50 场内多腿包, 把 10-02 到期的 C150 / C155 (卖出约 5.3 万张) 卷到 10-16 的 C150 / C155 / C160 (约 7.1 万张, C155 与 C160 吃卖价)。净付权利金约 $11M, 目标 150-160, 期限两周半。10-16 前有无公司事件未核。</li>
+<li><strong>远期凸性做多。</strong> 2027-12 C180 两天在卖价买入约 6,400 张, 多腿切片, 买方权利金 $12.6M。10-02 场内风险逆转: 卖开 2028-12 P210 500 张, 买 2028-12 C220 500 张, 是合成多头。</li>
+<li><strong>尾部保护放在 2028。</strong> 2028-12 P125 场内买 2,400 张, 同时卖 2028-12 P120 2,000 张、买 2028-01 P140 1,000 张, 是 2028 年保护的换挡。10-02 又有 2028-01 P140 对敲买 1,020 张、P150 对敲卖 1,250 张。</li>
+<li><strong>挂股票的组合不计方向。</strong> TLAT / TLFT / TLET 都是备兑或套利结构。近月 put 买入只有 $1-2M 级别, 没人花大钱买近端崩塌。</li>
+</ul>
+<p>推出意图: 大资金在做哑铃。近端押反弹到 150-160, 远端押 2027-2028 的上行凸性, 把尾部保护停在 2028 年。</p>
+<p>再对照公开看法: 头条是 CDS 纪录、评级下调、不可抗力、"$18B 债务问题", 看空叙事是共识。差异在时间: 共识在定价近端信用事件, 布局和模型都指向 2027 下半年到 2028 年。</p>
+<h2 id="6-公司层面-重伤还是致命">6 公司层面: 重伤还是致命</h2>
+<table><thead><tr><th>项</th><th>数值</th><th>T 级</th></tr></thead><tbody>
+<tr><td>OpenAI 这块账 Oracle 自出 capex</td><td>$87B (园区口径 3.1 GW) 到 $126B (IT 口径 4.5 GW); 客户预付与自带硬件 $75B 覆盖多家大客户, OpenAI 占比未披露, 故为上限</td><td>估</td></tr>
+<tr><td>最坏路径 (FY29 停付 + 均衡)</td><td>名义现金只收回 capex 的 24%, 缺口 $66-96B; 现值损失 60%, 约 $52-76B</td><td>估</td></tr>
+<tr><td>中心期望</td><td>现值 +18%, 约 +$16-23B</td><td>估</td></tr>
+<tr><td>债务 / 现金</td><td>票据及借款 $125.3B; 现金 $36.4B</td><td>T1</td></tr>
+<tr><td>自由现金流</td><td>FY26 -$23.7B; Q1 FY27 -$5.4B, 其中含客户预付 $11.4B</td><td>T1</td></tr>
+<tr><td>年化利息</td><td>约 $5.7B (Q1 $1.43B)</td><td>T1 推算</td></tr>
+<tr><td>评级</td><td>S&amp;P BBB- 稳定; Moody's Baa2 负面</td><td>T2 / T3</td></tr>
+</tbody></table>
+<p>判断: 最坏路径的现值损失约为市值的 12-18%。单看这块账不致命, 致命的是叠加。新租约起租后, 评级机构会把租约现值并入调整后债务, 杠杆抬高。若再遇 OpenAI 降量, 两家评级跌入投机级, 只能持有投资级债券的基金被迫卖出, 再融资成本跳升, 公司只能靠增发股票补洞。这条链的启动时间同样落在阶段二。</p>
+<h2 id="7-反方检验">7 反方检验</h2>
+<ul>
+<li><strong>稀缺能持续吗 (看多方)。</strong> Q1 GPU 利用率 97.9%, 旧卡续约溢价 20% (T2)。若稀缺贯穿 2032, 血亏概率为 0%。权重不提高: 这是当前体制的证据, 不能外推到合同期满之后。AWS p5 表价三年年降 17% (T1) 说明稀缺期价格也在跌。</li>
+<li><strong>客户自带硬件 (看多方)。</strong> $75B 预付与自带硬件把 GPU 风险转给客户。若 Oracle 实际 capex 只有 $21M/MW, 血亏概率降到 6%。OpenAI 合同里自带硬件的比例未披露, 中心值不动。</li>
+<li><strong>重谈比违约更可能 (看空方)。</strong> 若 OpenAI 从头压价 30%, IT 口径下等于每 MW-年 $9.3M, 血亏概率 60%; 园区口径下仍为 0%。重谈与停付同样危险, 取决于 4.5 GW 的口径。</li>
+<li><strong>违约与价格战相关 (看空方)。</strong> 已纳入中心值, 血亏概率从 18% 升到 20%。</li>
+<li><strong>历史同型。</strong> 1999-2002 光纤: 长约租给初创运营商, 客户倒闭与带宽价格崩溃同时发生, Global Crossing 2002 年破产。2000 年 Lucent / Nortel 的供应商融资循环: 设备商借钱给客户买自己的设备。2008 年干散货: 波罗的海干散货指数从 5 月约 11,800 点跌到 12 月约 660 点, 长租约对手违约与运价崩溃同步。共同点是交易对手违约和资产价格崩溃同时到来。Oracle 的不同点是有非 AI 的现金业务托底, 不是初创。</li>
+</ul>
+<h2 id="8-观察信号">8 观察信号</h2>
+<table><thead><tr><th>信号</th><th>门槛</th><th>改变哪个参数</th></tr></thead><tbody>
+<tr><td>OpenAI 公开递交 S-1</td><td>2027 上半年翻为公开文件</td><td>违约率向 A 档 (1.5%) 移</td></tr>
+<tr><td>OpenAI IPO 推迟</td><td>拖过 2027 年底, 或 $30B 过桥谈不成</td><td>违约率向 B / C 档移</td></tr>
+<tr><td>Anthropic IPO</td><td>2026-11 目标; 定价与认购</td><td>AI 实验室股权融资窗口是否开着, 影响 OpenAI 路径</td></tr>
+<tr><td>Oracle 续约价格</td><td>电话会的续约溢价由正转负</td><td>价格体制向均衡移, 最关键</td></tr>
+<tr><td>GPU 租价</td><td>B200 / B300 按需价年降幅超过 30%</td><td>价格体制向均衡移</td></tr>
+<tr><td>合同修订</td><td>8-K 披露 OpenAI 合同修订、更多园区不可抗力</td><td>重谈路径启动</td></tr>
+<tr><td>信用</td><td>CDS 超 300bp; 2056 票据超 9%; S&amp;P 降到 BB+</td><td>公司层传导链启动</td></tr>
+<tr><td>客户预付</td><td>每季含融资成分的预付继续增长 (Q1 $11.4B)</td><td>Oracle capex 风险下降</td></tr>
+<tr><td>Oracle Q2 FY27 财报</td><td>预计 12 月中旬 (日期未核)</td><td>RPO 构成、capex、FCF、预付</td></tr>
+</tbody></table>
+<h2 id="9-什么会改变结论">9 什么会改变结论</h2>
+<ul>
+<li>Oracle 或 OpenAI 披露合同单价或 4.5 GW 口径。单价是唯一能单独把血亏概率推到 60% 的变量。</li>
+<li>合同终止与违约补偿条款披露。当前假设停付后 Oracle 拿回容量、没有补偿。</li>
+<li>价格体制的实证。合同期满前若出现大规模旧卡折价续约, 均衡权重应从 60% 往上调。</li>
+</ul>
+<h2 id="10-判断与行动">10 判断与行动</h2>
+<p><strong>[WATCH] 近端不追空; 风险窗口在 2027 下半年至 2029。</strong></p>
+<ul>
+<li>看空的不对称点在后面。OpenAI IPO 拖过 2027、续约溢价转负、S&amp;P 降到投机级, 三者出现两个时, 用 2028 年到期的 put 表达。</li>
+<li>看多的不对称点也在后面。OpenAI 公开递交 S-1 且 Anthropic IPO 定价顺利, 违约率落到 A 档, 期望净现值 +26%, 远期 call 有凸性。</li>
+<li>现价 $142.30 两边都没有足够的确认, 不动仓。</li>
+<li>原看空清单的理由 "$300B 叙事无物理进度" 与事实不符: Q1 FY27 交付 850 MW, 超过 30 万张 GPU (8-K, T1)。看空的锚应改为 "交易对手 x 价格体制" 双条件。</li>
+</ul>
+<h2 id="11-未核清单">11 未核清单</h2>
+<ol>
+<li>OpenAI 合同 $300B / 5 年 / 4.5 GW 只有 WSJ 单源; 4.5 GW 是园区电力还是 IT 负载未明, 单价因此有 3 倍区间。</li>
+<li>合同终止、违约补偿、预付比例、自带硬件比例均未披露。</li>
+<li>$288B 未起租租约对应的 GW 和每 MW 租金未披露; 机房租金 $2.0M/MW-年为推算。</li>
+<li>OpenAI 违约率映射为判断, 未用评级历史违约率校准; 两家招股书为保密递交, 账单与现金数字是媒体转述。</li>
+<li>10-16 到期 call 包对应的催化事件、Q2 FY27 财报日期未核。</li>
+<li>模型把停付当整年全停, 对重谈形态偏保守, 可视为损失上界; 未建模政府介入、合同转让给第三方等路径。</li>
+</ol>
+<hr>
+<pre><code>signal:
+  le_findings_invoked: 3 -- 3 条可引用的对手逻辑硬伤; RPO 当现金 / 旧卡溢价外推 / 示例毛利
+  lrc_links: 3 -- 校验密度正常
+  fact_check_count: 14 -- 地基硬, 关键数字全核实; 合同单价仍是 T3
+  adversary_pushback: 5 -- 反脆弱合格, 结论扛过反例仍站立
+  cfr_invoked: false -- 无数值均衡锚 (非 sealed-bid/谈判场景属正常)
+  alpha_level: B -- 战术级错配, 只配短周期+紧止损; 时间错配
+  player_classes_inferred: 5 -- 参与者覆盖全
+  smart_classes_inferred: 2 -- 聪明钱行为有覆盖, 推断非平庸</code></pre></main></body></html>
