@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>日内统计做周期权收租 vet (2026-10-03)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><h1 id="日内统计做周期权收租-vet-2026-10-03">日内统计做周期权收租 vet (2026-10-03)</h1>
+<p>数据: yfinance 取于 2026-10-03 (截至 2026-10-02 收盘, NET 349.07); gex_2026-10-02.json NET ATM IV 51.2% / RV20 59.7%; Barchart NET flow CSV 26 天 (08-17 至 10-02)。原型脚本在 C:\Users\adams\.claude\jobs\f67d58ba\tmp\ (fetch.py / stats.py / stats2.py / stats3.py / pos.py), 没有改 repo 代码与配置。</p>
+<h2 id="0-结论">0. 结论</h2>
+<p>值得做, 但不是 "下 10-20 天分时数据做 TA"。三条机制决定它该长什么样:</p>
+<ol>
+<li>选 strike 靠的是触及概率, 它只取决于周内最高 / 最低价, 日线 High / Low 已经精确给出, 而且日线有 5 年 (252 个独立周); 5 分钟线最多 60 天 = 12 个独立周。10-20 天 = 2-4 个独立周, 触及概率的 95% 区间宽到 5%-70%, 不能用。</li>
+<li>日内价格没有可交易的漂移: 730 个交易日里, 不管 10:30 还是 14:30 下单, 按当时涨跌分组后到收盘的期望变动都在 +/-0.1% 以内 (标准误 0.03-0.10%)。折到 C375 10-16 x50 (delta 约 0.26) 上最多约 $450, 而且不显著。日内时点的价值不在价格, 在三样东西: 点差、IV 的日内衰减、当天方向几点能定。</li>
+<li>收租真正的边是 IV 对实现波动 (方差溢价), 不是 TA。NET 10-09 周 straddle 中价 = 现价 5.44%, 过去 12 周 / 52 周 / 5 年的周五到周五平均绝对涨跌是 5.59% / 6.30% / 7.03%, 比值 0.97 / 0.86 / 0.77; ATM IV 51.2 &lt; RV20 59.7。按这个尺子, 现在卖 NET 周权没有拿到方差溢价。</li>
+</ol>
+<p>所以短期层的正确定位是 "定价 + 执行层" (租金贵不贵 / 各 strike 被碰概率 / 几点挂单), 不是预测层。方向只能来自长期层和鲸群流。</p>
+<h2 id="1-数据实测-2026-10-03-现场拉取">1. 数据实测 (2026-10-03 现场拉取)</h2>
+<table><thead><tr><th>粒度</th><th>NET 实际拿到</th><th>QQQ</th><th>备注</th></tr></thead><tbody>
+<tr><td>1m</td><td>8 天 / 请求, 3080 行 09-23..10-02</td><td>3120 行</td><td>只能取最近 30 天内; 08-14 起的请求被拒</td></tr>
+<tr><td>2m</td><td>请求 60d 只回 30 天, 5846 行</td><td>5850 行</td><td></td></tr>
+<tr><td>5m / 15m / 30m / 90m</td><td>60 天, 5m 4680 行 07-10..10-02</td><td>同</td><td>61d 被拒; 5m 合成日高低与日线 100% 一致</td></tr>
+<tr><td>60m</td><td>730 个交易日, 5072 行 2023-11-03..2026-10-02</td><td>5073 行</td><td>731d 被拒; 日高低一致 99.7% / 99.3%; 60m 量合计 = 日线量 0.88 (不含收盘竞价)</td></tr>
+<tr><td>1d</td><td>全部, 1773 行 2019-09-13 起</td><td>6935 行 1999 起</td><td></td></tr>
+<tr><td>期权链日内历史</td><td>无</td><td>无</td><td>yfinance 只有当前快照; 周末取到的是周五收盘报价, 点差偏宽</td></tr>
+<tr><td>Barchart flow</td><td>每天 premium &gt;= $5k 前 200 笔, 带 bid / ask / IV / 时间</td><td></td><td>唯一免费的 "日内 IV + 点差" 来源, 有大单选择偏差; NET 已存 26 天</td></tr>
+</tbody></table>
+<h2 id="2-统计结果">2. 统计结果</h2>
+<h3 id="2-1-日内高低点时刻-对照-同日内波动形状的随机游走">2.1 日内高低点时刻 (对照: 同日内波动形状的随机游走)</h3>
+<p>随机游走本身就把高低点堆在开盘和收盘 (反正弦律), U 形本身不是证据, 必须对零假设。</p>
+<table><thead><tr><th>时段</th><th>NET 5m 60 天 高 / 低 (零假设)</th><th>NET 60m 721 天 高 / 低 (零假设)</th><th>QQQ 60m 721 天 低 (零假设)</th></tr></thead><tbody>
+<tr><td>开盘段</td><td>46.7 / 48.3 (46.8 / 45.5)</td><td>47.4 / 58.0 (46.8 / 47.1)</td><td>46.0 (34.9)</td></tr>
+<tr><td>上午</td><td>15.0 / 20.0 (18.5 / 18.7)</td><td>12.3 / 9.8 (10.4 / 10.2)</td><td>11.5 (10.8)</td></tr>
+<tr><td>午间</td><td>15.0 / 11.7 (13.0 / 13.2)</td><td>16.6 / 14.8 (20.1 / 19.8)</td><td>22.3 (26.3)</td></tr>
+<tr><td>下午</td><td>8.3 / 5.0 (5.1 / 5.3)</td><td>9.6 / 5.7 (7.6 / 7.6)</td><td>7.5 (8.8)</td></tr>
+<tr><td>尾盘</td><td>15.0 / 15.0 (16.7 / 17.2)</td><td>14.0 / 11.7 (15.1 / 15.3)</td><td>12.6 (19.2)</td></tr>
+<tr><td>卡方 p</td><td>高 0.75 / 低 0.98</td><td>高 0.026 / 低 &lt;0.001</td><td>低 &lt;0.001</td></tr>
+</tbody></table>
+<p>(5m 分段 9:30-10:00 / 10:00-11:30 / 11:30-14:00 / 14:00-15:00 / 15:00-16:00; 60m 分段 9:30-10:30 / 10:30-11:30 / 11:30-14:30 / 14:30-15:30 / 15:30-16:00)</p>
+<p>60 天的 5m 数据与随机游走分不开。721 天才看到一个真结构: 当天最低点落在第一小时 58% vs 47%。但它翻译不成下单边, 见 2.2。</p>
+<h3 id="2-2-下单时点-价格-方向确定度-点差-iv">2.2 下单时点: 价格 / 方向确定度 / 点差 / IV</h3>
+<table><thead><tr><th>决策时点 T</th><th>当时涨: 收盘相对 T % (标准误) n</th><th>当时跌: 收盘相对 T % (标准误) n</th><th>当时方向 = 收盘方向</th></tr></thead><tbody>
+<tr><td>10:30</td><td>+0.09 (0.10) 384</td><td>+0.09 (0.10) 336</td><td>78%</td></tr>
+<tr><td>11:30</td><td>+0.08 (0.08) 394</td><td>-0.01 (0.09) 327</td><td>84%</td></tr>
+<tr><td>12:30</td><td>-0.04 (0.07) 397</td><td>+0.08 (0.08) 323</td><td>85%</td></tr>
+<tr><td>13:30</td><td>+0.03 (0.06) 393</td><td>+0.01 (0.06) 326</td><td>89%</td></tr>
+<tr><td>14:30</td><td>-0.03 (0.04) 397</td><td>-0.00 (0.05) 324</td><td>91%</td></tr>
+<tr><td>15:30</td><td>-0.02 (0.03) 390</td><td>+0.02 (0.03) 330</td><td>94%</td></tr>
+</tbody></table>
+<p>(NET 60m 721 天; QQQ 同形, 方向一致率 78% -&gt; 93%)</p>
+<table><thead><tr><th>时段 (Barchart NET 1-30 DTE 成交, n=1318, 26 天)</th><th>中位相对点差</th><th>中位绝对点差</th></tr></thead><tbody>
+<tr><td>9:30-10:00</td><td>17.7%</td><td>$1.15</td></tr>
+<tr><td>10:00-11:30</td><td>10.9%</td><td>$0.80</td></tr>
+<tr><td>11:30-14:00</td><td>12.2%</td><td>$0.75</td></tr>
+<tr><td>14:00-15:00</td><td>12.5%</td><td>$0.73</td></tr>
+<tr><td>15:00-16:00</td><td>10.5%</td><td>$0.55</td></tr>
+</tbody></table>
+<p>日内 IV (同一合约同一天, 9:30-10:30 第一笔 vs 14:00-16:00 最后一笔): 8-45 DTE 中位 -2.27 点, 80% 为负 (n=15); 1-7 DTE 中位 -8.42 点 (n=17), 但这里大部分是 vendor 按整数 DTE 算 IV 的时间假象 (DTE 1 时假象上限约 -7.4 点, DTE 7 时约 -1.0 点)。8-45 DTE 的 -2 点超出假象上限, 暂定为真的早盘 IV 溢价, 样本太小。</p>
+<p>spot-vol (25 天, 近 ATM 短期成交的日中位 IV): 日 IV 变化与日涨跌相关 +0.41; 涨日 IV +1.65 点, 跌日 -1.38 点; 近 ATM put 减 call IV 涨日 +2.16 / 跌日 +1.38。当前 regime 里 "跌日 IV 与 put skew 抬头" 对 NET 不成立, "涨日 call 最厚" 成立。单一涨腿 regime, 暂定。</p>
+<p>读法: 14:30-15:45 规则在价格上无优劣, 它的真实收益是方向确定度 78% -&gt; 91% 加最窄点差, 保留。9:30-10:00 禁区: 点差是全天 1.6-2 倍, 证实。早盘 IV 溢价若再积 60 天仍成立, vega 重的单 (两周 ATM) 可移到 10:00-11:30: 对 C375 10-16 (vega 约 0.22 / 点) 2 点 = 约 $0.44 / 股, x50 张约 $2,200, 与点差差额同量级。</p>
+<h3 id="2-3-10-30-推全天-x4-net_rent_system-第-2-节-审定备注第-5-条标-adam-数据-未核">2.3 "10:30 推全天 x4" (NET_rent_system 第 2 节, 审定备注第 5 条标 [Adam 数据] 未核)</h3>
+<table><thead><tr><th>项</th><th>NET (729 天)</th><th>QQQ</th></tr></thead><tbody>
+<tr><td>全天量 / 第一小时量 中位 (四分位)</td><td>5.05 (4.10-6.30); 最近 60 天 5.08; 用 60m 合计作全天约 4.4</td><td>4.18</td></tr>
+<tr><td>第一小时量比预测全天量比三档 (&lt;0.8 / 0.8-1.3 / &gt;1.3) 准确率</td><td>69%, log 相关 0.84</td><td>70%, 0.74</td></tr>
+<tr><td>高档 / 低档精确率</td><td>0.66 / 0.70; 高低两档互相错判 6 次</td><td>0.57 / 0.60</td></tr>
+<tr><td>最近 60 天第一小时量 20 / 50 / 80 分位</td><td>0.43 / 0.61 / 0.96M</td><td></td></tr>
+</tbody></table>
+<p>规则方向成立 (10:30 能判, 极端不会判反), 但倍数是 x5 不是 x4, 绝对门槛 0.6 / 0.9 / 1.1 / 1.6M 已随 regime 漂移, 中位日正好落在 "缩量" 边上。应改成比值门 (第一小时量 / 前 20 天第一小时均量)。</p>
+<h3 id="2-4-strike-选择-周触及概率-日线-以入场日-rv20-为单位">2.4 strike 选择: 周触及概率 (日线, 以入场日 RV20 为单位)</h3>
+<table><thead><tr><th>k (sigma)</th><th>NET 5 年 上触 / 下触 (n=256 周)</th><th>剔财报</th><th>随机游走反射公式 2(1-N(k))</th><th>QQQ 5 年 上 / 下</th></tr></thead><tbody>
+<tr><td>0.5</td><td>59.4 / 53.5</td><td>56.5 / 53.6</td><td>61.7</td><td>64.1 / 57.4</td></tr>
+<tr><td>0.75</td><td>47.3 / 41.4</td><td>45.1 / 41.4</td><td>45.3</td><td>44.1 / 43.4</td></tr>
+<tr><td>1.0</td><td>33.2 / 28.1</td><td>30.8 / 27.4</td><td>31.7</td><td>29.3 / 28.9</td></tr>
+<tr><td>1.5</td><td>18.4 / 14.5</td><td>16.5 / 13.9</td><td>13.4</td><td>14.1 / 11.7</td></tr>
+<tr><td>2.0</td><td>4.7 / 5.1</td><td>3.0 / 3.8</td><td>4.6</td><td>4.7 / 4.7</td></tr>
+</tbody></table>
+<table><thead><tr><th>NET 1 sigma 上触, 按样本深度</th><th>n 周</th><th>估计 [95% 区间]</th></tr></thead><tbody>
+<tr><td>最近 4 周 (20 天)</td><td>4</td><td>50% [15, 85]</td></tr>
+<tr><td>最近 12 周 (60 天)</td><td>12</td><td>50% [25, 75]</td></tr>
+<tr><td>最近 52 周</td><td>52</td><td>36.5% [25, 50]</td></tr>
+<tr><td>最近 150 周</td><td>150</td><td>36.7% [29, 45]</td></tr>
+<tr><td>5 年</td><td>256</td><td>33.2% [28, 39]</td></tr>
+</tbody></table>
+<p>经验触及率与反射公式差在 5 点以内: 形状不是边, 波动率估计才是。3 年牛市里 NET 1 sigma 上触 36.5% vs 下触 26.3%, 漂移让 call 侧多被碰约 10 点, call 卖方要按 regime 打折。</p>
+<p>当天涨跌规则 (NET 3 年每日入场, 剔财报, 次 5 日 1 sigma 触及): 全部 上 30.2% / 下 27.5%; 涨日后 30.0% / 27.8%; 跌日后 30.4% / 27.0%。当天方向对下周路径零信息, "跌日卖 put / 涨日卖 call" 只能靠权利金那条腿 (IV / skew) 成立。大涨 (&gt; +1 sd) 后上触 24.7% / 下触 33.3% 有均值回归迹象, 但只有约 18 个独立样本。</p>
+<h3 id="2-5-日内看不见的部分">2.5 日内看不见的部分</h3>
+<table><thead><tr><th>项</th><th>NET</th><th>QQQ</th></tr></thead><tbody>
+<tr><td>隔夜方差占比 (3 年)</td><td>35.2% 含财报 / 26.0% 剔财报 / 最近 60 天 25.3%</td><td>38.8% / 最近 60 天 55.8%</td></tr>
+<tr><td>高开 &gt;=1% 当天回补 / 低开 &lt;=-1% 当天回补</td><td>44% (n=162) / 52% (n=132)</td><td>20% (64) / 20% (56)</td></tr>
+<tr><td>月 opex 周五 13:30-16:00 波动 / 周二至周四</td><td>0.99 (n=33, p=0.56)</td><td>0.69 (n=33, p=0.16)</td></tr>
+</tbody></table>
+<p>周权跨 4 个隔夜加一个周末, 这部分任何日内 TA 都看不到。NET 没有可用的到期 pin 效应; 按 OI 的 pin 要等 gex_&lt;date&gt;.json 攒样本 (现 9 份)。缺口回补用日线即可。</p>
+<h2 id="3-样本量与有效性">3. 样本量与有效性</h2>
+<table><thead><tr><th>窗口</th><th>独立周数</th><th>p=0.2 时 95% 区间</th></tr></thead><tbody>
+<tr><td>10 天</td><td>2</td><td>[0, 66]</td></tr>
+<tr><td>20 天</td><td>4</td><td>[5, 70]</td></tr>
+<tr><td>60 天 (5m 上限)</td><td>12</td><td>[5, 45]</td></tr>
+<tr><td>1 年</td><td>50</td><td>[11, 33]</td></tr>
+<tr><td>730 交易日 (60m 上限)</td><td>146</td><td>[14, 27]</td></tr>
+<tr><td>5 年日线</td><td>252</td><td>[15, 25]</td></tr>
+</tbody></table>
+<p>触及概率 +/-10 点要 62 周, +/-5 点要 246 周, 只有日线够深。跨 regime 用 sigma 单位 (5 年与 3 年表一致); 财报窗单列; 本 vet 做了约 20 个分桶检验, 单个 p&lt;0.05 要样本外复核才能写进规则; NET 与 QQQ 都是幸存者, 牛市漂移抬高上触。</p>
+<h2 id="4-对当前持仓-这层输出会怎样改决策">4. 对当前持仓 (这层输出会怎样改决策)</h2>
+<table><thead><tr><th>持仓</th><th>距离 (log) / 剩余交易日</th><th>盘中触及: IV 反射公式 / 经验 (RV20 单位)</th><th>到期收在行权价外 (经验)</th></tr></thead><tbody>
+<tr><td>C365 10-09 x1</td><td>+4.46% / 5</td><td>54% / 58% [51, 64]</td><td>31%</td></tr>
+<tr><td>C375 10-16 x50</td><td>+7.17% / 10</td><td>48% / 56% [48, 65]</td><td>30%</td></tr>
+<tr><td>规则 6 触发 (10-14 前收盘 &gt;= 365)</td><td>+4.46% / 8</td><td>盘中 63% / 68%; 收盘口径 56%</td><td></td></tr>
+<tr><td>P270 11-20 x4 (跨 10-29 财报)</td><td>-25.7% / 35</td><td>18% / 26% [15, 43]; 含财报窗 34% (19 个独立)</td><td>10%</td></tr>
+</tbody></table>
+<p>这些是无条件概率, 没有用 gamma 钉住 (PINNED, call 墙 360 / 380) 与鲸群流做条件化, 那是现有工具的职责。决策含义:</p>
+<ul>
+<li>strike / 展期: 规则 6 有过半概率 (收盘口径 56%) 在 10-16 前触发, roll 组合单应提前定好价位与限价。</li>
+<li>执行: C375 周五收盘报价 4.05 / 6.50; 盘中中位点差 $0.55-0.80; x50 张吃半个点差 = $1,400-2,900, 是日内价格时点最大可能值 (约 $450) 的 3-6 倍。挂中价, 避开 9:30-10:00。</li>
+<li>卖不卖: IV / 实现 &lt; 1 (现在) 时新卖周权没有统计边, 只剩方向判断; 比值 &gt; 1.1 才算 "租金贵"。</li>
+<li>covered call doctrine 审计第 5 条 "exercise probability estimate" 目前无工具出数, 这层直接补上 (只出数, 不改 $50 门与 strike 深度规则)。</li>
+</ul>
+<h2 id="5-最小方案">5. 最小方案</h2>
+<ul>
+<li>位置: src/tools/stock_character/rent_stats.py (新文件, 同目录, 不动 stock_character.py 现有函数)。读 yfinance 1d (5 年) + 60m (730 天) + 当前链前两个周到期 + Barchart flow CSV + positions.yaml (借读)。</li>
+<li>输出: var/output/stock_character/rent/&lt;T&gt;_rent.json + .md: 触及表 (k 0.5-2, 5 / 10 天, Wilson 区间, 财报分列) / IV-实现表 (周 straddle% 对 12 周 / 52 周实现, ATM IV 对 RV20) / 持仓触及与规则 6 触发概率 / 第一小时量比 / 执行窗 (分时段点差 + 早晚 IV 差, 样本累计)。</li>
+<li>接线: config/investment_monitor.yaml 在 stock_character 之后加一步 (每日, 约 10 秒 / 票); daily_brief 每个持仓加一行 "收租统计"。不进 dashboard 判定。</li>
+<li>测试: tests/test_rent_stats.py, 合成 GBM 路径触及率对 2(1-N(k)) 误差 &lt; 3 点、Wilson 区间、量比倍数, 无网络 fixture; README 登记 tool 块 (test_readme_tools 强制)。</li>
+<li>工作量: 1.5-2 天。</li>
+<li>不做: 1m / 5m 缓存、日内高低点时刻 TA、开盘区间突破、pin。实测无边或不改决策。</li>
+<li>待 Adam 裁的 Law 文字 (我不改): 第 2 节 "10:30 推全天 x4" -&gt; x5 加比值门; 第 4 节 "跌日 IV 与 put skew 抬头" 在当前 regime 对 NET 不成立 (暂定, n=25)。</li>
+</ul>
+<h2 id="6-回答-短期-ta-长期战略">6. 回答 "短期 TA + 长期战略"</h2>
+<p>短期层能知道: 风险的尺子 (波动率) 和市场给它的价格 (IV) 是否一致; 给定尺子后各 strike 被碰的概率; 交易成本 (点差 / 早盘 IV); 当天方向几点基本定了 (14:30 时 91%)。</p>
+<p>短期层不能知道: 下周方向 (当天涨跌对下周触及率零信息); 隔夜与财报跳空 (NET 方差的 26-35%); regime 切换与尾部。10-20 天的数据连触及概率都估不出。</p>
+<p>分工因此是: 长期层 + 鲸群流给方向和 "哪一边可以卖"; 短期层给 "这个价卖值不值, 卖在哪个 strike, 几点挂单"。把短期层当预测 TA, 等于用 12 个样本给 50 张 call 定价。</p></main></body></html>
