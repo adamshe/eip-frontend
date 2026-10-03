@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KLAC 五年估值 (2026-10-01)</title><meta name="description" content="现价 = 36.7x FY27 共识 EPS $5.45 = 29.9x FY28 共识 $6.71 = 34.7x B 情景 FY28 EPS $5.77; 市场已按 &quot;FY27 +33%, FY28 +18%, 之后无周期回落&quot; 付清。 三情景倒算 (折现 11.7%): FY28 末 A 公司自述全兑现 -0.5% (30x) 至 +8.6% (35x) / B 中性 -23% / C 下行 -44%; FY30 末 A +4.5% / B -10% / C -27%。 机制链比 GEV 软: 过程控制是先进制程良率的守门人 (一客户 TSMC 19%, 积压一年 +60% 到 $12.">
+<link rel="canonical" href="https://research.empireintegration.com/valuations/klac"><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;margin-bottom:1em} .nav a{margin-right:14px}</style></head>
+<body><main><p class="nav"><a href="./">全部估值</a> <a href="/">EIP Research 首页</a></p><h1 id="klac-五年估值-2026-10-01">KLAC 五年估值 (2026-10-01)</h1>
+<p>独立研究, 非投资建议。价格与一致预期为发布日数据, 估算值已在文中标注。</p>
+<h2 id="结论">结论</h2>
+<p>现价 = 36.7x FY27 共识 EPS $5.45 = 29.9x FY28 共识 $6.71 = 34.7x B 情景 FY28 EPS $5.77; 市场已按 "FY27 +33%, FY28 +18%, 之后无周期回落" 付清。 三情景倒算 (折现 11.7%): FY28 末 A 公司自述全兑现 -0.5% (30x) 至 +8.6% (35x) / B 中性 -23% / C 下行 -44%; FY30 末 A +4.5% / B -10% / C -27%。 机制链比 GEV 软: 过程控制是先进制程良率的守门人 (一客户 TSMC 19%, 积压一年 +60% 到 $12.57B, 服务 23% 是收取期权权利金底), 但量跟 WFE (晶圆厂设备支出) 周期走, 中国 30% 收入在管制之下, 2027-28 存储 capex 翻倍后的回落是最大的已知未知; 三年检验指标 (每股完全稀释 FCF, FY26 -&gt; FY29): A 2.54x / B 1.97x / C 1.54x, 本体三年确实会长, 但 $200 已付了 A 的价。</p>
+<h2 id="三情景五年表">三情景五年表</h2>
+<p>A = 公司自述全兑现, B = 中性, C = 下行。</p>
+<table><thead><tr><th>年</th><th>收入</th><th>GM %</th><th>OM %</th><th>营业利润</th><th>净利</th><th>稀释 EPS</th><th>CFO</th><th>capex</th><th>FCF</th><th>稀释股 M</th><th>每股 FCF</th></tr></thead><tbody>
+<tr><td>FY26A</td><td>13,579</td><td>61.3</td><td>41.7</td><td>5,661</td><td>4,831</td><td>3.66</td><td>4,143</td><td>376</td><td>3,767</td><td>1,319.6</td><td>2.85</td></tr>
+<tr><td>FY27</td><td>18,114</td><td>62.0</td><td>44.5</td><td>8,061</td><td>6,906</td><td>5.30</td><td>6,523</td><td>450</td><td>6,073</td><td>1,303</td><td>4.66</td></tr>
+<tr><td>FY28</td><td>21,416</td><td>62.8</td><td>46.3</td><td>9,916</td><td>8,519</td><td>6.61</td><td>8,443</td><td>520</td><td>7,923</td><td>1,288</td><td>6.15</td></tr>
+<tr><td>FY29</td><td>23,800</td><td>63.0</td><td>46.7</td><td>11,115</td><td>9,576</td><td>7.53</td><td>9,770</td><td>560</td><td>9,210</td><td>1,272</td><td>7.24</td></tr>
+<tr><td>FY30</td><td>26,000</td><td>63.2</td><td>47.2</td><td>12,272</td><td>10,597</td><td>8.44</td><td>10,897</td><td>600</td><td>10,297</td><td>1,256</td><td>8.20</td></tr>
+<tr><td>FY31</td><td>28,000</td><td>63.4</td><td>47.6</td><td>13,328</td><td>11,531</td><td>9.30</td><td>11,941</td><td>640</td><td>11,301</td><td>1,240</td><td>9.11</td></tr>
+</tbody></table>
+<table><thead><tr><th>年</th><th>收入</th><th>GM %</th><th>OM %</th><th>营业利润</th><th>净利</th><th>稀释 EPS</th><th>CFO</th><th>capex</th><th>FCF</th><th>稀释股 M</th><th>每股 FCF</th></tr></thead><tbody>
+<tr><td>FY26A</td><td>13,579</td><td>61.3</td><td>41.7</td><td>5,661</td><td>4,831</td><td>3.66</td><td>4,143</td><td>376</td><td>3,767</td><td>1,319.6</td><td>2.85</td></tr>
+<tr><td>FY27</td><td>17,500</td><td>61.6</td><td>43.6</td><td>7,630</td><td>6,489</td><td>4.97</td><td>6,254</td><td>450</td><td>5,804</td><td>1,305</td><td>4.45</td></tr>
+<tr><td>FY28</td><td>19,400</td><td>62.3</td><td>45.1</td><td>8,749</td><td>7,464</td><td>5.77</td><td>7,729</td><td>500</td><td>7,229</td><td>1,293</td><td>5.59</td></tr>
+<tr><td>FY29</td><td>18,000</td><td>61.0</td><td>42.2</td><td>7,596</td><td>6,495</td><td>5.06</td><td>7,620</td><td>420</td><td>7,200</td><td>1,283</td><td>5.61</td></tr>
+<tr><td>FY30</td><td>20,400</td><td>62.0</td><td>44.4</td><td>9,058</td><td>7,761</td><td>6.11</td><td>7,981</td><td>480</td><td>7,501</td><td>1,271</td><td>5.90</td></tr>
+<tr><td>FY31</td><td>22,600</td><td>62.4</td><td>45.4</td><td>10,260</td><td>8,807</td><td>7.00</td><td>9,132</td><td>540</td><td>8,592</td><td>1,259</td><td>6.82</td></tr>
+</tbody></table>
+<table><thead><tr><th>年</th><th>收入</th><th>GM %</th><th>OM %</th><th>营业利润</th><th>净利</th><th>稀释 EPS</th><th>CFO</th><th>capex</th><th>FCF</th><th>稀释股 M</th><th>每股 FCF</th></tr></thead><tbody>
+<tr><td>FY26A</td><td>13,579</td><td>61.3</td><td>41.7</td><td>5,661</td><td>4,831</td><td>3.66</td><td>4,143</td><td>376</td><td>3,767</td><td>1,319.6</td><td>2.85</td></tr>
+<tr><td>FY27</td><td>16,600</td><td>60.8</td><td>42.0</td><td>6,972</td><td>5,927</td><td>4.53</td><td>5,912</td><td>440</td><td>5,472</td><td>1,308</td><td>4.18</td></tr>
+<tr><td>FY28</td><td>17,800</td><td>60.5</td><td>42.0</td><td>7,476</td><td>6,366</td><td>4.90</td><td>6,786</td><td>450</td><td>6,336</td><td>1,300</td><td>4.87</td></tr>
+<tr><td>FY29</td><td>14,500</td><td>58.5</td><td>36.5</td><td>5,292</td><td>4,508</td><td>3.48</td><td>6,063</td><td>350</td><td>5,713</td><td>1,296</td><td>4.41</td></tr>
+<tr><td>FY30</td><td>16,000</td><td>59.5</td><td>39.5</td><td>6,320</td><td>5,386</td><td>4.18</td><td>5,762</td><td>380</td><td>5,382</td><td>1,290</td><td>4.17</td></tr>
+<tr><td>FY31</td><td>18,000</td><td>60.5</td><td>41.5</td><td>7,470</td><td>6,387</td><td>4.98</td><td>6,677</td><td>420</td><td>6,257</td><td>1,283</td><td>4.88</td></tr>
+</tbody></table>
+<h2 id="判断与推翻条件">判断与推翻条件</h2>
+<ul>
+<li>五年每股 FCF (FY26 $2.85 -&gt; FY31): A $9.11 (3.19x) / B $6.82 (2.39x) / C $4.88 (1.71x); 三年尺 (FY26 -&gt; FY29): A 2.54x / B 1.97x / C 1.54x。 本体三年会长 (B 年化 +25%), 这是公司本体名单候选的理由;</li>
+<li>买入区间 (大额期权交易者布局 vs 保守公允价): 大额期权交易者 put 地板 175-180 (2028-01 P180 / 2027-06 P175 买方), 2029-01 P240 卖方的有效买入价约 $156, 7 月低点 $170, SMA50 地板 $182 (hunt 表); 保守公允价 $105 (22x) 至 $119 (25x)。三档: (a) $170-182 只做卖出期权卖 put 收 63% IV 的租, 不长期持有 (= 30x B FY28); (b) $150-160 (= 26-28x B FY28, 2029-01 P240 卖方的位置, 2026-01 至 03 平台 $142-152 上沿) 可建观察仓; (c) $105-120 = 保守公允价, 周期中值长期持有位, 对应 2027-28 WFE 见顶被定价之后。现价 $200 无动作 (hunt 表同判)。</li>
+<li>转为看多的条件: 10-28 12 月季指引 &gt;= $4.6B 且 GAAP 毛利 &gt;= 62%; 加 2027-01 TSM 2027 capex &gt;= $60B 与 MU FY27 capex &gt;= $35B; 加 AMAT / LRCX 1 月把 2027 WFE 说成 +15% 以上。三条全中 = A 情景, 但 A 在 30x 也只 -0.5% (FY28) / +4.5% (FY30), 转 "持有" 不转 "长期持有"; 转 "长期持有" 还需 PE 回到 25x 以下 (价 &lt; $165 对 B FY28)。</li>
+<li>转为看空的条件: 10-28 收入 &lt; $3.8B 或 12 月季指引 &lt; $4.3B 或 积压 / 递延系统收入环比下降 或 毛利 &lt; 60.6%; Affiliates Rule 2026-11 恢复且公司砍中国占比指引 &gt; 5 pt; DRAM 合约价环比转负两季 (存储 capex 先砍); 连续两季 CFO / 净利 &lt; 0.8。</li>
+</ul>
+<h2 id="来源">来源</h2>
+<p>"source_url": "https://finance.yahoo.com/quote/KLAC", "source_url": "https://www.sec.gov/Archives/edgar/data/319201/000031920126000024/exhibit991earningsrelease7.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/319201/000031920126000027/klac-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/319201/000031920126000027/klac-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/319201/000031920126000027/klac-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/319201/000031920126000027/klac-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/319201/000031920126000027/klac-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/319201/000031920126000027/klac-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/319201/000031920126000027/klac-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/319201/000031920126000027/klac-20260630.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/319201/000119312526397898/d83268ddef14a.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/319201/000119312526397898/d83268ddef14a.htm", "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0000319201&amp;type=4", "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000018/a2026q4ex991-pressrelease.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/707549/000070754926000033/lrcx_exhibitx991xq4x2026.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/6951/000162828026056699/exhibit991q32026earningsre.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/937966/000162828026048235/pressreleasefinancialresul.htm", "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000155/q226earningsrelease.htm", "source_url": "https://finance.yahoo.com/quote/KLAC/analysis/", "source_url": "https://finance.yahoo.com/quote/LRCX", "source_url": "https://finance.yahoo.com/quote/KLAC/options", "source_url": "https://finance.yahoo.com/quote/%5ETNX",</p><p class="nav">Empire Integration Partners . EIP Research . 非投资建议</p></main></body></html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GOOGL 五年估值 (2026-10-01)</title><meta name="description" content="现价 = 28.6x FY26 核心 EPS 共识 $11.81 (剔除 H1 $135.9B 未实现股权收益) = 22.6x FY27 共识 $14.95 = 24.4x 本文 B 情景 FY28 核心 EPS $13.88; 市场按 &quot;共识 FY27 36% 营业利润率&quot; 付了价, 而 10-K 自己披露的 6 年服务器折旧期 + 2026 capex 翻倍 ($200B 估) 机械推出 D&amp;A 从 FY25 $21B 爬到 FY28 $72B / FY30 $126B, 这是共识线性外推没算的一笔。 三情景倒算 IRR (折现 10.7%): FY28 末 A 公司自述全兑现 +12.">
+<link rel="canonical" href="https://research.empireintegration.com/valuations/googl"><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;margin-bottom:1em} .nav a{margin-right:14px}</style></head>
+<body><main><p class="nav"><a href="./">全部估值</a> <a href="/">EIP Research 首页</a></p><h1 id="googl-五年估值-2026-10-01">GOOGL 五年估值 (2026-10-01)</h1>
+<p>独立研究, 非投资建议。价格与一致预期为发布日数据, 估算值已在文中标注。</p>
+<h2 id="结论">结论</h2>
+<p>现价 = 28.6x FY26 核心 EPS 共识 $11.81 (剔除 H1 $135.9B 未实现股权收益) = 22.6x FY27 共识 $14.95 = 24.4x 本文 B 情景 FY28 核心 EPS $13.88; 市场按 "共识 FY27 36% 营业利润率" 付了价, 而 10-K 自己披露的 6 年服务器折旧期 + 2026 capex 翻倍 ($200B 估) 机械推出 D&amp;A 从 FY25 $21B 爬到 FY28 $72B / FY30 $126B, 这是共识线性外推没算的一笔。 三情景倒算 IRR (折现 10.7%): FY28 末 A 公司自述全兑现 +12.7% (26x) / B 中性 -8.4% (20x) / C 下行 -36%; FY30 末 A +14.9% / B 0.0% / C -24.7%。 改按 FY25 基数 $5.99: FY29 A 1.22x / B 0.72x / C 0.67x, FY30 A 2.23x / B 1.23x / C 0.76x。 本体 (核心 EPS) 在长, 但每股 FCF 在 B 情景要到 FY2030 才回到 FY2025 水平: capex 是公司自己的选择, 后果记在公司本体账上。</p>
+<h2 id="三情景五年表">三情景五年表</h2>
+<p>A = 公司自述全兑现, B = 中性, C = 下行。</p>
+<table><thead><tr><th>项</th><th>FY26</th><th>FY27</th><th>FY28</th><th>FY29</th><th>FY30</th></tr></thead><tbody>
+<tr><td>收入</td><td>500</td><td>610</td><td>723</td><td>844</td><td>966</td></tr>
+<tr><td>营业利润 (率)</td><td>173.6 (34.7%)</td><td>217.5 (35.7%)</td><td>253.5 (35.1%)</td><td>293.5 (34.8%)</td><td>340.3 (35.2%)</td></tr>
+<tr><td>核心净利</td><td>144.9</td><td>180.2</td><td>209.2</td><td>243.0</td><td>283.2</td></tr>
+<tr><td>稀释 EPS</td><td>11.75</td><td>14.58</td><td>17.01</td><td>19.92</td><td>23.45</td></tr>
+<tr><td>CFO</td><td>197.9</td><td>265.8</td><td>323.6</td><td>388.9</td><td>461.6</td></tr>
+<tr><td>capex</td><td>200</td><td>260</td><td>290</td><td>300</td><td>300</td></tr>
+<tr><td>FCF</td><td>-2.1</td><td>5.8</td><td>33.6</td><td>88.9</td><td>161.6</td></tr>
+<tr><td>稀释股</td><td>12,330</td><td>12,360</td><td>12,300</td><td>12,200</td><td>12,080</td></tr>
+<tr><td>每股 FCF</td><td>-0.17</td><td>0.47</td><td>2.73</td><td>7.28</td><td>13.38</td></tr>
+</tbody></table>
+<table><thead><tr><th>项</th><th>FY26</th><th>FY27</th><th>FY28</th><th>FY29</th><th>FY30</th></tr></thead><tbody>
+<tr><td>收入</td><td>497</td><td>583</td><td>669</td><td>755</td><td>842</td></tr>
+<tr><td>营业利润 (率)</td><td>169.9 (34.2%)</td><td>192.6 (33.0%)</td><td>210.9 (31.5%)</td><td>232.6 (30.8%)</td><td>251.4 (29.9%)</td></tr>
+<tr><td>核心净利</td><td>141.8</td><td>158.9</td><td>172.4</td><td>191.1</td><td>208.2</td></tr>
+<tr><td>稀释 EPS</td><td>11.50</td><td>12.81</td><td>13.88</td><td>15.41</td><td>16.90</td></tr>
+<tr><td>CFO</td><td>194.8</td><td>244.4</td><td>285.7</td><td>333.7</td><td>381.1</td></tr>
+<tr><td>capex</td><td>200</td><td>250</td><td>270</td><td>280</td><td>290</td></tr>
+<tr><td>FCF</td><td>-5.2</td><td>-5.6</td><td>15.7</td><td>53.7</td><td>91.1</td></tr>
+<tr><td>稀释股</td><td>12,330</td><td>12,400</td><td>12,420</td><td>12,400</td><td>12,320</td></tr>
+<tr><td>每股 FCF</td><td>-0.42</td><td>-0.45</td><td>1.26</td><td>4.33</td><td>7.39</td></tr>
+</tbody></table>
+<table><thead><tr><th>项</th><th>FY26</th><th>FY27</th><th>FY28</th><th>FY29</th><th>FY30</th></tr></thead><tbody>
+<tr><td>收入</td><td>489</td><td>529</td><td>551</td><td>569</td><td>586</td></tr>
+<tr><td>营业利润 (率)</td><td>159.1 (32.6%)</td><td>157.2 (29.7%)</td><td>138.5 (25.1%)</td><td>127.9 (22.5%)</td><td>117.6 (20.1%)</td></tr>
+<tr><td>核心净利</td><td>132.9</td><td>128.9</td><td>111.0</td><td>101.4</td><td>92.9</td></tr>
+<tr><td>稀释 EPS</td><td>10.78</td><td>10.35</td><td>8.84</td><td>7.99</td><td>7.25</td></tr>
+<tr><td>CFO</td><td>185.9</td><td>208.4</td><td>213.0</td><td>220.8</td><td>228.4</td></tr>
+<tr><td>capex</td><td>200</td><td>220</td><td>180</td><td>170</td><td>170</td></tr>
+<tr><td>FCF</td><td>-14.1</td><td>-11.6</td><td>33.0</td><td>50.8</td><td>58.4</td></tr>
+<tr><td>稀释股</td><td>12,330</td><td>12,450</td><td>12,560</td><td>12,680</td><td>12,800</td></tr>
+<tr><td>每股 FCF</td><td>-1.14</td><td>-0.93</td><td>2.63</td><td>4.00</td><td>4.56</td></tr>
+</tbody></table>
+<h2 id="判断与推翻条件">判断与推翻条件</h2>
+<p>本体在长: 核心 EPS FY25 $9.17 -&gt; B FY28 $13.88 (1.5x) / FY30 $16.90 (1.8x); A FY30 $23.45 (2.6x); C FY30 $7.25 (0.8x)。</p>
+<p><strong>三年检验指标 (每股完全稀释 FCF)</strong>: FY26 -&gt; FY29 三年: A -0.17 -&gt; 7.28 / B -0.42 -&gt; 4.33 / C -1.14 -&gt; 4.00, FY26 基数为负, 尺失效; 改 FY25 基数 $5.99: FY29 A 1.22x / B 0.72x / C 0.67x; 五年 FY30 A 2.23x / B 1.23x / C 0.76x。机制: CFO 从 $165B 长到 B FY29 $334B (2.0x), 但 capex 从 $91B 长到 $280B, 差额被吃掉; capex 若 2029 降到 $220B, B FY29 每股 FCF 为 $9.17 (1.5x), 维护性口径 (CFO - D&amp;A) 为 $18.96。尺的结论: GOOGL 是 "净利长、FCF 推后" 的公司本体, 三年尺不过, 五年尺在 B 勉强过 (1.23x), 过不过取决于 2028-29 capex 是否见顶, 这是公司自己的选择 (采购义务已签到 2030)。</p>
+<p><strong>现价 IRR</strong>: 到 FY28 末 A +12.7% / B -8.4% / C -36%; 到 FY30 末 A +14.9% / B 0.0% / C -24.7%。现价 = 22.6x 共识 FY27 = 24.4x B FY28, 市场已按共识 36% 利润率 (不计 D&amp;A 翻倍) 付清 B 情景, 只在 A 情景有 12-15% 年化。</p>
+<p><strong>买入区间</strong>: 大额期权交易者布局隐含 2027 区间 $290-390 (卖 2027-06 C345 上沿 $389, 卖 2027-12 P290 / 2028-12 P240 下沿); 保守公允价 $221 (20x) 至 $276 (25x); K = $350 (Berkshire)。买入区间 $270-290 = 20x B FY28 EPS, 与 2027-12 P290 大额期权交易者地板重合, 低于 K 17-23%; $290 以上只做 A 情景确认后的加仓 (AI Mode 单价披露 &gt;= 传统, 或回购恢复 &gt;$10B/季)。</p>
+<p><strong>推翻条件 (推翻结论的硬数字 + 日期)</strong>: 转 "持有 / 长期持有": 2026-10-28 Q3 Search &amp; other &gt;= +16% 且云 &gt;= +75% 且 2026 capex 指引不再上调; 2027-02 Q4 电话会 2027 capex &lt;= $240B 且回购恢复 &gt;= $10B/季 (= capex 峰已过, 尺提前一年); AI Mode CPC 披露 &gt;= 传统。转 C: 付费点击增速 &lt;5% 两季; 云积压两季不增 (2027 年内); 广告技术案判结构性拆分且上诉中执行; Apple 2027 前换默认; 2027 capex &gt; $260B 且 FCF 全年为负且无回购 。</p>
+<p><strong>机会窗口</strong>: 现价无; 窗口在 (a) Q3 财报跨式 8% 的下沿 ($311) 或 (b) 补救 / 拆分判决日的事件性下杀到 $270-290, 届时 B 情景 FY30 IRR 转正 (+8-10%), A 情景 +20%。</p>
+<h2 id="来源">来源</h2>
+<p>{"domain": "price", "ticker": "GOOGL", "claim": "GOOGL 2026-10-01 收盘价", "value": 338.24, "unit": "USD", "as_of": "2026-10-01", "source_url": "https://finance.yahoo.com/quote/GOOGL", "source_tier": "T2", "verified_live": true, "confidence": "H", "evidence_span": "yfinance history close 2026-10-01 = 338.24; previousClose 344.08; marketCap 4,136,653,029,376; fiftyDayAverage 343.85; earnings date 2026-10-28; GOOG close 334.93"}, {"domain": "revenue", "ticker": "GOOGL", "claim": "FY2025 收入 $402,836M: Search &amp; other 224,532 / YouTube 广告 40,367 / Network 29,792 / 订阅平台设备 48,030 / Cloud 58,705 / Other Bets 1,537; 营业利润 129,039 (Services 139,404 / Cloud 13,910 / Other Bets -7,515 / Alphabet 层 -16,760); {"domain": "revenue", "ticker": "GOOGL", "claim": "1H2026 收入 $229,692M (+23%): Search &amp; other 123,670 (+18%) / YouTube 广告 20,938 / Network 14,274 / 订阅平台设备 25,295 / Cloud 44,796 (+73%); Q2 收入 119,796 (+24%), Cloud 24,768 (+82%), 营业利润 40,770 (34%); 1H 付费点击 +13%, CPC +4%; {"domain": "backlog", "ticker": "GOOGL", "claim": "2026-06-30 RPO (revenue backlog) $519.5B, 其中 Google Cloud $513.9B; 略超 50% 在未来 24 个月确认; {"domain": "purchase_commitments", "ticker": "GOOGL", "claim": "2026-06-30 采购义务与合同承诺 $811.0B (一年内 $200.7B), 主要为技术基础设施长期供应协议; 一年以上 $707.0B 大体 2030 前履行; 能源 take-or-pay 至 2054; 未开始租赁 $85.2B; backstop 信用衍生 $43.8B + 待定 $24.1B + 担保 $7.6B; {"domain": "capex", "ticker": "GOOGL", "claim": "FY2025 capex $91.4B (FY24 $52.5B), 折旧 $21.1B (FY24 $15.3B); 2026 预期显著增加; 服务器与网络设备折旧期 6 年; 1H26 折旧 $13.6B; {"domain": "cash_flow", "ticker": "GOOGL", "claim": "FY2025 CFO $164.7B, FCF $73.3B, 稀释股 12,230M, 每股 FCF $5.99; 1H2026 CFO $84.9B, capex $80.6B, FCF $4.3B (Q2 -$5.9B), 稀释加权股 Q2 12,309M, SBC 1H $14.7B", "value": 73.3, "unit": "USD_B", "as_of": "2026-06-30", "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm", "source_tier": "T1", "verified_live": true, "confidence": "H", "section": "ex99.1 Consolidated Statements of Cash Flows", "evidence_span": "Net cash provided by operating activities 27,747 39,069 63,897 84,859 ... Purchases of property and equipment (22,446) (44,924) (39,643) (80,598) ... Repurchases of stock (13,238) 0 (28,306) 0 ... Proceeds from issuance of common stock, net of costs 0 30,499 ... mandatory convertible preferred stock 0 19,063 ... Proceeds from issuance of debt 26,846 24,847 31,378 56,226"}, {"domain": "equity_raise", "ticker": "GOOGL", "claim": "2026-06 股权融资净 $49.6B: 公募 A/C 各 29M 股 @ $355.1982 / $351.8018 净 $20.5B + Berkshire 定向 A 14,212,035 @ $351.81 / C 14,359,656 @ $348.20 $10.0B + 6.25% 强制可转优先股 19M 股 净 $19.0B (2029-05-15 强制转股, 转换率 2.2520-2.8160 / 2.2740-2.8420, capped call 上限 $532.6704 / $527.7974, 保费 $1.0B); {"domain": "buyback", "ticker": "GOOGL", "claim": "1H2026 回购 $0 (FY25 240M 股 $45.4B); 授权 $70.0B (2025-04) 剩 $69.5B; 季度股息 $0.22 (+5%); {"domain": "insider", "ticker": "GOOGL", "claim": "Form 4 2026-02-01 至 09-30 (130 份): 公开市场买入 0; Pichai 卖 130,000 股 Class C $40.6M (@ $302.6-334.1, 四批) + 税扣 710,267 股 $232M; Walker 卖 65,565 股 $20.0M; Hennessy 卖 4,800 股 $1.65M; Porat / Schindler / Ashkenazi 仅税扣; Brin 转股 + 赠与 无卖出; Page 无申报", "value": -62.3, "unit": "USD_M", "as_of": "2026-09-30", "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001652044&amp;type=4", "source_tier": "T1", "verified_live": true, "confidence": "H", "section": "Form 4 XML (edgar_wrapper --type form4 --days 240)", "evidence_span": "Pichai Sundar Chief Executive Officer S 2026-03-18 Class C Capital Stock 9969 @ 309 ... S 2026-02-04 Class C 8798 @ 334.09; WALKER JOHN KENT S 2026-02-17 Class C 14641 @ 302.64; aggregates: Pichai S 130,000 sh $40.64M, F 710,267 sh $232.05M; Walker S 65,565 sh $19.97M; no transactionCode P"}, {"domain": "ownership", "ticker": "GOOGL", "claim": "2026-04-06 Page 持 Class B 389,051,160 股 (46.5%, 投票权 27.4%), Brin 358,939,978 (42.9%, 25.3%); 高管董事合计投票权 54.3%; BlackRock Class A 6.1%; Pichai Class A 227,560 股 (&lt;1%)", "value": 54.3, "unit": "%", "as_of": "2026-04-06", "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000130817926000342/goog-20260424.htm", "source_tier": "T1", "verified_live": true, "confidence": "H", "section": "common_stock_ownership_of_certain_benefi", "evidence_span": "Larry Page - - 389,051,160 46.5 27.4 Sergey Brin (2) 37,469 * 358,939,978 42.9 25.3 Sundar Pichai 227,560 * ... All executive officers and directors as a group (14 persons) 2,596,986 * 770,340,078 92.2 54.3 ... BlackRock, Inc. (8) 356,934,964 6.1"}, {"domain": "ownership", "ticker": "GOOGL", "claim": "13F 2026-06-30 (yfinance 汇总): BlackRock $155.9B (+3.1% q/q), Vanguard Capital Mgmt $129.5B (+1.2%), FMR $84.8B (+6.0%), State Street $80.8B (+5.6%), T. Rowe $34.3B (+25.9%), JPMorgan $31.1B (+29.6%), Geode -1.2%, Morgan Stanley -0.4%; 机构持股 81.0%, 内部人 1.6%", "value": 81.0, "unit": "%", "as_of": "2026-06-30", "source_url": "https://finance.yahoo.com/quote/GOOGL/holders/", "source_tier": "T2", "verified_live": true, "confidence": "M", "evidence_span": "institutional_holders 2026-06-30: Blackrock Inc. 155919436385 pctChange 0.0313; FMR, LLC 84801502602 0.0599; Price (T.Rowe) 34269156336 0.2585; JPMORGAN 31090842664 0.2960; institutionsPercentHeld 0.80965 insidersPercentHeld 0.01596"}, {"domain": "legal", "ticker": "GOOGL", "claim": "反垄断状态 2026-06-30: 搜索案 2025-12 终审判决限制分发并要求数据共享与联合供应, 双方上诉中 (2026-01 / 02); 广告技术案 EDVA 等待最终判决, DOJ 要结构性补救; EC Android $5.2B 2026-07 已付; EC 广告技术 EUR 3.0B (计提 $3.5B) 上诉中; DMA 两项初步不合规; PriceRunner $2.1B 计提; {"domain": "tam", "ticker": "AMZN", "claim": "AWS Q2 2026 $42,232M (+37%), 1H $79,819M (+33%), 定价受长期合同压低; {"domain": "tam", "ticker": "MSFT", "claim": "MSFT FY2026 (止 2026-06-30): Azure 及其它云 +41%, Microsoft Cloud $214.4B (+27%), 商业 RPO $678B (+84%); {"domain": "pe", "ticker": "GOOGL", "claim": "前瞻 PE 2026-10-01: 28.6x FY26 核心共识 $11.81 / 16.4x GAAP 共识 $20.64 (含收益); 22.6x FY27 共识 $14.95 (53 位); FY27 收入共识 $615.0B; FY28-30 无数据; 目标价均 $429 (61 位); 自身 10 月 trailing PE 2021-25: 24.1 / 21.4 / 22.9 / 20.6 / 22.6x; 同业前瞻 MSFT 21.7 / META 20.8 / AMZN 23.7 / AAPL 34.5 / NVDA 14.7x", "value": 22.6, "unit": "x", "as_of": "2026-10-01", "source_url": "https://finance.yahoo.com/quote/GOOGL/analysis/", "source_tier": "T2", "verified_live": true, "confidence": "M", "evidence_span": "earnings_estimate +1y avg 14.95318 low 13.67 high 17.21393 numberOfAnalysts 53; 0y avg 20.63755; revenue_estimate +1y 614,991,075,940; targetMeanPrice 429.36 numberOfAnalystOpinions 54; stockanalysis forecast EPS 2026 avg 11.81, revenue 2026 avg $498.6B, target avg $429.46 (61); MSFT forwardPE 21.69 META 20.80 AMZN 23.70 AAPL 34.47 NVDA 14.71 ORCL 12.56"}, {"domain": "event_vol", "ticker": "GOOGL", "claim": "期权隐含 2026-10-01: 跨式 10-23 5.7%, 10-30 8.0% (含 10-28 财报) -&gt; 财报日 1 sd 约 5.8%; 2027-12 跨式 30.9%, 2028-12 42.4%; 远月大额期权交易者只卖权利金: 卖 2027-06 C345 $4.75M (盈亏平衡 $388.8 = 26x FY27 共识), 卖 2027-12 P290 $2.2M, 卖 2028-12 P240 $1.05M, 卖 2027-03 跨式 (区间 $288-417); 远期 call 买 $0", "value": 8.0, "unit": "%", "as_of": "2026-10-01", "source_url": "https://finance.yahoo.com/quote/GOOGL/options", "source_tier": "T2", "verified_live": true, "confidence": "M", "evidence_span": "2026-10-30 K=340 callMid 13.43 putMid 13.75 straddle 27.18 = 8.0%; 2026-10-23 straddle 19.27 = 5.7%; 2027-06-17 call 43.97 put 35.02; 2028-12-15 call 86.78 put 56.73; CSV: 2027-06-17 Call 345 Trade 43.8 Volume 2040 Premium 2,628,000 + 2,124,300 Code AUTO; 2028-12-15 Put 240 17.8 593 1,050,200 SLFT; 2027-12-17 Put 290 22.25 1000 2,225,000 TLCT"}, {"domain": "macro", "ticker": "GOOGL", "claim": "折现率输入 2026-10-01: 10 年美债 5.237%, VIX 16.39; 折现率 10.7% = 5.24% + beta 1.225 (yfinance) x ERP 4.5%", "value": 5.237, "unit": "%", "as_of": "2026-10-01", "source_url": "https://finance.yahoo.com/quote/%5ETNX", "source_tier": "T2", "verified_live": true, "confidence": "H", "evidence_span": "^TNX close 2026-10-01 5.237 (09-30 5.293); ^VIX 16.39; GOOGL beta 1.225"}</p><p class="nav">Empire Integration Partners . EIP Research . 非投资建议</p></main></body></html>
