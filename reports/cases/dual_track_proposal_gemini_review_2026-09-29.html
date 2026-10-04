@@ -13,6 +13,7 @@ h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-
 h2{font-size:22px;color:var(--accent)}
 h3{font-size:17px}
 p{margin:.6em 0}
+p,li,blockquote{overflow-wrap:anywhere}
 a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
 strong{font-weight:650}
 code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
@@ -35,7 +36,12 @@ tr:hover td{background:var(--panel)}
 .digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
 .sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
 :root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
-.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650} .byline{color:var(--muted);font-size:13px;margin:0 0 1em}</style></head>
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650} .byline{color:var(--muted);font-size:13px;margin:0 0 1em}
+.term{border-bottom:1px dotted var(--muted);cursor:help}
+.term:focus{outline:none;background:var(--accent-soft)}
+#tip{position:fixed;z-index:50;max-width:min(340px,calc(100vw - 16px));background:var(--text);color:var(--bg);font-size:13px;
+line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);pointer-events:none}
+#tip[hidden]{display:none}</style></head>
 <body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1 id="gemini-gemini-3-5-flash-对-双轨估值范式-提案的评审-2026-09-29">Gemini (gemini-3.5-flash) 对 双轨估值范式 提案的评审 2026-09-29</h1>
 <p>作为 Trinity 框架下的外部评审 (Adversary + Operator 角色), 我对 Adam 提出的 "双轨估值范式审查" 提案审计意见如下:</p>
 <h3 id="1-真正新增的是什么">1. 真正新增的是什么</h3>
@@ -49,7 +55,7 @@ tr:hover td{background:var(--panel)}
 </ul>
 <li><strong>真正新增的增量 (框架此前缺失的)</strong>:</li>
 <ul>
-<li><strong>资产负债表外化机制 (Off-balance sheet externalization)</strong>: 提案首次提出将电力、重型基建等高昂 CapEx 剥离到表外 SPV 或基础设施债券的机制。这是微观本体 (Entity) 向环境 (Context) 转移成本的具体路径, 补充了 "商业终极形态 Law" 的质料因分析。</li>
+<li><strong>资产负债表外化机制 (Off-balance sheet externalization)</strong>: 提案首次提出将电力、重型基建等高昂 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">CapEx</span> 剥离到表外 SPV 或基础设施债券的机制。这是微观本体 (Entity) 向环境 (Context) 转移成本的具体路径, 补充了 "商业终极形态 Law" 的质料因分析。</li>
 <li><strong>双轨估值差 (Sovereign Premium)</strong>: 明确将 "经典 DCF 估值 (模式 A)" 与 "战略溢价估值 (模式 B)" 并列对比, 迫使分析师对 "叙事溢价" 进行显性定量挂钩, 而非模糊的 "估值底"。</li>
 <li><strong>跨系统 Kill Criteria</strong>: 首次将宏观硬约束 (美债、物理 Scaling Law 撞墙) 作为击穿微观护城河的充要条件, 建立了从宏观 (模式 B) 到微观 (模式 A) 的传导链条。</li>
 </ul>
@@ -69,7 +75,7 @@ tr:hover td{background:var(--panel)}
 <ul>
 <li><strong>模式 A 估值 (可机械算)</strong>:</li>
 <ul>
-<li><strong>输入</strong>: 剔除补贴后的 ARR、推断算力折旧 (按 3 年加速折旧)、实际电力成本、无风险利率 (10 年期美债)。</li>
+<li><strong>输入</strong>: 剔除补贴后的 <span class="term" tabindex="0" data-tip="年化经常性收入: 按当前订阅速度折算的一年收入。">ARR</span>、推断算力折旧 (按 3 年加速折旧)、实际电力成本、无风险利率 (10 年期美债)。</li>
 <li><strong>算法</strong>: 采用标准 DCF (WACC 设为 10% 惩罚值) 或 行业成熟期倍数 (SaaS 按 15x P/E, 硬件按 12x P/E)。</li>
 <li><strong>更新频率</strong>: 每季财报日自动更新。</li>
 </ul>
@@ -105,8 +111,20 @@ tr:hover td{background:var(--panel)}
 <li><strong>修改一 (去情绪化措辞)</strong>: 将维度二标题及正文中的 "非正常战时金融 / 霸权 / 碾碎空头" 替换为 <strong>"非经典宏观流动性支持 / 国家战略产业保护 / 卖方空头挤压"</strong>。</li>
 <li><strong>修改二 (增加轨道切换的硬指标, 解决不可证伪问题)</strong>: 在双轨碰撞部分增加以下强制条款:</li>
 </ul>
-<blockquote>"审计必须在前言明确定义当前主导轨道。若定义为模式 B 主导, 必须同时列出 3 个可观测的宏观维持指标 (如: 10 年期美债收益率 &lt; 4.5%, 政策性采购订单环比增长 &gt; 10%, 行业 IV 百分位 &gt; 50%)。一旦其中任意两个指标连续 30 天失效, 估值体系必须无条件切换为模式 A 审查, 战略溢价归零。"</blockquote>
+<blockquote>"审计必须在前言明确定义当前主导轨道。若定义为模式 B 主导, 必须同时列出 3 个可观测的宏观维持指标 (如: 10 年期美债收益率 &lt; 4.5%, 政策性采购订单环比增长 &gt; 10%, 行业 <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span> &gt; 50%)。一旦其中任意两个指标连续 30 天失效, 估值体系必须无条件切换为模式 A 审查, 战略溢价归零。"</blockquote>
 <ul>
 <li><strong>修改三 (重定义对比表结构, 明确本体与环境的关系)</strong>: 将第一部分的对比表结构修改为:</li>
 </ul>
-<blockquote>"第一部分 核心结论与双轨定价差异对比表 (模式 A 基础估值 vs 模式 A + 战略溢价)。禁止给出无锚定的 '模式 B 估值', 战略溢价部分必须写明对应的国家信用担保额度或财政补贴折现值。"</blockquote></main></body></html>
+<blockquote>"第一部分 核心结论与双轨定价差异对比表 (模式 A 基础估值 vs 模式 A + 战略溢价)。禁止给出无锚定的 '模式 B 估值', 战略溢价部分必须写明对应的国家信用担保额度或财政补贴折现值。"</blockquote></main><div id="tip" role="tooltip" hidden></div><script>
+(function(){var t=document.getElementById('tip');
+function term(e){return e.target&&e.target.closest?e.target.closest('.term'):null}
+function show(el){t.textContent=el.getAttribute('data-tip');t.hidden=false;var r=el.getBoundingClientRect(),w=t.offsetWidth,h=t.offsetHeight;
+var vw=Math.min(window.innerWidth,document.documentElement.clientWidth),x=Math.min(Math.max(8,r.left),vw-w-8),y=r.bottom+6;if(y+h>window.innerHeight-8){y=r.top-h-6}
+t.style.left=x+'px';t.style.top=y+'px'}
+document.addEventListener('mouseover',function(e){var el=term(e);if(el)show(el)});
+document.addEventListener('mouseout',function(e){if(term(e))t.hidden=true});
+document.addEventListener('focusin',function(e){var el=term(e);if(el)show(el)});
+document.addEventListener('focusout',function(e){if(term(e))t.hidden=true});
+document.addEventListener('click',function(e){var el=term(e);if(el){show(el)}else{t.hidden=true}});
+window.addEventListener('scroll',function(){t.hidden=true},{passive:true});})();
+</script></body></html>
