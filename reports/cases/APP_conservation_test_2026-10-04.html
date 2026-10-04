@@ -49,6 +49,49 @@ tr:hover td{background:var(--panel)}
 <li><strong>是否设局 / 循环做大收入</strong>: "APP 出钱让客户买自己广告" -- 不支持 (对外股权投资 2023-1H26 合计约 $115M, 关联方 Tripledot 收入 1H26 $42.9M, 合计不到年增量 3%)。"发行商用 APP 付的分成再买 APP 的量" -- 已证实存在 (CEO 电话会原话 + 应付发行商 +41% + CooTek 申报里同一家公司既从 APP 收钱又向 APP 付钱), 规模为估; 这是真钱的反身性, 不是虚构, 下行时同样放大。</li>
 <li><strong>动作规则</strong>: 现在 = 观察 (不进坏车, 不以造假做空)。升级为小注做空 (承重句 = 价格驱动见顶, 不是造假) 的任一触发: 2026-11 初 Q3 收入 &lt; $2,055M 指引下沿; Q4 指引环比 &lt; 5%; Q3 10-Q 应收 / 季收入 &gt; 1.25 且安装量同比仍降; Apple / Google 公开执法或政策点名。撤销观察 (转多方候选): 连续两季环比 &gt;= 8% 且 consumer 占比披露 &gt;= 20%、应付 / 收入不再下降 (抽成不再靠挤发行商)。复核: Q3 财报后 3 个交易日内; 2027-01 AppsFlyer 游戏年报出来重算 b1 / b2; 2027-02 FY2026 10-K。</li>
 </ol>
+<h2 id="上涨的根本原因-内部竞价-max-x-appdiscovery-x-adjust-与-ttd-路径">上涨的根本原因: 内部竞价 (MAX x AppDiscovery x Adjust) 与 TTD 路径</h2>
+<p><strong>1. 机制: 拍卖场、买方、记分员是同一家</strong></p>
+<table><thead><tr><th>层</th><th>证据</th><th>档</th></tr></thead><tbody>
+<tr><td>拍卖场: MAX 处理过半竞价</td><td>10-K 自述 MAX 是 "a single unbiased, real-time competitive auction"; Unity 律师函 2026-09-04: "handles well over a majority ... by share of wallet"; Unity 律师 2026-09-11 称 MAX 是 "through which a sizable majority of all mobile ad traffic flows" 的平台, 不配合会 "jeopardizing a sizable portion of its ad network revenue" (违背自身利益)</td><td>结构已证实</td></tr>
+<tr><td>场主看全场: 其他出价方每次只拿到 "the minimum bid to win that single impression"; APP 作为运营方持有 "the demand sources solicited, the price at which each impression cleared and the revenue attributable to it"</td><td>APP 诉 Unity 的申请 (PPC Land 2026-09-30 转引, 当事方自认)</td><td>结构已证实 (T3 转引)</td></tr>
+<tr><td>买方在自己场内出价, 输了也向赢家收 5%</td><td>CEO 2026-02-11: "instead of winning a low-value impression, we get to charge the winning bidder 5%"</td><td>已证实</td></tr>
+<tr><td>无 ID 流量上大对手缺席</td><td>CEO: Meta "not a bidder on anything that does not have an ID"; 做空方称 APP 靠指纹定向无 ID 用户 (持空, T3)</td><td>前者已证实; 指纹 可疑</td></tr>
+<tr><td>捆绑</td><td>Unity: "requiring publishers to use MAX in order to obtain access to AppLovin's ROAS product"</td><td>可疑 (诉讼对手)</td></tr>
+<tr><td>记分员: Adjust 为第二大 MMP</td><td>10-K; 但大广告主多用 AppsFlyer, "用自家归因抬 ROAS" 无证据</td><td>结构已证实; 利用 无证据</td></tr>
+<tr><td>用全场成交数据训练 Axon / 给自己 last look</td><td>APP 起诉 Unity 用 MAX 数据训练模型, 等于自证这类数据是模型燃料; APP 是否自用未披露; 无 last look 一手证据</td><td>推断, 可疑</td></tr>
+</tbody></table>
+<p>读法: 守恒表要求的 "份额 &gt;= 36% 且抽成 &gt;= 45% 同时成立", 机制在这里: APP 定规则、看全量成交价、又下场出价, 出价方越多它看得越全 (CEO: "as bid density goes up, the pie expands"), 输掉的低价值展示还收 5%。反证: 同一申请显示 APP 在 Unity LevelPlay 与 Google AdMob 的拍卖里也能赢, 模型本身有真优势, 不全是主场。</p>
+<p><strong>2. 对照</strong></p>
+<ul>
+<li>Google 广告技术案: 2025-04-17 Brinkema 法官 (E.D. Va.) 认定 Google 垄断发行商广告服务器 (DFP) 与交易所 (AdX) 并违法捆绑, 驳回广告主侧指控; 2026-09-02 救济判决 (09-16 解封) 不拆 AdX, 改行为救济: 间接交易禁 First Look / Last Look / Unified Pricing Rules, 开放 Prebid 接入与 AdX 竞价数据; 原告专家称仅取消统一底价就使 AdX 抽成由 20% 降到约 16.6% (National Law Review 2026-09-18)。起诉到救济约 3.7 年。对 APP: 监管若来, 大概率是压抽成的行为救济 (类比约 -15% 至 -20%, 估), 以年计, 不是拆分。</li>
+<li>TTD: 高点 2024-12-04 $139.51 -&gt; 2026-10-02 $11.95 (-91.4%, Yahoo); 收入增速 Q1 25 +25.4% -&gt; Q2 26 +3.0% -&gt; Q3 26 指引 "at least $650 million" 即约 -12% (8-K 2026-08-06, XBRL); 三个财报日 -33.0% / -38.6% / -21.9%; Amazon DSP 开放网页费率约 1% vs TTD 报道 12-15% (转述, T3)。同: 都向别人的广告预算抽成, 高增速换高倍数, 增速换挡即倍数塌。不同: TTD 是纯买方, 护城河是中立与工具, 一个同等数据、费率低一个数量级的对手就能直接抽走预算; APP 握有拍卖场, 对手得先抢走 MAX 的发行商。</li>
+<li>APP 走 TTD 路径的条件 (须同时): 增速两季内降到 &lt; 15%; 抽成下行 (应付 / 收入回升, 每安装净收入增速转负); MAX 份额流失 (发行商转 LevelPlay / AdMob / CloudX)。现状: Q3 指引 +46-48%, 三条均未触发。</li>
+</ul>
+<p><strong>3. 不造假为何跌 63%</strong></p>
+<p>价格 = 盈利 x 倍数: non-GAAP EPS (TTM) 9.36 -&gt; 13.55 (+45%), PE 78.4 -&gt; 19.8 (-75%), 1.45 x 0.25 = 0.37 (主线程计算)。跌的是倍数, 按时间:</p>
+<table><thead><tr><th>日期</th><th>事件</th><th>当日</th><th>层</th></tr></thead><tbody>
+<tr><td>2025-10-06</td><td>Bloomberg 报 SEC 调查数据收集</td><td>-14.0%</td><td>放大器</td></tr>
+<tr><td>2025-12-22</td><td>高点 $733.60</td><td></td><td></td></tr>
+<tr><td>2026-01-20 / 01-30</td><td>CapitalWatch 指控; Google Project Genie (AI 造游戏)</td><td>1 月 -30%; 01-30 -16.9%</td><td>放大器 (AI 叙事)</td></tr>
+<tr><td>2026-02-04</td><td>CloudX (CEO Jim Payne) 发布 AI 广告平台 (Stocktwits)</td><td>-16.1%</td><td>拍卖场被挑战</td></tr>
+<tr><td>2026-02-12</td><td>Q4 超预期仍跌; Meta 拟竞价此前忽略的 iOS 无追踪流量 (Fool 转述)</td><td>-19.7%</td><td>无 ID 优势被挑战</td></tr>
+<tr><td>2026-06-22</td><td>Google / Meta / Moloco / Unity 入股 AppsFlyer</td><td>-0.1%</td><td>裁判被挑战</td></tr>
+<tr><td>2026-07-13</td><td>未查到单一触发</td><td>-12.6%</td><td>--</td></tr>
+<tr><td>2026-08-06</td><td>Q2 低于预期, 环比 +4.4%</td><td>-19.7%</td><td>增速撞上限</td></tr>
+<tr><td>2026-09-23 至 10-02</td><td>Edgewater "functional ceiling"; Unity 指 MAX 过半与自我优待; 集体诉讼</td><td>新低 $268.22</td><td>结构 + 增速 + 放大器</td></tr>
+</tbody></table>
+<p>鲸群高位派发: 本次未取 13F / 期权流, 无数据, 不作承重。读法: 盈利没假, 假的是 "78 倍可持续"; 市场先给 AI 与调查折价, 再给主场优势被挑战折价, 最后由一次增速 miss 确认。</p>
+<p><strong>4. 定档</strong></p>
+<ul>
+<li>"上涨主因是内部竞价结构": 结构存在 已证实; "是主因而非模型质量" 可疑 -- 数据上分不开。区分 checkpoint: 诉讼证据开示或披露 APP 在 MAX 内外的胜率差; Q3 每安装净收入增速 (&lt; +30% 且安装不回升 = 定价权在退)。</li>
+<li>"下一段走 TTD 路径": 可疑, 现状未触发。升档: Q3 收入 &lt; $2,055M 或 Q4 指引隐含同比 &lt; 30%; 应付 / 收入回升; Unity 战略 Grow Q3 超 $385M 上沿而 APP miss; Unity 反垄断反诉, 或 DOJ / FTC / 欧盟对 MAX 立案; Apple / Google SDK 政策点名指纹或无 ID 定向。降档: 连续两季环比 &gt;= 8% 且无 MAX 份额流失证据。</li>
+</ul>
+<p><strong>5. 动作规则</strong></p>
+<ul>
+<li>现在: 观察, 不空。20 倍 TTM PE 配 +46-48% 指引增速, 空方赔率差; 监管以年计 (Google 3.7 年), 不能单押监管。</li>
+<li>条件 -&gt; 动作: 上一条升档项任两条同时成立 -&gt; 买 put, 不空正股 (回购授权余额 2026Q1 末约 $2.3B, 加跳空风险); 到期覆盖下一次财报 (Q3 触发用 2027-03 合约覆盖 2027-02 的 Q4 财报; TTD 三次大跌都在财报日); 行权价价外 10-15%, IV 高时用看跌价差; 同因子权利金合计 &lt;= 组合 2%。</li>
+<li>失效 (平仓 / 撤销空的判断): 任一季环比 &gt;= 8% 且每安装净收入增速回升; 或触发后两个月内无平台 / 监管实锤且 Unity 战略 Grow 低于指引。</li>
+</ul>
 <h2 id="0-承重句">0. 承重句</h2>
 <ul>
 <li>我方 (Adam, 造假): 买量总盘没长, APP 一年多收约 $2.6B, 钱没有来源 = 收入是编的。承重词 "总盘没长"。</li>
