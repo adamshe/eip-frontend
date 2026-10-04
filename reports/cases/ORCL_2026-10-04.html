@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>ORCL 综合报告: AI 基建合同会不会血亏, 为什么从坏车移到观察, checkpoint (2026-10-04)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650} .byline{color:var(--muted);font-size:13px;margin:0 0 1em}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1 id="orcl-综合报告-ai-基建合同会不会血亏-为什么从坏车移到观察-checkpoint-2026-10-04">ORCL 综合报告: AI 基建合同会不会血亏, 为什么从坏车移到观察, checkpoint (2026-10-04)</h1>
+<h2 id="结论">结论</h2>
+<p>ORCL 是用 15-19 年机房租约加发债、增发与客户预付, 把 $664B RPO 变成交付容量的 AI 基建房东; 交付已物理落地 (Q1 FY27 交付 850 MW, 超 30 万 GPU, T1), 真正不确定的是 OpenAI (约占 RPO 45%) 付不付, 以及 GPU 租价走稀缺还是均衡。OpenAI 这块账血亏概率约 20% (12-29%), 期望净现值约 +18% capex, 最坏路径现值损失约市值 12-18%, 重伤不致命 (均为估)。本组报告未做每股价值倒算; 现价 $142.30 (10-02 收盘) 较高点跌 56%, 已付清近端信用恐慌, 未付 FY28-FY29 的双条件风险。最大单一风险是合同单价 (只有 WSJ 单源): 若只有 $9.7M/MW-年, 血亏概率 60%。近端看 AI World (10-25 至 10-28) 与 Q2 FY27 续约溢价。动作档 WATCH: 已从坏车移到观察, 不追空, 不翻多。</p>
+<h3 id="要点与动作">要点与动作</h3>
+<ol>
+<li>维持观察 -- 做什么: ORCL 留在 short_watchlist, status: watch (系统 10-04 起), 不开方向单 (不追空, 不翻多); 条件: F11 六条 checkpoint 无一触发; 失效: 任一触发 -&gt; 重回坏车; 复核: hunt 日报每日自动核, 人工复核 2026-10-28 (AI World 结束)。</li>
+<li>重回坏车 -- 做什么: 猎场 B 重新挂 ORCL 找崩塌起点; 条件 (任一, 系统已编码): 收盘跌破 $114.99 且猎场崩塌分 &gt;= 3 / S&amp;P 降到 BB+ 或展望转负 / 5 年 CDS &gt; 300bp 或 2056 票据收益率 &gt; 9% / 8-K 披露 OpenAI 合同修订、降量、付款推迟或第二个园区不可抗力 / OpenAI $30B 轮谈不成或估值低于 $852B / Q2 FY27 续约溢价转负或 RPO 环比下降; 另两条只在 10-04 复核原文、系统未编码, 人工看: Moody's 降到 Baa3 且展望负面 / FY27 融资计划超 $40B; 复核: 每日。</li>
+<li>远端看空 -- 做什么: 用 2028 年到期 put 表达; 条件: OpenAI IPO 拖过 2027 年底、续约溢价转负、S&amp;P 降到投机级, 三者出现两个; 失效: OpenAI 公开递交 S-1; 复核: 每季财报后, 首次 Q2 FY27 (估 2026-12-08 至 12-11)。</li>
+<li>远端看多 -- 做什么: ORCL 进 long_score 正式评分 (inputs 目前无 ORCL), 远期 call 有凸性; 条件: OpenAI 公开递交 S-1、Anthropic IPO 定价顺利、续约溢价维持正值三者齐备 (违约率落到 A 档, 期望净现值 +26%); 失效: 续约溢价转负, 或合同单价披露 &lt;= $9.7M/MW-年; 复核: Anthropic IPO 定价后 (目标 2026-11) 与 2027 上半年。</li>
+<li>单价或口径一披露就重算 -- 做什么: 重跑 <code>python src/tools/econ_depreciation/econ_dep.py --contracts</code> 并改写结论; 条件: Oracle 或 OpenAI 披露合同单价、4.5 GW 是园区电力还是 IT 负载、或终止与违约补偿条款; 读法: 单价 $9.7M -&gt; 血亏 60% (不论付不付), $13.3M -&gt; 12%, $19.4M -&gt; 6%; 复核: AI World 2026-10-25 至 10-28 与 Q2 FY27 电话会。</li>
+<li>两个近端事件各复核一次 -- 做什么: AI World (10-25 至 10-28) 看 OCI 毛利、capex、OpenAI 合同新口径; Q2 FY27 (估 12-08 至 12-11, 隐含 +/-10%) 看续约溢价方向、RPO 环比、融资计划是否扩大、含融资成分的预付是否继续增长 (Q1 $11.4B); 失效: 两次读数都不触发第 2 / 3 / 4 条则 WATCH 不变; 复核: 2026-10-28 与财报次日。</li>
+<li>房东收租另判 -- 做什么: 移出坏车后 ORCL 不再被房东名单排除, 要收租先跑 rent_stats; 条件: rent_stats 给出 edge (本组报告未给收租结论; IV30 52% 对四个预测比值 0.93-1.09, 噪声带, 不判贵贱); 失效: 重回坏车; 复核: 下一次 rent_stats 日报。</li>
+<li>近端反弹包复核 -- 做什么: 10-16 到期后看 09-29 卷仓包 (10-16 C150 / C155 / C160, 目标 150-160, 净付约 $11M) 的结果; 条件与失效: 结果只调近端时点判断, 不改 WATCH 档; 复核: 2026-10-16 收盘。</li>
+</ol>
+<h2 id="分析">分析</h2>
+<h3 id="终局总结">终局总结</h3>
+<ol>
+<li><strong>为什么跌</strong>: 高点是 2025-09-10 收盘 $324.63; 有数据的后段是 06-01 $247.29 -&gt; 07-24 低点 $114.99, 对应 S&amp;P 07-09 降到 BBB- (理由 FY27 自由经营现金流弱于预期、OpenAI 集中) 与 CDS 7 月下旬 219bp (2020-09 以来最高); 前段触发原报告未拆 (缺口)。卖方: 空头从一年前 1,859 万股 (1.1%) 升到 5,084 万股 (2.8%), 7 月起持平; 只能持投资级债的基金被迫卖出尚未发生, 那是评级跌入投机级之后的远端链条。</li>
+<li><strong>为什么止跌、为什么涨</strong>: 先后是 09-10 Q1 FY27 证明交付 (850 MW) 与现金 (OCF $23.1B, 含预付 $11.4B), 融资转向 ATM 加预付、2026 日历年不再发债 -&gt; 09-12 Ellison 撤销最多 $7.5B 卖出计划, 撤掉最大供给悬顶 -&gt; 09-24 至 09-28 不可抗力加 CDS 纪录把价压到 $132.60 -&gt; 09-29 董事 Rusckowski 自掏 $3.48M 买入 (均价 $139.35), 同日期权近月包押 150-160 -&gt; 10-02 收 $142.30。07-24 低点的止跌触发原报告未写。</li>
+<li><strong>必然性</strong>: 锁死的是交付与租约: 850 MW、超 30 万 GPU (8-K, T1), $288B 未起租租约 15-19 年 (10-Q, T1), 云合同 1-5 年对租约 15-19 年的期限错配也锁死。需求侧当下是稀缺: GPU 利用率 97.9%, 旧卡续约溢价 20% (T2)。不确定的三件: 合同单价 (WSJ 单源, 区间约 3 倍)、OpenAI 付款能力 (2026-2030 账单约 $856B, 融资覆盖 0.61-2.7x)、价格体制 (稀缺年降 17% vs 均衡年降 44%)。</li>
+<li><strong>基本面变了什么</strong>: 真变化是规模与融资结构: RPO 一年 $455B -&gt; $664B, capex FY26 $55.7B -&gt; FY27 指引 $90-95B, TTM FCF 约 -$28.7B, 评级降一档, 融资从发债转为 ATM (Q1 约 1.41 亿股) 加客户预付。重估是股价从按 OCI 收入路径 (FY30 $144B) 定价改为按信用风险定价。05-10 看空 thesis 的 "无物理进度" 被 Q1 交付证伪。</li>
+<li><strong>空方</strong>: 对在 "发债 capex x OpenAI 集中" 与信用恶化, 05-10 方向也对 (目标 $130-150 在 7 月到); 错在事实 (无物理进度) 与耐心: 损失载体 OpenAI 付款 FY28 才开始 (8-K, T1), 05-10 空单先在 06-01 $247.29 被止损。</li>
+<li><strong>多方</strong>: 对在交付、利用率、预付与自带硬件 $75B 把 GPU 风险转给客户; 错在三处逻辑: 把 RPO 当现金, 把稀缺期续约溢价外推到合同期满, 把示例项目 35% 毛利当实际 (报道 14%, 推算增量 34%)。</li>
+<li><strong>到底谁对</strong>: 争议票, 两边都对, 先后不同。至 2027 上半年多方对: 无损失载体, 期望净现值 +18%; 2027 下半年至 2029, 空方的 "停付 x 均衡租价" 双条件才可能落地, 概率约 20%。三份报告结论一致; 执行口径以 10-04 复核加系统读数为准 (日期最新, 新增 Form 4 与 8-K 两份 T1), 概率以 10-03 模型为准, 10-02 参数只供数。</li>
+<li><strong>是不是设局震仓</strong>: "有人设局" 不支持: 头条是真事件 (Jupiter 不可抗力 T2, CDS 纪录 T3), 无协同证据。"事件引发弱手出清 + 价值资金接盘" 可疑: 头条把价打到 $132.60 后被买回, 有内部人一笔、Ellison 撤卖、近月反弹包; 但只有一人一笔, 期权主战役 2027-12 C180 是组合、方向查表未定, 空头仓位 7 月起持平未见回补。</li>
+<li><strong>动作规则</strong>: (a) 头条信用事件来了、但损失载体还没开始付款、内部人公开市场买入、期权大资金不押近端崩塌 -&gt; 从坏车移到观察, 不追空 (WATCH) -&gt; 系统六条 checkpoint 任一触发即失效, 重回坏车。(b) OpenAI IPO 拖过 2027 年底 / 续约溢价转负 / S&amp;P 跌入投机级, 三中二 -&gt; 猎场: 2028 年到期 put -&gt; OpenAI 公开 S-1 即失效。(c) OpenAI 公开 S-1 + Anthropic IPO 定价顺利 + 续约溢价为正 -&gt; 进 long_score 正式评分, 远期 call -&gt; 续约溢价转负或单价披露 &lt;= $9.7M 即失效。复盘规律: 看空 thesis 的锚必须是能落地的损失载体加时间, 载体未到时方向对也会先打止损 (05-10 教训)。</li>
+</ol>
+<h3 id="判断一-为什么从坏车移到观察">判断一: 为什么从坏车移到观察</h3>
+<p>坏车名单只为猎场 B 找近端崩塌起点。05-10 看空 thesis 的四根支柱 (F10) 里: 支柱 1 "无物理进度" 被 Q1 交付 850 MW、超 30 万 GPU 证伪, 摩擦 (Jupiter 不可抗力、Wisconsin 送电延迟、Abilene 扩建取消) 是延迟不是无进度, 应删; 支柱 2 发债 capex 成立且加重, 但股价已定价一轮; 支柱 3 客户集中成立, Q1 新签多为预付 / 自带硬件, 略稀释; 支柱 4 方向对、时点错。</p>
+<p>不是近端崩塌候选的三条都是时点论据: 崩塌已发生一轮 (跌 56%, 05-10 目标 $130-150 在 7 月已到, 现在是跌腿到中位加底区); 知情资金站在另一边 (唯一内部人买入在坏消息周之后, Ellison 撤销卖出, 期权近月押 150-160, 保护停在 2028); 近端基本面未裂 (收入 +30%, OCF $23B, 新合同多预付, OpenAI 私募估值 $1.4T 高于 3 月 $852B)。仍是崩塌候选的三条都是结构论据: 信用实时恶化 (BBB- 距垃圾一档, CDS 纪录, TTM FCF 约 -$28.7B, $288B 租约 FY27 Q2 起陆续起租); 交易对手与执行摩擦累积 (OpenAI 搁置 IPO 正是 10-03 列的看空信号; Jupiter 加 Wisconsin = capex 先花、收入后到、租金照付); 集中度仍在 (OpenAI 约占 RPO 45%, 单价只有单一媒体来源)。两组不冲突: 结构风险成立, 近端没有载体。猎场 B 崩塌分 1.5 低于门 3 (F9), 读数给出同一结论。所以是移到观察 (移出坏车宇宙, 不是翻多)。10-04 复核原建议从 short_watchlist 删去 ORCL 行 (Adam 裁); 系统 10-04 起的实际处置是保留为 status: watch 并挂六条 checkpoint, 本文动作按系统写。</p>
+<h3 id="判断二-血亏要两件事同时发生-单价能单独翻盘">判断二: 血亏要两件事同时发生, 单价能单独翻盘</h3>
+<p>血亏 = 一块容量在整个寿命内的净现值低于投入 capex 的 -30%。10-03 模型的中心值是 "违约与价格体制相关" 情形: 血亏约 20%, 期望净现值 +18% (F6)。相关是对的设定: OpenAI 的价格战情景 (收入停在现速附近慢涨) 本身就是 token 价格崩、旧卡租价跟着崩的世界。</p>
+<p>血亏要 OpenAI 停付或大幅降价, 加上 GPU 租价进入能效均衡 (旧卡租价每年跌约 44%)。只发生第一件不够: 稀缺体制下合同价约为当时按需市价的 65%, OpenAI 违约后 Oracle 收回容量按市价转租反而多赚, 这正是电话会说 4 年以上旧卡续约溢价 20% 的机制。所以分布是两头的, 要么赚, 要么血亏, 中间很少。全部落在稀缺体制时血亏 0%, 全部落在均衡体制时 29%。</p>
+<p>单价是唯一能单独翻盘的变量。若真实每 MW-年单价只有 IREN-微软水平 $9.7M, 不论 OpenAI 付不付, 血亏概率都是 60%; 4.5 GW 若是园区电力 (折算 $19.4M) 则只有 6%。重谈比违约更可能: OpenAI 从头压价 30%, IT 口径下等于 $9.3M, 血亏 60%, 园区口径下仍为 0%。所以重谈与停付同样危险, 取决于 4.5 GW 的口径, 而这个口径目前只有 WSJ 单源。</p>
+<p>另两个敏感点: capex 若因客户自带硬件只有 $21M/MW, 血亏降到 6%, 但 OpenAI 合同里的自带硬件比例未披露, 中心值不动; 违约年份决定损失大小, 均衡体制下只有 FY28-FY31 的停付构成血亏, FY29-FY30 最重, 付满 5 年也只剩 +4%, 回本靠合同期, 15-19 年的租约尾巴吃掉大部分利润。看多方的稀缺论据 (利用率 97.9%, 续约溢价 20%) 是当前体制的证据, 不能外推到合同期满之后, AWS p5 表价三年年降 17% 说明稀缺期价格也在跌, 所以均衡权重 60% 不下调。</p>
+<h3 id="判断三-窗口在-2027-下半年至-2029-重伤不致命">判断三: 窗口在 2027 下半年至 2029, 重伤不致命</h3>
+<p>现在至 2027 上半年损失没有载体: OpenAI 合同 FY28 才开始付款。主窗口是 2027 下半年至 2029 (FY28-FY29): OpenAI 付款爬坡到每年 $30B 以上, $288B 未起租租约在 FY27 Q2 至 FY29 集中起租, C 情景 OpenAI 现金 2028 年见底, Amazon $35B 认购 2028-12-31 前不投完就失效。常数违约率模型给 FY28-FY29 约 45% 的停付概率, 按结构判断应前移到 55-65% (估)。失败形态更可能是展期、降量、重谈价格, 而不是一次性停付。第二次检验在 2031-2032 合同到期重新定价, 租约尾巴拖到 2042-2046。会计确认更晚 (服务器折旧 6 年, 减值只在违约或重谈之后), 信用市场和股价会先于报表反映。</p>
+<p>血亏不等于破产。最坏路径 (FY29 停付加均衡) 名义缺口约 $66-96B, 现值损失约 $52-76B, 约为市值的 12-18%, 对 $431B 市值、$125B 债务是重伤不是致命 (估)。致命的是叠加: 新租约起租后评级机构把租约现值并入调整后债务, 杠杆抬高; 若再遇 OpenAI 降量, 两家评级跌入投机级, 只能持有投资级债券的基金被迫卖出, 再融资成本跳升, 公司只能靠增发补洞。这条链的启动时间同样落在主窗口。S&amp;P 7 月给的展望为稳定, 无新冲击时 12 个月内再降一档的概率低 (估), 近端信用跳崖路径窄。</p>
+<p>历史同型的共同点是交易对手违约与资产价格崩溃同时到来: 1999-2002 光纤长约租给初创运营商, Global Crossing 2002 年破产; 2000 年 Lucent / Nortel 的供应商融资循环; 2008 年干散货指数从 5 月约 11,800 点跌到 12 月约 660 点, 长租约对手违约与运价崩溃同步。Oracle 的不同点是有非 AI 的现金业务托底, 不是初创。</p>
+<h3 id="判断四-资金布局是哑铃-与模型窗口一致">判断四: 资金布局是哑铃, 与模型窗口一致</h3>
+<p>近端: 09-29 的近月包押无事件的价格反弹到 150-160 (10-03 至 10-16 没有排定的公司事件), 近月 put 买入只有 $1-2M 级, 没人花大钱买近端崩塌。远端: 2027-12 C180 买方是主战役, 2028-12 有合成多头。保护: 停在 2028-01 P140 与 2028-12 P125, 是 2028 年保护的换挡。内部人: 董事 09-29 在 Jupiter 不可抗力之后首次自掏钱买入, 他看得到董事会层面的合同条款; 限度是外部董事、医疗背景、一人一笔, $3.5M 是信号不是资金。Ellison 撤销卖出是反向动作, 计弱正面。</p>
+<p>对照公开看法: 头条是 CDS 纪录、评级下调、不可抗力、"$18B 债务问题", 看空叙事是共识。差异在时间, 共识在定价近端信用事件, 布局和模型都指向 2027 下半年到 2028 年。散户中性、空头 2.8% 回补 1.4 天不拥挤, IV 在噪声带, 情绪面没有极端可用。</p>
+<h3 id="反方审计-第-0-至-5-步-第-6-步即终局总结">反方审计 (第 0 至 5 步; 第 6 步即终局总结)</h3>
+<p><strong>第 0 步 承重句。</strong> 我方 (WATCH, 移到观察) 的承重句是 "损失载体 (OpenAI 付款) FY28 才开始, 近端没有能落地的崩塌机制", 追到 T1: 8-K 2025-06-30 Item 7.01 与 10-Q Note 6 两处原话 (F2 原话表), 站住。反方近端的承重句是 "信用跌入投机级 -&gt; 被迫卖出 -&gt; 再融资跳升 -&gt; 增发", 它依赖 S&amp;P 再降一档, 而 S&amp;P 7 月给展望稳定、09-18 维持投资级 (T2), 近端未站住。反方远端的承重句是合同单价与价格体制, 单价只有 WSJ 单源 (T3), Oracle 不按客户披露, 追不到 T1, 是全案最大的未核点。</p>
+<p><strong>第 1 步 反方最强版本。</strong> 一, S&amp;P (2026-07-09) 把 FY27 capex 假设由 $60B 提到 $95B, FCF 赤字或扩至 $42B, 加上 OpenAI 集中, 降到 BBB- 距投机级一档。二, The Information 报道止 2025-08 季 Nvidia 服务器租赁毛利率略低于 14%, Blackwell 租赁季度亏近 $100M, 与管理层 35% 口径差一倍以上。三, 信用市场 2026-09-23 至 09-24: 5 年 CDS 纪录 227.5bp, 2056 票据首破 8%, Jupiter 不可抗力, 开发商约 $18B 贷款约 89-91 美分。做空报告、诉讼与监管信三份原报告均未检索 (缺口)。</p>
+<p><strong>第 2 步 五项检查。</strong></p>
+<ul>
+<li>事实: 反方的 "无物理进度" 不成立 (850 MW, T1), 评级、CDS、不可抗力成立 (T2 / T3), 14% 毛利是 2025-08 季旧报道 (T3); 我方承重句 T1 站住, 合同单价 T3 未核, OpenAI 收入口径不一 ($40-70B)。</li>
+<li>逻辑: 反方把信用头条当近端崩塌载体 (偷换时间口径), 把 OpenAI 违约直接等同血亏 (稀缺体制下违约反而能按更高市价转租); 我方模型用常数违约率把风险平摊 5 年, 结构上应前移, 停付按整年全停, 对重谈形态偏保守, 是损失上界。</li>
+<li>忽略的事实: 反方没提预付与自带硬件 $75B、Q1 预付 $11.4B、Ellison 撤卖、董事自掏买入、2026 日历年不再发债; 多方没提 AWS p5 表价三年年降 17%, 以及 NVIDIA 残值担保把 OpenAI 当未达投资级的信用 (T1)。</li>
+<li>极端情绪: 头条看空是共识, 但散户中性、空头不拥挤、近月 put 买入只有 $1-2M 级, 无极端; StockTwits 看多 90% 只有 10 条有效, 不作数。</li>
+<li>耐心: 反方只看下一季, 载体 FY28 才到, 对的结论放在错的时间先亏 (05-10 空单 06-01 打止损); 我方要等 2027 下半年至 2029, 远超近月期权期限, 只能用 2028 年到期合约表达, 现在不占仓。</li>
+</ul>
+<p><strong>第 3 步 先证明不是什么。</strong></p>
+<ul>
+<li>不是 "无物理进度的叙事股": 客户关系作证, 850 MW 交付, 超 30 万 GPU, 利用率 97.9%。</li>
+<li>不是 GPU 风险全在自己身上的出租商: 客户怎么付钱作证, 预付与自带硬件 $75B, Q1 含融资成分的预付 $11.4B (T1); 但 OpenAI 合同里的比例未披露。</li>
+<li>不是初创运营商 (区别于 Global Crossing): 有非 AI 的现金业务托底; 资本方怎么下注作证, Ellison 撤卖、董事自掏买入。</li>
+<li>不是近端崩塌候选: 损失载体 FY28 才开始付款 (T1), 猎场 B 崩塌分 1.5 低于门 3。</li>
+<li>也不是无风险的长约收租者: 云合同 1-5 年对租约 15-19 年 (T1); 供应商 NVIDIA 把 OpenAI 当未达投资级的信用 (T1)。</li>
+</ul>
+<p>排除后剩下的本体: 用长租约与外部资金 (债、股、客户预付) 把少数 AI 客户的 5 年合同变成容量的杠杆房东, 结果取决于交易对手 x 价格体制。原看空 thesis 建在已排除的本体 ("无物理进度") 上, 看空的锚应改为 "交易对手 x 价格体制" 双条件。</p>
+<p><strong>第 4 步 出口。</strong> 两边承重柱都站住、兑现时间不同: 近端多方 (无载体) 站住, 远端空方 (双条件) 站住, 归为争议票, 走第 5 步; 不是 "可疑" 档, 因为两边的兑现时间可以分开观测。</p>
+<p><strong>第 5 步 时序。</strong></p>
+<ul>
+<li>多方近端 (现在至 2027 上半年): 承重柱是交付落地、预付、损失无载体; checkpoint 是 AI World 10-25 至 10-28、Q2 FY27 续约溢价与 RPO (估 12-08 至 12-11)、OpenAI $30B 轮; 仓位形式是不开方向单 (WATCH), 房东收租另按 rent_stats。</li>
+<li>空方远端 (2027 下半年至 2029): 承重柱是停付 x 均衡租价双条件加信用传导链; checkpoint 是 OpenAI IPO 拖过 2027 年底、续约溢价转负、S&amp;P 跌入投机级; 三中二 -&gt; 2028 年到期 put。</li>
+<li>多方远端 (2027 上半年起): 承重柱是违约率落 A 档、稀缺延续; checkpoint 是 OpenAI 公开 S-1、Anthropic IPO 定价顺利、续约溢价为正; 三者齐备 -&gt; long_score 正式评分, 远期 call。</li>
+<li>切换由 checkpoint 触发, 不靠盘感; 远端两腿方向相反时不算对冲, 各自算风险预算; 当前近端无仓, 不涉及两腿合计。</li>
+</ul>
+<h2 id="事实">事实</h2>
+<p>口径: Oracle 财年止 5 月 31 日 (FY27 = 2026-06 至 2027-05), 金额为美元。T1 = SEC 文件 / 公司新闻稿; T2 = 三家以上独立来源或电话会转录; T3 = 一到两家来源; 估 = 推算。来源报告简称: 10-02 参数 (ORCL_ai_infra_params_2026-10-02.md, 数字均为 2026-10-02/03 现查, 未用训练记忆) / 10-03 模型 (ORCL_ai_infra_loss_probability_2026-10-03.md) / 10-04 复核 (ORCL_badcar_reaudit_2026-10-04.md); "系统" = 主线程另给的已核系统读数。</p>
+<h3 id="f1-现价-估值读数与系统状态-as-of-2026-10-02-收盘-2026-10-04-现查">F1 现价、估值读数与系统状态 (as-of 2026-10-02 收盘, 2026-10-04 现查)</h3>
+<table><thead><tr><th>项</th><th>数值</th><th>as-of</th><th>来源</th><th>T</th></tr></thead><tbody>
+<tr><td>收盘价 / 市值</td><td>$142.30; 约 $431B</td><td>2026-10-02 收盘 (10-03 / 10-04 休市)</td><td>yfinance, 10-04 现查</td><td>T1</td></tr>
+<tr><td>前高 / 低点</td><td>前高收盘 $324.63 (2025-09-10), 跌 56%; 低点 $114.99 (2026-07-24), 距低点 +24%</td><td>2026-10-02</td><td>yfinance</td><td>T1</td></tr>
+<tr><td>均线</td><td>SMA50 $143.6, SMA200 $162.2</td><td>2026-10-02</td><td>yfinance</td><td>T1</td></tr>
+<tr><td>05-10 空单路径</td><td>05-08 收 $195.27 -&gt; 06-01 收 $247.29 (触发止损 $245) -&gt; 07-24 低点 $114.99</td><td>2026-05 至 07</td><td>yfinance</td><td>T1</td></tr>
+<tr><td>9 月头条低点</td><td>09-24 至 09-28 不可抗力 + CDS 纪录把价压到 $132.60, 随后买回 $142</td><td>2026-09-28</td><td>10-04 复核</td><td>--</td></tr>
+<tr><td>估值百分位</td><td>non-GAAP PE 17.5x = 自身第 63 百分位</td><td>2026-10-02</td><td>系统</td><td>--</td></tr>
+<tr><td>forward PE</td><td>12.9</td><td>2026-10-04</td><td>yfinance</td><td>T2</td></tr>
+<tr><td>卖方</td><td>41 家, 目标均值 $238</td><td>2026-10-04</td><td>yfinance</td><td>T2</td></tr>
+<tr><td>名单状态</td><td>short_watchlist status: watch (从坏车移到观察), checkpoint 六条见 F11</td><td>2026-10-04 起</td><td>系统</td><td>--</td></tr>
+</tbody></table>
+<p>两个倍数口径不同 (系统 non-GAAP 口径 vs yfinance forward 口径), 不混用; 百分位只用系统口径。卖方均值 $238 只是外部参照, 不是本文的价值区间。</p>
+<h3 id="f2-oracle-自身披露-as-of-2026-08-31-10-q-与-2026-09-10-8-k">F2 Oracle 自身披露 (as-of 2026-08-31 10-Q 与 2026-09-10 8-K)</h3>
+<table><thead><tr><th>项</th><th>数值</th><th>日期</th><th>来源</th><th>T 级</th></tr></thead><tbody>
+<tr><td>Q1 FY27 业绩</td><td>收入 $19.3B +30%; OCI $7.39B +121%; OCF $23.1B; FCF -$5.4B; 新签超 $30B AI 合同, 多为预付 / 自带硬件, FY28 前不影响 capex 与收入</td><td>2026-09-10</td><td>8-K Ex 99.1 + 电话会</td><td>T1 / T2</td></tr>
+<tr><td>Q2 FY27 指引</td><td>收入 +30-34%, 云 +65-71% (USD)</td><td>2026-09-10</td><td>8-K Ex 99.1</td><td>T1</td></tr>
+<tr><td>RPO 总额</td><td>$664B (2025-08-31 $455B; 2026-05-31 $638B)</td><td>2026-08-31</td><td>10-Q Note 1</td><td>T1</td></tr>
+<tr><td>RPO 时间结构</td><td>0-12 月 13% (约 $86B) / 13-36 月 37% (约 $246B) / 37-60 月 34% (约 $226B) / 60 月后约 16% (约 $106B)</td><td>2026-08-31</td><td>10-Q Note 1 (金额为推算)</td><td>T1</td></tr>
+<tr><td>管理层 36 月转化口径</td><td>约一半 RPO 在 36 月内转收入</td><td>2026-09-10</td><td>Q1 FY27 电话会转录</td><td>T2</td></tr>
+<tr><td>预付 + 客户自带硬件</td><td>大型 AI 合同中客户预付 GPU 款或自购自供 GPU 部分合计 $75B</td><td>2026-06-10</td><td>Q4 FY26 新闻稿 (8-K)</td><td>T1</td></tr>
+<tr><td>含融资成分的客户预付</td><td>Q1 FY27 $11.4B; FY26 $4.6B; FY25 0</td><td>2026-08-31</td><td>10-Q / 10-K Note 1</td><td>T1</td></tr>
+<tr><td>未具名大合同 (后报道为 OpenAI)</td><td>FY28 起年收入 &gt;$30B</td><td>2025-06-30</td><td>8-K Item 7.01</td><td>T1</td></tr>
+<tr><td>OpenAI 合同</td><td>4.5 GW; 约 $300B; 约 5 年; 2027 起</td><td>2025-09-10 首报; 2026-03 Oracle 称仍按计划</td><td>WSJ (经 The Register)</td><td>4.5 GW T2 / $300B T3</td></tr>
+<tr><td>Meta, NVIDIA</td><td>Q2 FY26 RPO 增量 "来自 Meta, NVIDIA 等"; Meta 约 $20B (谈判期报道)</td><td>2025-12-10 / 2025-09-19</td><td>8-K 新闻稿 / Bloomberg 标题</td><td>具名 T1 / 金额 T3</td></tr>
+<tr><td>Tencent</td><td>5 年 $7B, 10 万卡, 东南亚机房, 预付约 30%; Oracle 未确认</td><td>2026-10-01</td><td>FT 经 Reuters / The Next Web</td><td>T3</td></tr>
+<tr><td>xAI</td><td>仅 Grok 模型上架 OCI, 无合同金额</td><td>--</td><td>--</td><td>无数据</td></tr>
+<tr><td>capex 实际 ($B)</td><td>FY22 4.5 / FY23 8.7 / FY24 6.9 / FY25 21.2 / FY26 55.7 / Q1 FY27 28.5</td><td>各财年末</td><td>SEC XBRL / 10-Q</td><td>T1</td></tr>
+<tr><td>FY27 capex 指引</td><td>报表口径 $90-95B; 净现金 capex &lt;= $70B; Q1 净现金 capex 约 $18B</td><td>2026-06 首给, 2026-09-10 维持</td><td>电话会转录 / BI / Fool / Cryptopolitan</td><td>T2</td></tr>
+<tr><td>FY28 capex 指引</td><td>公司未给; 德银预计 FY27-28 见顶</td><td>2026-08-11</td><td>MarketWatch</td><td>无数据</td></tr>
+<tr><td>OCI 收入计划 (2025-09)</td><td>FY26 $18B / FY27 $32B / FY28 $73B / FY29 $114B / FY30 $144B; FY26 实际 $18.1B; Q1 FY27 $7.39B (+121%)</td><td>2025-09-09 / 2026-09-10</td><td>8-K 新闻稿</td><td>T1</td></tr>
+<tr><td>公司目标</td><td>FY27 收入 &gt;= $90B, non-GAAP EPS $8.10; FY30 收入 $225B, EPS $21</td><td>2026-09-10 / 2025-10-16</td><td>8-K / Bloomberg 转载</td><td>T1 / T2</td></tr>
+<tr><td>PP&amp;E 毛值</td><td>计算机网络设备 $77.8B (服务器网络寿命 6 年); 建筑及改良 $25.5B (1-40 年); 在建 $48.5B (主要为待部署服务器网络与租赁改良); 土地 $1.3B; 累计折旧 $25.8B; 净额 $127.8B</td><td>2026-08-31</td><td>10-Q Note 3</td><td>T1</td></tr>
+<tr><td>Q1 FY27 毛值增量</td><td>设备 +$18.1B / 建筑 +$4.3B / 在建 +$8.6B; 设备占增量 59% (FY26 全年为 46%)</td><td>2026-08-31</td><td>10-Q / 10-K Note 3 推算</td><td>T1 推算</td></tr>
+<tr><td>折旧</td><td>Q1 FY27 $3.16B (上年 $1.35B); FY26 $7.6B</td><td>2026-08-31</td><td>10-Q / 10-K</td><td>T1</td></tr>
+<tr><td>已入表租赁</td><td>经营租赁负债 $34.6B; 融资租赁负债 $9.2B; Q1 经营租赁费用 $1.10B</td><td>2026-08-31</td><td>10-Q Note 6</td><td>T1</td></tr>
+<tr><td>未起租租赁承诺</td><td>$288B (2026-05-31 $260B), 基本全为数据中心, FY27 Q2 至 FY29 起租, 租期 15-19 年</td><td>2026-08-31</td><td>10-Q Note 6</td><td>T1</td></tr>
+<tr><td>出租方借款担保</td><td>至多 $3.3B, 2026-09 到期</td><td>2026-05-31</td><td>10-K 租赁附注</td><td>T1</td></tr>
+<tr><td>无条件采购义务</td><td>$34.2B (2026-05-31 $13.3B), 主要为云基础设施部件与电力</td><td>2026-08-31</td><td>10-Q Note 6</td><td>T1</td></tr>
+<tr><td>债务</td><td>票据及借款 $125.3B (流动 $7.6B + 非流动 $117.7B); 现金 $36.4B + 有价证券 $0.7B; 限制性现金 $2.6B</td><td>2026-08-31</td><td>10-Q 资产负债表</td><td>T1</td></tr>
+<tr><td>2025-2026 发行</td><td>FY26 高级票据 $43.0B (2025-09 $18B + 2026-02-04 $25B, 票息 4.55%-6.85%, 最长 2066); 2026-02 6.50% 强制可转优先股 $4.95B; Q1 FY27 ATM 普通股净 $19.9B (约 1.41 亿股)</td><td>各发行日</td><td>8-K / 10-K / 10-Q</td><td>T1</td></tr>
+<tr><td>融资计划</td><td>FY27 约 $40B 债 + 股 (含已完成的 $20B ATM); 2026 日历年不再发债</td><td>2026-06-10</td><td>Q4 FY26 新闻稿</td><td>T1</td></tr>
+<tr><td>利息</td><td>Q1 FY27 利息费用 $1.43B (上年 $0.92B; 年化约 $5.7B 估); FY26 $4.60B; FY26 付息现金 $3.90B</td><td>2026-08-31</td><td>10-Q / 10-K</td><td>T1</td></tr>
+<tr><td>OCF / FCF</td><td>FY26 OCF $32.0B, FCF -$23.7B; Q1 FY27 OCF $23.1B (含预付 $11.4B), FCF -$5.4B; TTM FCF -$28.7B; 剔预付 Q1 FCF 约 -$16.8B (估)</td><td>2026-08-31</td><td>8-K 新闻稿</td><td>T1 / 估</td></tr>
+<tr><td>其他集中度</td><td>10-K 仅称部分 OCI 产品 "集中于若干大客户", 未披露 10% 客户</td><td>2026-05-31</td><td>10-K 风险因素</td><td>T1</td></tr>
+</tbody></table>
+<p>原话 (承重句与关键表态):</p>
+<table><thead><tr><th>原话</th><th>出处</th><th>日期</th><th>T</th></tr></thead><tbody>
+<tr><td>"we signed multiple large cloud services agreements including one that is expected to contribute more than $30 billion in annual revenue starting in FY28."</td><td>8-K Item 7.01</td><td>2025-06-30</td><td>T1</td></tr>
+<tr><td>"...additional lease commitments, substantially all related to data center arrangements, that are generally expected to commence between the second quarter of fiscal 2027 and fiscal 2029 and for terms of fifteen to nineteen years..."</td><td>10-Q Note 6</td><td>2026-08-31</td><td>T1</td></tr>
+<tr><td>"The prepaid and customer supplied hardware portions of our large AI contracts now total $75 billion."</td><td>Q4 FY26 新闻稿 Ex 99.1</td><td>2026-06-10</td><td>T1</td></tr>
+<tr><td>"Oracle does not expect to issue additional debt in calendar year 2026."</td><td>Q4 FY26 新闻稿 Ex 99.1</td><td>2026-06-10</td><td>T1</td></tr>
+<tr><td>Q1 新签 "no incremental impact on its plans to raise capital"</td><td>8-K Ex 99.1</td><td>2026-09-10</td><td>T1</td></tr>
+<tr><td>"Of all the GPUs that came up for renewal in Q1, that capacity was renewed or resold at a 20% premium to prior contracts. The majority of those GPUs are 4 years or older."</td><td>Q1 FY27 电话会转录</td><td>2026-09-10</td><td>T2</td></tr>
+<tr><td>Ellison "no other plans to sell" (撤销 10b5-1 卖出计划)</td><td>8-K</td><td>2026-09-14</td><td>T1</td></tr>
+<tr><td>NVIDIA 残值担保 "OpenAI 取得满意信用评级即终止"</td><td>NVDA 8-K</td><td>--</td><td>T1</td></tr>
+<tr><td>Altman 称现在上市 "ill-advised"</td><td>Bloomberg 经 Reuters / Quartz</td><td>2026-09-29</td><td>T2</td></tr>
+</tbody></table>
+<h3 id="f3-单位经济性-as-of-2026-09-10">F3 单位经济性 (as-of 2026-09-10)</h3>
+<table><thead><tr><th>项</th><th>数值</th><th>日期</th><th>来源</th><th>T 级</th></tr></thead><tbody>
+<tr><td>管理层毛利口径</td><td>示例 AI 基建项目 6 年总收入 $60B, 毛利率 35%, "对最大客户亦适用"</td><td>2025-10-16 分析师会</td><td>Bloomberg 转载</td><td>T2</td></tr>
+<tr><td>口径更新</td><td>去年的毛利框架 "仍然成立", 部件涨价可转嫁; Q1 毛利率按预期下降 (新机房爬坡)</td><td>2026-09-10</td><td>电话会转录</td><td>T2</td></tr>
+<tr><td>媒体报道实际毛利</td><td>Nvidia 服务器租赁季度毛利 $125M, 毛利率略低于 14%; Blackwell 租赁季度亏近 $100M</td><td>止 2025-08 季</td><td>The Information (经 Sherwood)</td><td>T3</td></tr>
+<tr><td>增量毛利 (推算)</td><td>云+软件段同比收入 +$4.25B, 段直接成本 +$2.82B -&gt; 增量毛利约 34%; 段利润率 55% (上年 60%)</td><td>Q1 FY27</td><td>10-Q MD&amp;A 推算</td><td>T1 推算</td></tr>
+<tr><td>利用率 / 续约</td><td>GPU 利用率 97.9%; Q1 到期容量以 +20% 价格续约或转售, 多数为 4 年以上 GPU</td><td>2026-09-10</td><td>电话会转录</td><td>T2</td></tr>
+<tr><td>交付量</td><td>Q1 交付 850 MW, &gt;30 万 GPU, 约为 Q4 的 3 倍, 为 FY26 全年交付的 73% (-&gt; FY26 约 1.16 GW, 估)</td><td>2026-09-10</td><td>8-K 新闻稿 + 电话会</td><td>T1 / T2</td></tr>
+<tr><td>GPU 密度</td><td>约 353 GPU/MW, 每 GPU 全口径约 2.8 kW</td><td>Q1 FY27</td><td>推算</td><td>估</td></tr>
+<tr><td>Abilene</td><td>8 栋中 6 栋 = 618 MW = 总量 75% (-&gt; 约 824 MW, 估); 园区 1.2 GW -&gt; 交付 MW / 园区 GW 约 0.69 (估); Q1 交付 13.1 万 GPU</td><td>2026-09-10</td><td>电话会; Crusoe 新闻稿</td><td>T2 / T1</td></tr>
+<tr><td>每 MW-年合同收入</td><td>OpenAI: $300B / 5 年 / 4.5 GW 约 $13.3M; 若 4.5 GW 为园区电力按 0.69 折算约 $19.4M; 按 8-K FY28 首年 &gt;$30B 计 &gt;$6.7M</td><td>--</td><td>推算</td><td>估 (输入含 T3)</td></tr>
+<tr><td>每 MW 服务器网络 capex</td><td>Q1 设备毛值增量 $18.1B / 850 MW 约 $21M (自带硬件不入账, 偏低); Q1 报表 capex / MW 约 $33.5M; 净现金 capex / MW 约 $21M</td><td>Q1 FY27</td><td>推算</td><td>估 (输入 T1)</td></tr>
+<tr><td>每 MW 机房 (开发商)</td><td>Vantage Frontier &gt;$25B / 1.4 GW 关键 IT 约 $17.9M; Crusoe Abilene $15B / 1.2 GW 约 $12.5M (按 824 MW 约 $18.2M); Related Saline $16B / 约 1 GW 约 $16M</td><td>2025-08-19 / 2025-05-21 / 2026-04-24</td><td>开发商新闻稿</td><td>T2 / T1 / GW 为 T3</td></tr>
+<tr><td>合同 vs 租赁年限</td><td>云合同一般 1-5 年, 客户选择续约; RPO 约 16% 在 60 月后; 示例项目 6 年; 数据中心租赁 15-19 年</td><td>2026-08-31</td><td>10-Q MD&amp;A / Note 6</td><td>T1</td></tr>
+</tbody></table>
+<h3 id="f4-交易对手-openai-as-of-2026-09-29">F4 交易对手 OpenAI (as-of 2026-09-29)</h3>
+<table><thead><tr><th>项</th><th>数值</th><th>日期</th><th>来源</th><th>T 级</th></tr></thead><tbody>
+<tr><td>OpenAI 占 RPO</td><td>S&amp;P: 约一半 $638B RPO 与 OpenAI 相关; 另报约 $300B, 占 $664B 约 45%</td><td>2026-07-09 / 2026-09-24</td><td>thenextweb / financefeeds / MLQ</td><td>T2</td></tr>
+<tr><td>OpenAI 收入</td><td>10-02 参数: ARR 接近 $70B, 企业销售自 7 月翻倍以上 (Axios / Reuters / Bloomberg, T2); 10-04 复核: 年化收入报道 $40-70B, 口径不一 (T3)</td><td>2026-09-29</td><td>见左</td><td>T2 / T3</td></tr>
+<tr><td>OpenAI 融资</td><td>$110B (Amazon 50 / Nvidia 30 / SoftBank 30), 投前 $730B; 10-04 复核记 3 月轮投后 $852B</td><td>2026-02-27 / 2026-03</td><td>TechCrunch / Reuters / CNBC</td><td>T2</td></tr>
+<tr><td>OpenAI 新一轮</td><td>寻求 &gt;= $30B, 估值 $1.4T, 作为 IPO 推迟后的过桥</td><td>2026-09-29</td><td>Bloomberg 经 Reuters / Quartz / Yahoo / BusinessLine / CoinDesk</td><td>T2</td></tr>
+<tr><td>OpenAI IPO</td><td>2026-06-08 秘密递交 S-1 草稿 (仅见 openai.com 标题); 9 月报道搁置</td><td>2026-06-08 / 2026-09-29</td><td>openai.com 标题 / 媒体</td><td>T3 / T2</td></tr>
+<tr><td>OpenAI 基建支出</td><td>2030 前计划 $750B (MLQ.ai 标题); 2026-2030 算力与基础设施账单约 $856B (公司 7 月材料)</td><td>2026-07-23 / 2026-07</td><td>见左</td><td>T3</td></tr>
+<tr><td>终止 / 违约条款</td><td>未披露</td><td>--</td><td>--</td><td>无数据</td></tr>
+<tr><td>场址: Abilene</td><td>600 MW 扩建取消</td><td>2026-03-06</td><td>The Register</td><td>T2</td></tr>
+<tr><td>场址: Jupiter (新墨西哥)</td><td>2.45 GW, 燃料电池管线与许可延误, 对开发商发不可抗力通知, Oracle 称 "仍按计划"; 开发商约 $18B 项目贷款约 89-91 美分</td><td>2026-09-23 / 09-24</td><td>Coincentral / Fool / financefeeds / Reuters / Bloomberg / CNBC / WSJ</td><td>T2 / 贷款价格 T3</td></tr>
+<tr><td>场址: Wisconsin</td><td>Port Washington 902 MW (Vantage), PSC 重审电网接入; 基准 2027-12 部分送电, 2028-10 全送</td><td>2026-09-30 / 10-02</td><td>Aterio / The Register</td><td>T2</td></tr>
+</tbody></table>
+<p>10-03 模型的三情景 (可得融资中值 $338B, 由现金、私募过桥、IPO、增发、债务和供应商出资组成; IPO 现实可募 $50-100B, 参照沙特阿美 $29.4B、阿里巴巴 $25B、SpaceX $86.25B, T1):</p>
+<table><thead><tr><th>情景 (权重)</th><th>2030 收入</th><th>累计缺口</th><th>可得融资覆盖率 (中值 / 低值)</th><th>对应年违约率</th></tr></thead><tbody>
+<tr><td>A 现速外推 (35%)</td><td>$350B</td><td>$123B</td><td>2.7x / 0.79x</td><td>1.5%</td></tr>
+<tr><td>B 增速逐年折半 (40%)</td><td>$260B</td><td>$317B</td><td>1.07x / 0.31x</td><td>5%</td></tr>
+<tr><td>C 价格战 (25%)</td><td>$110B</td><td>$558B</td><td>0.61x / 0.17x</td><td>12%</td></tr>
+</tbody></table>
+<p>模型 (常数违约率) 下 OpenAI 停付的累计概率:</p>
+<table><thead><tr><th>截至</th><th>累计概率</th></tr></thead><tbody>
+<tr><td>FY28 末 (2028-05)</td><td>5.5%</td></tr>
+<tr><td>FY29 末 (2029-05)</td><td>10.6%</td></tr>
+<tr><td>FY30 末</td><td>15.2%</td></tr>
+<tr><td>FY31 末</td><td>19.5%</td></tr>
+<tr><td>FY32 末</td><td>23.4%</td></tr>
+</tbody></table>
+<h3 id="f5-信用市场-as-of-2026-09-24-至-09-27">F5 信用市场 (as-of 2026-09-24 至 09-27)</h3>
+<table><thead><tr><th>项</th><th>数值</th><th>日期</th><th>来源</th><th>T 级</th></tr></thead><tbody>
+<tr><td>S&amp;P</td><td>BBB -&gt; BBB- (短期 A-2 -&gt; A-3), 展望稳定; 理由 FY27 自由经营现金流弱于预期, OpenAI 集中; FY27 capex 假设由 $60B 提至 $95B; FCF 赤字或扩至 $42B; 09-18 维持投资级</td><td>2026-07-09 / 2026-09-18</td><td>Zacks/Yahoo / MarketWatch / thenextweb / Fortune / Seeking Alpha</td><td>评级 T2 / 细节 T3</td></tr>
+<tr><td>Moody's</td><td>Baa2, 展望负面 (动作日期未取到)</td><td>截至 2026-09-11</td><td>Cryptopolitan / Zacks</td><td>T3</td></tr>
+<tr><td>Fitch</td><td>--</td><td>--</td><td>--</td><td>无数据</td></tr>
+<tr><td>5 年 CDS 最新</td><td>227.5 bp, 纪录 (前高 224 bp)</td><td>2026-09-24 夜</td><td>Bloomberg 数据经 Barron's</td><td>T3</td></tr>
+<tr><td>CDS 轨迹</td><td>7 月下旬 219 bp (LSEG, 2020-09 以来最高); 7-20 前后约 203 bp; 7-29 约 200 bp; 8-10 198 bp</td><td>见左</td><td>CNBC / MarketWatch / Zacks / Reuters</td><td>趋势 T2</td></tr>
+<tr><td>长债</td><td>6.70% 2056 票据收益率首破 8%; 同期 30 年美债 &gt; 5.4% -&gt; 利差约 260 bp (估)</td><td>2026-09-23</td><td>Coincentral / Blockonomi / TheStreet</td><td>T2 / 估</td></tr>
+<tr><td>AI 发行人新债利差</td><td>约 115 bp vs 投资级 78 bp</td><td>2026-09</td><td>Goldman 经 Reuters / TheStreet</td><td>T3</td></tr>
+</tbody></table>
+<h3 id="f6-血亏模型-参数与结果-10-03-数据日-2026-10-02">F6 血亏模型: 参数与结果 (10-03; 数据日 2026-10-02)</h3>
+<p>模型: 单位是 1 MW IT 负载; Oracle 出 GPU 与网络设备 (capex), 机房向开发商租 15-19 年; OpenAI 按固定价照付, 停付或合同到期后容量按当年市场租价转租; 市场租价每年按体制衰减, 转租毛利转负就停机; 停机后机房租金继续付到租约结束, 一半面积能转租; 所有 (违约率情景 x 价格体制 x 违约年份) 组合按概率逐一枚举, 不抽样。命令: <code>python src/tools/econ_depreciation/econ_dep.py --contracts</code>。</p>
+<p>参数 (10-03 所用值, 并入 10-02 给 econ_dep 的建议值):</p>
+<table><thead><tr><th>参数</th><th>取值</th><th>依据</th><th>T 级</th></tr></thead><tbody>
+<tr><td>合同价 每 MW-年</td><td>13.3 (中) / 9.7 (低) / 19.4 (高), 权重 60 / 15 / 25</td><td>$300B / 5 年 / 4.5 GW; 4.5 GW 若为园区电力按 0.69 折 IT; 低档取 IREN-微软价</td><td>输入 T3, 推算估</td></tr>
+<tr><td>合同年限</td><td>5 年, FY28 起</td><td>WSJ; Oracle 8-K: 一份合同 FY28 起年收入超 $30B</td><td>T3 / T1</td></tr>
+<tr><td>会计寿命</td><td>6 年</td><td>10-Q Note 3</td><td>T1</td></tr>
+<tr><td>服务器占 capex</td><td>0.59 (FY26 下界 0.46)</td><td>Q1 FY27 / FY26 毛值增量</td><td>T1 推算</td></tr>
+<tr><td>capex 历史 ($B, 财年)</td><td>{2022: 4.51, 2023: 8.70, 2024: 6.87, 2025: 21.22, 2026: 55.66}; 2027 取 92.5 报表 / 70 净现金</td><td>XBRL; 指引中值</td><td>T1 / T2</td></tr>
+<tr><td>GPU capex 每 MW</td><td>$28M</td><td>设备毛值增量 $21M/MW 与报表 capex $33.5M/MW 之间</td><td>T1 推算</td></tr>
+<tr><td>机房</td><td>租金 $2.0M / MW-年, 租 17 年, 停机后转租一半; 10-02 另给机房造价 16-18 $M/MW (按 IT MW)</td><td>开发商造价 $12.5-18.2M/MW; 10-Q 租期 15-19 年</td><td>T1 / T2 / 估</td></tr>
+<tr><td>市场租价起点</td><td>$7.50 / GPU 小时 (约 $20.4M / MW-年)</td><td>B300 按需价</td><td>T3</td></tr>
+<tr><td>价格体制</td><td>稀缺年降 17% (权重 40%) / 均衡年降 44% (60%)</td><td>AWS p5 表价 2023-08 至 2026-09 年降 17%; 能效每年约 1.8 倍</td><td>T1 / T2</td></tr>
+<tr><td>电价 / 运维</td><td>$90.3/MWh, 负载 0.85; 运维占收入 12%</td><td>EIA 2026 工业电价</td><td>T1 / 估</td></tr>
+<tr><td>折现率</td><td>9%, capex 早一年投入</td><td>2056 票据收益率首破 8%</td><td>T2 / 估</td></tr>
+<tr><td>OpenAI 年违约率</td><td>1.5% / 5% / 12%, 权重 35 / 40 / 25</td><td>2026-2030 融资覆盖率 2.7x / 1.07x / 0.61x</td><td>估</td></tr>
+</tbody></table>
+<p>按合同:</p>
+<table><thead><tr><th>合同</th><th>合同价 $M/MW-年</th><th>NPV &lt; 0</th><th>血亏</th><th>本金收不回</th><th>期望 NPV / capex</th></tr></thead><tbody>
+<tr><td>IREN -&gt; 微软 (校准对照, 违约率 1%)</td><td>9.7</td><td>60%</td><td>2%</td><td>3%</td><td>-3%</td></tr>
+<tr><td>Oracle -&gt; OpenAI, 4.5 GW = IT 负载</td><td>13.3</td><td>14%</td><td>12%</td><td>14%</td><td>+10%</td></tr>
+<tr><td>Oracle -&gt; OpenAI, 低价</td><td>9.7</td><td>94%</td><td>60%</td><td>60%</td><td>-26%</td></tr>
+<tr><td>Oracle -&gt; OpenAI, 4.5 GW = 园区电力</td><td>19.4</td><td>9%</td><td>6%</td><td>9%</td><td>+72%</td></tr>
+</tbody></table>
+<p>按单价权重 15 / 60 / 25 加总:</p>
+<table><thead><tr><th>违约与价格体制的关系</th><th>NPV &lt; 0</th><th>血亏</th><th>本金收不回</th><th>期望 NPV / capex</th></tr></thead><tbody>
+<tr><td>两者独立</td><td>25%</td><td>18%</td><td>20%</td><td>+20%</td></tr>
+<tr><td>两者相关 (中心值)</td><td>28%</td><td>20%</td><td>23%</td><td>+18%</td></tr>
+<tr><td>全部落在均衡体制</td><td>33%</td><td>29%</td><td>33%</td><td>+3%</td></tr>
+<tr><td>全部落在稀缺体制</td><td>13%</td><td>0%</td><td>0%</td><td>+46%</td></tr>
+</tbody></table>
+<p>违约率 x 合同价 (血亏概率 / 期望 NPV; $6.7M 只是 FY28 首年爬坡数字, 只作下界参照):</p>
+<table><thead><tr><th>年违约率</th><th>$6.7M</th><th>$9.7M</th><th>$13.3M</th><th>$19.4M</th></tr></thead><tbody>
+<tr><td>0%</td><td>100% / -60%</td><td>60% / -25%</td><td>0% / +17%</td><td>0% / +88%</td></tr>
+<tr><td>1.5%</td><td>98% / -59%</td><td>60% / -25%</td><td>4% / +15%</td><td>2% / +83%</td></tr>
+<tr><td>5%</td><td>93% / -56%</td><td>60% / -26%</td><td>11% / +11%</td><td>6% / +73%</td></tr>
+<tr><td>12%</td><td>84% / -51%</td><td>60% / -26%</td><td>24% / +3%</td><td>14% / +54%</td></tr>
+<tr><td>25%</td><td>73% / -42%</td><td>60% / -25%</td><td>41% / -5%</td><td>26% / +29%</td></tr>
+</tbody></table>
+<p>capex x 机房转租比例 (中心价 $13.3M, 血亏 / 期望 NPV):</p>
+<table><thead><tr><th>capex $M/MW</th><th>转租 0</th><th>转租一半</th><th>全部转租</th></tr></thead><tbody>
+<tr><td>21 (客户自带硬件多)</td><td>12% / +31%</td><td>6% / +47%</td><td>0% / +63%</td></tr>
+<tr><td>28 (中心)</td><td>14% / -2%</td><td>12% / +10%</td><td>6% / +23%</td></tr>
+<tr><td>33.5 (报表 capex 口径)</td><td>14% / -18%</td><td>14% / -8%</td><td>12% / +2%</td></tr>
+</tbody></table>
+<p>违约年份 (中心价, 净现值 / capex):</p>
+<table><thead><tr><th>OpenAI 停付的年份</th><th>稀缺体制</th><th>均衡体制</th></tr></thead><tbody>
+<tr><td>FY28 (第 0 年, 从未付)</td><td>+56%</td><td>-40%</td></tr>
+<tr><td>FY29</td><td>+36%</td><td>-60%</td></tr>
+<tr><td>FY30</td><td>+27%</td><td>-55%</td></tr>
+<tr><td>FY31</td><td>+26%</td><td>-39%</td></tr>
+<tr><td>FY32</td><td>+29%</td><td>-18%</td></tr>
+<tr><td>付满 5 年</td><td>+36%</td><td>+4%</td></tr>
+</tbody></table>
+<p>同业对照 (IREN-微软 5 年 take-or-pay, 10-02):</p>
+<table><thead><tr><th>项</th><th>IREN-MSFT</th><th>ORCL</th><th>T 级</th></tr></thead><tbody>
+<tr><td>每 MW-年合同收入</td><td>$9.7M</td><td>OpenAI 约 $13.3M (4.5 GW 口径) / 约 $19.4M (折算口径) / FY28 首年 &gt;$6.7M</td><td>估</td></tr>
+<tr><td>每 MW GPU capex</td><td>$29M</td><td>约 $21M (Q1 设备增量 / 交付 MW, 自带硬件未入账)</td><td>估</td></tr>
+<tr><td>合同年限</td><td>5 年</td><td>OpenAI 约 5 年 (T3); 示例 6 年; 一般 1-5 年</td><td>T1 / T3</td></tr>
+<tr><td>机房 capex/MW</td><td>config 估 12.0</td><td>开发商 $12.5-18.2M; Oracle 不自出, 走 15-19 年租赁</td><td>T1 / T2</td></tr>
+<tr><td>毛利率</td><td>--</td><td>指引 35% / 报道 14% (2025-08 季) / 推算增量 34%</td><td>T2 / T3 / 估</td></tr>
+</tbody></table>
+<h3 id="f7-时间线-10-03-四阶段并入-10-04-近端事件">F7 时间线 (10-03 四阶段并入 10-04 近端事件)</h3>
+<table><thead><tr><th>时间</th><th>事件</th><th>看什么 / 血亏能否落地</th></tr></thead><tbody>
+<tr><td>2026-10-03 至 10-16</td><td>无排定公司事件 (investor.oracle.com 事件列表为空, T1); 09-29 近月反弹包 10-16 到期</td><td>近端只有价格, 没有消息</td></tr>
+<tr><td>2026-10-25 至 10-28</td><td>AI World 年会, 拉斯维加斯 (T1); 往年分析师会多在会期内开, 今年未公布</td><td>OCI 毛利、capex、OpenAI 合同新口径</td></tr>
+<tr><td>2026-10 至 11</td><td>OpenAI $30B 轮收官; Anthropic IPO 定价 (目标 2026-11)</td><td>AI 实验室股权窗口是否开着</td></tr>
+<tr><td>估 2026-12-08 至 12-11</td><td>Q2 FY27 财报 (往年 12-10 / 12-09 / 12-11, T1; 隐含 +/-10%)</td><td>续约溢价方向、RPO 环比、融资计划是否扩大、预付</td></tr>
+<tr><td>现在至 2027 上半年 (阶段一 信用信号期)</td><td>CDS 纪录, BBB- 距投机级一档, 2056 票据破 8%, 开发商贷款折价, Abilene 扩建取消, Jupiter 不可抗力; 2026 日历年不再发债, FY27 计划融资约 $40B (T1)</td><td>不能落地: OpenAI 合同 FY28 才开始付款</td></tr>
+<tr><td>2027 上半年</td><td>新租约起租进入现金流; OpenAI 能否公开 S-1</td><td>调整后杠杆、违约率档位</td></tr>
+<tr><td>2027 下半年至 2029 (阶段二 交易对手检验)</td><td>OpenAI 付款爬坡到每年 $30B 以上; $288B 未起租租约 FY27 Q2 至 FY29 起租 (T1), 满租后每年租金约 $15-19B (估); C 情景 2028 现金见底; Amazon $35B 认购 2028-12-31 失效</td><td>主窗口: 均衡体制下在此期间停付, 净现值 -40% 到 -60%</td></tr>
+<tr><td>2031-2032 (阶段三 到期重定价)</td><td>5 年合同到期, 容量按当时市价续租或转租</td><td>均衡体制下付满也只剩 +4%</td></tr>
+<tr><td>2033-2046 (阶段四 租约尾巴)</td><td>机房租金继续, 转租比例决定失血速度</td><td>损失慢慢兑现, 不是一次性事件</td></tr>
+</tbody></table>
+<h3 id="f8-公司层数字-10-03">F8 公司层数字 (10-03)</h3>
+<table><thead><tr><th>项</th><th>数值</th><th>T 级</th></tr></thead><tbody>
+<tr><td>OpenAI 这块账 Oracle 自出 capex</td><td>$87B (园区口径 3.1 GW) 到 $126B (IT 口径 4.5 GW); 客户预付与自带硬件 $75B 覆盖多家大客户, OpenAI 占比未披露, 故为上限</td><td>估</td></tr>
+<tr><td>最坏路径 (FY29 停付 + 均衡)</td><td>名义现金只收回 capex 的 24%, 缺口 $66-96B; 现值损失 60%, 约 $52-76B</td><td>估</td></tr>
+<tr><td>中心期望</td><td>现值 +18%, 约 +$16-23B</td><td>估</td></tr>
+<tr><td>债务 / 现金</td><td>票据及借款 $125.3B; 现金 $36.4B</td><td>T1</td></tr>
+<tr><td>自由现金流</td><td>FY26 -$23.7B; Q1 FY27 -$5.4B, 其中含客户预付 $11.4B</td><td>T1</td></tr>
+<tr><td>年化利息</td><td>约 $5.7B (Q1 $1.43B)</td><td>T1 推算</td></tr>
+<tr><td>评级</td><td>S&amp;P BBB- 稳定; Moody's Baa2 负面</td><td>T2 / T3</td></tr>
+</tbody></table>
+<h3 id="f9-资金与期权布局-as-of-2026-10-02">F9 资金与期权布局 (as-of 2026-10-02)</h3>
+<p>10-03 模型的明细 (09-28 至 10-02, 价 133 -&gt; 142):</p>
+<table><thead><tr><th>布局</th><th>明细</th></tr></thead><tbody>
+<tr><td>近月押反弹</td><td>09-29 11:47:50 场内多腿包, 把 10-02 到期的 C150 / C155 (卖出约 5.3 万张) 卷到 10-16 的 C150 / C155 / C160 (约 7.1 万张, C155 与 C160 吃卖价), 净付权利金约 $11M, 目标 150-160, 期限两周半</td></tr>
+<tr><td>远期凸性做多</td><td>2027-12 C180 两天在卖价买入约 6,400 张, 多腿切片, 买方权利金 $12.6M; 10-02 场内风险逆转, 卖开 2028-12 P210 500 张、买 2028-12 C220 500 张 (合成多头)</td></tr>
+<tr><td>尾部保护在 2028</td><td>2028-12 P125 场内买 2,400 张, 同时卖 2028-12 P120 2,000 张、买 2028-01 P140 1,000 张; 10-02 又有 2028-01 P140 对敲买 1,020 张、P150 对敲卖 1,250 张</td></tr>
+<tr><td>不计方向</td><td>TLAT / TLFT / TLET 都是备兑或套利结构; 近月 put 买入只有 $1-2M 级</td></tr>
+</tbody></table>
+<p>10-04 复核 (20 个交易日至 10-02, 加内部人与持仓):</p>
+<table><thead><tr><th>证据</th><th>事实</th><th>读法</th></tr></thead><tbody>
+<tr><td>董事买入</td><td>Stephen Rusckowski, 2025-11 入董事会 (Form 3 2025-11-20), Quest Diagnostics 前 CEO, 兼 Baxter / Tenet 董事。09-29 经个人信托公开市场买入 25,000 股, 均价 $139.35 (138.96-139.74), $3.48M, 买后持 25,390 股 (Form 4 2026-10-01, T1)。四年内 ORCL 最大一笔内部人公开市场买入, 此前最大 $0.95M (Moorman 2025-02, openinsider); 他在 Baxter / Tenet 只有授予记录, 无公开市场买入 (EDGAR)</td><td>有信息, 但一人一笔</td></tr>
+<tr><td>Ellison</td><td>09-12 撤销 10b5-1 卖出计划 (最多 $7.5B), 未卖一股 (8-K 09-14, T1)</td><td>撤掉最大供给悬顶, 计弱正面</td></tr>
+<tr><td>CEO 卖出</td><td>Sicilia 预设计划卖出约 $3.4M (09 月)</td><td>卖出, 不计</td></tr>
+<tr><td>期权战役 (89 个)</td><td>方向建仓 空 $15.4M vs 多 $12.3M; 对冲 / 锁价 $64.2M; 主战役 2027-12 C180 买方 $35.8M (组合, 查表未定); 2028-12 合成多头 @210 / @220 $5.8M; 保护在 2028-01 P140 / 2028-12 P125; 近月 put 买入只有 $1-2M 级</td><td>没人花大钱押近端崩塌</td></tr>
+<tr><td>猎场 B</td><td>崩塌分 1.5 (门 3), 跨日 多 2 / 空 1 / 3 天; 进场单板 多 (+2.5), 区间 139-155, call 墙 155</td><td>无崩塌起点</td></tr>
+<tr><td>散户</td><td>StockTwits 看多 90% (10 条有效), Reddit 不在前 50; 30 天偏斜 -0.53</td><td>中性</td></tr>
+<tr><td>波动</td><td>IV30 52%, 对四个预测比值 0.93-1.09; 下次财报估 12-11, 隐含 +/-10%</td><td>噪声带, 不判贵贱</td></tr>
+<tr><td>空头仓位</td><td>5,084 万股, 占流通 2.8%, 回补 1.4 天 (09-15); 一年前 1,859 万股 (1.1%); 7 月起持平约 5,000 万 (MarketBeat, T2)</td><td>已累积, 不拥挤, 无加速</td></tr>
+</tbody></table>
+<h3 id="f10-坏车复核-thesis-支柱与现状-10-04">F10 坏车复核: thesis 支柱与现状 (10-04)</h3>
+<table><thead><tr><th>支柱</th><th>原文 (日期)</th><th>现状 (日期, 来源)</th><th>判定</th></tr></thead><tbody>
+<tr><td>1 物理进度</td><td>"$300B Stargate 叙事无物理进度" (short_watchlist; 05-10 thesis)</td><td>Q1 FY27 交付 850 MW, 超 30 万 GPU, 约为 Q4 三倍 (8-K 2026-09-10, T1); 摩擦: Jupiter 不可抗力 (T2), Wisconsin 902 MW 送电或延至 2027-12 至 2028-10 (T2), Abilene 扩建取消</td><td>证伪。是延迟, 不是无进度</td></tr>
+<tr><td>2 发债 capex</td><td>"数据中心 capex 靠发债"</td><td>票据借款 $125.3B, 现金 $36.4B (T1); Q1 FCF -$5.4B, TTM 约 -$28.7B (T1); FY27 capex 指引 $90-95B (T2); S&amp;P BBB-, Moody's Baa2 负面, CDS 纪录, 2056 票据破 8% (T2); 融资已转向 ATM 股权 $20B + 客户预付 Q1 $11.4B, 2026 日历年不再发债 (T1)</td><td>成立且加重, 但股价已定价一轮</td></tr>
+<tr><td>3 客户集中</td><td>"客户集中 OpenAI"</td><td>OpenAI 约占 $664B RPO 的 45% (T2); Q1 新签超 $30B, 多为预付 / 自带硬件 (T1); Tencent 5 年 $7B (T3); OpenAI 搁置 IPO, 以 $1.4T 估值募至少 $30B (T2)</td><td>成立, 略稀释</td></tr>
+<tr><td>4 05-10 催化剂</td><td>Musk 案 / SoftBank 抽资, 窗口 5-9 月, 空 $195, 止损 $245, 目标 $130-150</td><td>05-08 收 $195.27 -&gt; 06-01 收 $247.29 (触发止损) -&gt; 07-24 低点 $114.99 (yfinance)</td><td>方向对, 时点错</td></tr>
+</tbody></table>
+<h3 id="f11-checkpoint-与观察信号">F11 Checkpoint 与观察信号</h3>
+<p>系统 checkpoint (short_watchlist, 2026-10-04 起; 任一触发 -&gt; 重回坏车):</p>
+<table><thead><tr><th>#</th><th>系统 checkpoint</th><th>与 10-04 复核原文的差异</th><th>观测处</th><th>改变哪个模型参数 (10-03)</th></tr></thead><tbody>
+<tr><td>1</td><td>收盘跌破 114.99 且猎场崩塌分 &gt;= 3</td><td>同</td><td>hunt 日报</td><td>--</td></tr>
+<tr><td>2</td><td>S&amp;P 降到 BB+ 或展望转负</td><td>原文另有 "或 Moody's 降至 Baa3 且展望负面", 系统未编码</td><td>评级公告</td><td>公司层传导链启动</td></tr>
+<tr><td>3</td><td>5 年 CDS &gt; 300bp 或 2056 票据收益率 &gt; 9%</td><td>同</td><td>信用行情</td><td>公司层传导链启动</td></tr>
+<tr><td>4</td><td>8-K 披露 OpenAI 合同修订 / 降量 / 付款推迟, 或第二个园区不可抗力</td><td>同</td><td>SEC / 公司公告</td><td>重谈路径启动</td></tr>
+<tr><td>5</td><td>OpenAI $30B 融资谈不成或估值低于 $852B</td><td>同</td><td>媒体 T2 以上</td><td>违约率向 B / C 档移</td></tr>
+<tr><td>6</td><td>Q2 FY27 续约溢价转负或 RPO 环比下降</td><td>原文另有 "或 FY27 融资计划超 $40B", 系统未编码</td><td>财报 / 电话会</td><td>价格体制向均衡移, 最关键</td></tr>
+</tbody></table>
+<p>其余观察信号 (不改名单状态, 只改模型参数):</p>
+<table><thead><tr><th>信号</th><th>门槛</th><th>改变哪个参数</th></tr></thead><tbody>
+<tr><td>OpenAI 公开递交 S-1</td><td>2027 上半年翻为公开文件</td><td>违约率向 A 档 (1.5%) 移</td></tr>
+<tr><td>OpenAI IPO 推迟</td><td>拖过 2027 年底</td><td>违约率向 B / C 档移</td></tr>
+<tr><td>Anthropic IPO</td><td>2026-11 目标; 定价与认购</td><td>AI 实验室股权融资窗口是否开着, 影响 OpenAI 路径</td></tr>
+<tr><td>GPU 租价</td><td>B200 / B300 按需价年降幅超过 30%</td><td>价格体制向均衡移</td></tr>
+<tr><td>客户预付</td><td>每季含融资成分的预付继续增长 (Q1 $11.4B)</td><td>Oracle capex 风险下降</td></tr>
+<tr><td>AI World 年会</td><td>2026-10-25 至 10-28</td><td>管理层对 OCI 毛利、capex、OpenAI 合同的新口径</td></tr>
+<tr><td>Q2 FY27 财报</td><td>估 2026-12-08 至 12-11</td><td>RPO 构成、capex、FCF、预付</td></tr>
+<tr><td>合同单价 / 4.5 GW 口径 / 终止条款披露</td><td>任一披露</td><td>单价是唯一能单独把血亏概率推到 60% 的变量; 终止条款决定停付后能否拿回容量</td></tr>
+<tr><td>大规模旧卡折价续约</td><td>合同期满前出现</td><td>均衡权重从 60% 往上调</td></tr>
+</tbody></table>
+<p>反向: OpenAI 公开递交 S-1、Anthropic IPO 定价顺利、续约溢价维持正值三者齐备, ORCL 应进 long_score 正式评分 (inputs 目前无 ORCL)。</p>
+<h3 id="f12-不一致与处理">F12 不一致与处理</h3>
+<table><thead><tr><th>项</th><th>一份</th><th>另一份 / 系统</th><th>处理</th></tr></thead><tbody>
+<tr><td>short_watchlist 处置</td><td>10-04 复核: 建议删去 ORCL 行 (Adam 裁); 若保留, 理由改为双条件</td><td>系统: 2026-10-04 起保留为 status: watch, 挂六条 checkpoint</td><td>以系统为准 (已落地的执行口径)</td></tr>
+<tr><td>推翻条件</td><td>10-04 复核: 六条, 含 Moody's 降至 Baa3 且展望负面、FY27 融资计划超 $40B</td><td>系统 checkpoint 未含这两项</td><td>执行以系统为准; 两项列为人工复核 (要点第 2 条)</td></tr>
+<tr><td>OpenAI 收入</td><td>10-02: ARR 接近 $70B (T2, 09-29)</td><td>10-04: 年化收入报道 $40-70B, 口径不一 (T3)</td><td>上限一致; 采用 "$40-70B, 口径不一", 模型与结论不依赖此数</td></tr>
+<tr><td>OpenAI 估值</td><td>10-02: 2026-02-27 $110B 轮投前 $730B</td><td>10-04 / 系统: 3 月轮投后 $852B</td><td>口径不同 (投前 vs 投后); checkpoint 用 $852B</td></tr>
+<tr><td>Jupiter 不可抗力日期</td><td>10-02 / 10-03: 2026-09-23</td><td>10-04: 2026-09-24</td><td>差一天, 可能是通知日与报道日之差 (未核); 不影响结论</td></tr>
+<tr><td>2027-12 C180</td><td>10-03: 两天约 6,400 张, 买方 $12.6M</td><td>10-04: 20 个交易日主战役买方 $35.8M (组合)</td><td>统计窗口不同, 不矛盾</td></tr>
+<tr><td>2028-12 合成多头</td><td>10-03: 10-02 一笔, P210 卖开 500 张 / C220 买 500 张</td><td>10-04: @210 / @220 合计 $5.8M (20 日)</td><td>同上</td></tr>
+<tr><td>倍数</td><td>系统: non-GAAP PE 17.5x, 自身第 63 百分位 (10-02)</td><td>10-04: forward PE 12.9 (yfinance)</td><td>口径不同, 不混用; 百分位只用系统口径</td></tr>
+<tr><td>Q1 FCF / OCF</td><td>10-02: -$5.4B / $23.1B</td><td>10-04: -$5B / $23B</td><td>四舍五入, 本文用 10-02 精度</td></tr>
+<tr><td>S&amp;P 日期</td><td>10-02: 2026-07-09</td><td>10-04: "07 月下调, 09-18 维持投资级", 来源日期 07-16 至 09-27</td><td>同一次下调, 日期为不同来源的报道日</td></tr>
+<tr><td>动作口径</td><td>10-03: [WATCH] 近端不追空, 现价两边都没有足够确认, 不动仓</td><td>10-04: 移到观察, 不是翻多</td><td>一致</td></tr>
+</tbody></table>
+<h2 id="附录">附录</h2>
+<h3 id="a-signal-块-10-03-模型-原样保留">A signal 块 (10-03 模型, 原样保留)</h3>
+<pre><code>signal:
+  le_findings_invoked: 3 -- 3 条可引用的对手逻辑硬伤; RPO 当现金 / 旧卡溢价外推 / 示例毛利
+  lrc_links: 3 -- 校验密度正常
+  fact_check_count: 14 -- 地基硬, 关键数字全核实; 合同单价仍是 T3
+  adversary_pushback: 5 -- 反脆弱合格, 结论扛过反例仍站立
+  cfr_invoked: false -- 无数值均衡锚 (非 sealed-bid/谈判场景属正常)
+  alpha_level: B -- 战术级错配, 只配短周期+紧止损; 时间错配
+  player_classes_inferred: 5 -- 参与者覆盖全
+  smart_classes_inferred: 2 -- 聪明钱行为有覆盖, 推断非平庸</code></pre>
+<h3 id="b-未核实项-三份合并去重">B 未核实项 (三份合并去重)</h3>
+<ol>
+<li>OpenAI 合同 $300B / 5 年 / 4.5 GW 只有 WSJ 单源; 4.5 GW 是园区电力还是 IT 负载未明, 每 MW 收入因此有约 3 倍区间。</li>
+<li>合同终止、违约补偿、预付比例、自带硬件比例均未披露; 自带硬件合同里 GPU 折旧风险在客户侧, $75B 部分与自有 GPU 部分未能拆开; 模型假设停付后 Oracle 拿回容量、没有补偿。</li>
+<li>$288B 未起租租约对应的 GW 和每 MW 租金未披露; 机房租金 $2.0M/MW-年为推算。</li>
+<li>OCI 或 AI 基建实际毛利率未分拆, 只有 35% 指引、14% 旧报道与 34% 增量推算。</li>
+<li>Moody's 动作日期、Fitch 评级、9-24 之后的 CDS 读数未取到; S&amp;P 原稿需登录。</li>
+<li>FY28 capex 指引未给; OpenAI 现金消耗与算力承诺总额仅 T3; OpenAI 违约率映射为判断, 未用评级历史违约率校准; 两家 AI 实验室招股书为保密递交, 账单与现金数字是媒体转述。</li>
+<li>Project Jupiter 贷款价格为单源。</li>
+<li>Q2 FY27 财报日期未公布 (估 12-08 至 12-11); 今年分析师会是否在 AI World 会期内开未公布; 10-16 前无公司事件已核 (T1)。</li>
+<li>模型把停付当整年全停, 对重谈形态偏保守, 可视为损失上界; 未建模政府介入、合同转让给第三方等路径。</li>
+<li>Tencent 5 年 $7B (T3), Oracle 未确认。</li>
+<li>期权主战役 2027-12 C180 买方 $35.8M 为组合, 方向查表未定。</li>
+<li>2025-09 高点到 2026-05 这段下跌的触发, 与 07-24 低点的止跌触发, 原报告均未拆。</li>
+<li>做空报告、诉讼与监管信未检索; 本组报告未做每股价值倒算。</li>
+</ol>
+<h3 id="c-来源">C 来源</h3>
+<p>10-02 参数: Oracle 10-Q 2026-08-31 (sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm, Note 1 / 3 / 6, Item 2); 8-K Ex 99.1 2026-09-10 (000119312526387905); Q4 FY26 新闻稿 2026-06-10 (000119312526265848); 10-K 2026-05-31 (000119312526277521); 8-K 2025-06-30 (000119312525152035); 8-K 2026-02-04 票据 (000119312526037840); OCI 收入路径 8-K 2025-09-09 (000119312525199175); Q1 FY27 电话会转录 (Yahoo); SEC XBRL; Business Insider / Fool / Cryptopolitan / MarketWatch / Morningstar / thenextweb / financefeeds / MLQ / Axios / TechCrunch / Yahoo / BusinessLine / CoinDesk / The Register / Coincentral / Blockonomi / TheStreet / Barron's (经 MSN) / Sherwood / communicationstoday / Zacks / Fortune; Crusoe 与 Vantage 新闻稿。</p>
+<p>10-03 模型: src/tools/econ_depreciation/econ_dep.py --contracts; EIA 2026 工业电价; AWS p5 表价; NVDA 8-K (残值担保); investor.oracle.com 事件列表; oracle.com (AI World); 期权流 09-28 至 10-02。</p>
+<p>10-04 复核: yfinance (价、均线、forward PE、卖方, 2026-10-04 现查); Form 4 2026-10-01 与 Form 3 2025-11-20 (Rusckowski); 8-K 2026-09-14 (Ellison); 8-K Ex 99.1 2026-09-10; 10-Q Note 6; openinsider; EDGAR; MarketBeat; Aterio / The Register; Reuters / Bloomberg / CNBC / WSJ; FT 经 Reuters; Quartz; The Next Web / Fortune / Seeking Alpha / MSN; hunt 日报; StockTwits / Reddit。</p>
+<p>系统读数: short_watchlist (ORCL status: watch 与六条 checkpoint, 2026-10-04 起); 估值百分位 (2026-10-02)。</p>
+<p>合并源 (由主线程归档到 var/output/scores_candidates/_merged/): ORCL_ai_infra_params_2026-10-02.md, ORCL_ai_infra_loss_probability_2026-10-03.md, ORCL_badcar_reaudit_2026-10-04.md。相关跨票报告 (只引用, 未拆): ai_lab_funding_vs_compute_bills_2026-10-02.md, ai_accelerator_econ_life_params_2026-10-02.md, ai_lab_ipo_cloud_fee_premise_vet_2026-10-02.md, toolkit_self_audit_hunt_rent_2026-10-03.md。</p>
+<h3 id="d-lookup_entries-10-02-参数原块-37-条-合并去重后格式不变">D LOOKUP_ENTRIES (10-02 参数原块, 37 条, 合并去重后格式不变)</h3>
+<pre><code>[
+ {
+  &quot;domain&quot;: &quot;rpo&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;ORCL RPO $664B (2026-08-31), 预计 12 月内确认约 13%, 13-36 月 37%, 37-60 月 34%, 其余约 16% 在 60 月后&quot;,
+  &quot;value&quot;: 664,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;Remaining performance obligations were $664 billion as of August 31, 2026, of which we expect to recognize approximately 13% as revenues over the next twelve months, 37% over the subsequent month 13 to month 36, 34% over the subsequent month 37 to month 60 and the remainder thereafter.&quot;,
+  &quot;section&quot;: &quot;item_8_note_1&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;prepayment&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;大型 AI 合同中客户预付 GPU 款或客户自购自供 GPU 的部分合计 $75B (截至 FY26 Q4), 公司称显著减少自筹资本需求&quot;,
+  &quot;value&quot;: 75,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-06-10&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;Most of the RPO increase in both Q3 and Q4 were large scale AI contracts where the customer prepaid Oracle for the purchase of the GPUs, or the customer bought and supplied the GPUs to Oracle. The prepaid and customer supplied hardware portions of our large AI contracts now total $75 billion.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;prepayment&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;Q1 FY27 收到含重大融资成分的客户预付 $11.4B (上年同季为 0; FY26 全年 $4.6B), 计入经营现金流&quot;,
+  &quot;value&quot;: 11.4,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;During the first quarter of fiscal 2027, we received $11.4 billion of prepayments from customers that included a significant financing component. No prepayments from customers that included a significant financing component were received during the first quarter of fiscal 2026.&quot;,
+  &quot;section&quot;: &quot;item_8_note_1&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;lease&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;未起租数据中心租赁承诺 $288B (2026-05-31 为 $260B), 预计 FY27 Q2 至 FY29 起租, 租期 15-19 年, 未入资产负债表&quot;,
+  &quot;value&quot;: 288,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;As of August 31, 2026, we had $288 billion of additional lease commitments, substantially all related to data center arrangements, that are generally expected to commence between the second quarter of fiscal 2027 and fiscal 2029 and for terms of fifteen to nineteen years that were not reflected on our condensed consolidated balance sheets&quot;,
+  &quot;section&quot;: &quot;item_8_note_6&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;lease&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;已入表租赁负债: 经营租赁 $34.6B, 融资租赁 $9.2B; Q1 FY27 经营租赁费用 $1.10B (上年 $0.58B)&quot;,
+  &quot;value&quot;: 34.621,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;Total operating lease liabilities $34,621 $30,190 ... Total finance lease liabilities $9,185 $7,701&quot;,
+  &quot;section&quot;: &quot;item_8_note_6&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;guarantee&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;10-K: 未起租租赁中有一项由 Oracle 为出租方借款担保至多 $3.3B, 该借款 2026-09 到期&quot;,
+  &quot;value&quot;: 3.3,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-05-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;These additional lease commitments include a lease for which we have guaranteed up to $3.3 billion of the lessor&#x27;s borrowing, which matures in September 2026.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;ppe&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;PP&amp;E 毛值: 计算机网络设备 $77.8B (主要为服务器网络, 估计寿命 6 年), 建筑及改良 $25.5B, 在建 $48.5B, 累计折旧 $25.8B, 净额 $127.8B&quot;,
+  &quot;value&quot;: 77.755,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;Computer, network, machinery and equipment 1-6 years (1) $77,755 $59,634 Buildings and improvements 1-40 years 25,539 21,263 ... Construction in progress (2) 48,546 39,973 ... (1) Comprised primarily of servers and networking equipment with estimated useful life of six years.&quot;,
+  &quot;section&quot;: &quot;item_8_note_3&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;server_share&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;推算: Q1 FY27 毛 PP&amp;E 增量 $30.9B 中计算机网络设备 +$18.1B (59%), 建筑 +$4.3B, 在建 +$8.6B; FY26 全年设备占增量 46% (下界)&quot;,
+  &quot;value&quot;: 0.59,
+  &quot;unit&quot;: &quot;ratio&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;,
+  &quot;evidence_span&quot;: &quot;Computer, network, machinery and equipment 1-6 years (1) $77,755 $59,634 Buildings and improvements 1-40 years 25,539 21,263 ... Total property, plant and equipment 1-40 years 153,596 122,651&quot;,
+  &quot;section&quot;: &quot;item_8_note_3&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;debt&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;票据及其他借款 $125.3B (流动 $7.6B + 非流动 $117.7B); 现金及等价物 $36.4B, 有价证券 $0.7B&quot;,
+  &quot;value&quot;: 125.337,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;Notes payable and other borrowings, current $7,625 $7,199 ... Notes payable and other borrowings, non-current 117,712 122,342 ... Cash and cash equivalents $36,369 $31,289&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;interest&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;Q1 FY27 利息费用 $1,428M (上年同季 $923M), 主因 FY26 发行 $43.0B 高级票据; FY26 全年利息费用 $4,599M&quot;,
+  &quot;value&quot;: 1428,
+  &quot;unit&quot;: &quot;USD_M&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;Interest expense increased in the first quarter of fiscal 2027, relative to the first quarter of fiscal 2026, primarily due to higher average borrowings from the issuances of $43.0 billion of senior notes in fiscal 2026&quot;,
+  &quot;section&quot;: &quot;item_2&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;debt_issuance&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;2026-02-04 发行 $25B 票据: FRN 2029 $0.5B 及 4.55% 2029 至 6.85% 2066 共 8 档, 其中 6.70% 2056 $5B&quot;,
+  &quot;value&quot;: 25,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-02-04&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526037840/d23732d8k.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;Issuance of $25 Billion Aggregate Principal Amount of Notes On February 4, 2026, Oracle consummated the issuance and sale of $500,000,000 aggregate principal amount of its Floating Rate Notes due 2029, $3,000,000,000 aggregate principal amount of its 4.550% Notes due 2029&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;financing&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;FY27 计划经债加股融资约 $40B (含 $20B ATM, Q1 已完成净 $19.9B), 2026 日历年不再发债&quot;,
+  &quot;value&quot;: 40,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-06-10&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;In fiscal year 2027, Oracle expects to raise approximately $40 billion through a combination of debt and equity financing including its previously announced $20 billion at-the-market equity issuance. Oracle does not expect to issue additional debt in calendar year 2026.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;fcf&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;FCF: FY26 -$23.7B (OCF $32.0B, capex $55.7B); Q1 FY27 -$5.4B (OCF $23.1B 含客户预付 $11.4B, capex $28.5B); TTM 至 2026-08 约 -$28.7B (推算)&quot;,
+  &quot;value&quot;: -5.396,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;Capital Expenditures (8,502 ) (12,033 ) (18,635 ) (16,493 ) (55,663 ) (28,499 ) (28,499 ) Free Cash Flow $ (362 ) $ (9,967 ) $ (11,484 ) $ (1,873 ) $ (23,686 ) $ (5,396 ) $ (5,396 )&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;capacity&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;Q1 FY27 交付 850 MW 新增数据中心容量; 自 Q4 末交付 &gt;30 万 GPU, 约为 Q4 FY26 交付容量的 3 倍&quot;,
+  &quot;value&quot;: 850,
+  &quot;unit&quot;: &quot;MW&quot;,
+  &quot;as_of&quot;: &quot;2026-09-10&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;with the delivery of 850MW additional datacenter capacity ... Since the end of Q4, Oracle also delivered more than 300,000 GPUs to its AI Cloud customers and almost triple the capacity delivered in Q4 FY26.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;oci_plan&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;2025-09 公司给出 OCI 收入路径: FY26 $18B, 之后四年 $32B / $73B / $114B / $144B, 称多数已在 RPO; FY26 实际 $18.1B&quot;,
+  &quot;value&quot;: 144,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2025-09-09&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312525199175/orcl-ex99_1.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;we expect Oracle Cloud Infrastructure revenue to grow 77% to $18 billion this fiscal year--and then increase to $32 billion, $73 billion, $114 billion, and $144 billion over the subsequent four years. Most of the revenue in this 5-year forecast is already booked in our reported RPO.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;contract_term&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;Oracle Cloud (应用与 OCI) 合同一般 1-5 年, 由客户选择续约; 对照数据中心租赁 15-19 年&quot;,
+  &quot;value&quot;: &quot;1-5&quot;,
+  &quot;unit&quot;: &quot;years&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;Oracle Cloud Applications and Oracle Cloud Infrastructure (collectively Oracle Cloud) arrangements generally: have durations of one to five years; are renewed at the customer&#x27;s option&quot;,
+  &quot;section&quot;: &quot;item_2&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;contract&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;8-K: 签下多份大型云服务合同, 其中一份预计自 FY28 起每年贡献 &gt;$30B 收入 (文件未具名, 媒体报道为 OpenAI)&quot;,
+  &quot;value&quot;: 30,
+  &quot;unit&quot;: &quot;USD_B_per_year&quot;,
+  &quot;as_of&quot;: &quot;2025-06-30&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312525152035/d136779d8k.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;H&quot;,
+  &quot;evidence_span&quot;: &quot;we signed multiple large cloud services agreements including one that is expected to contribute more than $30 billion in annual revenue starting in FY28.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;contract&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;OpenAI-Oracle 合同约 4.5 GW, 总额约 $300B, 约 5 年, 2027 起 (WSJ 2025-09-10 首报); 2026-03 Abilene 600 MW 扩建取消后 Oracle 称 4.5 GW 协议仍按计划&quot;,
+  &quot;value&quot;: 300,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-03-07&quot;,
+  &quot;source_url&quot;: &quot;https://www.theregister.com/on-prem/2026/03/07/openai-and-oracle-reportedly-abandon-tx-stargate-expansion/4159805&quot;,
+  &quot;source_tier&quot;: &quot;T3&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;L&quot;,
+  &quot;relation&quot;: &quot;customer_of&quot;,
+  &quot;counterparty&quot;: &quot;OpenAI&quot;,
+  &quot;counterparty_type&quot;: &quot;private_company&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;customer_concentration&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;S&amp;P 2026-07 下调评级时称约一半 $638B RPO 与 OpenAI 相关; 另一报道估 OpenAI 约 $300B, 占 $664B RPO 约 45%&quot;,
+  &quot;value&quot;: 50,
+  &quot;unit&quot;: &quot;%&quot;,
+  &quot;as_of&quot;: &quot;2026-07-09&quot;,
+  &quot;source_url&quot;: &quot;https://thenextweb.com/news/oracle-sp-downgrade-ai-spending-junk-risk&quot;,
+  &quot;source_tier&quot;: &quot;T2&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;,
+  &quot;relation&quot;: &quot;customer_of&quot;,
+  &quot;counterparty&quot;: &quot;OpenAI&quot;,
+  &quot;counterparty_type&quot;: &quot;private_company&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;revenue_per_mw&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;推算 (估): OpenAI 合同每 MW-年收入 = $300B / 5 年 / 4.5 GW 约 $13.3M; 若 4.5 GW 为园区电力按 0.69 折 IT 约 $19.4M; 按 8-K FY28 首年 &gt;$30B 计 &gt;$6.7M&quot;,
+  &quot;value&quot;: 13.3,
+  &quot;unit&quot;: &quot;USD_M_per_MW_year&quot;,
+  &quot;as_of&quot;: &quot;2026-10-02&quot;,
+  &quot;source_url&quot;: &quot;https://www.theregister.com/on-prem/2026/03/07/openai-and-oracle-reportedly-abandon-tx-stargate-expansion/4159805&quot;,
+  &quot;source_tier&quot;: &quot;T3&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;L&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;unit_econ&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;2025-10-16 分析师会: 示例 AI 基建项目 6 年总收入 $60B, 毛利率 35%, 公司称对最大客户亦适用; 2026-09-10 电话会称该毛利框架仍成立&quot;,
+  &quot;value&quot;: 35,
+  &quot;unit&quot;: &quot;%&quot;,
+  &quot;as_of&quot;: &quot;2025-10-16&quot;,
+  &quot;source_url&quot;: &quot;https://www.communicationstoday.co.in/oracle-calms-investor-jitters-forecasts-35-margins-for-ai-business/&quot;,
+  &quot;source_tier&quot;: &quot;T2&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;,
+  &quot;evidence_span&quot;: &quot;An infrastructure project for artificial intelligence workloads, such as a data center, that generates $60 billion in total revenue over six years, for example, would have a gross margin of 35%, the company said Thursday&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;unit_econ&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;The Information 据内部数据: 止 2025-08 季度 Nvidia 服务器租赁毛利 $125M, 毛利率略低于 14%; Blackwell 租赁季度亏损近 $100M&quot;,
+  &quot;value&quot;: 14,
+  &quot;unit&quot;: &quot;%&quot;,
+  &quot;as_of&quot;: &quot;2025-10-07&quot;,
+  &quot;source_url&quot;: &quot;https://sherwood.news/markets/oracle-tumbles-after-report-that-its-lost-nearly-usd100-million-from-renting/&quot;,
+  &quot;source_tier&quot;: &quot;T3&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;L&quot;,
+  &quot;evidence_span&quot;: &quot;booking a gross profit of $125 million on rentals of servers that utilize Nvidia chips for the three months ending in August, for a gross margin of just under 14%&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;unit_econ&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;推算: 云+软件段 Q1 FY27 同比收入 +$4.25B (17,157 vs 12,907), 段直接成本 +$2.82B (6,235 vs 3,418), 增量毛利约 34%; 段利润率 55% (上年 60%)&quot;,
+  &quot;value&quot;: 34,
+  &quot;unit&quot;: &quot;%&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;,
+  &quot;evidence_span&quot;: &quot;Total revenues 17,157 33% 33% $12,907 Expenses: Cloud and software (1) 6,235 82% 83% 3,418 Sales and marketing (1) 1,564 -13% -13% 1,798 ... Total Margin % 55% 60%&quot;,
+  &quot;section&quot;: &quot;item_2&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;utilization&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;Q1 FY27 GPU 利用率 97.9%; Q1 到期的 GPU 容量以较原合同溢价 20% 续约或转售, 其中多数为 4 年以上 GPU&quot;,
+  &quot;value&quot;: 97.9,
+  &quot;unit&quot;: &quot;%&quot;,
+  &quot;as_of&quot;: &quot;2026-09-10&quot;,
+  &quot;source_url&quot;: &quot;https://finance.yahoo.com/markets/stocks/articles/oracle-orcl-q1-2027-earnings-135832086.html&quot;,
+  &quot;source_tier&quot;: &quot;T2&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;,
+  &quot;evidence_span&quot;: &quot;GPU utilization remains extremely high At 97.9% in Q1. GPU longevity and value continue to impress. Of all the GPUs that came up for renewal in Q1, that capacity was renewed or resold at a 20% premium to prior contracts. The majority of those GPUs are 4 years or older.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;capex_guidance&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;FY27 capex 指引报表口径 $90-95B, 净现金 capex 不超过 $70B (2026-06 首给, 2026-09-10 维持); Q1 FY27 净现金 capex 约 $18B&quot;,
+  &quot;value&quot;: 95,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-09-10&quot;,
+  &quot;source_url&quot;: &quot;https://www.businessinsider.com/oracle-q1-2027-earnings-maintains-capex-forecast-reports-cloud-growth-2026-9&quot;,
+  &quot;source_tier&quot;: &quot;T2&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;,
+  &quot;evidence_span&quot;: &quot;It kept its fiscal 2027 capital expenditure forecast at $90 billion to $95 billion, including data center spending. Its capex forecast has not changed from the guidance it first issued in June.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;gpu_capex_per_mw&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;推算 (估): Q1 FY27 计算机网络设备毛值增加 $18.1B, 同期交付 850 MW, 约 $21M/MW; 客户自带硬件不入 Oracle 账, 此数偏低; Q1 报表 capex / MW 约 $33.5M&quot;,
+  &quot;value&quot;: 21.3,
+  &quot;unit&quot;: &quot;USD_M_per_MW&quot;,
+  &quot;as_of&quot;: &quot;2026-08-31&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;L&quot;,
+  &quot;evidence_span&quot;: &quot;Computer, network, machinery and equipment 1-6 years (1) $77,755 $59,634&quot;,
+  &quot;section&quot;: &quot;item_8_note_3&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;shell_capex&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;Crusoe / Blue Owl / Primary Digital 以 $15B 合资建 1.2 GW Abilene 园区, 租给 Oracle; 电话会称 6/8 栋 = 618 MW = 75%, 推算总交付约 824 MW, 合每交付 MW 约 $18M (估)&quot;,
+  &quot;value&quot;: 15,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2025-05-21&quot;,
+  &quot;source_url&quot;: &quot;https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-and-primary-digital-infrastructure-enter-joint-venture&quot;,
+  &quot;source_tier&quot;: &quot;T1&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;,
+  &quot;evidence_span&quot;: &quot;announced today the second phase of a $15 billion joint-venture to fund the 1.2 gigawatt AI data center in Abilene, Texas.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;shell_capex&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;Vantage Frontier (Shackelford County TX, Oracle-OpenAI Stargate) 投资 &gt;$25B, 1.4 GW 关键 IT 容量, 合约 $17.9M/MW&quot;,
+  &quot;value&quot;: 25,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2025-08-19&quot;,
+  &quot;source_url&quot;: &quot;https://vantage-dc.com/news/vantage-data-centers-unveils-plans-for-frontier-a-25b-mega-campus-in-texas-to-meet-unprecedented-ai-demand/&quot;,
+  &quot;source_tier&quot;: &quot;T2&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;rating&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;S&amp;P 2026-07 将 Oracle 长期评级 BBB 下调至 BBB- (短期 A-2 降至 A-3), 展望稳定, 距投机级一档; 理由含 FY27 自由经营现金流弱于预期&quot;,
+  &quot;value&quot;: &quot;BBB-&quot;,
+  &quot;unit&quot;: &quot;rating&quot;,
+  &quot;as_of&quot;: &quot;2026-07-09&quot;,
+  &quot;source_url&quot;: &quot;https://finance.yahoo.com/markets/stocks/articles/oracles-credit-risk-nears-18-151000986.html&quot;,
+  &quot;source_tier&quot;: &quot;T2&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;,
+  &quot;evidence_span&quot;: &quot;S&amp;P Global Ratings downgraded Oracle&#x27;s long-term issuer credit rating one notch to BBB- from BBB earlier this month, along with a short-term rating cut from A-2 to A-3, while maintaining a stable outlook.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;rating&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;Moody&#x27;s 对 Oracle 评级 Baa2, 展望负面 (动作日期未取到)&quot;,
+  &quot;value&quot;: &quot;Baa2 negative&quot;,
+  &quot;unit&quot;: &quot;rating&quot;,
+  &quot;as_of&quot;: &quot;2026-09-11&quot;,
+  &quot;source_url&quot;: &quot;https://www.msn.com/en-us/news/other/oracles-cash-burn-and-backlog-both-beat-estimates-as-customers-cover-part-of-the-ai-bill/ar-AA2bZReV&quot;,
+  &quot;source_tier&quot;: &quot;T3&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;L&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;cds&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;Oracle 5 年 CDS 2026-09-24 夜 227.5 bp, 纪录高位 (前高 224 bp), Bloomberg 数据&quot;,
+  &quot;value&quot;: 227.5,
+  &quot;unit&quot;: &quot;bp&quot;,
+  &quot;as_of&quot;: &quot;2026-09-24&quot;,
+  &quot;source_url&quot;: &quot;https://www.msn.com/en-us/money/economy/oracle-s-force-majeure-move-adds-to-bondholders-worries/ar-AA2cYhIO&quot;,
+  &quot;source_tier&quot;: &quot;T3&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;L&quot;,
+  &quot;evidence_span&quot;: &quot;Oracle&#x27;s five-year CDS traded at 227.5 basis points on Thursday night, according to Bloomberg data. That means it costs $227.50 a year to insure $10,000 of Oracle debt. While that&#x27;s a record high, it&#x27;s up only slightly from the prior level of 224 basis points.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;cds&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;Oracle 5 年 CDS 2026-07 下旬高至 219 bp (至少 2020-09 以来最高, LSEG), 2026-08-10 为 198 bp&quot;,
+  &quot;value&quot;: 219,
+  &quot;unit&quot;: &quot;bp&quot;,
+  &quot;as_of&quot;: &quot;2026-08-10&quot;,
+  &quot;source_url&quot;: &quot;https://www.morningstar.com/news/marketwatch/2026081194/oracles-stock-has-taken-a-hit-as-ai-spending-concerns-resurface&quot;,
+  &quot;source_tier&quot;: &quot;T3&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;L&quot;,
+  &quot;evidence_span&quot;: &quot;surged to a high of 219 basis points in late July. That represents its highest level since at least September 2020, according to LSEG data. As of Monday, Oracle&#x27;s five-year CDS spread was 198 basis points.&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;bond_yield&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;6.70% 2056 票据收益率 2026-09-23 首次超过 8%; 同期 30 年美债收益率 &gt;5.4%, 隐含利差约 260 bp (估)&quot;,
+  &quot;value&quot;: 8.0,
+  &quot;unit&quot;: &quot;%&quot;,
+  &quot;as_of&quot;: &quot;2026-09-23&quot;,
+  &quot;source_url&quot;: &quot;https://coincentral.com/oracle-orcl-stock-tumbles-as-wall-street-eyes-an-18-billion-debt-problem/&quot;,
+  &quot;source_tier&quot;: &quot;T2&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;site_risk&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;2026-09-23 Oracle 就 Project Jupiter (新墨西哥) 向开发商发出不可抗力通知; 项目约 $18B 贷款低于面值交易 (单源报约 89-91 美分)&quot;,
+  &quot;value&quot;: 18,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-09-23&quot;,
+  &quot;source_url&quot;: &quot;https://coincentral.com/oracle-orcl-stock-tumbles-as-wall-street-eyes-an-18-billion-debt-problem/&quot;,
+  &quot;source_tier&quot;: &quot;T2&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;counterparty&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;交易对手 OpenAI: ARR 接近 $70B, 企业销售自 2026-07 翻倍以上&quot;,
+  &quot;value&quot;: 70,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-09-29&quot;,
+  &quot;source_url&quot;: &quot;https://www.axios.com/2026/09/29/scoop-openais-annual-recurring-revenue-nears-70b&quot;,
+  &quot;source_tier&quot;: &quot;T2&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;,
+  &quot;relation&quot;: &quot;customer_of&quot;,
+  &quot;counterparty&quot;: &quot;OpenAI&quot;,
+  &quot;counterparty_type&quot;: &quot;private_company&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;counterparty&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;交易对手 OpenAI 融资: 2026-02-27 完成 $110B (Amazon $50B, Nvidia $30B, SoftBank $30B), 投前估值 $730B&quot;,
+  &quot;value&quot;: 110,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-02-27&quot;,
+  &quot;source_url&quot;: &quot;https://techcrunch.com/2026/02/27/openai-raises-110b-in-one-of-the-largest-private-funding-rounds-in-history/&quot;,
+  &quot;source_tier&quot;: &quot;T2&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;,
+  &quot;relation&quot;: &quot;customer_of&quot;,
+  &quot;counterparty&quot;: &quot;OpenAI&quot;,
+  &quot;counterparty_type&quot;: &quot;private_company&quot;
+ },
+ {
+  &quot;domain&quot;: &quot;counterparty&quot;,
+  &quot;ticker&quot;: &quot;ORCL&quot;,
+  &quot;claim&quot;: &quot;交易对手 OpenAI: 2026-09-29 报道寻求至少 $30B 新融资, 估值 $1.4T, 作为 IPO 推迟后的过桥&quot;,
+  &quot;value&quot;: 1400,
+  &quot;unit&quot;: &quot;USD_B&quot;,
+  &quot;as_of&quot;: &quot;2026-09-29&quot;,
+  &quot;source_url&quot;: &quot;https://finance.yahoo.com/technology/ai/articles/openai-targets-30-billion-funding-185008998.html&quot;,
+  &quot;source_tier&quot;: &quot;T2&quot;,
+  &quot;verified_live&quot;: true,
+  &quot;confidence&quot;: &quot;M&quot;,
+  &quot;relation&quot;: &quot;customer_of&quot;,
+  &quot;counterparty&quot;: &quot;OpenAI&quot;,
+  &quot;counterparty_type&quot;: &quot;private_company&quot;
+ }
+]</code></pre></main></body></html>
