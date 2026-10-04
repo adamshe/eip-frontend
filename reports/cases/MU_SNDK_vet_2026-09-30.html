@@ -35,8 +35,8 @@ tr:hover td{background:var(--panel)}
 .digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
 .sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
 :root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
-.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650}</style></head>
-<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><h1 id="mu-sndk-做多打分框架-v2-2-vet-2026-09-30">MU / SNDK 做多打分框架 v2.2 vet (2026-09-30)</h1>
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650} .byline{color:var(--muted);font-size:13px;margin:0 0 1em}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1 id="mu-sndk-做多打分框架-v2-2-vet-2026-09-30">MU / SNDK 做多打分框架 v2.2 vet (2026-09-30)</h1>
 <p>框架: docs/10_knowledge/investment/long_score_framework_v2.md (含第 9 节 v2.2 引擎卫生) + 审计 2.2 / 2.6 查表。数据 = 2026-09-30 收盘 (yfinance) + MU FQ4 FY26 8-K (当日) + SNDK FQ4 FY26 8-K / 10-K 现查; T1 公司文件 / 监管 / 一手 API, T2 主流媒体 / 数据商 (TrendForce / yfinance / stockanalysis), T3 二手; 估计值标 "估"。候选 yaml: var/output/scores_candidates/inputs/{MU,SNDK}.yaml, 已用 score.py 的 score() 干跑 (不写 leaderboard); 两票无股性文件, D6 引擎取下限 5。价格锚: 全部现查 (memory feedback_price_anchor_must_verify_live; 2026-05-12 曾因训练残留把 MU 写成 $100-130, 本次 live $1,065)。</p>
 <h2 id="1-一句话结论">1. 一句话结论</h2>
 <p>两票都在<strong>判断类型门</strong>被拦下 (引擎正式输出 = skip), 原因相同: 这是 AI 内存周期 / 产能套利, 不是 structural alpha。Yoneda 五条 MU 1/5、SNDK 0/5; 结构必然性 N 都是 1/4 (只有 "需求侧终态唯一" 成立)。按 memory 交叉格 (feedback_yoneda_chokepoint_criteria): 低位置 + 必然 &lt;= 2 = 行业 beta / skip, <strong>按 PE / PEG 与周期定价, 不付终态溢价</strong>。</p>
