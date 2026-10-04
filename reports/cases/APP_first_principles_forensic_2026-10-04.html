@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>APP 第一性原理盈利反推 x 会计取证: 做假账能否成立 (2026-10-04)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><h1 id="app-第一性原理盈利反推-x-会计取证-做假账能否成立-2026-10-04">APP 第一性原理盈利反推 x 会计取证: 做假账能否成立 (2026-10-04)</h1>
+<p><strong>一句话结论: "做假账" (报表上的收入 / 利润是虚构的) 不支持 -- 能定案的现金侧五条外部锚 (税务局收税、回购对手方、Deloitte 审计、广告主账、利息) 全部对得上; 第一性原理推出 FY2025 净收入中心区间 $3.1-6.1B (估), 报告 $5.48B 落在上半, 多出来的部分来自 "份额 + 抽成同时在高位", 这是收入质量 (b) 的问题, 不是造假 (a) 的证据。</strong></p>
+<p>价格锚: APP $268.22 (2026-10-02 收盘, Yahoo chart API, 2026-10-04 现取), 52 周 $266.84-738.01; 市值约 $89.9B (335.3M 股, 10-Q 2026-06-30); TTM 持续经营净利 $4,410M -&gt; PE 20.4x; TTM 经营现金流 $4,528M -&gt; 收益率 5.0% (XBRL 季度拼接, 估)。</p>
+<h2 id="0-承重句">0. 承重句</h2>
+<ul>
+<li>我方 (Adam, 造假): 若利润是假的, 现金就必须同时是假的, 或被搬家 (分类 / 时点 / 关联方回流)。只要现金被它控制不了的外部系统确认, 这句就倒。</li>
+<li>反方 (多方, 报表为真): 现金被税务局、回购对手方、审计函证、广告主自己的申报确认。只要其中一条被证伪, 这句就倒。</li>
+<li>本报告核实预算全部压在这两句上。</li>
+</ul>
+<h2 id="1-第一性原理-广告主的钱从哪来---收入">1. 第一性原理: 广告主的钱从哪来 -&gt; 收入</h2>
+<p>机制: AppLovin 在 10-K 里自认是代理人 -- "the Company is an agent in these arrangements and presents revenue net of advertising inventory costs" (10-K FY2025 note 2, T1)。所以 收入 = 经 Axon 的广告主总花费 x 抽成率; 付款条件 "30 days after the end of the month"。2025-06-30 已把自营游戏 (Apps) 卖给 Tripledot, 此后口径只有广告平台。</p>
+<table><thead><tr><th>因子</th><th>取值</th><th>依据</th><th>T 级</th></tr></thead><tbody>
+<tr><td>手游内购盘子</td><td>2025 约 $82B (+1%); 1H26 约 $40B (-2%); Q2 26 $19.2B (-4.5%); 1H26 下载 -12%</td><td>Sensor Tower, 经 tech-insider / 9to5Mac 转述</td><td>T3</td></tr>
+<tr><td>买量强度 (广告主自报)</td><td>Playtika 广告费 / 收入 2025 27.6% (2024 22.1%, 广告费 +35%); Playstudios 15.8%</td><td>两家 10-K XBRL AdvertisingExpense</td><td>T1</td></tr>
+<tr><td>内购驱动的游戏买量</td><td>$82B x 15-28% = $12-23B</td><td>上两行相乘</td><td>估</td></tr>
+<tr><td>广告变现游戏 (混合休闲) 自买量</td><td>$5-15B</td><td>无一手数据; 管理层称 MAX 盘子 "double-digit" 增长 (Q4 25 电话会)</td><td>估</td></tr>
+<tr><td>全渠道游戏买量</td><td>$17-38B (Meta / Google / TikTok / Apple / Unity / Moloco / Liftoff / AppLovin 合计)</td><td>上两行</td><td>估</td></tr>
+<tr><td>AppLovin 份额</td><td>25-40%</td><td>Gamehaus 20-F (2026-09-29): 2025-06-30 AppLovin 是其第一大供应商, 占应付 19.7%; 2026-06-30 跌出 10% 名单</td><td>数据点 T1, 份额 估</td></tr>
+<tr><td>抽成率</td><td>40-50%</td><td>两条倒算交集: 应收 $2,171M 按 "月末 + 30 天" = 1.0-1.5 个月总账单 -&gt; 30-44%; 应付发行商 $779M 按 1-2 个月付款 -&gt; 45-62%</td><td>报表 T1, 推算 估</td></tr>
+<tr><td>非游戏 (电商 / 网页)</td><td>约占业务 10% (Q4 25 电话会); Citi 统计电商客户 13,105 (2026-09-18)</td><td>转述</td><td>T3</td></tr>
+<tr><td>SAM 交叉</td><td>独立 app 广告技术总额口径 $79B (2025) -&gt; AppLovin 总花费约 $12-14B = 15-18%</td><td>Liftoff S-1/A 引 Altman Solon (委托研究)</td><td>存在 T1, 内容 T3</td></tr>
+</tbody></table>
+<p>结果 (calc.py): FY2025 净收入 = 游戏买量 x 份额 x 抽成 / 0.9 (加电商)。中值盘子 $27.6B 下, 份额 25-40% x 抽成 40-50% -&gt; <strong>$3.1-6.1B (中值约 $4.5B)</strong>; 全区间 $1.9-8.4B。报告 <strong>$5,481M</strong>, 比中值高约 $1B (+20%)。差在哪: 要在中值盘子上做出 $5.48B, 需要份额 &gt;= 36% 且抽成 &gt;= 45% 同时成立。两者都是会被竞争压缩的量 -- Edgewater (2026-09-23) 称 MAX 份额到 "functional ceiling", 竞争 "compressing AppLovin's net revenue spreads"; Unity 已关掉 ironSource 广告网 (2026-04-30) 集中做 Vector, Q3 指引战略 Grow 收入同比 +68-70% (Unity 8-K 2026-08-06, T1)。</p>
+<p>增长矛盾: TTM 收入 $6,829M (同比约 +55%), 而手游内购 -2%、下载 -12%。增量只能来自四处: 份额 (含 ironSource 退出让出的量)、抽成、广告变现游戏的买量循环 (发行商拿 MAX 分成再买量, 不受内购盘子约束)、电商。Q2 26 环比只 +4.4%, 收入 $1,924M 低于一致预期约 $1.94B, Q3 指引 $2,055-2,085M -- 这是真实生意撞上物理上限的形状。造假序列很少主动 miss 并承受盘后 -28% (违背自身利益的信号, 中等权重)。</p>
+<p><strong>一句话: 第一性原理只能给出宽区间, 报表在区间上半, 证明不了假; 能定案的是第 2 节现金侧。</strong></p>
+<h2 id="2-现金验证-最难造假的部分">2. 现金验证 (最难造假的部分)</h2>
+<table><thead><tr><th>项</th><th>数字</th><th>出处</th><th>读法</th></tr></thead><tbody>
+<tr><td>CFO / 净利</td><td>2025 $3,971M / $3,334M = 1.19; 2023-1H26 累计 $9,292M / $7,742M = 1.20; Q2 26 单季 $869M / $1,267M = 0.69</td><td>XBRL; 10-Q 2026-06-30 现金流量表</td><td>绿; 单季低是补缴 2025 税 (下一行) + 应收 +$353M</td></tr>
+<tr><td>自由现金流</td><td>2025 $3,952M (收入 72%); capex $0.5M + 融资租赁本金 $18.7M</td><td>8-K 2026-02-11 ex99.1</td><td>无资本化搬家空间</td></tr>
+<tr><td><strong>现金税</strong></td><td>2025 付 $194.8M (新加坡 $178.0M / 州 $13.4M / 联邦 $0) vs 费用 $519.7M (当期 $526.0M); 应计税 $263.7M -&gt; $451.6M; <strong>1H26 付 $639.8M vs 费用 $464.8M</strong>; 18 个月合计 0.85</td><td>10-K note 13 / note 5; 10-Q 补充披露</td><td>最硬一条: 联邦 2025 当期税挂在应计, 2026 上半年真金付出; 新加坡 IRAS 收了 $178M</td></tr>
+<tr><td><strong>回购</strong></td><td>2023-1H26 $5,860M + 净股结算代扣税 2024-1H26 $1,582M; 稀释股 362.6M (FY23) -&gt; 337.0M (Q2 26)</td><td>XBRL PaymentsForRepurchaseOfCommonStock</td><td>现金付给市场对手方, 股数可由过户代理核对</td></tr>
+<tr><td>偿债 / 借债</td><td>长债 $3,121M (2023) -&gt; $3,515M (2026-06); 2024 发 4 档优先票据置换定期贷款</td><td>XBRL; 10-K 附件 4.5-4.10</td><td>回购没靠新债垫</td></tr>
+<tr><td>现金桥 2025</td><td>CFO 3,971 - 回购 2,192 - 代扣 392 + 出售 Apps 约 425 = 现金 +1,790 (697 -&gt; 2,487)</td><td>XBRL</td><td>闭合</td></tr>
+<tr><td>利息锚</td><td>1H26 利息收入同比 +$35.4M, 同期平均现金多约 $1.95B -&gt; 隐含年化 3.6%</td><td>10-Q MD&amp;A</td><td>与短期国债同量级, 现金存在</td></tr>
+<tr><td>DSO (净额口径)</td><td>2025-06 115 天 -&gt; 2025-12 100 -&gt; 2026-06 103; 应收同比 +37% vs 收入 +53%</td><td>XBRL</td><td>无塞货; 净额法使 DSO 偏高, 同模式 Liftoff 189 天</td></tr>
+<tr><td>应付发行商</td><td>$554M -&gt; $779M (+41%); 无财年末跳升再回落</td><td>XBRL; sec_forensic</td><td>绿</td></tr>
+<tr><td>递延收入</td><td>$47.7M (收入 0.9%)</td><td>10-K note 5</td><td>非预收模式, 不适用</td></tr>
+<tr><td>资本化</td><td>PP&amp;E 净额 $122M (主体是服务器融资租赁); 云合同 $1.3B / 3 年计入成本, 已付 $579M</td><td>10-K note 5 / 6</td><td>费用未搬进资产</td></tr>
+<tr><td>SBC</td><td>2025 $210M (3.8%); 2025-10 市值目标 PSU 授予日公允 $410.5M</td><td>10-K; 审计关键事项</td><td>稀释已体现在股数</td></tr>
+<tr><td>关联方</td><td>Tripledot (持股 22%, 权益法) 收入 2H25 $19.0M、1H26 $42.9M (约 1.1%); KKR 2024 已退出; Angel Pride (5.6%, 投票权 1.9%)</td><td>10-K note 15; 10-Q note; DEF 14A 2026-04-21</td><td>无大额回路</td></tr>
+<tr><td>审计</td><td>Deloitte &amp; Touche (2015 起), 无保留意见 + ICFR 有效; 关键审计事项只有 PSU 估值, 不是收入; 24 个月无 8-K 4.01 / 4.02 / NT; CFO Stumpf 未换</td><td>10-K item 8 / 9A; submissions</td><td>绿</td></tr>
+<tr><td>取证卡</td><td>sec_forensic 黄 (红 0 / 黄 4 / 绿 14), Beneish M -2.45, Sloan 应计 -9.7%</td><td>var/output/forensic/APP.md</td><td>三条主黄人读后降绿: FY23 收入 3.28B -&gt; 1.84B 是 Apps 列终止经营 (10-K note 2), 不是重述; 关联方 = KKR 已退出; 商誉 = 已卖掉的 Apps 单元</td></tr>
+</tbody></table>
+<h2 id="3-利润率在物理上能否成立">3. 利润率在物理上能否成立</h2>
+<table><thead><tr><th>主体</th><th>口径</th><th>利润率</th><th>出处</th></tr></thead><tbody>
+<tr><td>AppLovin</td><td>净额收入</td><td>调整后 EBITDA 82% (2025), 83.9% (Q2 26), Q3 指引 83%; GAAP 营业 75.8%</td><td>8-K ex99.1; 10-K</td></tr>
+<tr><td>AppLovin</td><td>换算成广告主总花费</td><td>33-41% (82% x 抽成 40-50%)</td><td>估</td></tr>
+<tr><td>Liftoff (同模式, 净额法)</td><td>净额收入</td><td>调整后 EBITDA 55% (2025), 58% (Q1 26); GAAP 营业 24% (并购摊销)</td><td>S-1/A 2026-06-02</td></tr>
+<tr><td>Unity (公司级, 含引擎)</td><td>净额 Grow + Create</td><td>调整后 EBITDA 29% (Q2 26)</td><td>8-K 2026-08-06</td></tr>
+<tr><td>Meta 应用家族 (自有库存, 无分成)</td><td>总额</td><td>GAAP 营业 51.6% (2025, 合并营业利润 $83.3B 加回 RL 亏损 $19.2B)</td><td>META 10-K, 推算</td></tr>
+</tbody></table>
+<p>成本结构: 2025 总成本 $1,329M = 收入成本 $665M (云、服务器租赁、摊销) + 研发 $227M + 销售 $204M + 管理 $234M; 员工约 905 人 (研发 380 人 = 42%, 10-K item 1), 人均净收入约 $6M。机制: 净额法下发行商分成已扣掉, 剩下的是撮合费, 边际成本只有算力; 换成总花费口径 33-41%, 低于 Meta 51.6%。同模式的 Liftoff 做到 55-58%, 说明高利润率是这门生意的结构; AppLovin 再高 25 个点, 来自规模 (收入是 Liftoff 8 倍, 研发管理被摊薄) 与更高抽成。<strong>能成立; 风险在抽成能否持续 (b), 不在真实性 (a)。</strong></p>
+<h2 id="4-外部指控与调查">4. 外部指控与调查</h2>
+<table><thead><tr><th>日期</th><th>来源</th><th>指控</th><th>类型</th><th>一手证据</th><th>回应 / 现状</th><th>证据档</th></tr></thead><tbody>
+<tr><td>2025-02-20</td><td>Bear Cave</td><td>欺骗性、点不掉的广告</td><td>商业手法</td><td>截图</td><td>否认</td><td>T4</td></tr>
+<tr><td>2025-02-26</td><td>Fuzzy Panda</td><td>指纹追踪 (含 10 岁测试账户)、从 Meta 抽数据、违反 Apple / Google 政策</td><td>数据合规</td><td>测试账户</td><td>否认</td><td>T3 (持空)</td></tr>
+<tr><td>2025-02-26</td><td>Culper</td><td>利用权限静默安装</td><td>商业手法</td><td>用户投诉</td><td>否认</td><td>T3 (持空)</td></tr>
+<tr><td>2025-03-27</td><td>Muddy Waters</td><td>系统性违反平台条款 (指纹), 电商像素可复制</td><td>数据合规</td><td>自测数据</td><td>CEO 博文: 用 "context signals", 像素为行业标准</td><td>T3 (持空)</td></tr>
+<tr><td>2025-06-12</td><td>Culper</td><td>中国股东 Hao Tang 持股披露不实、未披露中国合作</td><td>治理披露</td><td>登记文件</td><td>未见正式回应</td><td>T3</td></tr>
+<tr><td>2025-10-06</td><td>Bloomberg</td><td>SEC 调查数据收集 (是否误导投资者), 源于年初举报</td><td>监管</td><td>匿名信源</td><td>2026-02-20 报 "still active"; 2026-08-05 CFO: "The SEC has recently advised us that it concluded its inquiry with no recommended action"</td><td>声明存在 T2; 内容为利益方</td></tr>
+<tr><td>2025-10-13</td><td>Ben Edelman (自述持空)</td><td>Array 源码可强制下载</td><td>商业手法</td><td>源码</td><td>Array 已于 2025 Q3 停 ("lack of economic viability"); T-Mobile 确认试点结束</td><td>停产 T2 已证实; 未经同意安装 未证</td></tr>
+<tr><td>2025-10-19</td><td>NY Post</td><td>特拉华 / 俄勒冈 / 康涅狄格州检察长初查, 数据经纪商被传唤</td><td>监管</td><td>匿名 + 邮件</td><td>公司称未被任何州检察长联系</td><td>T3 单源</td></tr>
+<tr><td>2026-01-20</td><td>CapitalWatch</td><td>股东洗钱; 黑钱经中介买广告变 "合法收入"</td><td><strong>唯一触及收入来源</strong></td><td>无</td><td>律师函; 2026-02-09 撤回 Tang 关联部分并道歉</td><td>T4, 部分撤回</td></tr>
+<tr><td>2025-03 起</td><td>Brownback 集体诉讼 (N.D. Cal.)</td><td>2024-11-07 至 2025-03-27 广告方案与增长陈述虚假</td><td>证券诉讼</td><td>依赖做空报告</td><td>驳回动议 2026-02 交叉陈述完毕, 未见裁定</td><td>存在 T1</td></tr>
+<tr><td>2026-09 起</td><td>Talbot v. AppLovin (26-cv-10584)</td><td>2026-02-12 至 2026-08-05 AI 模型进度、AI 视频工具延误</td><td>证券诉讼</td><td>两次股价下跌</td><td>首席原告截止 2026-11-16</td><td>存在 T1</td></tr>
+<tr><td>2026-10-01</td><td>AppLovin 诉 Unity</td><td>Unity Ad Quality SDK 抓 MAX 竞价数据训练对手模型</td><td>竞争</td><td>--</td><td>临时禁令被驳回; 另有仲裁</td><td>T2</td></tr>
+<tr><td>2025-02 至今</td><td>Apple / Google</td><td>新闻检索未见公开处罚、下架或 SDK 封禁</td><td>平台</td><td>--</td><td>--</td><td>未见 (非穷尽)</td></tr>
+</tbody></table>
+<p>读法: 六家做空方七篇报告 (多数自带空头仓位、做过实测)、两起集体诉讼、一个 SEC 调查, <strong>没有一家指控收入或利润是虚构的</strong>; 唯一碰到收入来源的 CapitalWatch 也说是 "真钱 (黑钱) 变收入", 且已部分撤回道歉。按 fact-check-reverse: 最有动机的批评者都没指控的事, 是 "不支持" 的强证据。指控集中在数据做法、平台条款与披露, 全部落在 (b)(c)。</p>
+<h2 id="5-反方审计-我方-造假-主审多方">5. 反方审计 (我方 = 造假, 主审多方)</h2>
+<ol>
+<li>多方最强版本: 税务局收了 $835M 现金; 回购 $5.9B 把稀释股从 362.6M 压到 337.0M 且没借新债; Deloitte 十年审计、ICFR 有效、无 4.01 / 4.02; 同模式对手 Liftoff 招股书 55-58% 利润率, 广告主 Gamehaus 年报确认真实账单。</li>
+<li>五项检查 (对我方): 事实 -- "利润假" 无任何一手证据; 逻辑 -- "利润率太高 + 增长快于市场 -&gt; 造假" 是相关当因果, 高利润率与超额增长都有可观测机制; 忽略的事实 -- 现金税、回购、审计、对手方账; 情绪 -- 股价 -64%, 做空报告 7 篇, 律所轰炸, 情绪已极端偏空; 耐心 -- 造假叙事无暴露时间表, 而 (b) 的检验点就在 2026-11 初 Q3 财报。对多方: "现金真" 站住, "增长可持续" 在动摇 (环比 +4.4%、份额天花板、抽成被压、Unity 追赶)。</li>
+<li>先证明不是什么: 不是 Wirecard / Luckin (现金被税务局与回购对手确认, 无第三方托管现金, 无关联方大额收入); 不是 SMCI (审计未辞职、无延迟申报、无重大缺陷); 不是 Enron 型总额法虚胖 (净额法, 收入就是留存部分)。它是 <strong>净额法撮合平台, 靠手游买量车流 + 自营 MAX 竞价位置收高费率的收费站</strong>; 风险是费率与车流 (b), 不是账本真假 (a)。</li>
+<li>出口: (a) 我方承重柱倒, 多方承重柱 T1 站住 -&gt; 不支持。(b) 两边都站住 -&gt; 争议, 按时序: 近端是空方 (份额 / 抽成见顶, checkpoint 2026-11 初 Q3 财报), 远端是多方 (现金真、20x PE、电商第二曲线, checkpoint 电商占比披露)。</li>
+</ol>
+<h2 id="6-定档-分开">6. 定档 (分开)</h2>
+<table><thead><tr><th>档</th><th>真值</th><th>依据</th><th>升档 checkpoint</th><th>降档 checkpoint</th></tr></thead><tbody>
+<tr><td>(a) 财务报表造假</td><td><strong>不支持</strong></td><td>现金税 18 个月 0.85、回购 $5.9B 且股数下降、现金桥闭合、利息锚、Deloitte 无保留 + ICFR 有效、对手方申报; 最狠批评者都未指控</td><td>8-K 4.01 (Deloitte 辞任) / 4.02 / NT 10-Q / 重大缺陷 / SEC 执法或 Wells 通知 / 连续 4 季现金税 / 账面税 &lt; 0.5 且无应计解释 / DSO 连续 3 季每季 +2 天以上 / 广告主或发行商公开对账争议</td><td>维持: 2026-11 初 Q3 10-Q (现金税、DSO), 2027-02 FY2026 10-K 审计意见</td></tr>
+<tr><td>(b) 收入质量 (真钱, 但依赖可能被切断的手法与位置)</td><td><strong>可疑</strong></td><td>抽成 40-50% (估) 被竞争压缩; 报告值需份额与抽成同时高位; 数据做法被多方指控 + 举报 + 州检察长初查 (单源); Array 已停; 自营 MAX 竞价又自己出价的利益冲突 (Unity 诉讼); 但 Apple / Google 未见公开动作, SEC 结案无建议</td><td>Q3 26 收入低于 $2,055M 下沿或 Q4 指引环比 &lt; 5% (2026-11 初); Apple / Google 公开执法或政策点名; 州检察长起诉; 公司披露数据做法变化影响收入</td><td>再 4 个季度增长且电商占比披露 &gt; 25%、无平台动作 (2027-11 前后)</td></tr>
+<tr><td>(c) 合规 / 诉讼</td><td>"有诉讼与调查" <strong>已证实</strong>; "造成重大损失" <strong>可疑</strong></td><td>两起证券集体诉讼 + 衍生诉讼 (暂停) + Unity 争议 + 州检察长初查; 10-Q 称无重大或有负债</td><td>Brownback 驳回动议被否 (时间无数据); 州检察长立案; SEC 结案说法被反证</td><td>驳回动议获准; Talbot 首席原告期 (2026-11-16) 后无实质推进</td></tr>
+</tbody></table>
+<h2 id="7-行动含义">7. 行动含义</h2>
+<p><strong>不进坏车</strong> -- 造假承重柱倒了, 以 "做假账" 为承重句做空等于和税务局、回购对手方、审计师的现金记录对赌。可以进观察 (watch), 但理由只能写 (b) 收入质量与份额天花板, 不写造假; 若要空, 承重句换成 "Q3 收入跌破指引下沿 / 抽成被压", 等 2026-11 初财报 checkpoint。现价 20x TTM PE、5% 经营现金流收益率, 造假叙事与增速放缓已在 -64% 里, 空方赔率不对称性差。</p>
+<h2 id="未核实项">未核实项</h2>
+<ol>
+<li>抽成率与经 Axon 的总花费: 公司不披露, 全部为应收 / 应付倒算 (估)。</li>
+<li>全渠道游戏买量 $17-38B 与 AppLovin 份额 25-40%: 估, 无第三方完整口径。</li>
+<li>Sensor Tower 手游数字经 tech-insider / 9to5Mac 转述, 未取原报告; Newzoo 2025 手游金额原文未取到。</li>
+<li>SEC 结案: 只有 CFO 电话会口述 (TradingView / Tech Times 转述), 未见 SEC 终止函或 8-K。</li>
+<li>州检察长初查: NY Post 单源, 现状无数据。</li>
+<li>Brownback 驳回动议是否已裁定: 无数据。</li>
+<li>Fuzzy Panda / Muddy Waters 原报告站点不可达, 内容按媒体转述。</li>
+<li>电商约占 10%: 电话会转述 (T3)。</li>
+<li>2025 联邦现金税为 0 的具体机制公司未解释; "2026 上半年补付" 由应计税下降与 1H26 现金税推断, 待 Q3 10-Q 核。</li>
+<li>Angel Pride 与 Hao Tang 的关系: DEF 14A 未写个人名, 做空方称其为 Tang 实体。</li>
+<li>内部人公开市场买入、信用评级: 未查。</li>
+</ol>
+<p>脚本与原始文本: C:\Users\adams\.claude\jobs\f67d58ba\tmp\app_forensic\ (calc.py / facts.py / 申报全文 txt)。</p>
+<pre><code>[
+ {&quot;domain&quot;: &quot;forensic_flag&quot;, &quot;ticker&quot;: &quot;APP&quot;, &quot;claim&quot;: &quot;现金税: 2025 付 $194.8M (新加坡 $178.0M, 州 $13.4M, 联邦 $0) vs 所得税费用 $519.7M; 应计税 $451.6M; 1H26 付 $639.8M vs 费用 $464.8M; 18 个月现金 / 账面 0.85&quot;, &quot;value&quot;: 0.85, &quot;unit&quot;: &quot;ratio&quot;, &quot;as_of&quot;: &quot;2026-06-30&quot;, &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1751008/000175100826000059/app-20260630.htm&quot;, &quot;source_tier&quot;: &quot;T1&quot;, &quot;verified_live&quot;: true, &quot;confidence&quot;: &quot;H&quot;, &quot;section&quot;: &quot;10-K note 13 / 10-Q supplemental cash flow&quot;, &quot;evidence_span&quot;: &quot;Cash paid for income taxes, net of refunds $ 639,820 $ 100,621 (six months ended June 30, 2026 / 2025); FY2025 Federal $ - State 13,395 Singapore 177,972 Other 3,476 Total 194,843&quot;},
+ {&quot;domain&quot;: &quot;forensic_flag&quot;, &quot;ticker&quot;: &quot;APP&quot;, &quot;claim&quot;: &quot;收入确认为代理人净额法: 收入 = 广告主花费减去付给发行商; 付款条件月末后 30 天&quot;, &quot;value&quot;: &quot;net&quot;, &quot;unit&quot;: null, &quot;as_of&quot;: &quot;2025-12-31&quot;, &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm&quot;, &quot;source_tier&quot;: &quot;T1&quot;, &quot;verified_live&quot;: true, &quot;confidence&quot;: &quot;H&quot;, &quot;section&quot;: &quot;item_8_note_2&quot;, &quot;evidence_span&quot;: &quot;Therefore, the Company is an agent in these arrangements and presents revenue net of advertising inventory costs. ... payment terms of 30 days after the end of the month.&quot;},
+ {&quot;domain&quot;: &quot;forensic_flag&quot;, &quot;ticker&quot;: &quot;APP&quot;, &quot;claim&quot;: &quot;审计: Deloitte &amp; Touche 2015 起, FY2025 无保留意见 + ICFR 有效, 关键审计事项仅 PSU 估值; 24 个月无 8-K 4.01 / 4.02 / NT&quot;, &quot;value&quot;: &quot;green&quot;, &quot;unit&quot;: null, &quot;as_of&quot;: &quot;2026-02-19&quot;, &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm&quot;, &quot;source_tier&quot;: &quot;T1&quot;, &quot;verified_live&quot;: true, &quot;confidence&quot;: &quot;H&quot;, &quot;section&quot;: &quot;item_8 / item_9a&quot;, &quot;evidence_span&quot;: &quot;/s/ DELOITTE &amp; TOUCHE LLP San Jose, California February 19, 2026 We have served as the Company&#x27;s auditor since 2015. ... management concluded that our internal control over financial reporting was effective as of December 31, 2025.&quot;},
+ {&quot;domain&quot;: &quot;forensic_flag&quot;, &quot;ticker&quot;: &quot;APP&quot;, &quot;claim&quot;: &quot;sec_forensic 重述黄为口径: FY2023 收入 3.28B -&gt; 1.84B 因 Apps 业务 2025-06-30 售予 Tripledot 列终止经营, 非重述, 人读降绿&quot;, &quot;value&quot;: &quot;green&quot;, &quot;unit&quot;: null, &quot;as_of&quot;: &quot;2026-02-19&quot;, &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm&quot;, &quot;source_tier&quot;: &quot;T1&quot;, &quot;verified_live&quot;: true, &quot;confidence&quot;: &quot;H&quot;, &quot;section&quot;: &quot;item_8_note_2&quot;, &quot;evidence_span&quot;: &quot;the results of the Apps Business, including the gain on divestiture, are reported as discontinued operations in the consolidated statements of operations, and as such, have been excluded from both continuing operations and segment results for all periods presented.&quot;},
+ {&quot;domain&quot;: &quot;ownership&quot;, &quot;ticker&quot;: &quot;APP&quot;, &quot;claim&quot;: &quot;回购 2023-1H26 合计 $5,860M, 稀释股 362.6M (FY2023) -&gt; 337.0M (Q2 2026); 长债 $3,121M -&gt; $3,515M, 回购未靠新债&quot;, &quot;value&quot;: 5860, &quot;unit&quot;: &quot;USD_M&quot;, &quot;as_of&quot;: &quot;2026-06-30&quot;, &quot;source_url&quot;: &quot;https://data.sec.gov/api/xbrl/companyfacts/CIK0001751008.json&quot;, &quot;source_tier&quot;: &quot;T1&quot;, &quot;verified_live&quot;: true, &quot;confidence&quot;: &quot;H&quot;, &quot;section&quot;: &quot;PaymentsForRepurchaseOfCommonStock / WeightedAverageNumberOfDilutedSharesOutstanding&quot;, &quot;evidence_span&quot;: &quot;PaymentsForRepurchaseOfCommonStock FY2023 1,153.6; FY2024 981.3; FY2025 2,191.9; 1H2026 1,533.0 ($M). Diluted weighted shares FY2023 362,589K; Q2 2026 337,031K.&quot;},
+ {&quot;domain&quot;: &quot;tam&quot;, &quot;ticker&quot;: &quot;APP&quot;, &quot;claim&quot;: &quot;第一性原理 FY2025 净收入中心区间 $3.1-6.1B (游戏买量中值 $27.6B x 份额 25-40% x 抽成 40-50% / 0.9), 报告 $5,481M 在上半; T3 置信 L&quot;, &quot;value&quot;: &quot;3100-6100&quot;, &quot;unit&quot;: &quot;USD_M&quot;, &quot;as_of&quot;: &quot;2025-12-31&quot;, &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm&quot;, &quot;source_tier&quot;: &quot;T3&quot;, &quot;verified_live&quot;: false, &quot;confidence&quot;: &quot;L&quot;, &quot;section&quot;: &quot;estimate&quot;, &quot;evidence_span&quot;: &quot;估: Playtika 广告费 / 收入 27.6%, Playstudios 15.8% (XBRL); 手游内购约 $82B (Sensor Tower 转述); 抽成由应收 $2,171M 与应付 $779M 倒算&quot;},
+ {&quot;domain&quot;: &quot;contract&quot;, &quot;ticker&quot;: &quot;APP&quot;, &quot;claim&quot;: &quot;对手方 Gamehaus 20-F: 2025-06-30 AppLovin 为第一大供应商, 占其应付 19.7%; 2026-06-30 跌出 10% 名单 (被 Sinointeractive / Batata 取代)&quot;, &quot;value&quot;: 0.197, &quot;unit&quot;: &quot;share_of_AP&quot;, &quot;as_of&quot;: &quot;2026-06-30&quot;, &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/2000530/000149315226044775/form20-f.htm&quot;, &quot;source_tier&quot;: &quot;T1&quot;, &quot;verified_live&quot;: true, &quot;confidence&quot;: &quot;M&quot;, &quot;section&quot;: &quot;item_4 suppliers&quot;, &quot;evidence_span&quot;: &quot;As of June 30, 2025, we had two significant suppliers, AppLovin Corporation (AppLovin), and Sinointeractive, which accounted for 19.7% and 15.1% of our total accounts payable balance, respectively.&quot;},
+ {&quot;domain&quot;: &quot;kill&quot;, &quot;ticker&quot;: &quot;APP&quot;, &quot;claim&quot;: &quot;SEC 数据收集调查: CFO 2026-08-05 电话会称 SEC 已结束调查且无建议行动; 未见 SEC 终止函或 8-K; 2026-02-20 Bloomberg 曾报仍在进行&quot;, &quot;value&quot;: &quot;closed_per_company&quot;, &quot;unit&quot;: null, &quot;as_of&quot;: &quot;2026-08-05&quot;, &quot;source_url&quot;: &quot;https://www.techtimes.com/articles/323336/20260806/applovin-stock-lost-40b-16m-miss-while-sec-cleared-axon-data-probe.htm&quot;, &quot;source_tier&quot;: &quot;T3&quot;, &quot;verified_live&quot;: true, &quot;confidence&quot;: &quot;M&quot;, &quot;section&quot;: &quot;Q2 2026 earnings call&quot;, &quot;evidence_span&quot;: &quot;The SEC has recently advised us that it concluded its inquiry with no recommended action. We&#x27;re pleased to have it resolved.&quot;},
+ {&quot;domain&quot;: &quot;kill&quot;, &quot;ticker&quot;: &quot;APP&quot;, &quot;claim&quot;: &quot;收入质量 checkpoint: Q3 2026 收入指引 $2,055-2,085M, 调整后 EBITDA 率 83%; 低于下沿或 Q4 指引环比 &lt; 5% -&gt; (b) 升已证实候选&quot;, &quot;value&quot;: &quot;2055-2085&quot;, &quot;unit&quot;: &quot;USD_M&quot;, &quot;as_of&quot;: &quot;2026-08-05&quot;, &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1751008/000175100826000057/exhibit991-2q26earningspre.htm&quot;, &quot;source_tier&quot;: &quot;T1&quot;, &quot;verified_live&quot;: true, &quot;confidence&quot;: &quot;H&quot;, &quot;section&quot;: &quot;8-K 2.02 ex99.1&quot;, &quot;evidence_span&quot;: &quot;Third Quarter 2026 Financial Guidance Summary 3Q26 Revenue $2,055 $2,085 Adjusted EBITDA 1,710 1,740 Adjusted EBITDA Margin 83 % 83 %&quot;}
+]</code></pre></main></body></html>

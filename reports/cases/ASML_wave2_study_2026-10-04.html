@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>ASML 浪 2 研究: 700 为何止跌, 浪 3 为何发生, 抄底模板 (2026-10-04)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><h1 id="asml-浪-2-研究-700-为何止跌-浪-3-为何发生-抄底模板-2026-10-04">ASML 浪 2 研究: 700 为何止跌, 浪 3 为何发生, 抄底模板 (2026-10-04)</h1>
+<p><strong>一句话结论</strong>: 2025-07-16 至 08-05 的回撤 (美股原始收盘 823.02 -&gt; 689.63, -16.2%; 同期 SOX 只 -2.7%) 是公司特有的 "能见度折价": 市场把 "2026 增长尚不能确认" 读成 "2026 不增长", 把唯一的 EUV 供应商按周期股定价 (当年 PE 24.1x, 2015 年以来月度第 6 百分位)。止跌靠估值地板 + 卖压枯竭 + 关税豁免事件, 不靠公司回购, 也看不到期权鲸群抄底。浪 3 一半是订单兑现 (2026 收入指引从 "不能确认" 一路上调到 EUR 43-45B), 一半是重估 (PE 24x -&gt; 43x)。Alpha 的根源 = 位置没变 + 被暂时按周期股定价 + 兑现需要 2-4 个季度的耐心。现在的 ASML 不在浪 2, 模板未触发, 行动档 [WATCH]。</p>
+<p>价格锚核实: 2026-10-04 用 yfinance 拉取 (最后收盘 2026-10-02), 原始收盘 (未复权), 美股 ADR 美元; 欧元价取 ASML.AS。</p>
+<hr>
+<h2 id="0-700-指哪一段-哪段是浪-2">0. "700" 指哪一段, 哪段是浪 2</h2>
+<table><thead><tr><th>段</th><th>起点 (日期 收盘)</th><th>终点 (日期 收盘)</th><th>幅度</th><th>备注</th></tr></thead><tbody>
+<tr><td>大级别下跌</td><td>2024-07-10 1098.95</td><td>2024-11-20 658.43</td><td>-40.1%</td><td>同期 SOX -17.3%, TSM -1.4%</td></tr>
+<tr><td>关税崩盘</td><td>2025-02-13 776.99</td><td>2025-04-08 595.37</td><td>-23.4%</td><td>盘中低 578.51 (04-07)</td></tr>
+<tr><td>浪 1</td><td>2025-04-08 595.37</td><td>2025-07-15 823.02</td><td>+38.2%, 66 日</td><td>同期 SOX +60.5%, ASML 落后 22 点</td></tr>
+<tr><td><strong>浪 2</strong></td><td>2025-07-15 823.02</td><td><strong>2025-08-05 689.63</strong></td><td><strong>-16.2%, 15 日</strong></td><td>回撤浪 1 的 59% (复权口径 57%); 盘中低 683.48 (08-01)</td></tr>
+<tr><td>浪 3</td><td>2025-08-05 689.63</td><td>2026-02-25 1526.51</td><td>+121.4%</td><td>之后 2026-06-30 顶 1989.44</td></tr>
+<tr><td>现在</td><td>--</td><td>2026-10-02 1867.31</td><td>距浪 2 低点 +170.8%</td><td>距 60 日高 -0.8%, RSI14 64.8</td></tr>
+</tbody></table>
+<p>界定: "700" = 2025-07-31 至 08-06 的底部区 (收盘 689.63-699.36, 盘中 683.48), 是 2025 年第二个低点, 不是 2024-11 的 658 或 2025-04 的 595。真值: "700 区是浪 2 低点" 已证实 (T1 价格); "700 是一条结构性地板价位" 不支持 (没有任何专属于 700 的机制)。15% 折线要等价格从 689.63 反弹到 793 才确认底部, 首次收盘达到是 2025-09-08 (796.25), 所以 "浪 2" 这个标签事后一个月才可知。</p>
+<h2 id="1-回撤期的基本面-一手材料">1. 回撤期的基本面 (一手材料)</h2>
+<table><thead><tr><th>项</th><th>事实</th><th>出处</th><th>T 级</th></tr></thead><tbody>
+<tr><td>Q2 2025 业绩</td><td>销售 EUR 7.7B, 毛利 53.7%, 净利 EUR 2.3B; 订单 EUR 5.5B (EUV 2.3B), 订单 logic 84% / memory 16% (Q1 为 60 / 40)</td><td>6-K 2025-07-16 ex99.1 与投资者演示第 6 / 10 页</td><td>T1</td></tr>
+<tr><td>对一致预期</td><td>订单 5.5B vs LSEG 预期 4.19B (高 32%); Q3 收入指引 7.4-7.9B vs 预期 8.3B</td><td>CNBC 2025-07-16</td><td>T3</td></tr>
+<tr><td>积压</td><td>季末约 EUR 33B (约一年销售)</td><td>Futurum 2025-07-17</td><td>T3</td></tr>
+<tr><td>2025 全年</td><td>收入 +15%, 毛利约 52%; Q3 毛利指引 50-52%</td><td>6-K 2025-07-16</td><td>T1</td></tr>
+<tr><td>2026 表述演变</td><td>04-16 "2025 and 2026 will be growth years" -&gt; 07-16 "while we still prepare for growth in 2026, we cannot confirm it at this stage" -&gt; 10-15 "do not expect 2026 total net sales to be below 2025" -&gt; 2026-01-28 指引 EUR 34-39B -&gt; 04-15 EUR 36-40B -&gt; 07-15 EUR 43-45B, 毛利 54-56%</td><td>各季 6-K ex99.1</td><td>T1</td></tr>
+<tr><td>中国</td><td>占总销售: 2024 上半年 41.6% -&gt; 2025 上半年 24.1%; Q2 2025 系统销售 27%; 全年 2024 36.1% -&gt; 2025 29.1%; 10-15 预告 2026 中国 "decline significantly"</td><td>中期报告 2025-07-16; 20-F 2025; 6-K 2025-10-15</td><td>T1</td></tr>
+<tr><td>客户 capex</td><td>Meta 2025 capex USD 66-72B, 同比约 +30B (8-K 2025-07-30); TSMC Q2 收入同比 +38.6% (6-K 2025-07-17)</td><td>EDGAR</td><td>T1</td></tr>
+<tr><td>Intel</td><td>10-Q 2025-07-24: 若拿不到大外部客户 "we may pause or discontinue our pursuit of Intel 14A and successor nodes" (14A 是 High-NA 首个节点)</td><td>EDGAR 10-Q</td><td>T1</td></tr>
+<tr><td>High-NA</td><td>Q2 发出首台 EXE:5200B; Q1 第 5 台 High-NA, 三家客户在用</td><td>6-K 2025-07-16 / 04-16</td><td>T1</td></tr>
+<tr><td>回购</td><td>Q1 2025 EUR 2.7B; Q2 EUR 1.4B (约 230 万股); <strong>Q3 (含 700 底部区) 仅 EUR 148M</strong>; 2022-25 计划 120 亿只完成 76 亿</td><td>各季 6-K</td><td>T1</td></tr>
+<tr><td>集中度</td><td>2025 年四家客户各超 10%, 合计 61.2%</td><td>20-F 2025</td><td>T1</td></tr>
+</tbody></table>
+<h2 id="2-消息面时间线">2. 消息面时间线</h2>
+<table><thead><tr><th>日期</th><th>事件</th><th>价格反应 (美股收盘)</th><th>T 级</th></tr></thead><tbody>
+<tr><td>2025-06-03 / 06-26</td><td>Barclays 降至 Equal-Weight; Jefferies 降至 Hold</td><td>浪 1 末段, 价仍升</td><td>T3 (评级库 + 标题)</td></tr>
+<tr><td>07-16</td><td>Q2 报 + "cannot confirm" 原话</td><td>-8.3% (阿姆斯特丹 -11.4%), 量 1079 万股 = 前 20 日均量 7.5 倍</td><td>T1</td></tr>
+<tr><td>07-24</td><td>Intel 10-Q 14A 可能暂停</td><td>07-25 -1.9%</td><td>T1</td></tr>
+<tr><td>07-30 / 07-31</td><td>Meta 上调 capex; SOX 07-30 创阶段高 5787</td><td>ASML 07-31 -3.7%, 对 SOX 比值创两年最低 (百分位 0.2%)</td><td>T1</td></tr>
+<tr><td>08-06 / 08-07</td><td>美国宣布芯片 100% 关税但豁免在美建厂企业</td><td>08-07 +3.2%, 浪 2 结束</td><td>T2 (Reuters / Guardian / PBS 同报)</td></tr>
+<tr><td>08-14 / 08-15</td><td>AMAT 因中国暂停下修, 单日 -13%</td><td>ASML 08-15 只 -1.7%</td><td>T3</td></tr>
+<tr><td>09-04 / 05</td><td>UBS 升至 Buy ("2027 story")</td><td>753-782, 离低点 +9% 至 +13%</td><td>T3 (标题)</td></tr>
+<tr><td>09-09</td><td>领投 Mistral AI EUR 1.3B, 持股约 11%</td><td>08-29 至 09-30 累计 +30%</td><td>T1 (20-F)</td></tr>
+<tr><td>09-18</td><td>Nvidia 投资 Intel USD 5B; BofA 目标 833 -&gt; 1082</td><td>当日 +6.4%</td><td>T3</td></tr>
+<tr><td>10-01</td><td>OpenAI 与 Samsung / SK hynix 存储合作 (至多 90 万片 / 月)</td><td>+3.6%, 首破 1000</td><td>T2</td></tr>
+<tr><td>10-15</td><td>Q3: 订单 EUR 5.4B (EUV 3.6B), 2026 "不低于 2025"</td><td>价已在 1000 上方</td><td>T1</td></tr>
+<tr><td>2026-01-28</td><td>Q4 订单 EUR 13.2B (EUV 7.4B) 创纪录, 积压 EUR 38.8B, 新回购 EUR 12B</td><td>浪 3 主升</td><td>T1</td></tr>
+</tbody></table>
+<h2 id="3-分析师与空方最强版本">3. 分析师与空方最强版本</h2>
+<p>评级库 (yfinance, 2026-10-04 拉取) 显示, 降级集中在浪 1 末段而不是底部: Barclays 06-03、Jefferies 06-26; Morningstar 07-16 下调公允价值 (标题)。第一个升级是 UBS 09-04 (评级库记 09-05), 已离低点 +9% 至 +13%; Bernstein 2026-01-05 才从 Market Perform 升回 (目标 935 -&gt; 1528)。降级理由原稿未追到, 定档 可疑 (引语无出处), 只作空方样本。</p>
+<p>空方最强版本 (用一手事实重写, 不用稻草人):</p>
+<ol>
+<li>公司自己不肯确认 2026 增长, 而三家 EUV 客户里两家在退: Intel 10-Q 写明可能暂停 14A (High-NA 首个节点), 订单向 TSMC 一家集中, 议价权在客户。</li>
+<li>中国曾占上半年销售 41.6%, 出口管制下 2026 必然大降, 关税与 232 调查还悬着, 这是确定的收入缺口。</li>
+<li>订单低于收入 (5.5B 对 7.7B, 同比 -0.5%), Q3 毛利指引降到 50-52%; AI capex 的钱先流向刻蚀 / 沉积 (浪 1 里 LRCX +68%, ASML +38%), 光刻不是这一轮的直接受益者。</li>
+</ol>
+<h2 id="4-为什么在-700-止跌-机制与事后叙事分开">4. 为什么在 700 止跌: 机制与事后叙事分开</h2>
+<table><thead><tr><th>候选</th><th>证据</th><th>判断</th><th>真值</th></tr></thead><tbody>
+<tr><td>估值地板</td><td>当年 EPS 口径 PE 24.1x (欧元 597.1 / 2025 EPS 24.73), 2015-2025 月度中位 30.1x, 第 6 百分位; TTM PE 24.8x</td><td>长线资金的买点 = 机制 #1</td><td>数据 已证实 (T1 计算); 因果 可疑</td></tr>
+<tr><td>卖压枯竭</td><td>底部区日均量 160 万股 = 事前常态 1.12 倍、破位日 15%; RSI14 34-35; 08-15 同业 -13% 时只 -1.7%</td><td>坏消息不再压价 = 机制 #2</td><td>数据 已证实; 因果 可疑</td></tr>
+<tr><td>政策落地</td><td>08-06 关税豁免, 08-07 起反转</td><td>事件触发 = 机制 #3</td><td>时点 已证实 (T2); 因果 可疑 (同日全行业涨)</td></tr>
+<tr><td>公司回购</td><td>Q3 全季只 EUR 148M</td><td>不是底</td><td>不支持</td></tr>
+<tr><td>期权鲸群</td><td>底部区清洗后无单笔 &gt; USD 0.8M 的方向单 (第 5 节)</td><td>不是底</td><td>不支持 (限美股 ADR 期权)</td></tr>
+<tr><td>行业 / 指数见底</td><td>SOX 浪 2 期间只 -2.7%, 07-30 还在创高</td><td>行业没有拖累, 也谈不上带动</td><td>不支持</td></tr>
+<tr><td>内部人 / 大股东</td><td>外国私人发行人无 Form 4; AFM 登记未核</td><td>--</td><td>无数据</td></tr>
+<tr><td>Mistral / Nvidia-Intel / 存储大单</td><td>都在 09-09 之后</td><td>解释浪 3 的延伸, 不解释止跌</td><td>事后叙事</td></tr>
+</tbody></table>
+<h2 id="5-当时的期权布局-barchart-每日前-200-大单-38-个交易日-已到齐">5. 当时的期权布局 (Barchart 每日前 200 大单, 38 个交易日, 已到齐)</h2>
+<table><thead><tr><th>区段</th><th>日数</th><th>总权利金</th><th>剔除 (&lt;=7 天到期 / 同秒组合包 / mid / 挂股, USD M)</th><th>清洗后看多</th><th>清洗后看空</th><th>多空比</th><th>读法</th></tr></thead><tbody>
+<tr><td>2025-04-03 至 04-11</td><td>7</td><td>USD 167.5M</td><td>18.3 / 88.7 / 21.6 / 5.6</td><td>9.2M</td><td>24.1M</td><td>0.38</td><td>04-04 Jan-27 C740 1213 张打 bid USD 11.5M (场内, 持有者割肉); <strong>04-08 底日 Jan-27 C620 764 张近 ask 开仓 USD 11.8M (SLAN 机构撮合) = 唯一的鲸群抄底指纹</strong></td></tr>
+<tr><td>07-08 至 07-15 浪 1 末</td><td>6</td><td>41.7M</td><td>9.6 / 14.1 / 9.6 / 0.6</td><td>3.7M</td><td>4.2M</td><td>0.88</td><td>平静, 无布局</td></tr>
+<tr><td>07-16 破位日</td><td>1</td><td>94.0M</td><td>75.2 / 6.1 / 6.1 / 0.2</td><td>1.7M</td><td>4.8M</td><td>0.35</td><td>2 天到期深 ITM put 梯子包 USD 75M (同秒十几腿有买有卖, 方向 0); 远月 call 卖 3.3M</td></tr>
+<tr><td>07-17 至 07-30 下跌段</td><td>10</td><td>573.9M</td><td>148.4 / 347.4 / 17.7 / 8.3</td><td>24.7M</td><td>27.4M</td><td>0.90</td><td>07-29 单日 313M 场内深 ITM put 梯子包 (方向 0); 17-18 张算法切片同时卖出深 ITM call 6.0M 与深 ITM put 10.8M = 衍生品仓位双向出清</td></tr>
+<tr><td>07-31 至 08-06 底部区</td><td>5</td><td>179.6M</td><td>63.6 / 96.6 / 7.7 / 1.7</td><td>4.4M</td><td>5.5M</td><td>0.80</td><td>单笔方向单都 &lt;= 0.8M; 无深 ITM put 卖出 (合成多头), 无远月 call 大单; 08-06 Jun-26 P660 挂股开仓 (持股加保护)</td></tr>
+<tr><td>08-07 至 08-19 反转后</td><td>9</td><td>86.1M</td><td>23.2 / 34.2 / 13.4 / 1.0</td><td>6.7M</td><td>7.6M</td><td>0.89</td><td>Jun-27 C700 / C710 组合开仓约 2M (mid, 方向未定)</td></tr>
+</tbody></table>
+<p>能说明什么: (1) 大额权利金几乎全是场内深 ITM put 梯子包与 1-2 天到期结构 (做市 / 融资类; 是否与中期股息派付有关未核除息日), 方向 0, 不能读成看空或看多。(2) 下跌段的特征是期权仓位出清 (多空双方的深 ITM 头寸同时被切片卖出), 底部区则是 "没人下注": 多空比 0.80, 无合成多头, 无远月 call 买方, 无卖 put 接货大单。(3) 对比 2025-04 底部: 那次有 USD 11.8M 的两年期 call 开仓买方, 这次没有。结论: 700 的止跌不是期权鲸群推出来的 (不支持), 主战场在阿姆斯特丹现货与长线资金。鲸群对散户: 散户侧无数据 (StockTwits 匿名回溯止于 2025-11), 无法检验 "转折点鲸群与散户相反"。数据边界: 只含美股 ADR 期权, 每日只取前 200 笔。</p>
+<h2 id="6-为什么现在-疯涨-浪-3-的驱动">6. 为什么现在 "疯涨": 浪 3 的驱动</h2>
+<p>拆解 (欧元, ASML.AS): 2025-08-05 EUR 597.1 -&gt; 2026-10-02 EUR 1653.0 = 2.77 倍 = 盈利 1.55 倍 (2025 EPS 24.73 -&gt; 2026 共识 38.34, 31 家, yfinance 2026-10-04) x 倍数 1.79 倍 (当年 PE 24.1x -&gt; 43.1x)。对数分解约 43% 来自盈利, 57% 来自重估。</p>
+<table><thead><tr><th>驱动</th><th>700 时是否可见</th><th>证据</th><th>真值</th></tr></thead><tbody>
+<tr><td>订单强于叙事: 订单超预期 32%, 积压约一年销售, "AI customers' fundamentals remain strong" 与 "cannot confirm" 在同一段</td><td><strong>可见, 被忽略</strong></td><td>6-K 07-16; CNBC; Futurum</td><td>已证实 (T1 + T3)</td></tr>
+<tr><td>DRAM 光刻强度上升: "continued progress in litho intensity, particularly in DRAM"; Q1 订单 40% 来自存储</td><td><strong>可见, 被忽略</strong></td><td>6-K 07-16 与演示第 10 页</td><td>已证实 (T1)</td></tr>
+<tr><td>估值与相对位置: 第 6 百分位 PE; ASML / SOX 比值两年最低; 同时 AI capex 在加速 (Meta +30B, TSMC +38.6%)</td><td><strong>可见, 被忽略</strong></td><td>本文计算; 8-K; 6-K</td><td>已证实 (T1)</td></tr>
+<tr><td>中国缺口已部分在底数里: 上半年占比已从 41.6% 降到 24.1%</td><td>可见</td><td>中期报告</td><td>已证实 (T1)</td></tr>
+<tr><td>关税豁免、Mistral、Nvidia 入股 Intel、存储 90 万片合作</td><td>新事实 (之后才出现)</td><td>见第 2 节</td><td>已证实 (T1-T2)</td></tr>
+<tr><td>Q4 订单 EUR 13.2B 创纪录; 2026 指引两次上调到 EUR 43-45B; 毛利 54-56%; 2027 低 NA EUV 产能在约 65 台上 +30%</td><td>新事实</td><td>6-K 2026-01-28 / 07-15</td><td>已证实 (T1)</td></tr>
+<tr><td>下游 capex 再上台阶: TSMC 2026 capex USD 52-56B -&gt; 60-64B (2025 实际 40.9B); MU FY26 收入 133.2B (FY25 37.4B)</td><td>新事实</td><td>本库 TSM / MU vet 已引 6-K / 8-K</td><td>已证实 (T1)</td></tr>
+</tbody></table>
+<p>对 "疯涨" 的校准: 浪 2 低点以来 ASML +170.8%, 但 AMAT +201.4%、LRCX +259.4%、SOX +136.2%; 2026 年内有三次 15% 以上回撤 (-18%, -22%, -16%)。疯涨是整个设备板块的超级周期, ASML 跑赢指数但跑输刻蚀 / 沉积同业。</p>
+<h2 id="7-alpha-的根本原因">7. Alpha 的根本原因</h2>
+<p><strong>位置判断</strong>: 强制通行 (EUV 100%, 先进逻辑与 DRAM 必经) / 拒绝权 (荷兰与欧盟出口管制以它为执法点, 20-F) / 按构造自增 (每个节点 EUV 层数增加, DRAM 采用 EUV; 装机服务 2025 年 EUR 8.2B, +26%) / 组合收费 (新机 + 升级 + 服务) 四条在 700 时都成立; 第五条 "尚未被按此定价" 在 700 时也成立 (24x, 第 6 百分位), 现在不成立 (43x)。必然性: 先进制程终态唯一、关系层不可绕过、时间箭头同向三项成立; 替代路径 (DUV 多重曝光) 可行但贵, 记 "强"。</p>
+<p><strong>三条件</strong>: 不可复制的优势 = 真 (光源、蔡司光学、十年学习曲线, 对手有钱有方法五年也追不上); 飞轮 = 真 (装机越多 -&gt; 升级与服务越多 -&gt; 与客户工艺共优化 -&gt; 下一节点更依赖); 时间 = 朋友 (停止新投入五年, 仍是唯一 EUV 供应商)。三项齐 = 结构性 long。</p>
+<p><strong>位置注还是周期注</strong>: 位置注, 带周期叠加。证据: 2024 年下行年毛利 51.3% 不降, EPS 只 -3%; 定价权来自垄断而不是短缺, 没有 "缺口合上就归零" 的机制。但订单极度周期 (单季 2.6B 到 13.2B, 5 倍摆动), 2024 年同一家公司也跌了 40%。所以允许浪 2 加仓, 但必须加估值门 (第 9 节反例证明它是区分 2024 与 2025 的那道门)。</p>
+<p><strong>必然性优先, 确认点次要</strong>: 必然性 = AI 算力必须落到先进晶圆上, 先进晶圆必须经过 EUV; 确认点 = 订单与年度指引, 只决定低点在哪、分几步, 不决定方向。700 时市场把确认点缺席 ("不能确认") 当成方向否定, 这是类别错误。</p>
+<p><strong>空方五项审计</strong>: 错误的逻辑 = 主因 (把 "能见度不足" 偷换成 "需求下降"; 把 Intel / Samsung 的弱外推到全部 EUV 需求, 以偏概全); 忽略的事实 = 主因 (订单超预期、积压、DRAM 光刻强度、中国缺口已入底数); 缺乏的耐心 = 主因 (空方看下一两个季度订单, 兑现用了 1 个季度 (10-15 确认不降) 到 3 个季度 (2026-04 上调)); 极端的情绪 = 次要 (VIX 17-20, 无恐慌放量, 极端只体现在相对估值与降级集中)。空方承重柱 "中国大降" 本身是真的, 但量级小于 AI 需求增量。</p>
+<p><strong>历史同型校验</strong>: (1) 恐慌 -&gt; 抛售 -&gt; 底部 -&gt; 反弹: 只部分吻合, 本次没有恐慌放量, 底是 "卖完了" 不是 "砸穿了"; (2) 定价权是终极优势: 下行年毛利不降, 吻合; (3) 产能周期: 订单 5 倍摆动, 2024 的失败浪 2 正是这一型, 所以周期叠加必须单独设门; (4) 压力下认知偏差放大: 一句措辞单日抹去约 270 亿美元市值 (估, 收盘价差 x 约 3.89 亿股), 而同期订单超预期, 吻合。</p>
+<p><strong>一句话</strong>: alpha = 一个被物理锁死的必经位置, 因为一句关于能见度的谨慎措辞和一个季度的订单波动, 被按周期股的地板价定价; 赚的是 "位置的必然性" 与 "市场 1-2 个季度的视野" 之间的时间差。</p>
+<h2 id="8-反方审计与锚点反例">8. 反方审计与锚点反例</h2>
+<p><strong>承重句</strong>: "2026 的不确定是能见度问题, 不是需求问题"。T1 支撑: 同段原话 "our AI customers' fundamentals remain strong"; 订单超预期; 三个月后公司自己改口 "不低于 2025"。空方承重句 "中国 2026 大降" 也站住 (公司 10-15 确认), 所以这是争议票: 两边都对, 先后不同。空方先兑现 (2025 下半年订单不稳、Q3 毛利降), 多方后兑现 (2026 年 AI 与 DRAM 订单盖过中国缺口); 近端看空 / 远端接货的时序正是此结构。</p>
+<p>锚点反例 (每个三条, 加权后采信):</p>
+<table><thead><tr><th>锚点</th><th>反例 1</th><th>反例 2</th><th>反例 3</th><th>加权结论</th></tr></thead><tbody>
+<tr><td>"700 止跌"</td><td>周期真低点是 595 (2025-04) 与 658 (2024-11), 700 只是局部低点 (强度高)</td><td>原始收盘低 689.63、盘中 683.48, "700" 是整数锚 (中)</td><td>转向发生在 08-06 政策事件当日, 是事件定时点, 不是价位定地板 (中)</td><td>区间低点 已证实; 700 作为价位规律 不支持</td></tr>
+<tr><td>"浪 2"</td><td>15% 折线要到 09-08 才确认, 事前不可标 (高)</td><td>另一种数法: 2024-07 至 2025-04 的 -46% 才是大级别浪 2, 7-8 月只是小级别 (中)</td><td>浪 1 本身是关税崩盘后的全市场反弹, ASML 落后 SOX 22 点, 不是公司特有 (中)</td><td>按定义 已证实; 作为事前预测标签 可疑</td></tr>
+<tr><td>"疯涨"</td><td>自 2026-06-30 高点仍 -6%, 年内三次 15% 以上回撤 (中)</td><td>跑输 AMAT / LRCX (高)</td><td>57% 来自重估, 不全是基本面 (中)</td><td>跑赢指数 已证实; "ASML 特有的疯涨" 不支持, 是板块超级周期</td></tr>
+</tbody></table>
+<h2 id="9-抄底模板-全文见-docs-10_knowledge-investment-wave2_entry_template-md-与反例检验">9. 抄底模板 (全文见 <code>docs/10_knowledge/investment/wave2_entry_template.md</code>) 与反例检验</h2>
+<p>五个门: 本体门 (位置 + 必然性, 排除周期注车道) / 结构门 (浪 1 &gt;= +25%, 回撤 &gt;= 10% 且 RSI &lt; 50, 回撤浪 1 的 38.2-78.6%) / 情绪门 (当年 PE 处于自身 10 年第 20 百分位以下 + 跑输行业 &gt;= 10 点 + 能见度型叙事) / 鲸群门 (清洗后多空比 &gt;= 0.8, 无持续合成空头, 卖压枯竭) / 时间门 (两个财报周期内有落地事件, 仓位扛得住 4 个季度)。三档: 回撤 10% 且 RSI &lt; 50 / 回撤 50-61.8% 或 RSI &lt;= 35 加卖压枯竭 / 收盘站回破位日收盘。</p>
+<table><thead><tr><th>案例</th><th>只用价格档会怎样 (首次触发日 收盘, 之后 63 / 126 / 252 日)</th><th>估值门 (当年 PE 百分位)</th><th>本体门</th><th>模板结论</th></tr></thead><tbody>
+<tr><td>ASML 2025-07 (正例)</td><td>07-18 734.58: +39 / +85 / +145%; 07-22 705.48: +48 / +93 / +156%</td><td>16% / 8% (过)</td><td>过</td><td>进场, 正确</td></tr>
+<tr><td>ASML 2024-07 至 09 (同一公司, 失败浪 2)</td><td>07-17 932.06: -22 / -20 / -23%; 08-02 809.35: -17 / -10 / -15%; 09-06 752.79: -5 / -8 / +5%</td><td>94% / 79% / 71% (否决)</td><td>过</td><td>不进场, 正确; 若进场, 2024-10-15 指引下修触发失效, 10-16 收 683.52 出, 均价 831 亏约 18%</td></tr>
+<tr><td>INTC 2021 (失去位置)</td><td>04-23 59.24: -11 / -5 / -21%; 05-11 55.04: -2 / -6 / -20%; 07-23 53.00: +6 / -2 / -26%</td><td>47% / 33% / 24% (接近放行)</td><td>否决 (位置在缩)</td><td>不进场, 正确; 估值门单独几乎放行 = 价值陷阱</td></tr>
+<tr><td>MU 2018 (周期顶)</td><td>06-25 53.16: -15 / -45 / -30%; 09-06 44.65: -16 / -13 / +10%</td><td>事前共识 PE 低 (当年 4.6x) 会放行</td><td>否决 (周期注车道)</td><td>不进场, 正确; 低 PE 在周期顶是陷阱</td></tr>
+</tbody></table>
+<p>检验结论: 只用价格档, 4 例中 3 例亏钱; 本体门挡住 INTC 与 MU, 估值门挡住 ASML 2024。两道门缺一不可。样本只有 4 例 (1 正 3 反), 不是规律; 阈值是初值, 进前向对账校准。估值百分位用的是事后实现的当年 EPS (ASML 当年 EPS 有公司指引, 偏差小; INTC / MU 有前视偏差), 已标注。</p>
+<h2 id="10-现在怎么办">10. 现在怎么办</h2>
+<p><strong>[WATCH]</strong> -- 位置仍在, 价格已付; 模板未触发。 行动建议: 不追; 浪 2 模板挂在价位表上等。2026-10-02 收盘: 距 60 日高 -0.8%, RSI 64.8, 当年 PE 43.1x (2027 共识口径 32.0x), 估值门要求当年 PE &lt;= 26.3x (自身第 20 百分位)。按 2027 共识 EPS 51.73 推, 估值门通过价约 EUR 1,358 (估, 约 USD 1,534 按今日隐含汇率 1.13), 即离现价约 -18%; 共识变动则重算。 依据: 第 7 节的位置与必然性未变, 变的是价格; 第 9 节反例显示高百分位估值下的回撤更像 2024 而不是 2025。 变化: 首次评估, 无升降。 checkpoint: 下一次财报 (估 2026-10 中旬, 日期未核) 若 2027 指引 / 积压下滑, 估值门价位下移; 若 2027 产能 +30% 兑现为订单, 维持。</p>
+<h2 id="信源">信源</h2>
+<p>ASML 6-K ex99.1: 2024-10-15 (0000937966-24-000022), 2025-01-29 (0000937966-25-000003), 2025-04-16 (0000937966-25-000014), 2025-07-16 (0001628280-25-034992, 含中期报告与演示第 6 / 8 / 10 / 11 / 13 页), 2025-10-15 (0001628280-25-045043), 2026-01-28 (0001628280-26-003701), 2026-04-15 (0001628280-26-025147), 2026-07-15 (0001628280-26-048235); ASML 20-F 2025 (0001628280-26-011378) 地区收入表与客户集中度; SEC companyfacts 年度 EPS (ASML / INTC / MU); Intel 10-Q 2025-07-24 (0000050863-25-000109); Meta 8-K 2025-07-30 (0001628280-25-036719); TSMC 6-K 2025-07-17 (0001046179-25-000082); CNBC 2025-07-16 与 2025-09-19; Futurum 2025-07-17; Motley Fool 2025-08-05 与 2025-09-18; Guardian 2025-08-06; Google News 标题 (Reuters / Barron's / WSJ / Fortune, 只作时间与标题, T3); yfinance (价格 / 成交量 / 评级库 / 共识, 2026-10-04 拉取); Barchart 期权大单 docs/01_archive/stock/asml-options-flow-*-2025.csv (38 日); var/output/price_phases/asml_study.json; 本库 TSM / MU / KLAC vet (下游 capex)。计算脚本在会话临时目录, 不进库。</p>
+<h2 id="klac-是不是第二个-asml">KLAC: 是不是第二个 ASML</h2>
+<p>数据: 价格 yfinance 2026-10-04 拉取 (最后收盘 2026-10-02, 已按 2026-05 的 10:1 拆股调整); 本体证据引用本库 <code>src/tools/long_score/inputs/KLAC.yaml</code> 与 <code>KLAC_vet_2026-10-01.md</code> (10-K FY2026 等 T1, 未改动); 当年 PE 用 SEC companyfacts 年度稀释 EPS (拆股前数值除 10) 与 FY27 共识 EPS 5.45 (Yahoo 24 家, 2026-10-01)。</p>
+<p><strong>1. 本体: 同一把尺子逐条对照</strong></p>
+<table><thead><tr><th>判据</th><th>ASML</th><th>KLAC</th><th>差异</th></tr></thead><tbody>
+<tr><td>强制通行</td><td>EUV 曝光 100%, 没有第二家</td><td>过程控制份额 56-63% (T3), 但 10-K 自述 "In each of our product markets, we have many competitors" (T1), 点名 AMAT / ASML 电子束 / Hitachi / Lasertec / Onto; Nova 未在 10-K 点名, 份额无数据</td><td>物理唯一 vs 默认首选</td></tr>
+<tr><td>拒绝权</td><td>出口管制以它为执法点</td><td>毛利 60.0 / 60.9 / 61.3% 三年穿越周期 (T1)</td><td>两者都有, KLAC 的来自配方与机群匹配</td></tr>
+<tr><td>按构造自增</td><td>每节点 EUV 层数增, DRAM 上 EUV</td><td>2nm / GAA / HBM 推高过程控制强度 (10-K item_7, T1); 服务 +16%</td><td>相同</td></tr>
+<tr><td>组合收费</td><td>新机 + 升级 + 服务</td><td>检测 49% / 图形 20% / 服务 23% / 封装</td><td>相同</td></tr>
+<tr><td>尚未被定价</td><td>700 时过 (6 百分位), 现在不过</td><td>低点 9-16 也不过 (FY27E 30.7x, 10 年第 88 百分位)</td><td>关键差异</td></tr>
+<tr><td>替代路径 (N2)</td><td>只有昂贵的 DUV 多重曝光</td><td>0: 锁在合同与习惯, 成熟节点可绕 (AMAT / Hitachi / 中国本土, item_1a T1)</td><td>ASML 强, KLAC 弱</td></tr>
+<tr><td>关系层 (N3)</td><td>不可绕</td><td>0: EUV 光罩 actinic 检测子段已被 Lasertec 拿走 (T3)</td><td>ASML 强, KLAC 弱</td></tr>
+<tr><td>必然性 N 合计</td><td>&gt;= 3</td><td>2 (N1 1 / N2 0 / N3 0 / N4 1)</td><td>交叉格: ASML 结构 long, KLAC 周期或收租</td></tr>
+<tr><td>中国收入</td><td>2024 36.1% -&gt; 2025 29.1%</td><td>FY24 42.8% -&gt; FY25 33.3% -&gt; FY26 29.8% (T1)</td><td>相近, 不是区分点; 两家都受 2026-11 Affiliates Rule 暂停到期影响</td></tr>
+</tbody></table>
+<p>位置注还是周期注: KLAC 不在周期注名单, 毛利不随周期塌 ("周期在量不在价"), 但必然性只有 2, 按交叉格属 "周期或收租": 按 PE / PEG 定价, 不付终态溢价, 不做浪 2 加仓。</p>
+<p><strong>2. 有没有 ASML 式的错误定价: 没有。</strong> 价格: 2026-06-30 顶 301.71 -&gt; 07-29 170.19 (-43.6%) -&gt; 09-16 二次底 167.36 -&gt; 10-02 206.89。三点与 ASML 700 相反: (a) 估值: ASML 低点在自身第 6 百分位, KLAC 低点在第 88 百分位 (10 年中位 20.0x); (b) 叙事: ASML 是公司说 "不能确认", 事实 (订单) 比叙事强; KLAC 是 CEO 说 "momentum ... accelerating in the second half of calendar 2026 and continuing through 2027" (8-K 2026-07-28, T1), 股价照跌, 是好叙事已被定价后的估值出清, 不是被忽略的事实; (c) 相对: 06-30 至 07-29 KLAC -43.6% 对 SOX -26.7%, 但与 AMAT -39.6%、LRCX -41.8% 同步, 是设备板块高 beta 出清, 不是个股特有折价; 之前 2025-04 至 2026-06 KLAC +423% 对 SOX +296%, 跌的是自己多涨的部分。分析师: 07-29 财报次日 DB / Wells Fargo / Susquehanna / Stifel 降目标价, 无降级, 09-01 UBS 再降 (T3); 没有一句类似 "不能确认增长" 的措辞可被过度解读。</p>
+<p><strong>3. 结构与五门</strong>: 15% 折线显示浪 1 = 2026-02-04 130.24 -&gt; 06-30 301.37 (+131%), 回撤到 167.36 = 浪 1 的 78.3%, 贴着 0.786 失效观察线; 现处 09-16 起的未确认上升腿 (+23.6%, RSI 67.2)。</p>
+<table><thead><tr><th>门</th><th>结果</th><th>依据</th></tr></thead><tbody>
+<tr><td>本体门</td><td>不过</td><td>必然性 N = 2 &lt; 3; 做多分 54 = 观察, 非买房 / 拿着</td></tr>
+<tr><td>结构门</td><td>过 (贴边)</td><td>浪 1 +131%, 回撤 -44% 且低点 RSI 32-37, 回撤比 0.783 未破 0.786, 未破浪 1 起点</td></tr>
+<tr><td>情绪门</td><td>不过</td><td>当年 PE 第 88 百分位 (门槛 &lt;= 20); 对 SOX 落后 16.9 点过, 但与设备同业同跌; 叙事不是能见度型; 降目标 &gt;= 2 过</td></tr>
+<tr><td>鲸群门</td><td>数据不足</td><td>期权存档只有 09-30 至 10-02 三天 (低点之后): 清洗后多空比 1.34 / 2.29 / 0.35, 无合成空头也无合成多头, 最大方向单 Jan-28 C260 343 张打 ask USD 1.28M; 卖压枯竭不过 (09-10 至 09-16 日均量 896 万 = 破位日 07-01 的 37%, 门槛 30%)</td></tr>
+<tr><td>时间门</td><td>过</td><td>10-28 财报 (估) 与 2026-11 管制到期都在两个财报周期内</td></tr>
+</tbody></table>
+<p>反方 (支持 "是" 的最强三条): 毛利三年稳在 61% 说明有 ASML 式定价权 (强度高, 采信为 "部分是"); 光学检测份额 &gt; 85% 接近 ASML 级 (T3 单源, 中, 不改判); 对 SOX 比值处在 2025 年以来第 8 百分位, 像被错杀 (中; 但同业同跌, 且估值仍在第 88 百分位, 不采信)。</p>
+<p><strong>4. 结论</strong>: KLAC 部分是第二个 ASML, 像的是收费能力 (毛利穿越周期 + 23% 服务收租), 不像的是位置的必然性 (N 2 对 ASML &gt;= 3) 与错价 (第 88 百分位对第 6 百分位)。它这次的回撤更像 ASML 2024 的失败浪 2 (当时估值也在第 71-94 百分位), 不像 ASML 2025 的 700。真值: "不是第二个 ASML" 在位置与估值两层 已证实 (T1 计算 + 10-K 原文), "部分是" 在定价权一层 已证实。行动档 <strong>[WATCH]</strong>: 不是浪 2 候选, 不给三档价位; 差在本体门和情绪门两门 (鲸群门数据不足)。重评触发 (沿用本库 KLAC vet 的 kill / 升级条件): 10-28 Q1 FY27 财报的收入与积压; 2026-11 Affiliates Rule 到期; actinic 光罩检测 2027 夺回 (N3 翻 1); 估值门通过价约 USD 84 (FY27E x 自身第 20 百分位 15.4x, 估), 离现价太远, 实际意义是 "等下一财年盈利把 PE 压回 20x 以下"。</p>
+<pre><code>signal:
+  le_findings_invoked: 2 -- 2 条可引用的对手逻辑硬伤; 偷换口径与以偏概全
+  lrc_links: 4 -- 校验密度正常; 恐慌底部 / 定价权 / 产能周期 / 压力下偏差
+  fact_check_count: 16 -- 地基硬, 关键数字全核实; 含 KLAC 四项
+  adversary_pushback: 15 -- 高强度对抗后存活
+  cfr_invoked: false -- 无数值均衡锚 (非 sealed-bid/谈判场景属正常)
+  alpha_level: A -- 不对称暴露+定价确认在途, 可建仓; 指 700 时点事后复盘
+  player_classes_inferred: 4 -- 覆盖够用
+  smart_classes_inferred: 3 -- 聪明钱行为有覆盖, 推断非平庸</code></pre></main></body></html>
