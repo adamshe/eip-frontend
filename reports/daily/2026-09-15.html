@@ -42,9 +42,9 @@ tr:hover td{background:var(--panel)}
 #tip{position:fixed;z-index:50;max-width:min(340px,calc(100vw - 16px));background:var(--text);color:var(--bg);font-size:13px;
 line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);pointer-events:none}
 #tip[hidden]{display:none}</style></head>
-<body><main><div class="nav"><a href="../index.html">全部日期</a><a href="2026-09-04.html">上一日 2026-09-04</a><a href="2026-09-21.html">下一日 2026-09-21</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1>EIP 每日报告 2026-09-15</h1><style>.grp-title{margin:2.2em 0 .4em;padding-top:.5em;border-top:3px solid currentColor;font-size:1.35em}details.chunk{margin:.6em 0}details.chunk>summary{cursor:pointer;font-weight:600}</style><section class="sec grp" id="basis"><h2 class="grp-title">依据</h2><details class="chunk"><summary><span class="term" tabindex="0" data-tip="大资金 (机构、大户) 的合力。">鲸群</span>日报 2026-09-15 (三巫前 3 日)</summary><p>数据: docs/01_archive/stock/{net,qqq,spy,spcx}-options-flow-09-15-2026.csv 缺口: 09-11 / 09-14 全部 ticker 未导出; 09-15 tsla/orcl 未导出。</p>
+<body><main><div class="nav"><a href="../index.html">全部日期</a><a href="2026-09-04.html">上一日 2026-09-04</a><a href="2026-09-21.html">下一日 2026-09-21</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1>EIP 每日报告 2026-09-15</h1><style>.grp-title{margin:2.2em 0 .4em;padding-top:.5em;border-top:3px solid currentColor;font-size:1.35em}details.chunk{margin:.6em 0}details.chunk>summary{cursor:pointer;font-weight:600}</style><section class="sec grp" id="basis"><h2 class="grp-title">依据</h2><details class="chunk"><summary>鲸群日报 2026-09-15</summary><p>数据: docs/01_archive/stock/{net,qqq,spy,spcx}-options-flow-09-15-2026.csv 缺口: 09-11 / 09-14 全部 ticker 未导出; 09-15 tsla/orcl 未导出。</p>
 <h2 id="0-本日头号陷阱-spcx-的-476m-不是方向性下注">0. 本日头号陷阱: SPCX 的 $476M 不是方向性下注</h2>
-<p>digest 报 SPCX 当日 $555.0M, bear $108.5M。其中 $476M 集中在 09-18 到期的深 ITM 200/205/230 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>。按面值读成 "<span class="term" tabindex="0" data-tip="大资金 (机构、大户) 的合力。">鲸群</span> 4.76 亿做空 SPCX" 是错的。</p>
+<p>digest 报 SPCX 当日 $555.0M, bear $108.5M。其中 $476M 集中在 09-18 到期的深 ITM 200/205/230 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>。按面值读成 "鲸群 4.76 亿做空 SPCX" 是错的。</p>
 <p>机制证据 (四条同时成立):</p>
 <ol>
 <li>零时间价值。P200 x15000 成交 $85.05M, 折合 $56.70/股; 内在价值 = 200 - 143.28 = 56.72。</li>
@@ -55,8 +55,8 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <p>15:52:59 P205 x12000 配 P200 x12000 (bid); 15:33:39 P205 x10300 配 P200 x8000。</p>
 <li>P205 当日 volume 39,300 vs <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 26,757 -- 全部持仓换手 1.5 倍, 3 天到期。</li>
 </ol>
-<p>读法: 这是深 ITM <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的仓位/交割管理 (合成空头在 9/24 解禁 328.4M 股前重排行权价), 或 box 式融资结构。方向信息接近零。<strong>任何把它计入 bear premium 的汇总都被污染。</strong></p>
-<h2 id="1-spcx-去噪后的真信号-小额但干净">1. SPCX 去噪后的真信号 (小额但干净)</h2>
+<p>或 box 式融资结构。方向信息接近零。<strong>任何把它计入 bear premium 的汇总都被污染。</strong></p>
+<h2 id="1-spcx-去噪后的真信号">1. SPCX 去噪后的真信号</h2>
 <table><thead><tr><th>交易</th><th>张数</th><th>方向</th><th>含义</th></tr></thead><tbody>
 <tr><td>2028-12-15 Put 100 ask [BuyToOpen] $8.19M</td><td>4,500</td><td>主动买</td><td>长期看跌至 100 以下, 新建仓</td></tr>
 <tr><td>2028-12-15 Call 300 mid 配对同秒 $17.3M</td><td>4,500</td><td>风险逆转</td><td>买 100P / 卖 300C, 长期空头结构</td></tr>
@@ -66,7 +66,7 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <tr><td>2027-03-19 Put 145 mid [ToOpen] $2.47M</td><td>1,200</td><td>新开</td><td>ATM 中期看跌</td></tr>
 </tbody></table>
 <p>合成图景: <strong>不破 125 的缓慢下行, 终靶 100 以下</strong>。与手册 70-80 流量地板、12/8 解禁 797.6M 剧本同侧。卖 10/16 125P 与买 2028 100P 不矛盾 -- 前者收短期权利金, 后者押长期终局。</p>
-<p>对 Adam 的 9/25 front-run 检查点: spot 143.28 &gt; 135, <strong>条件成立</strong>, 且 2028 100P BuyToOpen 是<span class="term" tabindex="0" data-tip="大资金 (机构、大户) 的合力。">鲸群</span>同向背书。周表 9/21 行 130-148 维持。</p>
+<p>对 Adam 的 9/25 front-run 检查点: spot 143.28 &gt; 135, <strong>条件成立</strong>, 且 2028 100P BuyToOpen 是鲸群同向背书。周表 9/21 行 130-148 维持。</p>
 <h2 id="2-net-09-14-冲高没有后继资金">2. NET: 09-14 冲高没有后继资金</h2>
 <p>spot 328.35 (09-14 收 330.36)。当日 62 prints / $5.6M, bear $1.8M vs bull $0.4M。 流量序列: 09-09 $15.0M (200 prints) -&gt; 09-10 $9.9M (96) -&gt; 09-15 $5.6M (62)。</p>
 <p>三巫 (09-18) 到期桶只有 $0.3M, 9 笔, 最大 $55k。<strong>330 行权价当日零成交。</strong> 09-18 上方 <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span>: 350C 2,284 / 340C 1,573 / 335C 320 / 332.5C 23。pin 磁力在 340-350, 不在 330。</p>
@@ -111,7 +111,7 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <li>周表 v4 记 SPY 年终结算区 682-715。有人花 $59.7M 押 12/18 SPY 在 800 以上。</li>
 <p><strong>这是对下修剧本的实质对手盘, 必须记录, 不能忽略。</strong></p>
 </ul>
-<h2 id="5-周表-v6-待-adam-拍板-v5-已被价格证伪">5. 周表 v6 待 Adam 拍板 (v5 已被价格证伪)</h2>
+<h2 id="5-周表-v6-待-adam-拍板">5. 周表 v6 待 Adam 拍板</h2>
 <p>v5 (09-04) 把 NET 09-14..09-28 三行统一压到 266-305。实际 09-14 收 330.36, <strong>高出上沿 8.3%, 是打穿不是触边</strong>。v5 的锚 (08-27 Dec 310P BE 266.8) 未失效, 但 时间窗判断错了 -- 那是 Q4 的靶, 不是 9 月的带。</p>
 <p>建议 v6 修正 (证据见上, 数值待 Adam 定):</p>
 <table><thead><tr><th>行</th><th>v5 (NET)</th><th>建议 v6 (NET)</th><th>依据</th></tr></thead><tbody>
