@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>AI 瓶颈级联综合报告: 芯片侧卡点 2028 前陆续解除, 电是最后一环也最抗相变 (2026-10-05)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+p,li,blockquote{overflow-wrap:anywhere}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650} .byline{color:var(--muted);font-size:13px;margin:0 0 1em}
+.term{border-bottom:1px dotted var(--muted);cursor:help}
+.term:focus{outline:none;background:var(--accent-soft)}
+#tip{position:fixed;z-index:50;max-width:min(340px,calc(100vw - 16px));background:var(--text);color:var(--bg);font-size:13px;
+line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);pointer-events:none}
+#tip[hidden]{display:none}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1 id="ai-瓶颈级联综合报告-芯片侧卡点-2028-前陆续解除-电是最后一环也最抗相变-2026-10-05">AI 瓶颈级联综合报告: 芯片侧卡点 2028 前陆续解除, 电是最后一环也最抗相变 (2026-10-05)</h1>
+<p>数据日: 价格为 2026-10-02 (周五) 收盘, 2026-10-05 用 yfinance 现取 (未复权); 估值<span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span> = 当年<span class="term" tabindex="0" data-tip="卖方分析师预测的平均值。">一致预期</span>的非 <span class="term" tabindex="0" data-tip="美国通用会计准则口径的利润, 含全部成本和一次性损益 (如持股重估)。">GAAP</span> 市盈率在公司自身过去最多 10 个完整财年每日倍数分布中的位置, 2026-10-05 计算; 回报为粗算, 全部是估计 (标 "估")。<span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> = 公司文件 / 官方数据 / 市场价格; <span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span> = 多源或通讯社原文; <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span> = 单一来源或二手转述。本报告与 2026-10-04 的 "AI 行业 2027" 报告配套: 超大厂 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span>、电网排队、实验室融资链、破裂概率以那份为准, 这里不重复。</p>
+<h2 id="结论">结论</h2>
+<p><strong>AI 扩张的瓶颈正在从芯片侧转到电: HBM、先进封装、激光、硬盘都已宣布 2027 下半年到 2028 落地的扩产, 电在 2030 年前补不上, 所以下一个、也是最后一个主瓶颈是 "2027-2029 年能通电的兆瓦"; 链上卡点股多数已经付到自身历史第 85 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>以上, 唯一估值还在中位、又最抗 "扩建突然停下" 的, 是现成的发电机组。</strong></p>
+<ul>
+<li><strong>现在卡在哪</strong>: HBM、先进封装、激光三环还卡 (HBM 2027 售罄; TSMC 封装 "紧到限制客户增长"), 但扩产已在路上 (CoWoS 2027 产能 +70.9%, Coherent 磷化铟 2027 再翻倍); 硬盘最先解除: 东芝宣布产能翻倍, Seagate 10-02 当天 -10.2%。</li>
+<li><strong>下一个瓶颈</strong>: 电。燃机 2030 年前基本售罄, 年产 20-30 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span> 赶不上 2027 年单年 36.3 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span> 的数据中心新增; 芯片侧的下一环是 12 吋硅片 (2027 新长约抛光片 +40% 以上)。</li>
+<li><strong>最该盯的</strong>: Constellation (CEG) 与 Vistra (VST), 现成核电与燃气机组, 标普 500 成分股, 估值在自身历史中位 (第 49 / 54 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>); CEG 较高点 -36% 主要是收购对价股份的抛压, 同期 2026 指引上调。</li>
+<li><strong>最抗相变</strong>: 电网设备与现成发电 &gt; 光纤 &gt; 硅片 &gt; 燃机 &gt; 制造设备 &gt; 散热 &gt; 先进封装 &gt; 激光 &gt; HBM &gt; GPU; 电有实体经济托底, HBM 与 GPU 几乎没有。</li>
+<li><strong>价格</strong>: 33 家链上公司里 24 家估值在自身历史第 85 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>以上; 按自身中位倍数, 今天买、拿到 2028 年底, 设备与光通信每年亏 12% 到 27%, 现成发电每年 +4% 到 +7% <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span>。</li>
+<li><strong>动作</strong>: 整体 [<span class="term" tabindex="0" data-tip="动作档: 观察, 不动仓。">WATCH</span>]; CEG [<span class="term" tabindex="0" data-tip="动作档: 小仓试探, 常用卖 put 在低位接货。">SMALL</span>]; 硬盘 (STX) 作做空候选小注; 高杠杆新云 (例如 CRWV) 是付租方不是卡点, 只作做空候选。</li>
+</ul>
+<h3 id="要点与动作">要点与动作</h3>
+<ol>
+<li><strong>CEG [<span class="term" tabindex="0" data-tip="动作档: 小仓试探, 常用卖 put 在低位接货。">SMALL</span>]</strong> -- 做什么: 分批建小仓, 或卖出 3-6 个月、行权价 230-250 的看跌期权 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span>; 条件: 收盘不破 236.50 (52 周收盘低点, 2026-07-01); 升 [<span class="term" tabindex="0" data-tip="动作档: 中等仓位, 关键条件已经确认。">MID</span>]: 新签 &gt;= 1 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span> 数据中心双边合同, 或抛压出清 (无新的大额减持、成交回到常态) 且 2026-11-09 财报维持指引; 失效: 两家以上超大厂 2027 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> 指引持平或下调, 或州 / FERC 对数据中心双边合同设价格上限, 或 Crane 1 号机组重启推迟出 2027; 复核: 2026-11-09 (财报, 日期为预估)、2027-02-28 (FERC 对 PJM 保底采购的暂停到期)。</li>
+<li><strong>VST [<span class="term" tabindex="0" data-tip="动作档: 观察, 不动仓。">WATCH</span> -&gt; <span class="term" tabindex="0" data-tip="动作档: 小仓试探, 常用卖 put 在低位接货。">SMALL</span>]</strong> -- 与 CEG 同一逻辑, 合同更靠已运行的反应堆 (Meta 2,609 MW 中 83.4%), 但负债更高; 条件: 2026-11-06 财报确认 Meta 合同 2026 年底起购电且 2026 指引不降 -&gt; [<span class="term" tabindex="0" data-tip="动作档: 小仓试探, 常用卖 put 在低位接货。">SMALL</span>]; 失效同第 1 条; 复核: 2026-11-06。</li>
+<li><strong>电网设备 HUBB / ETN / PWR [<span class="term" tabindex="0" data-tip="动作档: 观察, 不动仓。">WATCH</span>]</strong> -- 最抗相变, 但已付到第 85-99 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>; 买入区间 = 回到自身历史中位倍数 (2027 共识 x 中位): HUBB 约 $448, ETN 约 $309 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span>; 失效: 公用事业输配电 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> 指引下调; 复核: HUBB 2026-10-27, ETN 2026-11-03 (均为预估日)。</li>
+<li><strong>芯片侧 TSM / MU / 激光 / 制造设备 [<span class="term" tabindex="0" data-tip="动作档: 观察, 不动仓。">WATCH</span>]</strong> -- 不追高; 存储按周期顶处理 (反弹近前高卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 收权利金, 见 10-04 行业报告第 5 条); 升档: 估值回到自身第 50 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>以下且扩产时间表推迟; 复核: TSM 2026-10-15, LITE 2026-11-05, MU 2026-12-23。</li>
+<li><strong>硬盘解除 STX [<span class="term" tabindex="0" data-tip="动作档: 小仓试探, 常用卖 put 在低位接货。">SMALL</span>, 做空候选]</strong> -- 做什么: 反弹到 10-01 收盘 945.57 附近、且 2026-10-27 财报没有上调 2027 财年指引时, 用 6-9 个月看跌价差小注, 同一因子权利金合计 &lt;= 组合 2%; 失效: 财报称 2027 年产能全部售罄并上调指引, 或东芝扩产推迟 / 缩小; 复核: 2026-10-27。</li>
+<li><strong>硅片 (芯片侧下一环) [<span class="term" tabindex="0" data-tip="动作档: 观察, 不动仓。">WATCH</span>, 非美股]</strong> -- 条件: 2026 第四季现货价高于长约价、2027 新长约涨幅 &gt;= 15% 落地, 再考虑信越 / SUMCO / 环球晶; 失效: 任一家宣布新建 12 吋产能, 或超大厂 2027 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> 持平; 复核: 2027-01 至 02 (长约公告, 日期未定)。</li>
+<li><strong>相变保护</strong> -- 两家以上超大厂 2027 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> 指引持平或下调 -&gt; 芯片侧全部降一档、撤掉多头, 电力侧维持 (托底最深); 失效: 一个月内指引重新上调; 复核: 2026-10-28 / 29, 2027-01 至 02。</li>
+<li><strong>不做</strong> -- 不做多 CRWV (高杠杆租户, 只作做空候选); 不追 LITE (10-02 收在 52 周新高, 估值第 93 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>); 不追 GLW (第 100 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>)。</li>
+</ol>
+<h2 id="分析">分析</h2>
+<h3 id="最终判断">最终判断</h3>
+<ol>
+<li><strong>现在卡在哪</strong>: 两处。芯片侧三环还卡: 美光 2027 年产出 75% 以上已签约, 三家内存 2027 年售罄; TSMC 7 月说封装 "紧到限制客户增长"; NVDA 锁产能后, 其他买家的 EML 激光交期排到 2027 以后。电这一环最紧也最长: GE Vernova 已在卖 2031 年交付位, ERCOT 申请 474 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span> 只批不到 9 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span>, PJM 容量拍卖在价格上限仍缺 6,831 MW。GPU 本身不是主约束 (NVDA 只说 "certain supply constraints", 约束在它的上游)。</li>
+<li><strong>为什么下一个是电</strong>: 芯片侧的扩产已经下单, 落地集中在 2027 下半年到 2028: 三星 2027 HBM 投片 +39%, CoWoS 产能 +70.9%, Coherent 磷化铟 2026 底翻倍、2027 再翻倍, 东芝硬盘翻倍。电的扩产慢一个量级: 燃机年产 20 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span> (现在) -&gt; 24 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span> (2028) -&gt; 30 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span> (2030), 而 2027 年单年数据中心新增 36.3 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span>; 并网平均 4 年以上, 大型变压器交期最长到 4 年。2028 年前后会出现 "芯片够、电不够": 芯片侧稀缺溢价一起回落, 稀缺转到能通电的兆瓦。</li>
+<li><strong>物理上锁死的与不确定的</strong>: 锁死的是时间: 一台重型燃机、一座变电站、一条输气支线、一台新核电机组要 3-10 年, 钱买不快; 现成机组是唯一不用等的兆瓦。芯片侧真正锁死的只有先进制程与 EUV 的唯一性 (TSMC / ASML); HBM、激光、硬盘、封装都能靠扩产与第二来源 (Intel EMIB) 解决。不确定的是需求: 扩建能否持续到 2028。</li>
+<li><strong>基本面变了什么</strong>: 真变化是规则。PJM 8 月要求 50 MW 以上新负荷自带电源, 2029/30 起没有自有电源的数据中心不计入容量需求; FERC 9-29 接受 PJM 保底采购框架但暂停到 2027-02-28。"谁能最快通电" 从电网排队变成双边合同, 直接利好持有现成机组的发电商。重估层面相反: 芯片侧与电网设备已付到自身第 85-100 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>, 现成发电商却从 2025-10 高点回落 33-36%, 估值回到中位。</li>
+<li><strong>空方最强的理由 (扩建一停, 卡点溢价同时消失)</strong>: 对在机制: 卡点租金是对 "园区持续扩建" 的杠杆押注, 停下是相变不是渐进; 硬盘就是预演 -- 一家对手宣布扩产, 两家龙头一天各跌约 10%。对在 HBM 与 GPU: 几乎没有非 AI 需求托底。错在把电与芯片同等看待: 已建成的数据中心照样用电, PJM 2022 年以来退役 15 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span> 机组, 批发电价同比 +75.5%, 电网设备还有电气化与老旧更换。错在时点: 2026 年超大厂 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> 仍在上调。</li>
+<li><strong>多方 (卡点股继续重估)</strong>: 对在需求与合同: GE Vernova 积压 $176B、Siemens Energy 积压 EUR 162B、Vertiv 积压 $15B、Corning 与 Meta / Amazon / NVDA / Verizon 的长约。错在价格: 33 家里 24 家在第 85 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>以上, 按自身中位倍数到 2028 年底多数每年亏损 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span>。错在把短缺当护城河: Seagate 营业利润率三年从 0.8% 到约 35%, 这是价格效应。错在忽略大买家提前锁产能: NVDA 各出 $20 亿锁 Lumentum 与 Coherent 的激光产能, 给 Corning $3 亿建厂, 对上游的供给承诺一季从 $119B 加到 $279B -- 卡点持有者的定价权被提前卖掉一部分。</li>
+<li><strong>谁对</strong>: 0-12 个月多方对 (芯片侧还卡, <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> 还在涨); 2027 下半年到 2028 空方在芯片侧对 (扩产集中落地, 稀缺转均衡, 与 10-04 行业报告 "2028 是最高风险年" 同向); 电这一环两种结局都站得住: 扩建继续, 它是最后的稀缺; 扩建停下, 它有实体经济托底。电是唯一 "级联继续" 与 "级联断裂" 两个结局都不输的一环。</li>
+<li><strong>是不是有人设局</strong>: (a) NVDA 预付锁产能: 结构<span class="term" tabindex="0" data-tip="结论真值一档: 有 T1 支撑, 或 T2 交叉确认。可以重注。">已证实</span> (<span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> / <span class="term" tabindex="0" data-tip="SEC 季报。">10-Q</span>), 目的是保自己的供给, 结果是以折价买走上游定价权, "设局" <span class="term" tabindex="0" data-tip="结论真值三档: 现有证据与之矛盾, 或连最有动机的来源都没有支撑。不下注。">不支持</span>。(b) CEG 下跌: 一家基金的二季度信说主因是 Calpine 收购对价股份进入市场的抛压, 同期公司上调 2026 指引 -- "事件引发的抛压 + 长线资金接盘" <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>偏强, "有人压价设局" <span class="term" tabindex="0" data-tip="结论真值三档: 现有证据与之矛盾, 或连最有动机的来源都没有支撑。不下注。">不支持</span>。(c) 硬盘 10-02 暴跌: 是供给信号, 不是设局。</li>
+<li><strong>动作规则</strong>: 条件 -- 某一环 (i) 交期或缺口在扩大, (ii) 扩产要 3 年以上且无第二来源, (iii) 扩建停下时仍有 50% 以上非 AI 需求托底, (iv) 估值在自身第 60 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>以下 -&gt; 小仓起步 [<span class="term" tabindex="0" data-tip="动作档: 小仓试探, 常用卖 put 在低位接货。">SMALL</span>], 新合同或监管落地后升 [<span class="term" tabindex="0" data-tip="动作档: 中等仓位, 关键条件已经确认。">MID</span>]; 某一环出现第三方扩产宣告 (像东芝) 而该环估值在第 75 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>以上 -&gt; 不持有, 反弹时做空候选小注; 失效 -- 两家以上超大厂 2027 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> 指引持平或下调: 芯片侧全降一档, 电力侧维持。今天四条全中的只有 CEG 与 VST。</li>
+</ol>
+<h3 id="1-级联图-每一环卡不卡-何时缓解">1. 级联图: 每一环卡不卡、何时缓解</h3>
+<p>顺序 (表 F1): 2023-2024 卡在 GPU 与 CoWoS; 2024-2026 卡在 HBM 与封装; 2025 起电成为最长的一环; 2026-2027 光互连与存储同时变紧; 2027-2028 芯片侧下一环是硅片与封装基板。每一环解决的方式都是同一个: 稀缺抬价 -&gt; 有人扩产 -&gt; 18-36 个月后供给追上。区别只在扩产周期: 内存新厂约 3 年, 光纤预制棒 18-24 个月, 磷化铟激光厂约 18-24 个月, 而燃机、变压器、并网与新核电是 4-10 年。所以芯片侧各环在 2027 下半年到 2028 几乎同时追上, 电要到 2030 以后。</p>
+<p>两个新约束值得单列。一是规则: PJM 的 "自带电源" 与县级暂停令 (9-10 月 Baltimore County 拟延到 2027-12, Spartanburg、Marathon 一年, Mesa、Tulare、McHenry 跟进) 把 "能不能通电" 变成政治问题, 没有公司能拥有它, 但它抬高了已获许可、已通电的兆瓦的价值。二是芯片侧的硅片: 疫情期长约 2026-2027 到期, 新长约抛光片涨 40% 以上, 而 SUMCO 社长说涨 5-10% 不够覆盖成本、不建新厂 -- 这是 "供给方拒绝扩产" 型瓶颈, 比 "扩产慢" 更硬, 但它有全部半导体做托底, 也就有全部半导体的周期。</p>
+<p>散热不是卡点: Vertiv 积压大, 但替代者多 (Schneider、nVent、Modine、台系与中国液冷厂), 管理层 7 月电话会改以收入开场、不再先报订单, 还花最高 $2.6B 买现场发电公司 -- 连散热龙头也在往电这一环走。</p>
+<h3 id="2-每一环的持有者-为什么难被绕开">2. 每一环的持有者: 为什么难被绕开</h3>
+<ul>
+<li><strong>GPU -- NVDA</strong>: 难绕开的是系统 (芯片 + 互连 + 软件) 与它对上游 $279B 的供给承诺; 替代路径是自研 ASIC (Broadcom 代设计), 在长。它不是被卡的一方, 而是替整个链提前买断下一环的一方。</li>
+<li><strong>HBM -- 美光 (MU), SK 海力士</strong>: 三家寡头, 新厂 3 年以上、单厂 $100 亿以上; 没有替代 (加速器必配)。但三星 2027 投片 +39%, 2028 供给追上, 而 HBM 没有非 AI 托底。</li>
+<li><strong>先进封装 -- TSMC (TSM), 基板 Ibiden</strong>: TSMC 是唯一量产出口, 客户换代工 "约五年"; 替代是 Intel EMIB-T (良率 45%, 目标 1Q27 60%, Google 2027 采用), TrendForce 认为 CoWoS-L 到 2028 仍是主流。TSM 不是标普 500 或纳斯达克 100 成分股 (<span class="term" tabindex="0" data-tip="美国存托凭证: 外国公司在美国交易的股票凭证。">ADR</span>)。</li>
+<li><strong>硅片与制造设备 -- 信越、SUMCO、环球晶; ASML</strong>: 12 吋硅片高度集中, 新厂 2-3 年且没人承诺; EUV 只有 ASML (纳斯达克 100 成分股)。设备股已付到第 95-100 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>。</li>
+<li><strong>电 -- 现成机组 CEG / VST; 燃机 GEV; 电网设备 HUBB / ETN; 输气 WMB</strong>: 现成机组是唯一不用排队的兆瓦; 燃机三家 OEM 卖到 2031; 变压器与开关柜交期以年计; 输气管道的路权是现成走廊, 新建要 3-5 年许可。替代: 燃料电池 (BE)、往复式发动机 (CAT) 能补位但单位成本高; 新核电约 10 年。</li>
+<li><strong>光 -- Lumentum (LITE), Coherent (COHR), Corning (GLW)</strong>: EML 量产商少于 5 家, 硅光也要磷化铟激光; 光纤预制棒扩产 18-24 个月。但 NVDA 已入股锁产能, 两家激光厂都在翻倍扩产; 中国限制磷化铟出口、美国起草禁止中国产光模块 (约占供给 60%), 地缘反而延长短缺。</li>
+<li><strong>存储 -- Seagate (STX), 西数 (WDC)</strong>: 三家供给, 东芝翻倍 = 第一个宣告解除的环。</li>
+</ul>
+<h3 id="3-价格-已经付了多少">3. 价格: 已经付了多少</h3>
+<p>表 F2、F3: 33 家链上公司里 24 家在自身历史第 85 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>以上, 第 60 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>以下的只有 NVDA (19)、美光 (按市盈率 24, 按市销率 93)、CEG (49)、VST (54)、NRG (56)、Kinder Morgan (54) 与历史太短的 Credo。两种读法: NVDA 与美光的低<span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>是 "市场按利润见顶定价" (NVDA 对 2028 财年共识只有 14.8 倍, 美光 6.1 倍), 共识兑现就便宜, 扩建停下就最贵 -- 相变时每年 -44% <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span>; 发电商的中位<span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>是 "抛压与监管担忧", 不是利润见顶 (CEG 2026 指引刚上调)。</p>
+<p>粗算到 2028 年底 (估, 表 F3): 若市场按自身历史中位倍数 (上限 25 倍) 定价, 制造设备每年 -20% 到 -25%, 光通信 -12% 到 -27%, 电网设备 -21% 到 0, GE Vernova 中性 -18% (10-04 报告), 现成发电 +4% 到 +7%, NVDA +37%、美光 +41% (这两家取决于 2028 共识能否兑现)。若扩建停下: 芯片侧与光通信每年 -35% 到 -63%, 现成发电 -15% 到 -18%, HUBB -21%。</p>
+<h3 id="4-空方最强的理由-扩建停下时每一环还剩多少">4. 空方最强的理由: 扩建停下时每一环还剩多少</h3>
+<p>空方的论证 (2026-06 已在本库定为最锋利的一条): 所有卡点溢价都押在 "数据中心园区扩建会持续" 上; 利用率低仍在加单, 说明增长来自恐惧而不是使用; 扩建一停, NVDA 的收税权、HBM、封装、先进制程的 AI 增量溢价会同时消失, 是相变不是渐进, 电也只剩非 AI 的实体经济底。本报告接受这条机制, 用它给各环排序 (表 F4): 看扩建停下时还剩多少需求。</p>
+<p>排序: 1 电网设备 (约 60% 非 AI: 电气化、老旧变压器更换、制造业回流) 与 2 现成发电 (已建成的数据中心照样用电, 估 85-90% 利润留得住) -&gt; 3 光纤 (数据中心到 2027 年约占全球光纤需求 30%, 其余是电信与宽带) -&gt; 4 硅片 (全部半导体, 但有周期) -&gt; 5 燃机 (积压一半是服务, 预留位可能被取消) -&gt; 6 制造设备 -&gt; 7 散热 -&gt; 8 先进封装 -&gt; 9 激光与光模块 (2028 供给翻倍叠加需求停, 价格最先崩) -&gt; 10 HBM (约 0) -&gt; 11 GPU (约 10%)。</p>
+<p>结论: 抗相变与 "还没被付满" 同时成立的只有现成发电; 电网设备抗相变但已付满; 芯片侧没被付满的 (NVDA、美光) 恰恰是相变时跌得最深的。这是一个不对称: 买现成兆瓦, 级联继续时赚最后一环的重估, 级联断裂时亏得最少。</p>
+<h3 id="5-谁在下棋">5. 谁在下棋</h3>
+<ul>
+<li><strong>NVDA</strong>: 用现金替自己提前买断每一个下一环 -- 激光 ($40 亿入股两家并签产能协议到 2030)、光纤 (Corning $3 亿)、内存 (SK 集团约 $7,500 亿长期供货意向, 对象是 NVDA 与美国科技公司联盟)、对上游承诺 $279B。效果: 下一环持有者提前卖掉部分定价权, 相变风险转到 NVDA 自己的资产负债表上 (承诺是不可撤销的买单)。</li>
+<li><strong>超大厂</strong>: 抢兆瓦而不是抢芯片 -- Meta 与 Vistra 2,609 MW、Microsoft 与 Constellation 约 835 MW (Crane 重启)、Blackstone 出 $53.4 亿做 Williams 的表后燃气发电项目 (标题, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>)。</li>
+<li><strong>监管与地方</strong>: PJM / FERC 把新增成本推给数据中心; 县级暂停令扩散。它们不卖产能, 但决定稀缺留多久。</li>
+<li><strong>产能持有者内部分裂</strong>: SUMCO 拒绝扩产 (守价), 东芝扩产 (抢量)。一家先动, 稀缺就开始倒数。</li>
+</ul>
+<h3 id="6-情景">6. 情景</h3>
+<p>沿用 10-04 行业报告: 到 2028 年底扩建断裂的累计概率约 48% (2027 年约 20%, 2028 单年约 28%)。不断裂 (约 52%): 芯片侧 2028 供给追上, 稀缺溢价回落但量在长, 现成发电与电网设备重估; 断裂 (约 48%): 芯片侧每年 -35% 到 -63%, 现成发电 -15% 到 -18%。两种结局里电力侧都是亏得最少或赚得最多的一层, 这是本报告把动作集中在 CEG / VST 的原因。仓位仍是 [<span class="term" tabindex="0" data-tip="动作档: 小仓试探, 常用卖 put 在低位接货。">SMALL</span>]: 发电商有监管上限风险 (价格上限、成本分摊), 而 CEG 的抛压原因只有单一来源。</p>
+<h2 id="事实">事实</h2>
+<h3 id="f1-级联表-2026-10-05">F1 级联表 (2026-10-05)</h3>
+<table><thead><tr><th>环节</th><th>现在</th><th>证据</th><th>主瓶颈时段 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span></th><th>缓解 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span></th><th>出处</th><th>T</th></tr></thead><tbody>
+<tr><td>GPU / 先进制程逻辑</td><td>紧, 非主约束</td><td>NVDA: "currently experiencing certain supply constraints"; 供给承诺一季 $119B -&gt; $279B; TSMC 2 纳米家族产能 2026-28 年复合约 70%</td><td>2023-2024</td><td>2027 (亚利桑那 Fab 2 2027 下半年量产)</td><td>NVDA <span class="term" tabindex="0" data-tip="SEC 季报。">10-Q</span> 2026-07-26; TSMC 2Q26 电话会 (本库 TSM 报告已核)</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>HBM</td><td>卡</td><td>美光 2027 产出 &gt; 75% 已签约、长约 26 份、短缺或到 2028; 三家 2027 售罄; SK 集团与 NVDA 等约 $750B、三星与 Broadcom 逾 $200B 至 2030 的远期采购意向; 2026 Q1 DRAM 合约价环比 +93-98%</td><td>2025-2027</td><td>2027 下半年至 2028 (三星 2027 HBM 投片 +39%)</td><td>MU <span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> 2026-09-30 (10-04 行业报告 F4); Seeking Alpha 2026-08-05; TechTimes 2026-07-25</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> / <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>先进封装与基板</td><td>卡, 缺口收窄</td><td>TSMC: "packaging capacity is so tight that now it limits my customers' growth"; 缺口 2026 底由 20% 收窄到 10%; 2027 CoWoS 产能 +70.9%; Intel EMIB 基板良率 30% (2Q26) -&gt; 45% -&gt; 目标 60% (1Q27); Intel CEO 称基板是瓶颈、要预付; Ibiden 获 Google / Amazon / Intel 预付</td><td>2024-2026</td><td>2027</td><td>TSMC 2Q26 电话会; TrendForce 2026-06-15 (标题) / 09-23 / 09-25</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> / <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>硅片与制造设备</td><td>转紧</td><td>12 吋 2027 新长约: 外延片 +15-25%, 抛光片 &gt; 40%, 部分二线客户 &gt; 50%; 现货价第四季或高于长约; SUMCO 社长: 涨 5-10% 远不够覆盖成本, 不做新厂; 环球晶 12 吋均价 $92 (2026) -&gt; $122 -&gt; $166 (2028, 预测); TSMC 设备需求九个月 1.9 倍</td><td>2027-2028</td><td>2029 以后</td><td>TrendForce 2026-09-25 (转工商时报); 10-04 行业报告 F4</td><td><span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>电: 发电 / 燃机 / 电网</td><td>最紧, 最长</td><td>GE Vernova 燃机积压加预留 116 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span> (2Q26), 卖 2031 交付位, 年产 20 -&gt; 24 (2028) -&gt; 30 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span> (2030); 2027 年美国数据中心新增 36.3 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span> (Goldman); PJM 拍卖在上限仍缺 6,831 MW、新机组 525 MW; PJM 批发电价 $77.78 -&gt; $136.53/MWh (+75.5%); 大型变压器短缺最突出, 交期最长到 4 年; Siemens Energy 积压 EUR 162B, 订单出货比 1.57</td><td>2025-2030</td><td>2030 以后</td><td>OilPrice 2026-08-22 (转 GE Vernova 7-22 电话会); Yahoo 2026-08-17; Reuters 2026-07-09 (导语); pv magazine 2026-05-11 (标题); BNN Bloomberg 2026-10-01</td><td><span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>规则与许可</td><td>新增约束</td><td>PJM: 50 MW 以上新负荷须自带合格电源, 否则先于居民被限电, 2029/30 起无自有电源者不计入容量需求; FERC 9-29 接受保底采购框架, 暂停到 2027-02-28; 县级暂停令: Baltimore County 拟延到 2027-12, Spartanburg 一年, Marathon 12 个月, Mesa 通过, Tulare 延长, McHenry 审议</td><td>2027-2029</td><td>不确定</td><td>Yahoo 2026-08-17; TECHi 2026-10-01; CBS 2026-09-23; 各地方媒体 2026-09-21 至 10-04</td><td><span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span> / <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>散热</td><td>非主约束</td><td>Vertiv 2026 年初积压 $15B、2025 Q4 订单出货比 2.9; 2Q26 收入 $3.274B (+24%), 部分因 "temporary supply chain congestion" 延后; 3Q26 指引 $3.75B (+40%); 收购现场发电公司 UIG (最高 $2.6B)</td><td>2025-2026</td><td>已在缓解</td><td>Yahoo 2026-09-30; Motley Fool 2026-09-03</td><td><span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>光互连</td><td>卡</td><td>EML 量产商少于 5 家; NVDA 2026-03-02 各出 $20 亿入股 Lumentum 与 Coherent, 其他买家交期排到 2027 以后; McKinsey: 800G 到 2027 缺 40-60%, 1.6T 到 2029 缺 30-40%; Coherent 磷化铟 2026 底翻倍、2027 再翻倍以上; 光纤预制棒扩产 18-24 个月, 大客户交期 20 周、小客户一年; 中国限制磷化铟出口 (AXT 发货延迟); FCC 起草禁止中国产光模块 (约 60% 供给)</td><td>2026-2027</td><td>2028 (激光); 2027 底以后 (光纤)</td><td>LITE <span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> 2026-03-02; COHR <span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> 2026-08-12 ex99.2; TechTimes 2026-05-27; NTD 2026-09-08; msn 2026-08-05 (摘要)</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> / <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>存储 (硬盘 / NAND)</td><td>卡, 解除信号已出</td><td>东芝 (日经) 计划 2027 财年 AI 数据中心用硬盘产能翻倍 -&gt; 10-02 Seagate -10.21%、西数跌幅相近; NAND 合约价二季 +70-75%、三季 +10-15%; 9 月 DRAM / NAND 再创新高但涨幅放缓</td><td>2025-2026</td><td>2027-2028</td><td>Insider Monkey 2026-10-04; Motley Fool 2026-08-23; Chosun 2026-10-01</td><td><span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+</tbody></table>
+<h3 id="f2-各环持有者-价格-2026-10-02-收盘-yfinance-百分位-当年非-gaap-市盈率在自身历史的位置">F2 各环持有者 (价格 2026-10-02 收盘, yfinance; 百分位 = 当年非 GAAP 市盈率在自身历史的位置)</h3>
+<table><thead><tr><th>公司</th><th>环节</th><th>市值</th><th>指数成分</th><th>收盘</th><th>距 52 周收盘高</th><th>估值<span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span> (倍数)</th><th>难被绕开</th><th>替代 / 风险</th></tr></thead><tbody>
+<tr><td>NVDA</td><td>GPU</td><td>$5,649B</td><td>标普 500 + 纳指 100</td><td>233.95</td><td>-0.8%</td><td>19 (25.1x; 2028 财年共识 14.8x)</td><td>系统 + 对上游 $279B 承诺</td><td>自研 ASIC; 承诺在相变时是负债</td></tr>
+<tr><td>MU</td><td>HBM</td><td>$1,214B</td><td>标普 500 + 纳指 100</td><td>1,074.89</td><td>-11.4%</td><td>24 (6.1x); 市销率 93</td><td>三家寡头, 新厂 3 年</td><td>三星 2027 +39%; 无托底</td></tr>
+<tr><td>SK 海力士</td><td>HBM</td><td>KRW 1,309T</td><td>非美</td><td>KRW 1,841,000</td><td>-36.9%</td><td>无数据</td><td>同上</td><td>同上</td></tr>
+<tr><td>TSM</td><td>先进封装 + 先进制程</td><td>$2,452B</td><td>非成分 (<span class="term" tabindex="0" data-tip="美国存托凭证: 外国公司在美国交易的股票凭证。">ADR</span>)</td><td>472.78</td><td>-1.0%</td><td>90 (27.9x)</td><td>唯一量产出口</td><td>EMIB-T 分流; 台海</td></tr>
+<tr><td>ASML</td><td>EUV</td><td>$717B</td><td>纳指 100</td><td>1,867.31</td><td>-6.1%</td><td>无数据 (外国发行人); 10-04 报告约 43x, 高于自身中位</td><td>EUV 唯一</td><td>存储周期</td></tr>
+<tr><td>信越 / SUMCO / 环球晶</td><td>12 吋硅片</td><td>JPY 11.29T / JPY 1.28T / TWD 564B</td><td>非美</td><td>JPY 6,030 / 3,588 / TWD 1,190</td><td>-22.8% / -32.4% / -21.5%</td><td>无数据; SUMCO 2026 共识亏损</td><td>高度集中, 无新厂</td><td>中国扩产 (成熟品); 半导体周期</td></tr>
+<tr><td>CEG</td><td>现成发电 (约 55 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span>)</td><td>$91.2B</td><td>标普 500 + 纳指 100</td><td>257.49</td><td>-36.3%</td><td>49 (21.2x, 仅 4 年历史)</td><td>核电新建约 10 年, 现成兆瓦不用排队</td><td>收购对价股份抛压; 监管上限</td></tr>
+<tr><td>VST</td><td>现成发电</td><td>$47.0B</td><td>标普 500</td><td>140.02</td><td>-33.6%</td><td>54 (14.6x)</td><td>已运行反应堆供 Meta</td><td>负债; 气价</td></tr>
+<tr><td>GEV</td><td>燃机 + 电网</td><td>$263.3B</td><td>标普 500</td><td>988.70</td><td>-15.8%</td><td>年数不足; 10-04 报告 39.9x 2027</td><td>三家 OEM, 卖到 2031</td><td>已付清 2028 全兑现</td></tr>
+<tr><td>HUBB</td><td>电网设备</td><td>$25.1B</td><td>标普 500</td><td>475.52</td><td>-14.8%</td><td>85 (23.2x)</td><td>公用事业输配电长期份额</td><td>已付</td></tr>
+<tr><td>ETN</td><td>电气设备</td><td>$169.4B</td><td>标普 500</td><td>436.11</td><td>-5.2%</td><td>99 (32.1x)</td><td>开关柜 / 配电</td><td>已付</td></tr>
+<tr><td>PWR</td><td>电网施工</td><td>$101.7B</td><td>标普 500</td><td>676.56</td><td>-13.8%</td><td>99 (40.4x)</td><td>熟练电工队伍</td><td>已付</td></tr>
+<tr><td>WMB</td><td>输气 + 表后发电</td><td>$86.3B</td><td>标普 500</td><td>70.54</td><td>-11.2%</td><td>69 (29.0x)</td><td>现有管道路权</td><td>受监管回报, 上涨有限</td></tr>
+<tr><td>VRT</td><td>散热 + 配电</td><td>$97.1B</td><td>标普 500</td><td>252.18</td><td>-33.0%</td><td>90 (37.4x)</td><td>系统集成</td><td>替代多</td></tr>
+<tr><td>LITE</td><td>激光</td><td>$97.4B</td><td>标普 500 + 纳指 100</td><td>1,085.42</td><td>0 (52 周新高)</td><td>93 (49.8x)</td><td>200G EML 量产</td><td>NVDA 已买走部分定价权; 2028 供给翻倍</td></tr>
+<tr><td>COHR</td><td>激光 + 光模块</td><td>$66.0B</td><td>标普 500</td><td>337.04</td><td>-21.0%</td><td>94 (35.8x)</td><td>6 吋磷化铟</td><td>同上</td></tr>
+<tr><td>GLW</td><td>光纤</td><td>$141.4B</td><td>标普 500</td><td>164.19</td><td>-35.8%</td><td>100 (50.0x)</td><td>预制棒 18-24 月 + 长约</td><td>已付</td></tr>
+<tr><td>STX</td><td>硬盘</td><td>$193.1B</td><td>标普 500 + 纳指 100</td><td>848.99</td><td>-22.4%</td><td>76 (23.7x)</td><td>三家供给</td><td>东芝翻倍</td></tr>
+</tbody></table>
+<p>其余链上公司的估值<span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span> (同口径, 2026-10-05 计算): AVGO 90, AMD 97, AMKR 91, TER 99, AMAT 100, LRCX 96, KLAC 96, CAT 100, BE 100 (市销率), NVT 100, MOD 85, CIEN 99, FN 90, ANET 99, APH 100, WDC 94, NRG 56, KMI 54, CRDO 13 (仅 4 年)。</p>
+<h3 id="f3-今天买-拿到-2028-年底的每年回报">F3 今天买、拿到 2028 年底的每年回报</h3>
+<p>口径: 2028 年每股收益 = <span class="term" tabindex="0" data-tip="卖方分析师预测的平均值。">一致预期</span>延伸 (日历年公司: 2027 共识 x (1 + 2026 到 2027 增速的一半, 上限 20%); 6-8 月财年公司直接用 2028 财年共识; NVDA 用 2029 财年 (止 2029-01) 估); 中性 = 自身历史中位倍数 (上限 25 倍); 保守 = 自身第 20 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>倍数 (上限 18 倍); 相变 = 2028 每股收益 = 2026 x 托底系数 (表 F4 的估计), 倍数取第 20 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span> (上限 15 倍)。持有期 2.24 年。</p>
+<table><thead><tr><th>公司</th><th>2028 <span class="term" tabindex="0" data-tip="每股收益 = 净利润 / 稀释后股数。">EPS</span> <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span></th><th>中性</th><th>保守</th><th>相变</th><th>托底系数 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span></th></tr></thead><tbody>
+<tr><td>NVDA</td><td>18.96</td><td>+37%</td><td>+18%</td><td>-44%</td><td>0.45</td></tr>
+<tr><td>MU</td><td>205.95</td><td>+41%</td><td>+3%</td><td>-44%</td><td>0.30</td></tr>
+<tr><td>TSM</td><td>25.16</td><td>-3%</td><td>-14%</td><td>-35%</td><td>0.80</td></tr>
+<tr><td>AMAT</td><td>22.16</td><td>-20%</td><td>-28%</td><td>-50%</td><td>0.75</td></tr>
+<tr><td>LRCX</td><td>11.76</td><td>-24%</td><td>-34%</td><td>-47%</td><td>0.75</td></tr>
+<tr><td>KLAC</td><td>6.71</td><td>-25%</td><td>-31%</td><td>-43%</td><td>0.80</td></tr>
+<tr><td>GEV (10-04 报告)</td><td>--</td><td>最好 +2% 至 +9%, 中性 -18%</td><td>--</td><td>最差 -48%</td><td>--</td></tr>
+<tr><td>ETN</td><td>17.75</td><td>-11%</td><td>-20%</td><td>-34%</td><td>0.85</td></tr>
+<tr><td>HUBB</td><td>24.34</td><td>0%</td><td>-7%</td><td>-21%</td><td>0.90</td></tr>
+<tr><td>PWR</td><td>21.56</td><td>-21%</td><td>-35%</td><td>-46%</td><td>0.85</td></tr>
+<tr><td>VST</td><td>10.78</td><td>+4%</td><td>-6%</td><td>-15%</td><td>0.90</td></tr>
+<tr><td>CEG</td><td>13.97</td><td>+7%</td><td>-9%</td><td>-18%</td><td>0.90</td></tr>
+<tr><td>WMB</td><td>2.76</td><td>-3%</td><td>-14%</td><td>-26%</td><td>1.00</td></tr>
+<tr><td>VRT</td><td>10.84</td><td>+3%</td><td>-12%</td><td>-45%</td><td>0.65</td></tr>
+<tr><td>LITE</td><td>35.57</td><td>-27%</td><td>-32%</td><td>-62%</td><td>0.45</td></tr>
+<tr><td>COHR</td><td>14.05</td><td>-12%</td><td>-22%</td><td>-48%</td><td>0.60</td></tr>
+<tr><td>GLW</td><td>5.07</td><td>-23%</td><td>-28%</td><td>-47%</td><td>0.80</td></tr>
+<tr><td>CIEN</td><td>12.28</td><td>-21%</td><td>-26%</td><td>-55%</td><td>0.60</td></tr>
+<tr><td>STX</td><td>55.37</td><td>-13%</td><td>-20%</td><td>-54%</td><td>0.45</td></tr>
+<tr><td>WDC</td><td>31.75</td><td>-23%</td><td>-35%</td><td>-63%</td><td>0.45</td></tr>
+</tbody></table>
+<h3 id="f4-扩建停下时的托底">F4 扩建停下时的托底</h3>
+<table><thead><tr><th>排名</th><th>环节</th><th>扩建停下时仍在的需求</th><th>非 AI 份额 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span></th><th>价格会怎样</th></tr></thead><tbody>
+<tr><td>1</td><td>电网设备</td><td>电气化、老旧变压器更换、制造业回流; 数据中心占美国电气设备市场或升到 40% (Wood Mackenzie, 经 Reuters 导语)</td><td>约 60%</td><td>交期缩短、涨价停, 量有底</td></tr>
+<tr><td>2</td><td>现成发电</td><td>已建成数据中心照样用电; PJM 2022 年来退役 15 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span>; 数据中心约占 PJM 今年批发成本 9%</td><td>利润约 85-90% 留得住</td><td>新双边合同停, 电价从高位回落</td></tr>
+<tr><td>3</td><td>光纤</td><td>电信、宽带 (BEAD $42.5B)、企业网; 数据中心到 2027 年约占全球光纤需求 30%</td><td>约 70%</td><td>价格回落</td></tr>
+<tr><td>4</td><td>硅片</td><td>手机、PC、汽车、工业全部半导体</td><td>约 70-80%</td><td>周期下行</td></tr>
+<tr><td>5</td><td>燃机</td><td>公用事业替煤、中东与亚洲电力; GE Vernova 积压一半是服务</td><td>约 50%</td><td>预留位可能取消, 服务照收</td></tr>
+<tr><td>6</td><td>制造设备</td><td>成熟制程、中国、普通存储</td><td>约 40-50%</td><td>周期下行</td></tr>
+<tr><td>7</td><td>散热</td><td>企业机房、电信、商业建筑</td><td>约 40%</td><td>订单回落</td></tr>
+<tr><td>8</td><td>先进封装</td><td>几乎全部 AI / 高性能计算</td><td>约 10-20%</td><td>利用率掉</td></tr>
+<tr><td>9</td><td>激光与光模块</td><td>电信、工业激光</td><td>约 20-30%</td><td>2028 供给翻倍叠加需求停, 价格最先崩</td></tr>
+<tr><td>10</td><td>HBM</td><td>无</td><td>约 0</td><td>回到商品内存价</td></tr>
+<tr><td>11</td><td>GPU</td><td>游戏、汽车、专业视觉</td><td>约 10%</td><td>收入断崖</td></tr>
+</tbody></table>
+<h3 id="f5-原话">F5 原话</h3>
+<table><thead><tr><th>谁</th><th>原话</th><th>日期</th><th>出处</th><th>T</th></tr></thead><tbody>
+<tr><td>TSMC 魏哲家</td><td>"our packaging capacity is so tight that now it limits my customers' growth"</td><td>2026-07-16</td><td>2Q26 电话会</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>NVDA</td><td>"We have significantly increased our supply and capacity commitments from $119 billion last quarter to $279 billion as of July 26, 2026"</td><td>2026-07-26</td><td><span class="term" tabindex="0" data-tip="SEC 季报。">10-Q</span> item 2</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>Lumentum</td><td>"The non-exclusive agreement includes an NVIDIA multi-billion purchase commitment and future capacity access rights for advanced laser components"</td><td>2026-03-02</td><td><span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> ex99.1</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>Coherent</td><td>"On track to double internal InP output by year-end and more than double again by 2027"</td><td>2026-08-12</td><td><span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> ex99.2</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>韩国官员 Kim (SK / 三星合约)</td><td>"These are advance contracts ... This is not an investment"</td><td>2026-07-25</td><td>TechTimes</td><td><span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>PJM 市场监察</td><td>"Large data center load additions have already had a significant and irreversible impact"</td><td>2026-08</td><td>Yahoo 2026-08-17</td><td><span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>Reaves 基金二季度信 (CEG)</td><td>"The underperformance was largely attributed to an equity overhang rather than a deterioration in fundamentals"</td><td>2026-09-18</td><td>Yahoo Finance</td><td><span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>Intel CEO 陈立武</td><td>Intel 为锁定基板供应 "has to prepay"</td><td>2026-09</td><td>TrendForce 2026-09-23</td><td><span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+</tbody></table>
+<h3 id="f6-日历">F6 日历</h3>
+<table><thead><tr><th>日期</th><th>事件</th><th>看什么</th></tr></thead><tbody>
+<tr><td>2026-10-15</td><td>TSM 3Q26</td><td>封装产能与 2027 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> 口风</td></tr>
+<tr><td>2026-10-21 (预估)</td><td>VRT 3Q26</td><td>订单是否仍大于收入</td></tr>
+<tr><td>2026-10-27</td><td>STX 1Q FY27; GLW; HUBB (预估)</td><td>硬盘指引是否上调; 光纤长约; 公用事业订单</td></tr>
+<tr><td>2026-10-28 / 29</td><td>GEV; 超大厂财报</td><td>签约 <span class="term" tabindex="0" data-tip="吉瓦: 数据中心用电规模的单位。">GW</span>; 2027 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> 口风</td></tr>
+<tr><td>2026-11-04 / 05</td><td>COHR; LITE (预估); WDC</td><td>激光产能与价格</td></tr>
+<tr><td>2026-11-06</td><td>VST</td><td>Meta 合同起付</td></tr>
+<tr><td>2026-11-09 (预估)</td><td>CEG</td><td>2026 指引; 新双边合同; Crane 进度</td></tr>
+<tr><td>2026-11-17</td><td>NVDA</td><td>供给承诺是否再增</td></tr>
+<tr><td>2026-12-23 (预估)</td><td>MU</td><td>2027 HBM 价格与扩产</td></tr>
+<tr><td>2027-01 至 02</td><td>12 吋硅片 2027 长约; 超大厂 2027 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> 指引</td><td>涨幅是否 &gt;= 15%; 是否持平</td></tr>
+<tr><td>2027-02-28</td><td>FERC 对 PJM 保底采购的暂停到期</td><td>成本由谁承担</td></tr>
+<tr><td>2027</td><td>Crane 1 号机组重启</td><td>是否按期</td></tr>
+</tbody></table>
+<h2 id="附录">附录</h2>
+<h3 id="未核实项">未核实项</h3>
+<ol>
+<li>CEG 下跌主因 = Calpine 收购对价股份抛压: 只有一家基金季度信 (<span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>), 卖方身份与数量未查。</li>
+<li>CoWoS 2027 +70.9% 与缺口 20% -&gt; 10%: 二手转述 (<span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>); TSMC 不披露 CoWoS 产能。</li>
+<li>变压器交期 "最长到 4 年": 只有标题 (<span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>); Reuters 2026-07-09 原文未取到 (付费墙)。</li>
+<li>三家内存 2027 售罄与约 $9,500 亿合约: 媒体转述 (<span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>); 后者是谅解备忘录与远期采购意向, 不是确定订单。</li>
+<li>各环 "非 AI 份额" 与 "托底系数": 本文估计, 没有一手拆分。</li>
+<li>12 吋硅片 2027 长约价: 台湾媒体转述 (<span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>), 公司未公告。</li>
+<li>东芝扩产的规模与时点: 日经转述 (<span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>)。</li>
+<li>CEG <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>只有 4 年历史 (2022 年分拆), VST 用 7 年, 可靠度低; NVDA <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>低部分因为历史高倍数年 (中位 35.6 倍) 抬高了分布。</li>
+<li>VST 与 CEG 2025-10 以来下跌的其他原因 (监管、气价) 未逐项核; NRG 2026-02 高点后的下跌原因未核。</li>
+<li>Blackstone 出资 Williams 表后发电项目 $53.4 亿: 只有标题与摘要 (原文 403)。</li>
+<li>县级暂停令覆盖的兆瓦数: 未统计。</li>
+<li>Vertiv 2026 年订单数: 公司未在电话会给出。</li>
+</ol>
+<h3 id="不一致处">不一致处</h3>
+<ul>
+<li>TSMC 7 月 "紧到限制客户增长" 与 TrendForce "2026 底缺口收窄到 10%" 不矛盾: 前者是 7 月状态, 后者是年底预测; 本文按 "2027 缓解" 写。</li>
+<li>估值口径: ASML、GEV、SK 海力士、硅片三家没有<span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span> (外国发行人或历史不足), 用 10-04 各报告的倍数或只写价格。</li>
+<li>Seagate 10-02 收盘 848.99、单日 -10.21%: yfinance 与 Insider Monkey 一致。</li>
+</ul>
+<h3 id="来源">来源</h3>
+<ul>
+<li>NVDA <span class="term" tabindex="0" data-tip="SEC 季报。">10-Q</span> (2026-07-26), TSMC 2Q26 电话会, LITE <span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> (2026-03-02), COHR <span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> (2026-08-12), MU <span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> (2026-09-30): 经本库 2026-10-01 至 10-04 各报告核对。</li>
+<li><a href="https://www.techtimes.com/articles/317281/20260527/ai-data-center-optical-component-shortage-nvidias-4b-laser-lockup-pushes-rivals-past-2027.htm">https://www.techtimes.com/articles/317281/20260527/ai-data-center-optical-component-shortage-nvidias-4b-laser-lockup-pushes-rivals-past-2027.htm</a></li>
+<li><a href="https://www.techtimes.com/articles/321554/20260725/samsung-sk-hynix-lock-ai-chip-supply-through-2030-950b-us-deals.htm">https://www.techtimes.com/articles/321554/20260725/samsung-sk-hynix-lock-ai-chip-supply-through-2030-950b-us-deals.htm</a></li>
+<li><a href="https://www.trendforce.com/news/2026/09/23/breaking-intel-emib-substrate-yields-reportedly-hit-45-suppliers-eye-60-by-1q27/">https://www.trendforce.com/news/2026/09/23/breaking-intel-emib-substrate-yields-reportedly-hit-45-suppliers-eye-60-by-1q27/</a></li>
+<li><a href="https://www.trendforce.com/news/2026/09/25/news-12-inch-wafer-price-hikes-loom-for-2027-as-ai-demand-tightens-supply-with-ltas-reportedly-up-15-40/">https://www.trendforce.com/news/2026/09/25/news-12-inch-wafer-price-hikes-loom-for-2027-as-ai-demand-tightens-supply-with-ltas-reportedly-up-15-40/</a></li>
+<li><a href="https://oilprice.com/Energy/Energy-General/The-Gas-Turbine-Shortage-Just-Became-AIs-Biggest-Constraint.html">https://oilprice.com/Energy/Energy-General/The-Gas-Turbine-Shortage-Just-Became-AIs-Biggest-Constraint.html</a></li>
+<li><a href="https://finance.yahoo.com/energy/articles/america-largest-grid-operator-data-161222820.html">https://finance.yahoo.com/energy/articles/america-largest-grid-operator-data-161222820.html</a></li>
+<li><a href="https://www.techi.com/constellation-vs-vistra-stock-pjm-delay-contracts/">https://www.techi.com/constellation-vs-vistra-stock-pjm-delay-contracts/</a></li>
+<li><a href="https://financefeeds.com/constellation-energy-ceg-stock-prediction-bull-bear-case/">https://financefeeds.com/constellation-energy-ceg-stock-prediction-bull-bear-case/</a></li>
+<li><a href="https://finance.yahoo.com/markets/stocks/articles/equity-overhang-weighs-constellation-energy-125043483.html">https://finance.yahoo.com/markets/stocks/articles/equity-overhang-weighs-constellation-energy-125043483.html</a></li>
+<li><a href="https://www.theglobeandmail.com/investing/markets/stocks/NVDA-Q/pressreleases/3989435/ge-vernova-s-backlog-is-bigger-than-some-countries-gdp-here-s-what-s-actually-inside-the-176-billion/">https://www.theglobeandmail.com/investing/markets/stocks/NVDA-Q/pressreleases/3989435/ge-vernova-s-backlog-is-bigger-than-some-countries-gdp-here-s-what-s-actually-inside-the-176-billion/</a></li>
+<li><a href="https://www.bnnbloomberg.ca/markets/2026/10/01/dennis-mitchells-top-picks-for-oct-1-2026/">https://www.bnnbloomberg.ca/markets/2026/10/01/dennis-mitchells-top-picks-for-oct-1-2026/</a></li>
+<li><a href="https://finance.yahoo.com/markets/stocks/articles/think-vertiv-differently-now-183217726.html">https://finance.yahoo.com/markets/stocks/articles/think-vertiv-differently-now-183217726.html</a></li>
+<li><a href="https://www.fool.com/investing/2026/09/03/vertiv-is-putting-usd1-45-billion-down-for-ai-power-nearly-half-the-price-is-contingent/">https://www.fool.com/investing/2026/09/03/vertiv-is-putting-usd1-45-billion-down-for-ai-power-nearly-half-the-price-is-contingent/</a></li>
+<li><a href="https://www.theglobeandmail.com/investing/markets/stocks/GLW-N/pressreleases/3528674/glw-q2-earnings-call-highlights-ai-growth-plan/">https://www.theglobeandmail.com/investing/markets/stocks/GLW-N/pressreleases/3528674/glw-q2-earnings-call-highlights-ai-growth-plan/</a></li>
+<li><a href="https://www.insidermonkey.com/news/toshiba-is-doubling-hard-drive-output-seagate-stx-and-western-digital-wdc-fell-10-each-1848414/">https://www.insidermonkey.com/news/toshiba-is-doubling-hard-drive-output-seagate-stx-and-western-digital-wdc-fell-10-each-1848414/</a></li>
+<li><a href="https://www.insidermonkey.com/news/seagate-stx-is-selling-into-a-shortage-what-happens-when-it-ends-1847620/">https://www.insidermonkey.com/news/seagate-stx-is-selling-into-a-shortage-what-happens-when-it-ends-1847620/</a></li>
+<li><a href="https://www.reuters.com/business/energy/us-power-companies-scramble-secure-equipment-surging-data-center-demand-strains-2026-07-09/">https://www.reuters.com/business/energy/us-power-companies-scramble-secure-equipment-surging-data-center-demand-strains-2026-07-09/</a> (导语)</li>
+<li><a href="https://www.datacenterdynamics.com/en/news/blackstone-invests-534bn-in-williams-behind-the-meter-natural-gas-power-projects-for-the-data-center-sector/">https://www.datacenterdynamics.com/en/news/blackstone-invests-534bn-in-williams-behind-the-meter-natural-gas-power-projects-for-the-data-center-sector/</a> (标题与摘要)</li>
+<li><a href="https://www.cbsnews.com/baltimore/news/baltimore-county-vote-data-center-moratorium/">https://www.cbsnews.com/baltimore/news/baltimore-county-vote-data-center-moratorium/</a></li>
+<li><a href="https://www.ntd.com/china-export-curbs-delay-axts-us-bound-indium-phosphide-shipments_1171386.html">https://www.ntd.com/china-export-curbs-delay-axts-us-bound-indium-phosphide-shipments_1171386.html</a></li>
+<li><a href="https://www.utilitydive.com/news/data-center-load-pjm-wholesale-market/828917/">https://www.utilitydive.com/news/data-center-load-pjm-wholesale-market/828917/</a> (标题与摘要)</li>
+<li>价格、市值、<span class="term" tabindex="0" data-tip="卖方分析师预测的平均值。">一致预期</span>: yfinance 2026-10-05 拉取 (收盘 2026-10-02); 指数成分: Wikipedia 标普 500 成分表与 nasdaq.com 纳斯达克 100 名单 (2026-10-05)。</li>
+</ul></main><div id="tip" role="tooltip" hidden></div><script>
+(function(){var t=document.getElementById('tip');
+function term(e){return e.target&&e.target.closest?e.target.closest('.term'):null}
+function show(el){t.textContent=el.getAttribute('data-tip');t.hidden=false;var r=el.getBoundingClientRect(),w=t.offsetWidth,h=t.offsetHeight;
+var vw=Math.min(window.innerWidth,document.documentElement.clientWidth),x=Math.min(Math.max(8,r.left),vw-w-8),y=r.bottom+6;if(y+h>window.innerHeight-8){y=r.top-h-6}
+t.style.left=x+'px';t.style.top=y+'px'}
+document.addEventListener('mouseover',function(e){var el=term(e);if(el)show(el)});
+document.addEventListener('mouseout',function(e){if(term(e))t.hidden=true});
+document.addEventListener('focusin',function(e){var el=term(e);if(el)show(el)});
+document.addEventListener('focusout',function(e){if(term(e))t.hidden=true});
+document.addEventListener('click',function(e){var el=term(e);if(el){show(el)}else{t.hidden=true}});
+window.addEventListener('scroll',function(){t.hidden=true},{passive:true});})();
+</script></body></html>
