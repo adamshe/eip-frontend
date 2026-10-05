@@ -42,7 +42,7 @@ tr:hover td{background:var(--panel)}
 #tip{position:fixed;z-index:50;max-width:min(340px,calc(100vw - 16px));background:var(--text);color:var(--bg);font-size:13px;
 line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);pointer-events:none}
 #tip[hidden]{display:none}</style></head>
-<body><main><div class="nav"><a href="../index.html">全部日期</a><a href="2026-09-15.html">上一日 2026-09-15</a><a href="2026-09-22.html">下一日 2026-09-22</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1>EIP 每日报告 2026-09-21</h1><style>.grp-title{margin:2.2em 0 .4em;padding-top:.5em;border-top:3px solid currentColor;font-size:1.35em}details.chunk{margin:.6em 0}details.chunk>summary{cursor:pointer;font-weight:600}</style><section class="sec grp" id="basis"><h2 class="grp-title">依据</h2><details class="chunk"><summary>鲸群日报 2026-09-21</summary><p>数据: docs/01_archive/stock/{amd,net,qqq,spy,spcx,tsla}-options-flow-09-21-2026.csv 跨日对照: 09-15 / 09-16 / 09-17 同目录 net / qqq / spy / spcx。 说明: Barchart 导出上限 200 行, 六个文件全部触顶, 当日总额均为<strong>下限</strong>。 本日专题: 检验 Adam 假设 "NET 和 AMD 有长期多头埋伏 (whale ambush)"。结论先行: <strong>两个都不成立</strong>。AMD 是完成态的埋伏在派发 + 近月追涨被 2027 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (埋伏 10-15%); NET 是 09-15 "涨着派发" 判定的延续, 今日 +9% 当天最大单笔全是买 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> / 卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (埋伏 25%)。</p>
+<body><main><div class="nav"><a href="../index.html">全部日期</a><a href="2026-09-15.html">上一日 2026-09-15</a><a href="2026-09-22.html">下一日 2026-09-22</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1>EIP 每日报告 2026-09-21</h1><style>.grp-title{margin:2.2em 0 .4em;padding-top:.5em;border-top:3px solid currentColor;font-size:1.35em}details.chunk{margin:.6em 0}details.chunk>summary{cursor:pointer;font-weight:600}</style><section class="sec grp" id="basis"><h2 class="grp-title">依据</h2><details class="chunk"><summary>鲸群日报 2026-09-21</summary><p>数据: docs/01_archive/stock/{amd,net,qqq,spy,spcx,tsla}-options-flow-09-21-2026.csv 跨日对照: 09-15 / 09-16 / 09-17 同目录 net / qqq / spy / spcx。 说明: Barchart 导出上限 200 行, 六个文件全部触顶, 当日总额均为<strong>下限</strong>。 本日专题: 检验 naughty boss 假设 "NET 和 AMD 有长期多头埋伏 (whale ambush)"。结论先行: <strong>两个都不成立</strong>。AMD 是完成态的埋伏在派发 + 近月追涨被 2027 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (埋伏 10-15%); NET 是 09-15 "涨着派发" 判定的延续, 今日 +9% 当天最大单笔全是买 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> / 卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (埋伏 25%)。</p>
 <h2 id="0-本日头号陷阱-amd-的-570m-里-505m-是-mid-成交的配对腿">0. 本日头号陷阱: AMD 的 $570M 里 $505M 是 mid 成交的配对腿</h2>
 <p>digest 报 AMD 当日 $570.0M, bull $46.6M / bear $17.8M / mid $505.6M, LEAPS 桶 $306.7M。 按面值读成 "鲸群 3 亿买 2027-2028 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>" 是错的。逐行核对 top 60:</p>
 <ol>
@@ -85,7 +85,7 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <h3 id="15-57-jun-27-put-蝶式的算术">15:57 Jun-27 put 蝶式的算术</h3>
 <p>买 P650 131.14 (&gt; mid 130.95) / 卖 2x P500 53.82 (&lt; mid 54.03) / 买 P350 12.40 (&gt; mid 12.20)。 三腿成交价偏离 mid 的方向一致 = 买翼卖身的<strong>多头蝶式</strong>。净成本 35.9 点 x 1500 = $5.39M。 最大收益在 500 (150 - 35.9 = 114.1, 3.2x), 上盈亏平衡 614.1 (= 今日现价), 下盈亏平衡 385.9。 含义: 有人押 <strong>2027 年 6 月 AMD 在 386-614 之间, 最好落在 500 (-18%)</strong>。P650 <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 167 / vol 1510 = 全新。 就算把它读成持股者的廉价对冲, 它选的靶心也是 500 而不是 800。</p>
 <h2 id="1-amd-专题-长期多头埋伏-假设的裁决">1. AMD 专题: "长期多头埋伏" 假设的裁决</h2>
-<p>Adam 假设 = 待验证 anchor。按 whale-ambush-detection.md 三条件 (hidden / under-attention / premium 便宜)</p>
+<p>naughty boss 假设 = 待验证 anchor。按 whale-ambush-detection.md 三条件 (hidden / under-attention / premium 便宜)</p>
 <ul>
 <li>Stage filter 逐条对照:</li>
 </ul>
@@ -198,7 +198,7 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <li>13:57 Jan-28 C150 x1474 / C300 x1474 mid 配对 $6.4M+$1.7M = 2028 150/300 价差, 方向不明 (C300 <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 12106)。</li>
 <li>10:29:45 Dec-18 C200 x3315 ask $1.8M 真买 (+28%); Jan-28 C200 x1000 $2.75M (ask x500)。</li>
 <li>09-16 对照: Mar-27 C185 x21100 ToOpen SLCN $26.3M; 09-17: 2029-01 C260 x500 BuyToOpen $1.6M。</li>
-<p>Adam 9/25 front-run 检查点: 收盘 151.85 &gt; 135 条件仍成立, 但对手盘从 "无" 变成 "$32M 零成本多头 RR + $26M Mar-27 C185"。</p>
+<p>naughty boss 9/25 front-run 检查点: 收盘 151.85 &gt; 135 条件仍成立, 但对手盘从 "无" 变成 "$32M 零成本多头 RR + $26M Mar-27 C185"。</p>
 </ul>
 <h2 id="6-tsla-近月追涨-半年-put-保护-一句话">6. TSLA: 近月追涨 + 半年 put 保护, 一句话</h2>
 <p>spot 375.2。Oct-02 C370 x2267 ask/mid $3.4M + Sep-25 C370 x999 ask $1.0M 近月 ATM <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 真买; Jan-27 C420 x598 ask $1.32M; 对冲 Mar-27 P325 x449 ask $0.94M + Oct-05 P375 x469 BuyToOpen。近月偏多, 无远期埋伏证据。</p>
@@ -215,7 +215,7 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <tr><td>SPCX 09-21</td><td>130-148</td><td><strong>140-160</strong></td><td>今收 151.85 已穿上沿 (盘中高 156.6 回落); Jun-27 多头 RR 卖 120P; Dec C200 真买</td></tr>
 <tr><td>SPCX 09-24 解禁</td><td>328.4M 股</td><td>维持事件标记; 对手盘由 "无" 改 "$32M 多头 RR + $26M Mar-27 C185"</td><td>Section 5</td></tr>
 </tbody></table>
-<h2 id="8-对-adam-的结构性含义">8. 对 Adam 的结构性含义</h2>
+<h2 id="8-对-adam-的结构性含义">8. 对 naughty boss 的结构性含义</h2>
 <ul>
 <li><strong>AMD</strong>: 与鲸群同侧 = 年内 (Dec-26 / Jan-27) 630-750 的 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 价差或对角线 (鲸群自己就是这么建的);</li>
 <p>2027-2028 裸买 <span class="term" tabindex="0" data-tip="价外: 行权价离现价还有一段距离的期权。">OTM</span> <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> = 与 covered-<span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 写手墙 (810-1120) 对赌, 且 <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 58% 付溢价。 Stage 0 parabolic 按 doctrine 只做 spread。若要押 AMD 的 "不到 800", Jun-27 500 蝶式已有 $5.4M 先例。</p>
@@ -234,7 +234,7 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <h2 id="10-鲸群意图解读">10. 鲸群意图解读</h2>
 <p>现货 <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> (yfinance 收盘): NET 351.67 +8.7%, 量 3.9M = 20 日均量 1.24x, 成交额 $1.37B; AMD 615.52 +9.9%, 量 44.3M = 2.32x, $27.3B; SPCX 151.85 -0.6%; TSLA 375.30 +3.0%, 量 0.90x。 QQQ / SPY 未给 <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> 量, 比例按典型日量 (QQQ ~40M / SPY ~60M) 估。</p>
 <p>方法: 每行按 Side 定买卖 (ask = 买, bid = 卖, mid 按成交价偏离报价中点 &gt; 8% 价差判倾向), delta x 100 x 张数 = dealer 对冲需买/卖的现货股数。 "近月" = DTE &lt;= 45; "远端" = DTE &gt;= 130; 零时间价值深 ITM 单独剔除。</p>
-<h3 id="10-0-先答-adam-的问题-谁在买-卖-covered-call-的钱够不够买股票">10.0 先答 Adam 的问题: 谁在买? 卖 covered call 的钱够不够买股票?</h3>
+<h3 id="10-0-先答-adam-的问题-谁在买-卖-covered-call-的钱够不够买股票">10.0 先答 naughty boss 的问题: 谁在买? 卖 covered call 的钱够不够买股票?</h3>
 <p><strong>不够, 差两个数量级; 而且机制上 covered <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的钱不流向现货买盘。</strong></p>
 <table><thead><tr><th></th><th>NET</th><th>AMD</th></tr></thead><tbody>
 <tr><td>今日全部 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 卖方收到的权利金 (近+中+远, 剔除 C430 老仓兑现)</td><td>$3.0M</td><td>~$94M</td></tr>
@@ -312,7 +312,7 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <tr><td>SPCX</td><td>--</td><td>+43k</td><td>~0</td><td>推不动, 收阴</td><td>(c) 120-230 RR</td></tr>
 <tr><td>TSLA</td><td>0.90x</td><td>+230k (~0.3%)</td><td>~0</td><td><span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 卖方托底浮上去</td><td>(b) 0DTE <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 收租</td></tr>
 </tbody></table>
-<p>对 Adam 问题的最终句: 六个标的没有一个是 covered-<span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 权利金在买股票; NET/AMD 的地主是供给方不是需求方。 AMD 的买家在现货 ($27.3B, 权证门槛新闻); NET 的买家不可证, 但 option 流证明 "不是 dealer 对冲, 不是地主"。</p></details></section></main><div id="tip" role="tooltip" hidden></div><script>
+<p>对 naughty boss 问题的最终句: 六个标的没有一个是 covered-<span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 权利金在买股票; NET/AMD 的地主是供给方不是需求方。 AMD 的买家在现货 ($27.3B, 权证门槛新闻); NET 的买家不可证, 但 option 流证明 "不是 dealer 对冲, 不是地主"。</p></details></section></main><div id="tip" role="tooltip" hidden></div><script>
 (function(){var t=document.getElementById('tip');
 function term(e){return e.target&&e.target.closest?e.target.closest('.term'):null}
 function show(el){t.textContent=el.getAttribute('data-tip');t.hidden=false;var r=el.getBoundingClientRect(),w=t.offsetWidth,h=t.offsetHeight;
