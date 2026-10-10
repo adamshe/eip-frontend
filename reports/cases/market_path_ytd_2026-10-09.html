@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>美股到 2027 年 1 月初的走法推演 (2026-10-09 收盘后)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+p,li,blockquote{overflow-wrap:anywhere}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650} .byline{color:var(--muted);font-size:13px;margin:0 0 1em}
+.term{border-bottom:1px dotted var(--muted);cursor:help}
+.term:focus{outline:none;background:var(--accent-soft)}
+#tip{position:fixed;z-index:50;max-width:min(340px,calc(100vw - 16px));background:var(--text);color:var(--bg);font-size:13px;
+line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);pointer-events:none}
+#tip[hidden]{display:none}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1 id="美股到-2027-年-1-月初的走法推演-2026-10-09-收盘后">美股到 2027 年 1 月初的走法推演 (2026-10-09 收盘后)</h1>
+<p>口径: 指数与个股价格 = 2026-10-09 收盘 (yfinance, 一手价格); 利率与信用 = FRED / CBOE 10-08 至 10-09; 联邦基金期货 = CBOT 10-09 结算; 期权持仓 = 10-09 收盘全链; 历史统计 = 本文用标普 500 (1950 起)、纳指 100 (1985 起)、九个行业 ETF (1999 起) 现算; 新闻 = 三家以上交叉为 <span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>, 单源为 <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>。档位: <span class="term" tabindex="0" data-tip="结论真值一档: 有 T1 支撑, 或 T2 交叉确认。可以重注。">已证实</span> / <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span> / <span class="term" tabindex="0" data-tip="结论真值三档: 现有证据与之矛盾, 或连最有动机的来源都没有支撑。不下注。">不支持</span>。路径价位与概率全部为估计。缩写: HY = 高收益债对国债利差; CCC = 最低评级垃圾债收益率; 翻转位 = 做市商对冲由 "买跌卖涨" 变为 "追跌" 的价位; <span class="term" tabindex="0" data-tip="期权到期日, 月度合约在每月第三个周五。">opex</span> = 月度期权到期; <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> = 资本开支。</p>
+<h2 id="结论">结论</h2>
+<p>一句话: 大资金到年底的最优走法是 "先钉住、再派发、后做账": 10 月中前把指数钉在高位; 11 月借 SPCX 内部人解禁与 Anthropic 首发两轮巨额供给, 把筹码卖给追新股与追突破的买家, 定价后放任一次空气口袋; 12 月中旬后靠做账、圣诞窗与指数被动买盘把年末净值抬回来; 2027 年 1 月第一周兑现 2026 年的赢家。最可能路径 = 两口浅回调 + 年末回升, SPY 年末约 770-795 (现 778.57), 不是熊市开始 (主路 50%, <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>)。</p>
+<table><thead><tr><th>段</th><th>日期窗</th><th>SPY</th><th>QQQ</th><th>方向 / 概率</th></tr></thead><tbody>
+<tr><td>1 钉住</td><td>10-12 至 10-16</td><td>768-786</td><td>735-762</td><td>横 55% <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span></td></tr>
+<tr><td>2 第一口回调</td><td>10-19 至 10-30</td><td>750-772</td><td>712-745</td><td>下 55% <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span></td></tr>
+<tr><td>3 选后反抽 + 路演</td><td>11-02 至 11-13</td><td>762-788</td><td>728-762</td><td>上 60% <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span></td></tr>
+<tr><td>4 定价周后空气口袋</td><td>11-16 至 11-27</td><td>745-775</td><td>705-745</td><td>下 50% <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span></td></tr>
+<tr><td>5 谷底窗</td><td>11-30 至 12-11</td><td>738-768</td><td>695-738</td><td>本季低点落在此窗 40% <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span></td></tr>
+<tr><td>6 年末回升</td><td>12-14 至 12-31</td><td>765-800</td><td>730-775</td><td>上 65% <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span></td></tr>
+<tr><td>7 新年兑现</td><td>2027-01-04 至 01-15</td><td>750-790</td><td>715-765</td><td>赢家回吐 55% <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span></td></tr>
+</tbody></table>
+<p>三个改判日:</p>
+<ol>
+<li>10-28 (<span class="term" tabindex="0" data-tip="美联储议息会议。">FOMC</span> 14:00, 当晚 MSFT / GOOGL / META 财报, 次晚 AMZN): 加息 (期货约 18%) 或 <span class="term" tabindex="0" data-tip="资本开支: 买服务器、建数据中心、厂房设备的钱。">capex</span> 指引下调且 10 年期 &gt;= 5.5% -&gt; 熊路升为主路; 不加息且期货与点阵图分歧 &lt;= 0.20 个点、10 年期 &lt; 5.0% -&gt; 牛路升到 35%。</li>
+<li>11-03 至 11-06 (选举 + SPCX 财报后约 13 亿股解禁 + 非农): SPCX 周收 &gt; 150 且放量 = 供给被吸收, 牛路升到 35%; 周收 &lt; 130 且放量 = 供给失败, 熊路升到 35%。</li>
+<li>Anthropic 定价日 (报道为感恩节 11-26 前, 估 11-18 至 11-24, 同周 NVDA 财报与 11-20 <span class="term" tabindex="0" data-tip="期权到期日, 月度合约在每月第三个周五。">opex</span>): 定价 &gt;= $2T 且上市三日守住发行价 -&gt; 回调浅 (SPY 守 750), 12 月回升更强; 定价 &lt; $1.5T 或推迟 -&gt; 熊路 (私募估值重定价, AMZN / GOOGL 持股收益反转, AI 基建信用走弱)。</li>
+</ol>
+<p>动作总则: 不追高; 新股首周不碰; 回调分三份接; 只在局部顶卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>, 不卖突破; HY &gt;= 3.80% 停开新多; VIX 期限倒挂不卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>。</p>
+<p>反方最强理由与是否扛住: 多方说中期选举年 10-09 至年末标普 19 次 17 次上涨 (中位 +6.8%), 盈利上修, 大资金买 12 月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 押 SPY 800 以上。扛住一半: 那 17 次里 12 次是先跌过的年份 (10-09 距一年高点 &gt;= 3%, 12 次全涨), 像今年这样贴着新高进 10 月的 7 年里 5 涨 2 深跌 (1978 -11.6%, 2018 -18.4%), 两个深跌年都是美联储在加息, 今年也是; 所以牛路给 25%, 年末回升写进主路。空方说利率 + CCC 急升 + 史上最大供给 = 1978 / 2018 重演, 纳指 -10% 至 -16%。扛住: HY 3.15% 离 3.80% 还远, VIX 期限正常 (0.835), 10 月加息概率一周内从约一半降到约 18%, SPCX 前三批解禁都被吸收; 熊路给 25%, 触发线见下表。</p>
+<h2 id="路径与动作">路径与动作</h2>
+<table><thead><tr><th>段</th><th>窗内事件</th><th>动作</th></tr></thead><tbody>
+<tr><td>1</td><td>CPI 10-14 (看核心月率); TSM 10-15; <span class="term" tabindex="0" data-tip="期权到期日, 月度合约在每月第三个周五。">opex</span> 10-16</td><td>跌日且到 SPY 765 / QQQ 735 附近 -&gt; 小量卖 2-4 周 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (隐含波动在一年第 7 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>, 租金薄) -&gt; 连续两日收在翻转位下 (SPY 776.6 / QQQ 749.4) 则停卖, 直接按第 2 段处理。不追涨, 周五不卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span></td></tr>
+<tr><td>2</td><td><span class="term" tabindex="0" data-tip="期权到期日, 月度合约在每月第三个周五。">opex</span> 后解钉; Anthropic 公开招股书 (估 10-23 至 10-26); 10-28 <span class="term" tabindex="0" data-tip="美联储议息会议。">FOMC</span> + 财报; 回购静默; 公募 10-31 财年末卖亏损股</td><td>SPY 752-758 / QQQ 718-725 且 HY &lt; 3.80% 且 VIX 不倒挂且 10-28 不加息 -&gt; 接第一份 (三分之一), 卖 3-5 周 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 于 SPY 735-740 / QQQ 700 -&gt; 10-28 加息且 10 年期 &gt;= 5.5%: 失效, 转熊路</td></tr>
+<tr><td>3</td><td>11-03 选举; SPCX 财报 11-03 + 约 11-05 解禁; 回购窗口重开; 11-06 非农; 11-10 CPI; 路演 (估 11-09 周起)</td><td>反弹到 SPY 782-790 / QQQ 755-765 且量缩 -&gt; 局部顶卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>, 到期 12-04 至 12-18, 行权价放在历史 90 分位涨速以外 -&gt; 放量突破 SPY 790 且 10 年期 &lt; 5.0%: 失效 (不卖突破)。本段不卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span></td></tr>
+<tr><td>4</td><td><span class="term" tabindex="0" data-tip="机构每季持仓披露, 季末后 45 天内提交。">13F</span> 11-16; NVDA 11-18; <span class="term" tabindex="0" data-tip="期权到期日, 月度合约在每月第三个周五。">opex</span> 11-20; Anthropic 定价与上市 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span></td><td>不买新股首周、不买代理股; SPY 740-745 / QQQ 700-705 且信用条件同上 -&gt; 接第二份 -&gt; 定价 &gt;= $2T 守住发行价且 QQQ 收复 760: 回调提前结束, 平一半 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span></td></tr>
+<tr><td>5</td><td>SPCX 12-08 约 8 亿股解禁; 12-09 <span class="term" tabindex="0" data-tip="美联储议息会议。">FOMC</span> (加一次已定价) + 点阵图; 12-10 CPI; 12-11 拨款到期; 减税卖盘高峰</td><td>主路: 隐含波动回升后卖 1 月到期 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>。熊路 (SPY &lt;= 725 / QQQ &lt;= 680 且恐慌读数亮) -&gt; 接第三份 -&gt; HY &gt;= 4.00% 或 VIX 倒挂连续 3 日: 停卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>, 等底部读数</td></tr>
+<tr><td>6</td><td>12-18 四巫日 + 标普 / 纳指再平衡; 减税卖盘结束; 圣诞窗</td><td>拿着; SPY 795-805 / QQQ 770-780 涨势衰竭 -&gt; 卖 1 月中下旬到期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> -&gt; 放量突破 805 且等权指数同步新高 = 牛路, 不卖</td></tr>
+<tr><td>7</td><td>新年兑现 2026 赢家; 1-15 <span class="term" tabindex="0" data-tip="期权到期日, 月度合约在每月第三个周五。">opex</span>; 银行财报</td><td>回落时买回 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>; 赢家减、落后者补 -&gt; 等权指数首周也跌 &gt;= 3%: 轮动不成立, 看熊路</td></tr>
+</tbody></table>
+<p>猎场: AI 基建杠杆链 (自由现金流为负、靠发债与客户融资) 反弹无量是坏车候选, 只在 HY 走阔时出手。不碰: SPCX 在 11-05 解禁周结论出来之前。</p>
+<h2 id="三情景">三情景</h2>
+<table><thead><tr><th>情景</th><th>概率</th><th>低点 SPY / QQQ</th><th>年末 SPY / QQQ</th><th>触发</th></tr></thead><tbody>
+<tr><td>主路 两口浅回调 + 年末回升</td><td>50% <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span></td><td>738-755 / 695-720 (距高点约 -3~-5% / -5~-8%)</td><td>770-795 / 740-770</td><td>默认</td></tr>
+<tr><td>熊路 1978 / 2018 型</td><td>25% <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span></td><td>700-735 / 645-695</td><td>705-745 / 650-700</td><td>HY &gt;= 3.80% 再到 4.00%; VIX 倒挂; 10 年期 &gt;= 5.5%; 10-28 加息; Anthropic &lt; $1.5T 或推迟</td></tr>
+<tr><td>牛路 基础率融涨</td><td>25% <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span></td><td>回撤不超 3%</td><td>800-830 / 775-800</td><td>核心 CPI 偏冷 + 美联储表态到顶; 10 年期 &lt; 5.0%; Anthropic 超额认购且守住; SPCX 吸收解禁</td></tr>
+</tbody></table>
+<p>概率加权年末 SPY 约 776, 与现价持平; 同类年份基础率 (贴近新高且年内已涨 &gt; 10%, n=20) 中位 +3.1%。我们低于基础率约 3 个点, 理由是加息、信用与供给; 也明显高于 "纳指 -10% 至 -16%" 的悲观先验。</p>
+<h2 id="各力量">各力量</h2>
+<h3 id="1-ai-实验室上市">1. AI 实验室上市</h3>
+<p>读数: 目标估值约 $2T、募资最多 $100B (WSJ / CNN / Bloomberg, <span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>); 正式推介最早 11-09 周 (Bloomberg, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>), 感恩节前登陆纳斯达克 (CNBC 10-07, <span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>); 10-09 EDGAR 全文检索无公开招股书 (<span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>), 按规定须在路演前至少 15 天公开, 估 10 月下旬; 泄露的招股书显示 2025 年收入 $4.6B、净亏 $42B (其中约 $34B 为融资工具会计费用)、两大客户占收入 24%、约 $518B 算力承诺八成不可撤销 (Reuters 转述, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>)。OpenAI 已表示 2026 年不上市 (<span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>)。Oura、Holtec、SB Energy 推迟上市, 买方要求约 20% 折价 (常规 10-15%, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>) = 资金在囤给 Anthropic。</p>
+<p>机制: (a) 配售换仓: 想拿额度的基金先腾现金, 最顺手卖的是同类最贵、最流动的 AI 硬件股; 10-08 一则 OpenAI 收入不及预期的报道就让 CRWV -7.8%、ORCL -5.5%、MU -4.8%、AVGO -4.4% (<span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>), 说明这层筹码已松。(b) 定价前托、定价后撤: 发行人与承销团需要平静盘面路演; 定价后的稳定价格机制只护新股本身 30 天, 不护指数。(c) 代理反转: AMZN / GOOGL 已按私募价计入上千亿持股收益, 直接上市后代理需求撤出。</p>
+<p>样本 (2008-2026 九次美股巨额新股: Visa, GM, Facebook, Alibaba, Uber, Snowflake, Rivian, Arm, SpaceX): 上市前 20 日纳指中位 +0.7%, 看不到系统性护盘或压价 (上市前护盘 = <span class="term" tabindex="0" data-tip="结论真值三档: 现有证据与之矛盾, 或连最有动机的来源都没有支撑。不下注。">不支持</span>); 上市后 40 日内纳指最大回撤中位 -8.0%, 9 次中 5 次 &gt;= 8%, 任意 40 日基准为 -5.7% 与 31% (空气口袋 = <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>)。SpaceX 本身 06-16 高 211 -&gt; 08-05 低 108 (-49%)。</p>
+<p>对手方: 首日追涨的散户与杠杆账户、押 "上市即重估" 的代理股多头; 赢家是拿配售并在首周卖出的机构。</p>
+<p>纳指快速纳入 (纳斯达克方法论, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>): 全市值排进前 40 可在第 15 个交易日纳入; 若第 7 个交易日早于 11 月最后一个交易日, 随 12-18 重构纳入, 否则不早于重构生效后 5 个交易日 (约 12-28)。权重按 "总股本与 3 倍流通股取小" 计, 被动买入估 $30-60 亿, 是年末托底的一部分, 不是主力 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span>。</p>
+<h3 id="2-spcx-流通股">2. SPCX 流通股</h3>
+<p>读数 (招股书, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>): 10-09 解禁 3.28 亿股 (当日 +1.2%, 量为 20 日均的 0.97 倍), 10-24 3.28 亿, Q3 财报 (11-03) 后第 2 个交易日约 13 亿 (估 11-05), 12-08 至多 7.98 亿, 2027-06-12 马斯克约 64 亿。前两批 9-09 当日 -3.9%、9-24 -0.2%。现价 162.57。</p>
+<p>机制: 解禁卖方多走隔夜大宗折价给银行, 再分销给被动与散户; 锁定协议通常禁止事前对冲, 对冲由第三方先做 (10-09 磁带: 近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 卖出封顶 + 深度实值 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 买入 = 合成空头)。流通扩大后纳指按流通上调权重, 12-18 再平衡有被动买入抵消一部分。</p>
+<p>量级: 11-05 档名义约 $2110 亿, 12-08 档约 $1300 亿; 按常见 10-30% 实际卖出 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span> 约 $340-1000 亿, 集中在 11 月, 与 Anthropic 定价同月。对 SPY 的直接冲击小, 主要通过 AI 主题情绪传导 (<span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>)。12-18 到期跨式约 17.5% (10-01) 已为两次解禁定价。</p>
+<h3 id="3-年末做账与减税卖盘">3. 年末做账与减税卖盘</h3>
+<p>机制: 多数公募 10-31 财年末, 10 月卖亏损股 (年初至今 OWL -32%、KKR -28%、BX -24%、ORCL -27%、TSLA -15%), 赢家 (MU +261%、AMD +184%、SMH +68%) 留到年末报表; 个人 12 月中前卖亏损; 赢家的获利延到 1 月新税年兑现。</p>
+<p>样本 (九个行业 ETF, 1999-2025, n=27; 按 11 月底年初至今排名, 前三减后三): 12 月上半中位 +0.40 个点 (17/27), 下半 -0.07 (11/27), 次年 1 月 -1.29 (后三赢 16/27)。标普 1950-2025: 12 月下半中位 +1.13% (59/76 涨); 12 月最后 5 日加 1 月头 2 日中位 +1.21% (58/76), 近 20 年 +0.62% (14/20)。</p>
+<p>档: 做账抬赢家 = <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span> (不到 0.5 个点); 12 月下半偏强 = <span class="term" tabindex="0" data-tip="结论真值一档: 有 T1 支撑, 或 T2 交叉确认。可以重注。">已证实</span> (基础率); 1 月赢家回吐 = <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>。被收割的是 12 月最后一周追赢家、12 月上半过早抄输家的人。</p>
+<h3 id="4-11-03-中期选举">4. 11-03 中期选举</h3>
+<p>样本 (标普, 1950-2022): 全部 19 个中期选举年, 10-09 至选举日中位 +2.2% (14/19), 选举日至年末 +2.4% (13/19), 10-09 至次年 1-06 +7.8%。但按 10-09 距一年高点分组: 距高点 &gt;= 3% 的 12 年到年末全部上涨 (中位 +7.9%); 贴近高点 (&lt; 3%) 的 7 年, 10-09 至选举日中位 -1.9% (3/7 涨), 到年末 5/7 涨, 2 年深跌且都是加息年 (1978 低点 11-14 -11.6%; 2018 低点 12-24 -18.4%)。今年标普距 10-06 新高 -0.1%, 美联储 09-16 刚加息。</p>
+<p>政治定价: 预测市场众院民主党约 93%、参院约 66% (10-06 抓取, 未重抓) -&gt; 分治已在价里。选举的作用是 "不确定性到期": 选前买的指数保护在 11-04 后贬值, 做市商回补对冲 -&gt; 短线反抽 (<span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>)。"中期选举四季度必涨" 对今年 = <span class="term" tabindex="0" data-tip="结论真值三档: 现有证据与之矛盾, 或连最有动机的来源都没有支撑。不下注。">不支持</span> (条件不符)。</p>
+<h3 id="5-美联储-10-28-利率与信用">5. 美联储 10-28、利率与信用</h3>
+<p>读数: 有效联邦基金利率 3.88%; 期货 11 月 3.925% (= 10 月加息约 18%), 12 月 4.07% (= 12-09 前加一次基本定价), 2027-03 4.305%, 2027-12 4.65% 对点阵图 4.1%; 9 月会议纪要: 年内还要加, 10 月不急 (WSJ / Barron's, <span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>)。10 年期 5.24% (10-09), 2 年期 4.75%, 10 年盈亏平衡 2.33%; HY 3.15%, CCC 12.52% (一个月 +1.88 个点, 警戒线已触发); 布伦特 $104.4。</p>
+<p>机制: 10-28 是全月最大的波动点 (决议与三巨头财报同一晚); 不加息是常态, 加息才是冲击。CCC 急升而 HY 只 3.15% = 裂缝在资本结构最底层, 股票通常晚于信用 (2007 年 7-8 月先例), HY 过 3.80% 才算传导确认。判别器 (n=6, <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>): 股票先回调 4-7% 后 10 年期才见顶 -&gt; 其后一年好 (1994 / 2018 / 2023); 10 年期见顶时股票仍在新高 -&gt; 2-4 个月后见顶 (2000 / 2007)。主路的两口浅回调正是前一种。档: 12 月加一次 = <span class="term" tabindex="0" data-tip="结论真值一档: 有 T1 支撑, 或 T2 交叉确认。可以重注。">已证实</span> (期货); 10 月加息 = <span class="term" tabindex="0" data-tip="结论真值三档: 现有证据与之矛盾, 或连最有动机的来源都没有支撑。不下注。">不支持</span>; 信用级联 = <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>。</p>
+<h3 id="6-期权到期与-gamma">6. 期权到期与 gamma</h3>
+<p>读数: SPY 翻转位 776.6 (现价高 0.3%), <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 785 / 800 / 790, <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 755 / 765 / 740; QQQ 翻转位 749.4, <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 760, <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 725 / 700。11-20 到期 SPY <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 持仓 229 万张对 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 35 万张。12-18 SPY <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 810 / 800 / 830。大资金磁带: SPY 12 月 770 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 买入 $8400 万 (09-21 起三天), 12 月 800/830 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 价差 $5970 万 (09-15) = 押 12-18 在 800 以上; SPY 11 月 736 / 739 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 买入约 $800 万 (10-09) = 为 11 月窗口买保险; QQQ 12 月 745 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 约 2.5 万张、权利金约 $2.01 亿 (10-09, 成交码含挂股与撤单, 方向待 <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 确认)。</p>
+<p>机制: 翻转位上做市商买跌卖涨, 钉住; 10-16 到期一大块 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>, 解钉后波动放大; 11-20 前 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 时间价值衰减, 做市商回补空头对冲 = 托到 11-20, 到期后撤, 与定价周叠加; 近端保护对年末做多 = 两边都对、先后不同 -&gt; 11 月跌、12 月涨 (<span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>)。</p>
+<p>样本 (标普 1990-2025): 10 月 <span class="term" tabindex="0" data-tip="期权到期日, 月度合约在每月第三个周五。">opex</span> 周中位 +0.86% (27/36), 次周 +0.40% (19/36); 11 月 <span class="term" tabindex="0" data-tip="期权到期日, 月度合约在每月第三个周五。">opex</span> 周 +0.33%, 次周 +0.28%; 12 月 <span class="term" tabindex="0" data-tip="期权到期日, 月度合约在每月第三个周五。">opex</span> 周 +0.69% (25/36), 次周 +0.62% (24/36); 任意一周 +0.29% (57%)。到期后转弱只在 10 月轻微出现。</p>
+<h3 id="被约束的强制动作">被约束的强制动作</h3>
+<p>波动率控制基金: 股票配置约第 98 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span> (<span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>), SPY 20 日实现波动 9.9%, 升到约 15-18% 即被迫减仓, 是下跌放大器。被动指数: 月末、12-18 再平衡、新股快速纳入, 被迫买。公募: 10-31 卖亏损、配售前腾现金、年末做账。对冲基金: 年末净值, AI 拥挤, 回撤触发去杠杆。做市商: 翻转位上下行为相反。上市公司回购: 财报静默到 10 月底 / 11 月初, 11 月重开是支撑。散户: 保证金借款 $1.45 万亿 (8 月, 同比 +37%), 家庭股票占金融资产 48.2% 创纪录, 追新股。内部人与早期股东: 解禁卖方。</p>
+<h2 id="反方">反方</h2>
+<p>最强多方: 中期选举年季节性 + 盈利 CY26 +32% + 加息预期退潮 + 买方资金量大 (美国公募资产约 $17 万亿, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>) + 大资金 12 月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>。我方回应: 季节性在 "贴近新高 + 加息" 条件下样本只 2 个且都深跌; 大资金的 12 月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 与主路的 12 月回升一致, 并不否定 11 月回调; 牛路保留 25%。</p>
+<p>最强空方: 10 年期 5.2% 而股票盈利收益率约等于 10 年期 (股权风险溢价约 0), CCC 急升, 保证金与配置创纪录, 11 月供给约 $1500-2000 亿 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span> 撞上利率高位, 1978 / 2018 两个同型都深跌。我方回应: 这些是熊路的燃料, 但点火需要信用确认 (HY &gt;= 3.80%) 或 VIX 倒挂, 今天都没有; 熊路保留 25%, 触发即改判。</p>
+<p>最容易错的一句: "定价后放任空气口袋"。若 Anthropic 超额认购并上市后上涨, 资金反而回流 AI 二级市场, 第 4 段方向翻转; checkpoint = 公开招股书的价格区间与首日收盘。</p>
+<h2 id="事实与来源">事实与来源</h2>
+<table><thead><tr><th>事实</th><th>读数</th><th>日期 / 来源</th><th>档</th></tr></thead><tbody>
+<tr><td>SPY / QQQ / 标普 / 纳指 100</td><td>778.57 / 751.27 / 7811.54 / 30883.15; 一年高点 SPY 779.09、QQQ 759.66 (10-06)</td><td>10-09 收盘, yfinance</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>盘中链上读数</td><td>SPY 约 776、QQQ 约 749、VIX 15.1 (盘中), 以收盘为准</td><td>10-09</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>VIX / VIX3M</td><td>14.84 / 17.77 = 0.835</td><td>10-09</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>恐惧贪婪</td><td>38 (10-08) / 45 (10-09)</td><td>CNN 指数</td><td><span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span></td></tr>
+<tr><td>10 年 / 2 年 / 盈亏平衡</td><td>5.24% (CBOE) / 4.75% / 2.33%</td><td>10-09 / 10-08 / 10-09</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>HY / CCC</td><td>3.15% / 12.52% (一个月 +1.88)</td><td>FRED 10-08</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>联邦基金期货</td><td>有效 3.88; 11 月 3.925; 12 月 4.07; 2027-03 4.305; 2027-12 4.65</td><td>CBOT 10-09</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> 价格, 概率为推算</td></tr>
+<tr><td>原油</td><td>布伦特 104.43 / WTI 91.66</td><td>10-09</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>Anthropic 上市</td><td>约 $2T、最多 $100B、11 月、纳斯达克、感恩节前</td><td>WSJ / CNN / CNBC / Bloomberg 10-01 至 10-07</td><td><span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span> (日期 <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>)</td></tr>
+<tr><td>Anthropic 招股书</td><td>10-09 EDGAR 无公开稿</td><td>SEC 全文检索</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>Anthropic 财务</td><td>2025 收入 $4.6B、净亏 $42B、承诺 $518B</td><td>Reuters 转述泄露稿</td><td><span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>OpenAI</td><td>2026 年不上市</td><td>Altman 09-12 / 09-30</td><td><span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span></td></tr>
+<tr><td>其他新股</td><td>Oura 推迟、Holtec 暂停、SB Energy 推迟; 折价要求约 20%</td><td>New York Post 10-09 (Renaissance Capital)</td><td><span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span></td></tr>
+<tr><td>SPCX 解禁日程</td><td>10-09 / 10-24 各 3.28 亿; 约 11-05 13 亿; 12-08 7.98 亿; 2027-06-12 约 64 亿</td><td>424B4 (2026-06)</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> (11-05 日期为推算)</td></tr>
+<tr><td>SPCX 价格</td><td>162.57; 上市首日收 160.95, 高 211.39 (06-16), 低 108.27 (08-05)</td><td>yfinance</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>纳指 100 快速纳入</td><td>前 40 / 第 15 个交易日 / 重构月规则 / 3 倍流通股上限</td><td>纳斯达克方法论 2026</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>期权持仓与 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span></td><td>翻转位、<span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙、<span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋、各到期持仓</td><td>10-09 全链</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> (<span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 为模型)</td></tr>
+<tr><td>大资金磁带</td><td>SPY 12 月 770 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> $8400 万; 800/830 价差 $5970 万; 11 月 736 / 739 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>; QQQ 12 月 745 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span></td><td>期权大单 09-15 至 10-09</td><td><span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span> (方向判读<span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>)</td></tr>
+<tr><td>选举预测市场</td><td>众院民主党 93%、参院 66%</td><td>Polymarket 10-06</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> 价格, 未重抓</td></tr>
+<tr><td>保证金 / 家庭配置</td><td>$1.45 万亿 / 48.2%</td><td>FINRA 8 月 / 美联储 Z.1</td><td><span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span></td></tr>
+<tr><td>财报日</td><td>TSM 10-15; MSFT / GOOGL / META 10-28 盘后; AMZN 10-29 盘后; NVDA 反应日 11-18; ORCL 12-11</td><td>公司公告与日历</td><td><span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span> (部分估)</td></tr>
+<tr><td>历史统计</td><td>中期选举、行业做账、<span class="term" tabindex="0" data-tip="期权到期日, 月度合约在每月第三个周五。">opex</span> 周、新股窗口、圣诞窗</td><td>本文现算</td><td>算</td></tr>
+</tbody></table>
+<p>本报告自检: 关键事实现查 20 项以上; 反例检验多空各 3 条; 历史同型 5 组 (1978 / 2018 加息中期选举年, 2014 Alibaba 与 2026 SpaceX 新股窗口, 2007 信用先裂); 参与者 8 类。机会等级: 战术级错配, 只配短周期与紧止损, 不是结构级重仓机会。</p></main><div id="tip" role="tooltip" hidden></div><script>
+(function(){var t=document.getElementById('tip');
+function term(e){return e.target&&e.target.closest?e.target.closest('.term'):null}
+function show(el){t.textContent=el.getAttribute('data-tip');t.hidden=false;var r=el.getBoundingClientRect(),w=t.offsetWidth,h=t.offsetHeight;
+var vw=Math.min(window.innerWidth,document.documentElement.clientWidth),x=Math.min(Math.max(8,r.left),vw-w-8),y=r.bottom+6;if(y+h>window.innerHeight-8){y=r.top-h-6}
+t.style.left=x+'px';t.style.top=y+'px'}
+document.addEventListener('mouseover',function(e){var el=term(e);if(el)show(el)});
+document.addEventListener('mouseout',function(e){if(term(e))t.hidden=true});
+document.addEventListener('focusin',function(e){var el=term(e);if(el)show(el)});
+document.addEventListener('focusout',function(e){if(term(e))t.hidden=true});
+document.addEventListener('click',function(e){var el=term(e);if(el){show(el)}else{t.hidden=true}});
+window.addEventListener('scroll',function(){t.hidden=true},{passive:true});})();
+</script></body></html>
