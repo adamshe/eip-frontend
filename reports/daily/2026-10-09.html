@@ -46,33 +46,572 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <p>总闸: 大市 SPY 收盘 vs 200 日线 +7.7%, 斜率 +1.22% = 好 | VIX 14.8 (近 1 年第 7 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>), 期限 0.835 正常 | 恐贪 45.0 (中性, 第 43 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>) | 宏观告警 ccc_spike | 市场模式: 区间市, 轮子优先 (到 2026-12-11; SIE 主路 50% <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>: 先钉住, 再派发, 后做账); SPY 778.57 在区间 738-800 的第 65 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span>; QQQ 751.27 在区间 695-775 的第 70 <span class="term" tabindex="0" data-tip="当前估值在该股自身历史里的位置: 第 10 百分位 = 历史上 90% 的时间比现在贵。">百分位</span></p>
 <p>大市盈利: 标普 500 盈利 (成分股<span class="term" tabindex="0" data-tip="卖方分析师预测的平均值。">一致预期</span>加权, 2026-10-09): 今年 2026 市盈率 21.35, 明年 2027 市盈率 18.46, 未来 12 个月 18.91, 过去 4 季实际 24.76; 对应指数每股盈利 今年 365.9 / 明年 423.2 / 未来 12 个月 413.1 点 (SPX 7811.54); 盈利预期修正: 明年 2027 每股盈利 7 天 +1.37% / 30 天 +2.22% / 90 天 +6.53%; 今年 30 天 +1.67%; 股权风险溢价 = 未来 12 个月盈利收益率 5.287% - 10 年期 5.22% = +0.07 个百分点; 财报季 (2026-09-30 那一季): 已公布 19 家, 占权重 3.9%; 按权重 96.7% 超预期, 平均超出 +4.62%</p>
 <p>今日规则: 跌日卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 照常 (分次); 卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 只卖局部顶 / 衰竭, 上涨与突破不卖, 周五不卖; 区间市: 轮子优先 (跌日卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 收租, 局部顶卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>), 猎场买单只记纸面; 恐贪: 只显示, 不改单 (naughty boss 2026-10-09 选 a; 读数记进 ledger, 样本够了再定要不要改单); 抄底: 今天 [只在底部] 档 (基调 呼); 浪 2 第 1 档要底部读数 &gt;= 4 才买, 否则等第 2 档</p>
-<table><thead><tr><th>票</th><th>收盘</th><th>动作 (收租 = 轮子; 猎场)</th><th>抄底加仓 (浪 2, 分 3 份)</th><th>失效 / 触发</th><th>本周预测 低 / 目标 / 高 (到期, 一倍标准差)</th></tr></thead><tbody>
-<tr><td>SPCX</td><td>162.57</td><td>跌日 14:30 后卖 <strong>10-16 P150</strong> (-7.7%) 0.46 = $46/张</td><td>[只在底部] 不买股: 估值价不可用, 两门不能同时成立 (只作参考: 结构档 第 1 档 154.73; 第 2 档 140.15); 失效 108.37</td><td>跌破 157.11 = 出事了, 改卖 <strong>10-16 P150</strong> (-7.7%) 0.46 = $46/张</td><td>154.36 / <strong>161.72</strong> / 170 (10-16, +/-5.0%)</td></tr>
-<tr><td>META</td><td>718.67</td><td>跌日 14:30 后卖 <strong>10-16 P670</strong> (-6.8%) 1.14 = $114/张</td><td>[只在底部] 等: 第 1 档 613.35 (-14.7%); 第 2 档 613.35; 失效 539.03</td><td>跌破 695.03 = 出事了, 改卖 <strong>10-16 P662.5</strong> (-7.8%) 0.81 = $82/张</td><td>688.62 / <strong>720.74</strong> / 748.72 (10-16, +/-4.2%)</td></tr>
-<tr><td>NET</td><td>360.93</td><td>跌日 14:30 后卖 <strong>10-16 P337.5</strong> (-6.5%) 2.22 = $222/张</td><td>[只在底部] 等: 第 1 档 129.37 (-64.2%); 第 2 档 129.37; 失效 272.74</td><td>跌破 349.24 = 出事了, 改卖 <strong>10-16 P332.5</strong> (-7.9%) 1.60 = $160/张</td><td>340.22 / <strong>360.06</strong> / 380 (10-16, +/-5.7%)</td></tr>
-<tr><td>QQQ</td><td>751.27</td><td>跌日 14:30 后卖 <strong>10-16 P736</strong> (-2.0%) 1.62 = $162/张</td><td>--</td><td>跌破 743.98 = 出事了, 改卖 <strong>10-16 P734</strong> (-2.3%) 1.35 = $136/张</td><td>736.64 / <strong>751.6</strong> / 760 (10-16, +/-1.9%)</td></tr>
-<tr><td>SPY</td><td>778.57</td><td>跌日 14:30 后卖 <strong>10-16 P768</strong> (-1.4%) 1.13 = $113/张</td><td>--</td><td>跌破 773.67 = 出事了, 改卖 <strong>10-16 P767</strong> (-1.5%) 1.01 = $101/张</td><td>768.57 / <strong>778.8</strong> / 785 (10-16, +/-1.3%)</td></tr>
-<tr><td>ISRG</td><td>423.96</td><td>跌日 14:30 后卖 <strong>10-16 P410</strong> (-3.3%) 2.02 = $202/张</td><td>[只在底部] 等: 第 1 档 381.56 (-10.0%); 第 2 档 377.99; 失效 332.02</td><td>跌破 417.09 = 出事了, 改卖 <strong>10-16 P405</strong> (-4.5%) 1.20 = $120/张</td><td>405.65 / <strong>423.85</strong> / 425 (10-16, +/-4.3%)</td></tr>
-<tr><td>ORCL</td><td>141.40</td><td>不动 (未评分, 今天没有信号)</td><td>--</td><td>跌破 132.60 不接</td><td>141 / <strong>142.35</strong> / 149.26 (10-16, +/-5.6%)</td></tr>
-<tr><td>GOOGL</td><td>351.66</td><td>不动 (观察, 今天没有信号)</td><td>[只在底部] 不买股: 无有效浪 1 (近段涨幅不足)</td><td>收上 354.97 (20 日高) = 突破, 看猎场 A; 跌破 337.83 不接</td><td>339.09 / <strong>353.4</strong> / 364.23 (10-16, +/-3.6%)</td></tr>
-<tr><td>TSLA</td><td>382.70</td><td>不动 (坏房, 今天没有信号)</td><td>[只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 116.65 只作参考)</td><td>收破 352.84 (20 日低) = 看猎场 B</td><td>365.63 / <strong>381.11</strong> / 399.77 (10-16, +/-4.5%)</td></tr>
-<tr><td>AMZN</td><td>262.43</td><td>不动 (观察, 今天没有信号)</td><td>[只在底部] 等: 第 1 档 255.62 (-2.6%); 第 2 档 255.33; 失效 226.65</td><td>收上 259.92 (20 日高) = 突破, 看猎场 A; 跌破 245.96 不接</td><td>252.65 / <strong>263.51</strong> / 270 (10-16, +/-3.7%)</td></tr>
-<tr><td>AXON</td><td>422.89</td><td>不动 (观察, 今天没有信号)</td><td>[只在底部] 失效: 已跌破浪 1 起点 491.49, 不接</td><td>收上 490.18 (20 日高) = 突破, 看猎场 A; 跌破 406.00 不接</td><td>388.04 / <strong>421.26</strong> / 457.74 (10-16, +/-8.2%)</td></tr>
-<tr><td>AMD</td><td>608.10</td><td>不动 (坏房, 今天没有信号)</td><td>[只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 219.89 只作参考)</td><td>收破 493.41 (20 日低) = 看猎场 B</td><td>577.3 / <strong>610.16</strong> / 630 (10-16, +/-5.1%)</td></tr>
-<tr><td>CRWV</td><td>82.08</td><td>不动: 猎场 B 候选, 区间市只记纸面 (11-06 P82 参考 5.78)</td><td>--</td><td>区间被放量突破 / 跌破时恢复猎场单</td><td>73.37 / <strong>82.29</strong> / 90.79 (10-16, +/-10.6%)</td></tr>
-<tr><td>AAPL</td><td>336.64</td><td>不动 (观察, 今天没有信号)</td><td>[只在底部] 不买股: 无确认底</td><td>收上 341.07 (20 日高) = 突破, 看猎场 A; 跌破 329.40 不接</td><td>327.99 / <strong>336</strong> / 340 (10-16, +/-2.6%)</td></tr>
-<tr><td>CRWD</td><td>275.04</td><td>不动 (坏房, 今天没有信号)</td><td>[只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 93.94 只作参考)</td><td>收破 206.74 (20 日低) = 看猎场 B</td><td>260.45 / <strong>275.55</strong> / 289.63 (10-16, +/-5.3%)</td></tr>
-<tr><td>MELI</td><td>1889.85</td><td>不动 (未评分, 今天没有信号)</td><td>[只在底部] 等: 第 1 档 1,798.04 (-4.9%); 第 2 档 1,776.70; 失效 1,546.81</td><td>跌破 1685.12 不接</td><td>1815.7 / <strong>1892.75</strong> / 1900 (10-16, +/-3.9%)</td></tr>
-<tr><td>MU</td><td>1029.00</td><td>不动 (未评分, 今天没有信号)</td><td>--</td><td>跌破 924.03 不接</td><td>977.2 / <strong>1030.38</strong> / 1080.8 (10-16, +/-5.0%)</td></tr>
-<tr><td>KLAC</td><td>195.57</td><td>不动 (观察, 今天没有信号)</td><td>[只在底部] 不买股: 无有效浪 1 (近段涨幅不足)</td><td>收上 206.89 (20 日高) = 突破, 看猎场 A; 跌破 167.36 不接</td><td>182 / <strong>195.77</strong> / 215.03 (10-16, +/-9.9%)</td></tr>
-<tr><td>MSFT</td><td>535.07</td><td>不动 (观察, 今天没有信号)</td><td>[只在底部] 等: 第 1 档 446.22 (-16.6%); 第 2 档 443.95; 失效 352.83</td><td>收上 529.76 (20 日高) = 突破, 看猎场 A; 跌破 490.30 不接</td><td>518.78 / <strong>534.53</strong> / 550 (10-16, +/-3.0%)</td></tr>
-<tr><td>NVDA</td><td>229.28</td><td>不动 (坏房, 今天没有信号)</td><td>[只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 215.32 只作参考)</td><td>收破 210.96 (20 日低) = 看猎场 B</td><td>221.63 / <strong>229.13</strong> / 236.93 (10-16, +/-3.3%)</td></tr>
-<tr><td>ARM</td><td>266.28</td><td>不动 (观察, 今天没有信号)</td><td>[只在底部] 不买股: 估值价不可用, 两门不能同时成立 (只作参考: 结构档 第 1 档 299.88; 第 2 档 284.01); 失效 234.82</td><td>收上 333.20 (20 日高) = 突破, 看猎场 A; 跌破 239.01 不接</td><td>262 / <strong>266.15</strong> / 292.89 (10-16, +/-10.0%)</td></tr>
-<tr><td>SNDK</td><td>1581.82</td><td>不动 (未评分, 今天没有信号)</td><td>--</td><td>跌破 1519.97 不接</td><td>1535 / <strong>1582.24</strong> / 1736.26 (10-16, +/-9.8%)</td></tr>
-<tr><td>TSM</td><td>453.31</td><td>不动: 财报 2026-10-15 在本周到期内, 不开跨财报的新单</td><td>[只在底部] 等: 第 1 档 225.81 (-50.2%); 第 2 档 225.81; 失效 374.67</td><td>--</td><td>433.08 / <strong>453.31</strong> / 473.54 (10-16, +/-4.5%)</td></tr>
+<table><thead><tr><th>票</th><th>收盘</th><th>房东: 收租 (轮子, 两周默认)</th><th>房东: 抄底加仓 (浪 2)</th><th>猎场</th><th>失效 / 触发</th><th>本周预测 低 / 目标 / 高</th></tr></thead><tbody>
+<tr><td>SPCX</td><td>162.57</td><td><span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 速度尺没有数据 (历史不足), 不按轮子卖; <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>: 速度尺没有数据 (历史不足), 不按轮子卖</td><td>[只在底部] 不买股: 估值价不可用, 两门不能同时成立 (只作参考: 结构档 第 1 档 154.73; 第 2 档 140.15); 失效 108.37</td><td>猎场 A 候选 3.5: 买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (加速) 11-06 C162.5 参考 8.85 = $885/张 -- 区间市只记纸面</td><td>跌破 157.11 = 出事了, 改卖 <strong>10-16 P150</strong> (-7.7%) 0.46 = $46/张</td><td>154.36 / <strong>161.72</strong> / 170 (10-16, +/-5.0%)</td></tr>
+<tr><td>META</td><td>718.67</td><td>跌日卖 <strong>10-23 P640</strong> $114/张; 局部顶卖 <strong>10-23 C810</strong> $101/张 (要有股票)</td><td>[只在底部] 等: 第 1 档 613.35 (-14.7%); 第 2 档 613.35; 失效 539.03</td><td>猎场 A 候选 3.0: 买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (加速) 11-06 C720 参考 35.83 = $3,583/张 -- 区间市只记纸面</td><td>跌破 695.03 (一天跌超 1 个标准差) = 出事了: 收租 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 拉远 x1.15, 改卖 <strong>10-23 P625</strong> $72/张</td><td>688.62 / <strong>720.74</strong> / 748.72 (10-16, +/-4.2%)</td></tr>
+<tr><td>NET</td><td>360.93</td><td>跌日卖 <strong>10-16 P315</strong> $40/张; <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>: 现在不卖: 突破 20 日高点, 不卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span></td><td>[只在底部] 等: 第 1 档 129.37 (-64.2%); 第 2 档 129.37; 失效 272.74</td><td>猎场 A 候选 4.0: 买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (加速) 11-06 C350 参考 33.95 = $3,395/张 -- 区间市只记纸面</td><td>跌破 349.24 (一天跌超 1 个标准差) = 出事了: 收租 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 拉远 x1.15, 改卖 <strong>10-16 P310</strong> $20/张</td><td>340.22 / <strong>360.06</strong> / 380 (10-16, +/-5.7%)</td></tr>
+<tr><td>QQQ</td><td>751.27</td><td>跌日卖 <strong>10-23 P707</strong> $88/张; <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>: 现在不卖: 上涨中, 不卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (等衰竭或回到震荡)</td><td>--</td><td>没有信号</td><td>跌破 743.98 (一天跌超 1 个标准差) = 出事了: 收租 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 拉远 x1.15, 改卖 <strong>10-23 P700</strong> $66/张</td><td>736.64 / <strong>751.6</strong> / 760 (10-16, +/-1.9%)</td></tr>
+<tr><td>SPY</td><td>778.57</td><td>跌日卖 <strong>10-23 P744</strong> $52/张; <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>: 局部顶 / 衰竭才卖 (周一到周四), 活龙不卖</td><td>--</td><td>没有信号</td><td>跌破 773.67 (一天跌超 1 个标准差) = 出事了: 收租 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 拉远 x1.15, 改卖 <strong>10-23 P739</strong> $40/张</td><td>768.57 / <strong>778.8</strong> / 785 (10-16, +/-1.3%)</td></tr>
+<tr><td>ISRG</td><td>423.96</td><td>跌日卖 <strong>10-16 P380</strong> $15/张; 局部顶卖 <strong>10-16 C455</strong> $45/张 (要有股票)</td><td>[只在底部] 等: 第 1 档 381.56 (-10.0%); 第 2 档 377.99; 失效 332.02</td><td>猎场 A 候选 5.0: 买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (加速) 11-20 C425 参考 23.80 = $2,380/张 -- 区间市只记纸面</td><td>跌破 417.09 (一天跌超 1 个标准差) = 出事了: 收租 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 拉远 x1.15, 改卖 <strong>10-16 P380</strong> $15/张</td><td>405.65 / <strong>423.85</strong> / 425 (10-16, +/-4.3%)</td></tr>
+<tr><td>ORCL</td><td>141.40</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>--</td><td>没有信号</td><td>跌破 132.60 不接</td><td>141 / <strong>142.35</strong> / 149.26 (10-16, +/-5.6%)</td></tr>
+<tr><td>GOOGL</td><td>351.66</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 不买股: 无有效浪 1 (近段涨幅不足)</td><td>没有信号; 放量收上 354.97 (20 日高) = 看猎场 A</td><td>收上 354.97 (20 日高) = 突破, 看猎场 A; 跌破 337.83 不接</td><td>339.09 / <strong>353.4</strong> / 364.23 (10-16, +/-3.6%)</td></tr>
+<tr><td>TSLA</td><td>382.70</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 116.65 只作参考)</td><td>没有信号; 收破 352.84 (20 日低) = 看猎场 B</td><td>收破 352.84 (20 日低) = 看猎场 B</td><td>365.63 / <strong>381.11</strong> / 399.77 (10-16, +/-4.5%)</td></tr>
+<tr><td>AMZN</td><td>262.43</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 等: 第 1 档 255.62 (-2.6%); 第 2 档 255.33; 失效 226.65</td><td>没有信号; 放量收上 259.92 (20 日高) = 看猎场 A</td><td>收上 259.92 (20 日高) = 突破, 看猎场 A; 跌破 245.96 不接</td><td>252.65 / <strong>263.51</strong> / 270 (10-16, +/-3.7%)</td></tr>
+<tr><td>AXON</td><td>422.89</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 失效: 已跌破浪 1 起点 491.49, 不接</td><td>没有信号; 放量收上 490.18 (20 日高) = 看猎场 A</td><td>收上 490.18 (20 日高) = 突破, 看猎场 A; 跌破 406.00 不接</td><td>388.04 / <strong>421.26</strong> / 457.74 (10-16, +/-8.2%)</td></tr>
+<tr><td>AMD</td><td>608.10</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 219.89 只作参考)</td><td>没有信号; 收破 493.41 (20 日低) = 看猎场 B</td><td>收破 493.41 (20 日低) = 看猎场 B</td><td>577.3 / <strong>610.16</strong> / 630 (10-16, +/-5.1%)</td></tr>
+<tr><td>CRWV</td><td>82.08</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>--</td><td>猎场 B 候选 3.5: 买 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (崩塌) 11-06 P82 参考 5.78 = $578/张 -- 区间市只记纸面</td><td>区间被放量突破 / 跌破时恢复猎场单</td><td>73.37 / <strong>82.29</strong> / 90.79 (10-16, +/-10.6%)</td></tr>
+<tr><td>AAPL</td><td>336.64</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 不买股: 无确认底</td><td>没有信号; 放量收上 341.07 (20 日高) = 看猎场 A</td><td>收上 341.07 (20 日高) = 突破, 看猎场 A; 跌破 329.40 不接</td><td>327.99 / <strong>336</strong> / 340 (10-16, +/-2.6%)</td></tr>
+<tr><td>CRWD</td><td>275.04</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 93.94 只作参考)</td><td>没有信号; 收破 206.74 (20 日低) = 看猎场 B</td><td>收破 206.74 (20 日低) = 看猎场 B</td><td>260.45 / <strong>275.55</strong> / 289.63 (10-16, +/-5.3%)</td></tr>
+<tr><td>MELI</td><td>1889.85</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 等: 第 1 档 1,798.04 (-4.9%); 第 2 档 1,776.70; 失效 1,546.81</td><td>没有信号</td><td>跌破 1685.12 不接</td><td>1815.7 / <strong>1892.75</strong> / 1900 (10-16, +/-3.9%)</td></tr>
+<tr><td>MU</td><td>1029.00</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>--</td><td>没有信号</td><td>跌破 924.03 不接</td><td>977.2 / <strong>1030.38</strong> / 1080.8 (10-16, +/-5.0%)</td></tr>
+<tr><td>KLAC</td><td>195.57</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 不买股: 无有效浪 1 (近段涨幅不足)</td><td>没有信号; 放量收上 206.89 (20 日高) = 看猎场 A</td><td>收上 206.89 (20 日高) = 突破, 看猎场 A; 跌破 167.36 不接</td><td>182 / <strong>195.77</strong> / 215.03 (10-16, +/-9.9%)</td></tr>
+<tr><td>MSFT</td><td>535.07</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 等: 第 1 档 446.22 (-16.6%); 第 2 档 443.95; 失效 352.83</td><td>没有信号; 放量收上 529.76 (20 日高) = 看猎场 A</td><td>收上 529.76 (20 日高) = 突破, 看猎场 A; 跌破 490.30 不接</td><td>518.78 / <strong>534.53</strong> / 550 (10-16, +/-3.0%)</td></tr>
+<tr><td>NVDA</td><td>229.28</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 215.32 只作参考)</td><td>没有信号; 收破 210.96 (20 日低) = 看猎场 B</td><td>收破 210.96 (20 日低) = 看猎场 B</td><td>221.63 / <strong>229.13</strong> / 236.93 (10-16, +/-3.3%)</td></tr>
+<tr><td>ARM</td><td>266.28</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>[只在底部] 不买股: 估值价不可用, 两门不能同时成立 (只作参考: 结构档 第 1 档 299.88; 第 2 档 284.01); 失效 234.82</td><td>没有信号; 放量收上 333.20 (20 日高) = 看猎场 A</td><td>收上 333.20 (20 日高) = 突破, 看猎场 A; 跌破 239.01 不接</td><td>262 / <strong>266.15</strong> / 292.89 (10-16, +/-10.0%)</td></tr>
+<tr><td>SNDK</td><td>1581.82</td><td>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</td><td>--</td><td>没有信号</td><td>跌破 1519.97 不接</td><td>1535 / <strong>1582.24</strong> / 1736.26 (10-16, +/-9.8%)</td></tr>
+<tr><td>TSM</td><td>453.31</td><td>不动: 财报 2026-10-15 在本周到期内, 不开跨财报的新单</td><td>[只在底部] 等: 第 1 档 225.81 (-50.2%); 第 2 档 225.81; 失效 374.67</td><td>没有信号; 放量收上 485.80 (20 日高) = 看猎场 A</td><td>--</td><td>433.08 / <strong>453.31</strong> / 473.54 (10-16, +/-4.5%)</td></tr>
 </tbody></table>
 <ul>
 <li>周预测对账: 还没有到期的 (第一批到期后结算)</li>
+</ul><h2 id="每票明细-房东-猎场-鲸群期权布局">每票明细: 房东 / 猎场 / 鲸群期权布局</h2>
+<p>卖出后的管理 (房东规则): 剩余价值 &lt;= 卖出价 15% 或股价 0.1% (取高) 买回; 涨到卖出价 + 半个预期波幅提前 roll (4 周内且净 credit &gt;= 0, 否则接受行权); 股票被 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 走 = 次日开盘买回; 周五不卖不卷; <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股的 1/6, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股。</p>
+<h3 id="spcx-162-57">SPCX 162.57</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>今天的条件: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 速度尺没有数据 (历史不足), 不按轮子卖; <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> = 速度尺没有数据 (历史不足), 不按轮子卖</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 不买股: 估值价不可用, 两门不能同时成立 (只作参考: 结构档 第 1 档 154.73; 第 2 档 140.15); 失效 108.37</p>
+<ul>
+<li><strong>SPCX</strong> 现价 162.57 (拿着): 没有可执行的浪 2 价位 (估值价不可用, 两门不能同时成立), 不开加仓期权单</li>
+</ul>
+<p><strong>猎场</strong>: 猎场 A 候选 3.5: 买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (加速) 11-06 C162.5 参考 8.85 = $885/张 -- 区间市只记纸面</p>
+<ul>
+<li>失效 154.72; 10-26 前没到 179.84 就走</li>
+</ul>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 155.7 (现价在它 +4.4%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 170 (+$16.7M), 180 (+$12.8M), 175 (+$9.0M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 155 (-$6.6M), 150 (-$3.6M), 140 (-$3.5M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $177.4M / 空方 $74.8M, 共 173 个战役)</li>
+<ul>
+<li>27-06-17 C200 方向建仓 (多): 6 天 买方 $45.2M, 均价 17.57 -&gt; 现 15.93, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 41%</li>
+<li>27-06-17 P150 方向建仓 (多): 6 天 卖方 $39.1M, 均价 17.43 -&gt; 现 18.38, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 50%</li>
+<li>28-12-15 P150 方向建仓 (空): 3 天 买方 $13.1M, 均价 41.29 -&gt; 现 35.2, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 89%</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $1.4M / 空方 $1.8M</li>
+<li>大单解读 (模型): 战役 27-06-17 C200 方向建仓 (多) 09-22 6 天买方 $45.2M 均价 17.57 现 15.93, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 41%; 27-06-17 P150 (多) $39.1M; 散户狂热 = 共识已定价。今日 27-09-17 C165 / 27-01-15 C180 / 28-06-16 C265 远期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 买 凸性多头; 10-16 P200 深 ITM (delta 0.97) 打 ask 买 = 合成空头对冲; 10-16 C160 卖近月封顶。意图 = 远端做多 + 近月 collar 对冲。公开狂热已 priced, diff 小。</li>
+</ul>
+<h3 id="meta-718-67">META 718.67</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (周): <strong>10-16 P665</strong> (-7.5%) 中间价 0.91 = $90/张, 到期价内 7%, 年化 7%</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (两周): <strong>10-23 P640</strong> (-10.9%) 中间价 1.15 = $114/张, 到期价内 6%, 年化 5%</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (周): <strong>10-16 C785</strong> (+9.2%) 中间价 0.56 = $56/张, 到期价内 4%, 年化 4%</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (两周): <strong>10-23 C810</strong> (+12.7%) 中间价 1.01 = $101/张, 到期价内 5%, 年化 3%</li>
+<li>今天的条件: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 跌日 14:30 后卖, 分次; <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> = 局部顶 / 衰竭才卖 (周一到周四), 活龙不卖</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 等: 第 1 档 613.35 (-14.7%); 第 2 档 613.35; 失效 539.03</p>
+<ul>
+<li>1. 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 暂不卖。delta 0.25-0.35 那一档 (11-20 P665) 被行权的接货价 648.25 比第 1 档 613.35 高 6%, 等于高于第 1 档买; 股价再跌约 5% 后这一档才对得上, 那之前到第 1 档直接买股</li>
+<li>2. 跌到第 2 档 613.35: 买 <strong>2027-12-17 C580</strong> (431 天) 代替第 2 份股票; 今天中间价 217.47 = $21,748/张 (到价时更便宜); 到那价位时 每张 delta +68 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.13 股/$1, theta -14.55$/天, vega +239.83$/波动率点; 1 张约等于 68 股, 每天时间损耗约 $14.55/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
+<li>4. 跌进深回撤区 590.08-630.16 (回吐 61.8%-78.6%): 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 价差 (30-60 天, 卖约 630 的 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> / 买低一到两档), 最大亏损封顶, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> / vega 风险被买入腿抵掉; 当天按表重选合约</li>
+<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
+<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
+</ul>
+<p><strong>猎场</strong>: 猎场 A 候选 3.0: 买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (加速) 11-06 C720 参考 35.83 = $3,583/张 -- 区间市只记纸面</p>
+<ul>
+<li>失效 665.75; 10-26 前没到 793.44 就走</li>
+</ul>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 648.6 (现价在它 +10.8%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 750 (+$17.0M), 700 (+$10.8M), 800 (+$8.1M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 680 (-$2.2M), 670 (-$1.3M), 665 (-$0.6M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $757.1M / 空方 $109.4M, 共 221 个战役)</li>
+<ul>
+<li>28-12-15 C5 方向建仓 (多): 3 天 买方 $649.1M, 均价 666.95 -&gt; 现 714.5</li>
+<li>27-01-15 P750 方向建仓 (空): 3 天 买方 $22.1M, 均价 65.51 -&gt; 现 68.92</li>
+<li>26-12-18 P750 方向建仓 (空): 5 天 买方 $14.4M, 均价 57.28 -&gt; 现 63.12, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 75%</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $2.6M / 空方 $0.0M</li>
+<li>大单解读 (模型): 战役 28-12-15 C5 方向建仓 (多) 09-18 3 天买方 $649M 均价 666.95 现 714.5 (深 ITM 股票替代)。今日 27-06-17/27-09-17 P780 连笔打 bid 卖 $12M (ITM 远月 delta 0.5 = 持股者锁利腿, 方向 0); 28-01-21 C730 打 ask 买 $2.63M 远期凸性多头; 11-20 C760 卖 $2.08M 近月封顶。意图 = 持远端多头 + 760 近月封顶 + 远月锁利。公开跨财报偏多。diff 小 = Type A 持仓 + 远月 collar, priced。</li>
+</ul>
+<h3 id="net-360-93">NET 360.93</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (周): <strong>10-16 P315</strong> (-12.7%) 中间价 0.41 = $40/张, 到期价内 4%, 年化 6%</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (两周): 速度尺档 (293.18) 以外买价都不到 $0.05 或未平仓 &lt; 50, 不卖</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (周): <strong>10-16 C400</strong> (+10.8%) 中间价 0.82 = $82/张, 到期价内 7%, 年化 10%</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (两周): <strong>10-23 C415</strong> (+15.0%) 中间价 1.27 = $127/张, 到期价内 7%, 年化 8%</li>
+<li>今天的条件: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 跌日 14:30 后卖, 分次; <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> = 现在不卖: 突破 20 日高点, 不卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span></li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 等: 第 1 档 129.37 (-64.2%); 第 2 档 129.37; 失效 272.74</p>
+<ul>
+<li><strong>NET</strong> 已持股: 按轮子收租 (见本票 '收租' 几行与持仓操作), 不用浪 2 加仓单</li>
+</ul>
+<p><strong>猎场</strong>: 猎场 A 候选 4.0: 买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (加速) 11-06 C350 参考 33.95 = $3,395/张 -- 区间市只记纸面</p>
+<ul>
+<li>失效 306.53; 10-26 前没到 397.91 就走</li>
+</ul>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 318.5 (现价在它 +13.3%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 380 (+$1.2M), 400 (+$0.9M), 360 (+$0.9M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 345 (-$0.1M), 270 (-$0.1M), 320 (-$0.1M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净空 (方向性 多方 $0.8M / 空方 $16.2M, 共 52 个战役)</li>
+<ul>
+<li>26-11-20 P350 方向建仓 (空): 4 天 买方 $6.5M, 均价 30.19 -&gt; 现 26.05, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 93%, 今天又出现</li>
+<li>27-03-19 P340 方向建仓 (空): 2 天 买方 $6.3M, 均价 50.41 -&gt; 现 43.12</li>
+<li>26-10-16 C320 奔顶出货: 3 天 卖方 $1.5M, 均价 40.0 -&gt; 现 41.05</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $0.0M / 空方 $1.5M</li>
+<li>大单解读 (模型): 战役 26-11-20 P350 方向建仓 (空) 09-21 4 天买方 $6.5M 均价 30.19 现 26.05, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 93% (鲸群 20 日净空)。今日 11-20 P350 x500 打 ask 买 $1.50M 近月 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 买方 (同向空/保护); 12-18 C320 深 ITM 买 $1.05M。意图 = 财报前买下方保护, 延续净空战役。公开 = 买房加速候选 + 创 52 周新高; diff = 猎场 A 多 vs 鲸群净空冲突 = 观察。</li>
+</ul>
+<h3 id="qqq-751-27">QQQ 751.27</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (周): <strong>10-16 P716</strong> (-4.7%) 中间价 0.32 = $32/张, 到期价内 4%, 年化 2%</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (两周): <strong>10-23 P707</strong> (-5.9%) 中间价 0.89 = $88/张, 到期价内 7%, 年化 3%</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (周): <strong>10-16 C782</strong> (+4.1%) 中间价 0.07 = $6/张, 到期价内 2%, 年化 0%</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (两周): <strong>10-23 C805</strong> (+7.2%) 中间价 0.06 = $6/张, 到期价内 1%, 年化 0%</li>
+<li>今天的条件: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 跌日 14:30 后卖, 分次; <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> = 现在不卖: 上涨中, 不卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (等衰竭或回到震荡)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: --</p>
+<p><strong>猎场</strong>: 没有信号</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 749.4 (现价在它 +0.2%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 760 (+$141.5M), 770 (+$66.2M), 750 (+$61.4M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 725 (-$56.3M), 700 (-$42.2M), 720 (-$33.2M); 判定 ON_FLIP (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 但只高出 flip +0.2%: 跌破 flip 即进入向下反转结构 (前置信号))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $668.5M / 空方 $408.6M, 共 307 个战役)</li>
+<ul>
+<li>27-12-17 P800 方向建仓 (多): 2 天 卖方 $77.1M, 均价 78.88 -&gt; 现 81.56, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 27%</li>
+<li>26-12-18 P690 方向建仓 (空): 6 天 买方 $61.8M, 均价 13.44 -&gt; 现 7.91, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 138%</li>
+<li>27-03-19 P750 方向建仓 (空): 2 天 买方 $35.3M, 均价 35.26 -&gt; 现 34.98, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 77%</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $65.3M / 空方 $9.6M</li>
+<li>大单解读 (模型): 战役 27-03-19 P670 对冲/锁价 09-28 买方 $350.6M; 26-12-18 P745 接货地板 10-09 卖方 $201.1M (今日新); 26-12-18 C800 方向建仓 (多) $28.4M。今日 12-18 P745 x25000 挂股买 ToOpen (方向 0) 随后多笔 CANC 取消 + OSEQ 迟报卖 = 接货地板偏多; 12-18 C769/C780 买 $9.5M+$7.1M 组合多腿。意图 = 下沿接货 + 上行做多。公开 ON_FLIP 脆弱; diff = 偏多但依赖守住 749.4, 无净伏击。</li>
+</ul>
+<h3 id="spy-778-57">SPY 778.57</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (周): <strong>10-16 P753</strong> (-3.3%) 中间价 0.28 = $28/张, 到期价内 5%, 年化 2%</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (两周): <strong>10-23 P744</strong> (-4.4%) 中间价 0.52 = $52/张, 到期价内 6%, 年化 2%</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (周): 速度尺档 以外买价都不到 $0.05 或未平仓 &lt; 50, 不卖</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (两周): 速度尺档 以外买价都不到 $0.05 或未平仓 &lt; 50, 不卖</li>
+<li>今天的条件: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 跌日 14:30 后卖, 分次; <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> = 局部顶 / 衰竭才卖 (周一到周四), 活龙不卖</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: --</p>
+<p><strong>猎场</strong>: 没有信号</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 776.6 (现价在它 +0.3%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 785 (+$127.7M), 800 (+$114.6M), 790 (+$100.0M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 755 (-$85.5M), 765 (-$72.8M), 740 (-$65.4M); 判定 ON_FLIP (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 但只高出 flip +0.3%: 跌破 flip 即进入向下反转结构 (前置信号))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $316.9M / 空方 $152.0M, 共 190 个战役)</li>
+<ul>
+<li>26-12-18 C770 方向建仓 (多): 3 天 买方 $84.0M, 均价 19.84 -&gt; 现 27.05</li>
+<li>26-10-16 P724 方向建仓 (空): 7 天 买方 $26.3M, 均价 2.9 -&gt; 现 0.1</li>
+<li>26-12-31 P650 方向建仓 (多): 2 天 卖方 $26.1M, 均价 3.03 -&gt; 现 2.29, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 100%</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $2.4M / 空方 $5.3M</li>
+<li>大单解读 (模型): 战役 26-12-18 C770 方向建仓 (多) 09-21 3 天买方 $84.0M 均价 19.84 现 27.05; 26-11-20 P736 未定卖方 $43.1M。今日 11-20 P739/P736 x11000 买 $4.16M+$3.85M 组合; 10-30 P765 撮合扫急 $3.43M; 27-02-26 P760/P750 熊市 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 价差 (目标 750); 10-12 C768 卖封顶; 10-16 C785 ask 买追涨。意图 = 下方买保护 + 远端 C770 持多。公开 ON_FLIP 脆弱, 倾向空; diff = 近月保护重 = 偏防守, priced。</li>
+</ul>
+<h3 id="isrg-423-96">ISRG 423.96</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (周): <strong>10-16 P380</strong> (-10.4%) 中间价 0.15 = $15/张, 到期价内 3%, 年化 2%</li>
+<li>卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (周): <strong>10-16 C455</strong> (+7.3%) 中间价 0.45 = $45/张, 到期价内 5%, 年化 5%</li>
+<li>今天的条件: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 跌日 14:30 后卖, 分次; <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> = 局部顶 / 衰竭才卖 (周一到周四), 活龙不卖</li>
+<li>到期: 财报 10-21 前只有这一个到期</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 等: 第 1 档 381.56 (-10.0%); 第 2 档 377.99; 失效 332.02</p>
+<ul>
+<li>1. 等第 1 档时收钱: 卖 <strong>2026-11-20 P395</strong> (39 天, <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 43%), 中间价 11.45 = $1,145/张, 挂中间价; 被行权 = 以 383.55 接货 (-9.5% vs 现价, 第 1 档 381.56); 到期被行权概率约 32%; 按占用现金年化 27.1%; 张数 = 第 1 份计划股数 / 100, 计划张数全卖; 跨财报 10-21, 再减半</li>
+<li>希腊值: 每张 delta +27 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> -0.56 股/$1, theta +24.11$/天, vega -46.11$/波动率点。theta 是收入, 每天约 $24.11/张; short <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> / short vega 是风险: 跌 $1 多接 0.6 股的 delta, <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 涨 1 点亏 $46.11/张</li>
+<li>管理 (房东规则, 2026-10-08 选 A): 剩余价值 &lt;= 卖出价的 15% 或股价的 0.1% (取高) 就买回, 再卖下一张; 被行权 = 在第 1 档附近接第 1 份 (目的就是接货); roll 只在 4 周内且净 credit &gt;= 0, 拿不到就接受行权; 收盘跌破浪 1 起点 332.02 = 浪 2 失效: 买回或只拿 credit roll, 不接货</li>
+<li>接货之后 = 轮子: 只在局部顶卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>, 行权价一律速度尺 q90 (不往平值 / 价内拧); 活龙 (放量创 20 日新高 / 收复吸顶 / 冲过 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 墙 / 20 日涨 25%) 不卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>; 周五不卖; 股票被 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 走 = 次日开盘买回股票, 不卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 接回</li>
+<li>2. 跌到第 2 档 377.99: 买 <strong>2028-01-21 C360</strong> (466 天) 代替第 2 份股票; 今天中间价 120.90 = $12,090/张 (到价时更便宜); 到那价位时 每张 delta +67 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.21 股/$1, theta -8.49$/天, vega +154.20$/波动率点; 1 张约等于 67 股, 每天时间损耗约 $8.49/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
+<li>3. <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵: 用 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 价差代替单买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (卖出的腿抵掉大部分 vega): 买 2027-09-17 C410 / 卖 C550, 净付 48.85 = $4,885/张, 最多赚 $9,115/张</li>
+<li>4. 跌进深回撤区 351.70-367.14 (回吐 61.8%-78.6%): 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 价差 (30-60 天, 卖约 367 的 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> / 买低一到两档), 最大亏损封顶, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> / vega 风险被买入腿抵掉; 当天按表重选合约</li>
+<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
+<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
+</ul>
+<p><strong>猎场</strong>: 猎场 A 候选 5.0: 买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (加速) 11-20 C425 参考 23.80 = $2,380/张 -- 区间市只记纸面</p>
+<ul>
+<li>失效 398.3; 10-26 前没到 445.68 就走</li>
+</ul>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 401.7 (现价在它 +5.5%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 420 (+$0.5M), 425 (+$0.5M), 440 (+$0.4M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 415 (-$0.2M), 340 (-$0.1M), 397.5 (-$0.1M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $12.1M / 空方 $0.0M, 共 10 个战役)</li>
+<ul>
+<li>26-11-20 C350 方向建仓 (多): 3 天 买方 $6.6M, 均价 76.82 -&gt; 现 78.8, 今天又出现</li>
+<li>26-11-20 C360 方向建仓 (多): 2 天 卖方 $5.6M, 均价 68.17 -&gt; 现 70.25, 今天又出现</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $6.9M / 空方 $0.0M</li>
+<li>大单解读 (模型): 战役 26-11-20 C350 方向建仓 (多) 09-23 3 天买方 $6.6M 均价 76.82 现 78.8, %B 上轨。今日 11-20 C350/C360 深 ITM 牛市 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 价差 $3.65M+$3.24M = 多头目标 360, 跨财报股票替代建仓。意图 = 财报前凸性做多。公开偏移率 +5.7% 已进顶部偏移区; diff = 鲸群仍加码上行 = Type A 吸筹 (但付贵 vol)。</li>
+</ul>
+<h3 id="orcl-141-40">ORCL 141.40</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: --</p>
+<p><strong>猎场</strong>: 没有信号</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 135.4 (现价在它 +4.4%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 155 (+$19.7M), 150 (+$17.1M), 160 (+$13.6M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 135 (-$5.8M), 140 (-$5.0M), 130 (-$4.5M); 判定 REVERSAL_DOWN (低 VIX + dealer 负 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 自满 + 对冲盘放大波动 -&gt; 向下反转候选)</li>
+<li>鲸群 20 日战役: 方向不明 (方向性 多方 $41.9M / 空方 $55.3M, 共 135 个战役)</li>
+<ul>
+<li>27-06-17 C175 方向建仓 (多): 3 天 买方 $9.8M, 均价 18.96 -&gt; 现 16.07, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 191%, 今天又出现</li>
+<li>27-06-17 P110 方向建仓 (空): 3 天 买方 $6.8M, 均价 10.85 -&gt; 现 9.43, 今天又出现</li>
+<li>26-10-16 P165 方向建仓 (空): 2 天 买方 $5.6M, 均价 23.3 -&gt; 现 24.0, 今天又出现</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $2.8M / 空方 $0.0M</li>
+<li>大单解读 (模型): 战役 27-12-17 C180 (3 天买方 $35.8M); 27-06-17 C175 方向建仓 (多) 09-21 3 天买方 $9.8M 均价 18.96, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 191%; 内部人 09-29 买入 25000 股 @139.35。今日 27-04-16 C160 / 27-06-17 C175 远期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 打 ask 买 $2.5M+$2.8M 凸性多头; 27-06-17 P110/P100 卖。意图 = 远端做多 + 内部人同向。公开观察名单 (AI 泡沫地主腰斩), diff = 鲸群 + 内部人逆势吸筹 = Type A, 偏 hidden。</li>
+</ul>
+<h3 id="googl-351-66">GOOGL 351.66</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 不买股: 无有效浪 1 (近段涨幅不足)</p>
+<ul>
+<li><strong>GOOGL</strong> 现价 351.66 (观察): 没有可执行的浪 2 价位 (无有效浪 1 (近段涨幅不足)), 不开加仓期权单</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 放量收上 354.97 (20 日高) = 看猎场 A</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 336.7 (现价在它 +4.4%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 370 (+$30.0M), 375 (+$22.1M), 360 (+$20.6M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 330 (-$4.4M), 340 (-$3.7M), 335 (-$3.0M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $118.0M / 空方 $46.8M, 共 131 个战役)</li>
+<ul>
+<li>26-11-20 C380 方向建仓 (多): 8 天 买方 $23.7M, 均价 6.49 -&gt; 现 6.97, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 100%</li>
+<li>26-10-30 P350 方向建仓 (空): 2 天 买方 $18.7M, 均价 18.1 -&gt; 现 11.4</li>
+<li>27-09-17 C340 方向建仓 (多): 4 天 买方 $16.1M, 均价 60.53 -&gt; 现 60.2</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $0.0M / 空方 $0.0M</li>
+<li>大单解读 (模型): 战役 26-11-20 C380 方向建仓 (多) 09-18 8 天买方 $23.7M 均价 6.49 现 6.97, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 100%; 26-10-30 P350 方向建仓 (空) $18.7M 均价 18.1。今日 27-02-19 C345 连五笔卖 $7M (远月对冲/锁价, 方向 0); 10-23 C350 x1086 打 ask 买 $1.14M。意图 = 持 Nov 上行, 远端 Feb 锁价。公开 = 财报前钉住。diff 小, priced。</li>
+</ul>
+<h3 id="tsla-382-70">TSLA 382.70</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 116.65 只作参考)</p>
+<ul>
+<li><strong>TSLA</strong> 现价 382.70 (不碰): 做多分类不碰, 没有做多期权单 (猎场 B 候选时按猎场进场单)</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 收破 352.84 (20 日低) = 看猎场 B</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 364.5 (现价在它 +5.0%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 400 (+$20.5M), 385 (+$9.3M), 390 (+$5.7M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 370 (-$2.2M), 340 (-$2.1M), 360 (-$1.8M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $75.2M / 空方 $22.8M, 共 148 个战役)</li>
+<ul>
+<li>27-06-17 C500 方向建仓 (多): 5 天 买方 $15.1M, 均价 18.38 -&gt; 现 24.75, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 97%</li>
+<li>27-06-17 P300 方向建仓 (多): 2 天 卖方 $13.2M, 均价 23.84 -&gt; 现 16.75</li>
+<li>26-10-16 C385 方向建仓 (多): 3 天 买方 $9.2M, 均价 8.48 -&gt; 现 6.97, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 114%, 今天又出现</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $3.5M / 空方 $1.0M</li>
+<li>大单解读 (模型): 战役 27-06-17 C500 方向建仓 (多) 09-24 5 天买方 $15.1M 均价 18.38 现 24.75, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 97%; 28-01-21/28-12-15 P300 领口 (方向 0); 散户狂热 = 共识已定价。今日多笔 10-16/10-23 C180/C240 深 ITM = 日历/roll (方向 0); 27-01-15 C400 ask 买 + P380 bid 卖 = 偏多; 28-01-21 C440 卖。意图 = roll 为主 + 远端做多 + 领口锁价。公开狂热, diff 小 = priced。</li>
+</ul>
+<h3 id="amzn-262-43">AMZN 262.43</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 等: 第 1 档 255.62 (-2.6%); 第 2 档 255.33; 失效 226.65</p>
+<ul>
+<li>1. 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 不卖 (做多分类 观察; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着); 到第 1 档直接买股</li>
+<li>2. 跌到第 2 档 255.33: 买 <strong>2027-07-16 C240</strong> (277 天) 代替第 2 份股票; 今天中间价 49.08 = $4,908/张 (到价时更便宜); 到那价位时 每张 delta +67 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.45 股/$1, theta -6.63$/天, vega +80.16$/波动率点; 1 张约等于 67 股, 每天时间损耗约 $6.63/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
+<li>3. <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵: 用 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 价差代替单买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (卖出的腿抵掉大部分 vega): 买 2027-07-16 C260 / 卖 C340, 净付 25.77 = $2,578/张, 最多赚 $5,422/张</li>
+<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
+<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 放量收上 259.92 (20 日高) = 看猎场 A</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 243.4 (现价在它 +7.8%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 260 (+$58.9M), 270 (+$39.7M), 265 (+$39.6M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 240 (-$5.5M), 250 (-$4.5M), 235 (-$3.2M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净空 (方向性 多方 $101.3M / 空方 $165.1M, 共 169 个战役)</li>
+<ul>
+<li>28-01-21 P350 方向建仓 (空): 3 天 买方 $89.8M, 均价 106.13 -&gt; 现 94.18</li>
+<li>26-10-30 C260 方向建仓 (空): 2 天 卖方 $46.7M, 均价 11.31 -&gt; 现 11.93, 今天又出现</li>
+<li>27-03-19 C250 方向建仓 (多): 2 天 买方 $20.0M, 均价 29.06 -&gt; 现 33.77, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 91%</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $3.5M / 空方 $42.9M</li>
+<li>大单解读 (模型): 战役 28-01-21 P350 方向建仓 (空) 首见 09-23 3 天买方 $89.8M 均价 106.13; 26-11-20 C270 (12 天买方 $63.1M 均价 9.2 现 10.52 急拉)。今日 10-30 C260 x24908 卖 + C275 x24998 买 = 熊市 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 价差封顶于 260 $41.6M (跨财报); 27-12-17 P280 买 $4.45M。意图 = 财报前封顶 260 收租 + 远端看空。公开急拉上轨外, diff = 机构在财报前压盖 = Type B 封顶, 偏 hidden (价差与急拉背向)。</li>
+</ul>
+<h3 id="axon-422-89">AXON 422.89</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 失效: 已跌破浪 1 起点 491.49, 不接</p>
+<ul>
+<li><strong>AXON</strong> 现价 422.89 (观察): 已跌破浪 1 起点 491.49, 浪 2 失效; 不卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>, 已卖的只 credit roll 或买回, 不接货</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 放量收上 490.18 (20 日高) = 看猎场 A</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 445.1 (现价在它 -5.0%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 460 (+$0.1M), 440 (+$0.1M), 470 (+$0.0M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 400 (-$0.2M), 390 (-$0.2M), 380 (-$0.1M); 判定 REVERSAL_DOWN (低 VIX + dealer 负 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 自满 + 对冲盘放大波动 -&gt; 向下反转候选)</li>
+<li>鲸群 20 日战役: 方向不明 (方向性 多方 $0.0M / 空方 $0.0M, 共 4 个战役)</li>
+<li>大单解读 (模型): 流票, 无 $1M 以上大单, 按无单处理。战役 26-12-18 C600 对冲/锁价 09-15 6 天卖方 $3.3M 均价 20.75 现 6.15 (远月卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>, 方向 0)。今日无主动大单。公开 = 跌腿 -37.1%, RSI 38, 低于 50 日线 -18.5%。无 diff, 无伏击。</li>
+</ul>
+<h3 id="amd-608-10">AMD 608.10</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 219.89 只作参考)</p>
+<ul>
+<li><strong>AMD</strong> 现价 608.10 (不碰): 做多分类不碰, 没有做多期权单 (猎场 B 候选时按猎场进场单)</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 收破 493.41 (20 日低) = 看猎场 B</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 585.3 (现价在它 +3.9%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 630 (+$3.6M), 640 (+$3.5M), 650 (+$2.7M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 560 (-$1.7M), 600 (-$1.6M), 595 (-$1.0M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $435.4M / 空方 $157.7M, 共 301 个战役)</li>
+<ul>
+<li>26-11-20 C430 奔顶出货: 1 天 卖方 $103.8M, 均价 188.75 -&gt; 现 182.12</li>
+<li>26-11-20 C620 方向建仓 (多): 7 天 买方 $53.9M, 均价 54.24 -&gt; 现 38.77, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 82%</li>
+<li>27-09-17 C1120 方向建仓 (多): 6 天 买方 $52.7M, 均价 40.53 -&gt; 现 29.85</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $18.9M / 空方 $5.9M</li>
+<li>大单解读 (模型): 战役 26-11-20 C620 方向建仓 (多) 首见 09-23 7 天买方 $53.9M 均价 54.24 现 38.77, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 82%; 另 26-11-20 C430 奔顶出货 $103.8M。今日 10-30 C620 x1999/x1835 打 bid 卖 $5.0M+$4.59M = 近月封顶 (区间, 方向 0); 10-30 C620 x1407 买 ToOpen = 熊市 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 价差封顶 620; 27-01-15 C140/C145 深 ITM $9.5M 股票替代。意图 = 近月 620 封顶收租, 远端深 ITM 持有。公开看多 42% 涨腿, diff = 近月不追 = Type B 封顶收租, priced。</li>
+</ul>
+<h3 id="crwv-82-08">CRWV 82.08</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: --</p>
+<p><strong>猎场</strong>: 猎场 B 候选 3.5: 买 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> (崩塌) 11-06 P82 参考 5.78 = $578/张 -- 区间市只记纸面</p>
+<ul>
+<li>失效 91.72; 10-26 前没到 72.58 就走</li>
+</ul>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 84.3 (现价在它 -2.6%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 105 (+$4.1M), 90 (+$3.5M), 95 (+$3.4M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 80 (-$5.6M), 75 (-$5.3M), 77 (-$3.4M); 判定 REVERSAL_DOWN (低 VIX + dealer 负 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 自满 + 对冲盘放大波动 -&gt; 向下反转候选)</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $92.8M / 空方 $29.2M, 共 152 个战役)</li>
+<ul>
+<li>26-10-16 C90 方向建仓 (多): 5 天 买方 $15.4M, 均价 5.44 -&gt; 现 0.55</li>
+<li>28-01-21 C125 方向建仓 (多): 2 天 买方 $11.8M, 均价 19.58 -&gt; 现 16.4, 今天又出现</li>
+<li>28-01-21 C80 方向建仓 (多): 10 天 买方 $11.6M, 均价 34.33 -&gt; 现 28.93, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 77%</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $4.0M / 空方 $0.0M</li>
+<li>大单解读 (模型): 战役 26-10-16 C90 / 28-01-21 C80 / C125 方向建仓 (多, 均价 5.44/34.33/19.58); 散户狂热 100% = 共识已定价。今日 10-30 P79 x5000 卖 $1.75M = 接货地板偏多; 27-06-17 C110 买 $5.97M + 28-01-21 C125 买 $1.65M 远期凸性多头; 27-12-17/28-06-16 P35 买 = 远端尾部保护; 余 P80 roll。意图 = 远端做多 + 深虚尾部险。公开散户狂热已 priced; <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> REVERSAL_DOWN 与净多冲突。无净新伏击。</li>
+</ul>
+<h3 id="aapl-336-64">AAPL 336.64</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 不买股: 无确认底</p>
+<ul>
+<li><strong>AAPL</strong> 现价 336.64 (观察): 没有可执行的浪 2 价位 (无确认底), 不开加仓期权单</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 放量收上 341.07 (20 日高) = 看猎场 A</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 322.3 (现价在它 +4.4%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 340 (+$140.8M), 345 (+$32.1M), 350 (+$29.2M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 337.5 (-$10.6M), 320 (-$7.7M), 330 (-$6.8M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $114.6M / 空方 $31.6M, 共 114 个战役)</li>
+<ul>
+<li>27-01-15 C360 方向建仓 (多): 4 天 买方 $25.1M, 均价 11.02 -&gt; 现 8.75</li>
+<li>27-01-15 C330 方向建仓 (多): 3 天 买方 $14.4M, 均价 21.62 -&gt; 现 22.65, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 51%</li>
+<li>28-03-17 C310 方向建仓 (多): 2 天 买方 $11.3M, 均价 74.0 -&gt; 现 69.58</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $2.3M / 空方 $4.3M</li>
+<li>大单解读 (模型): 战役 27-01-15 C360 方向建仓 (多) 首见 09-16 4 天买方 $25.1M 均价 11.02 (成本线) 现 8.75, %B 上轨-&gt;轨内。今日最大 11-27 P330 x5732 打 ask BuyToOpen $5.16M (买方主动, 近月偏保护); 11-20 C350/P305 组合对敲 $2.97M+$1.65M = 风险逆转合成多头; 10-14 P335 ask $1.61M 近月 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 买方逆势。意图 = 短期买保护对冲 CPI/<span class="term" tabindex="0" data-tip="期权到期日, 月度合约在每月第三个周五。">opex</span>, 远端 350 合成多头留涨。公开看法 = 钉在 340 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙下。diff 小, 近月对冲已 priced。策略 = 保护 + 合成多头。无伏击, priced。</li>
+</ul>
+<h3 id="crwd-275-04">CRWD 275.04</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 93.94 只作参考)</p>
+<ul>
+<li><strong>CRWD</strong> 现价 275.04 (不碰): 做多分类不碰, 没有做多期权单 (猎场 B 候选时按猎场进场单)</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 收破 206.74 (20 日低) = 看猎场 B</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 253.7 (现价在它 +8.4%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 300 (+$2.7M), 290 (+$2.1M), 280 (+$1.7M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 255 (-$0.7M), 240 (-$0.3M), 225 (-$0.2M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $50.2M / 空方 $5.9M, 共 120 个战役)</li>
+<ul>
+<li>29-01-19 C370 方向建仓 (多): 4 天 买方 $8.3M, 均价 74.12 -&gt; 现 77.0</li>
+<li>29-01-19 C350 方向建仓 (多): 4 天 买方 $7.2M, 均价 70.42 -&gt; 现 82.72</li>
+<li>29-01-19 C330 方向建仓 (多): 2 天 买方 $6.1M, 均价 76.78 -&gt; 现 89.03</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $0.0M / 空方 $0.0M</li>
+<li>大单解读 (模型): 战役 29-01-19 C370 方向建仓 (多) 09-23 4 天买方 $8.3M 均价 74.12 现 77.0 (背离: 鲸群先手做多, 散户看空没上车 = 最强多)。今日 27-01-15 C260 x652 打 ask 买 $2.42M = 主动远端看多; 余为 roll。意图 = 静默吸筹远端凸性。公开散户看空 46%, diff 大 = Type A 静默吸筹, hidden。</li>
+</ul>
+<h3 id="meli-1-889-85">MELI 1,889.85</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 等: 第 1 档 1,798.04 (-4.9%); 第 2 档 1,776.70; 失效 1,546.81</p>
+<ul>
+<li>1. 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 不卖 (做多分类 未评分; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着); 到第 1 档直接买股</li>
+<li>2. 跌到第 2 档 1,776.70: 买 <strong>2027-12-17 C1680</strong> (431 天) 代替第 2 份股票; 今天中间价 492.00 = $49,200/张 (到价时更便宜); 到那价位时 每张 delta +68 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.04 股/$1, theta -42.48$/天, vega +694.70$/波动率点; 1 张约等于 68 股, 每天时间损耗约 $42.48/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
+<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
+<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 1800.1 (现价在它 +5.0%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 1900 (+$0.4M), 1910 (+$0.3M), 1940 (+$0.3M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 1810 (-$0.2M), 1800 (-$0.1M), 1770 (-$0.1M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净空 (方向性 多方 $0.0M / 空方 $3.3M, 共 20 个战役)</li>
+<ul>
+<li>26-12-18 C2000 方向建仓 (空): 3 天 买方 $1.9M, 均价 99.1 -&gt; 现 89.5</li>
+<li>27-06-17 P1600 方向建仓 (空): 2 天 买方 $0.8M, 均价 165.0 -&gt; 现 107.65</li>
+<li>27-03-19 P1600 方向建仓 (空): 2 天 买方 $0.6M, 均价 114.62 -&gt; 现 75.0</li>
+</ul>
+<li>大单解读 (模型): 流票, 无 $1M 以上主动大单。战役 26-12-18 P1850 单日 / P1700 未定 / 26-11-20 C1840 (2 天买方 $2.6M 均价 128.44), 规模都小。今日无 $1M 主动大单。意图不明, 无方向性新钱。公开涨腿早段 +12.1%/6d。无 diff, priced。</li>
+</ul>
+<h3 id="mu-1-029-00">MU 1,029.00</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: --</p>
+<p><strong>猎场</strong>: 没有信号</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 1011.0 (现价在它 +1.8%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 1100 (+$4.1M), 1050 (+$2.8M), 1150 (+$2.1M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 950 (-$1.8M), 980 (-$1.5M), 970 (-$1.2M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 方向不明 (方向性 多方 $95.7M / 空方 $94.5M, 共 224 个战役)</li>
+<ul>
+<li>28-01-21 P800 方向建仓 (空): 3 天 买方 $24.9M, 均价 101.63 -&gt; 现 93.2, 今天又出现</li>
+<li>27-01-15 C1000 方向建仓 (多): 3 天 买方 $20.6M, 均价 158.75 -&gt; 现 120.6, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 32%</li>
+<li>27-03-19 C1050 方向建仓 (多): 2 天 买方 $20.6M, 均价 179.67 -&gt; 现 130.6</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $7.4M / 空方 $1.0M</li>
+<li>大单解读 (模型): 战役 26-11-20 C1050 未定卖方 $138.6M; 26-12-18 C1200 对冲/锁价; 散户狂热。今日 12-18 C1150/C1380 挂股牛市 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 价差 $30M (方向 0); 27-07-16 C1300 打 ask 买 $4.25M 远期凸性多头; 10-16 C1140 近月买; 28-01-21 P800 挂股熊市 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 价差 (方向 0)。意图 = 远端做多 + 近月追 + 挂股结构。公开狂热多, diff = 真方向性多头仅远期 C1300/近月 C1140, 其余挂股无向。偏 priced。</li>
+</ul>
+<h3 id="klac-195-57">KLAC 195.57</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 不买股: 无有效浪 1 (近段涨幅不足)</p>
+<ul>
+<li><strong>KLAC</strong> 现价 195.57 (观察): 没有可执行的浪 2 价位 (无有效浪 1 (近段涨幅不足)), 不开加仓期权单</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 放量收上 206.89 (20 日高) = 看猎场 A</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 198.0 (现价在它 -1.2%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 210 (+$1.3M), 200 (+$1.1M), 220 (+$0.6M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 224 (-$3.4M), 190 (-$0.6M), 180 (-$0.3M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $4.7M / 空方 $0.8M, 共 15 个战役)</li>
+<ul>
+<li>28-01-21 C260 方向建仓 (多): 2 天 买方 $2.2M, 均价 33.47 -&gt; 现 33.0</li>
+<li>28-01-21 P180 方向建仓 (空): 2 天 买方 $0.8M, 均价 37.19 -&gt; 现 34.7</li>
+</ul>
+<li>大单解读 (模型): 流票, 无 $1M 以上主动大单。战役 26-12-18 P154 接货地板 09-14 2 天卖方 $2.6M 均价 7.23 (背离: 鲸群先手做多, 散户冷没上车 = 最强多); 28-01-21 C260 方向建仓 (多)。今日无 $1M 主动大单。意图 = 下沿接货偏多。公开散户冷, diff = Type A 吸筹, 偏 hidden。</li>
+</ul>
+<h3 id="msft-535-07">MSFT 535.07</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 等: 第 1 档 446.22 (-16.6%); 第 2 档 443.95; 失效 352.83</p>
+<ul>
+<li>1. 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 不卖 (做多分类 观察; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着); 到第 1 档直接买股</li>
+<li>2. 跌到第 2 档 443.95: 买 <strong>2027-09-17 C420</strong> (340 天) 代替第 2 份股票; 今天中间价 146.47 = $14,648/张 (到价时更便宜); 到那价位时 每张 delta +67 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.25 股/$1, theta -10.02$/天, vega +154.55$/波动率点; 1 张约等于 67 股, 每天时间损耗约 $10.02/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
+<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
+<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 放量收上 529.76 (20 日高) = 看猎场 A</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 472.2 (现价在它 +13.3%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 550 (+$64.0M), 545 (+$25.8M), 530 (+$16.4M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 485 (-$0.8M), 455 (-$0.6M), 460 (-$0.4M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净空 (方向性 多方 $36.2M / 空方 $182.3M, 共 150 个战役)</li>
+<ul>
+<li>26-11-20 C420 奔顶出货: 5 天 卖方 $125.6M, 均价 80.65 -&gt; 现 117.6</li>
+<li>26-11-20 P500 方向建仓 (空): 8 天 买方 $17.4M, 均价 22.33 -&gt; 现 8.25, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 72%</li>
+<li>27-01-15 P475 方向建仓 (空): 6 天 买方 $7.5M, 均价 15.71 -&gt; 现 8.73, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 23%</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $5.8M / 空方 $1.2M</li>
+<li>大单解读 (模型): 战役 26-11-20 C420 奔顶出货 09-16 5 天卖方 $125.6M 均价 80.65; 26-11-20 P500 方向建仓 (空) $17.4M; 散户看空 = 共识已定价。今日 10-30 C540 卖 $1.56M 近月封顶 + 11-20 P540 ask 买 $1.16M 保护; 28-06-16 P570/P600 牛市 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 价差收租 (地板 570)。意图 = 顶部区封顶 540 + 下方 570 收租。公开顶部区边缘, diff = Type B 封顶收租, priced。</li>
+</ul>
+<h3 id="nvda-229-28">NVDA 229.28</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 做多分类 不碰: 不买股 (浪 2 第 1 档 215.32 只作参考)</p>
+<ul>
+<li><strong>NVDA</strong> 现价 229.28 (不碰): 做多分类不碰, 没有做多期权单 (猎场 B 候选时按猎场进场单)</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 收破 210.96 (20 日低) = 看猎场 B</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 213.8 (现价在它 +7.2%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 240 (+$74.3M), 245 (+$50.9M), 230 (+$47.9M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 200 (-$7.4M), 215 (-$6.1M), 205 (-$5.1M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $240.7M / 空方 $153.4M, 共 249 个战役)</li>
+<ul>
+<li>26-10-16 C220 方向建仓 (多): 4 天 买方 $77.7M, 均价 12.08 -&gt; 现 10.32</li>
+<li>27-03-19 P185 方向建仓 (空): 2 天 买方 $42.1M, 均价 5.5 -&gt; 现 5.42, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 100%</li>
+<li>27-06-17 P240 方向建仓 (空): 2 天 买方 $36.7M, 均价 25.27 -&gt; 现 30.23, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 94%, 今天又出现</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $11.1M / 空方 $5.1M</li>
+<li>大单解读 (模型): 战役 26-10-16 C220 方向建仓 (多) 09-16 4 天买方 $77.7M 均价 12.08; 27-06-17 C260 方向建仓 (多) 5 天 $22.0M; 27-03-19 P185 方向建仓 (空) 10-01 2 天买方 $42.1M 均价 5.5, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 100%。今日 27-06-17 C260 打 ask 买 $7.79M 远期凸性多头; 27-03-19 C230 ask 买 $3.73M; 封顶 232.5 ($5.2M)。意图 = 远端做多 + 近月 232.5 区间封顶 + 远端 P185 尾部空。公开净多, diff 小 = Type A 吸筹 + 区间封顶, priced。</li>
+</ul>
+<h3 id="arm-266-28">ARM 266.28</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 不买股: 估值价不可用, 两门不能同时成立 (只作参考: 结构档 第 1 档 299.88; 第 2 档 284.01); 失效 234.82</p>
+<ul>
+<li><strong>ARM</strong> 现价 266.28 (观察): 没有可执行的浪 2 价位 (估值价不可用, 两门不能同时成立), 不开加仓期权单</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 放量收上 333.20 (20 日高) = 看猎场 A</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 274.9 (现价在它 -3.1%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 320 (+$3.3M), 300 (+$0.7M), 310 (+$0.6M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 270 (-$2.0M), 250 (-$1.7M), 260 (-$0.8M); 判定 REVERSAL_DOWN (低 VIX + dealer 负 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 自满 + 对冲盘放大波动 -&gt; 向下反转候选)</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $26.0M / 空方 $16.7M, 共 101 个战役)</li>
+<ul>
+<li>26-10-16 C300 奔顶出货: 5 天 卖方 $7.5M, 均价 17.52 -&gt; 现 0.95</li>
+<li>26-10-16 C330 方向建仓 (多): 3 天 买方 $5.0M, 均价 17.39 -&gt; 现 0.16</li>
+<li>26-12-18 P290 方向建仓 (空): 4 天 买方 $2.7M, 均价 31.53 -&gt; 现 42.42, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 188%</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $0.0M / 空方 $0.0M</li>
+<li>大单解读 (模型): 战役 27-01-15 P360 对冲/锁价 09-29 买方 $192.2M 均价 85.43; 26-10-16 C300 奔顶出货 $7.5M。今日仅两笔 27-09-17 P200 / 27-04-16 P230 挂股场内卖 (方向 0, 远月), 无方向性大单。意图不明, 今日无新钱。公开 = 跌腿 -13.4%/5d, 跌破 50 日线。无 diff, 无伏击, priced。</li>
+</ul>
+<h3 id="sndk-1-581-82">SNDK 1,581.82</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>不在收租名单 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着 与 SPY / QQQ)</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: --</p>
+<p><strong>猎场</strong>: 没有信号</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 1672.8 (现价在它 -5.4%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 1520 (+$0.3M), 1800 (+$0.3M), 1750 (+$0.2M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 1500 (-$1.1M), 1550 (-$0.7M), 1400 (-$0.6M); 判定 REVERSAL_DOWN (低 VIX + dealer 负 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 自满 + 对冲盘放大波动 -&gt; 向下反转候选)</li>
+<li>鲸群 20 日战役: 净空 (方向性 多方 $80.2M / 空方 $182.7M, 共 259 个战役)</li>
+<ul>
+<li>29-01-19 P1300 方向建仓 (空): 3 天 买方 $31.4M, 均价 297.28 -&gt; 现 324.0, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 103%</li>
+<li>26-11-20 C1700 方向建仓 (空): 4 天 卖方 $21.7M, 均价 307.96 -&gt; 现 91.3, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 60%</li>
+<li>28-01-21 C3000 方向建仓 (空): 2 天 买方 $17.6M, 均价 327.46 -&gt; 现 184.1</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $40.4M / 空方 $0.0M</li>
+<li>大单解读 (模型): 战役 29-01-19 P1300 方向建仓 (空) 10-05 3 天买方 $31.4M 均价 297.28 现 324.0, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 103%; 26-11-20 C1700 方向建仓 (空) 均价 307.96 现 91.3。今日 11-20 C800 / 10-09 C900 深 ITM $40M+$35M 多为日历/roll (方向 0)。意图 = 深 ITM 展期 + 远端 P1300 看空。公开跌腿 -16.2% REVERSAL_DOWN; diff = roll 占主, 真方向为远端看空 = 偏空但未成近月伏击。</li>
+</ul>
+<h3 id="tsm-453-31">TSM 453.31</h3>
+<p><strong>房东 -- 收租 (轮子)</strong></p>
+<ul>
+<li>今天的条件: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 财报 10-15 前没有可用的周五到期, 财报后再卖; <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> = 财报 10-15 前没有可用的周五到期, 财报后再卖</li>
+</ul>
+<p><strong>房东 -- 抄底加仓 (浪 2)</strong>: [只在底部] 等: 第 1 档 225.81 (-50.2%); 第 2 档 225.81; 失效 374.67</p>
+<ul>
+<li>1. 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 暂不卖。delta 0.25-0.35 那一档 (11-13 P430) 被行权的接货价 421.93 比第 1 档 225.81 高 87%, 等于高于第 1 档买; 股价再跌约 46% 后这一档才对得上, 那之前到第 1 档直接买股</li>
+<li>2. 跌到第 2 档 225.81: 买 <strong>2027-12-17 C210</strong> (431 天) 代替第 2 份股票; 今天中间价 255.65 = $25,565/张 (到价时更便宜); 到那价位时 每张 delta +69 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.34 股/$1, theta -5.37$/天, vega +86.79$/波动率点; 1 张约等于 69 股, 每天时间损耗约 $5.37/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
+<li>4. 跌进深回撤区 398.45-417.12 (回吐 61.8%-78.6%): 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 价差 (30-60 天, 卖约 417 的 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> / 买低一到两档), 最大亏损封顶, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> / vega 风险被买入腿抵掉; 当天按表重选合约</li>
+<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
+<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
+</ul>
+<p><strong>猎场</strong>: 没有信号; 放量收上 485.80 (20 日高) = 看猎场 A</p>
+<p><strong>鲸群期权布局 (供你判断)</strong></p>
+<ul>
+<li>结构: <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 翻转位 438.6 (现价在它 +3.4%); <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 墙 460 (+$7.9M), 500 (+$4.1M), 480 (+$4.0M); <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 口袋 420 (-$2.5M), 435 (-$1.8M), 410 (-$0.9M); 判定 PINNED (低 VIX + 正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span>: 钉住区, 波动被压, 无反转结构 (直到价格离开正 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 带))</li>
+<li>鲸群 20 日战役: 净多 (方向性 多方 $126.7M / 空方 $59.3M, 共 172 个战役)</li>
+<ul>
+<li>27-06-17 P440 方向建仓 (空): 3 天 买方 $29.5M, 均价 33.05 -&gt; 现 41.33, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 113%</li>
+<li>27-06-17 C480 方向建仓 (多): 2 天 买方 $22.0M, 均价 53.69 -&gt; 现 48.38, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 73%</li>
+<li>27-06-17 C460 方向建仓 (多): 3 天 买方 $17.3M, 均价 64.74 -&gt; 现 56.88, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 83%, 今天又出现</li>
+</ul>
+<li>今天的期权流 (&gt;= $1M 大单): 多方 $0.0M / 空方 $9.6M</li>
+<li>大单解读 (模型): 战役 27-06-17 P440 方向建仓 (空) 09-28 3 天买方 $29.5M 均价 33.05 现 41.33, <span class="term" tabindex="0" data-tip="期权里 = 未平仓合约数 (还没平掉的张数, 看大资金押在哪个价位); 财务里 (OI 率 / 指引 OI) = 经营利润。">OI</span> 留存 113%; 27-09-17 C530/P400 押波动。今日 11-20 C380 x2500 打 mid 卖 $19.12M = 奔顶出货 (卖 1-2 月 ITM <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>, 顶部信号, 逆势)。意图 = 顶部出货封顶。公开跨财报偏涨; diff = 鲸群在财报前卖 ITM <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 出货 = Type B/C 顶部分布, 偏 hidden。</li>
 </ul><h2 id="本周读数">本周读数</h2>
 <table><thead><tr><th>票</th><th>形态</th><th>方向 (昨日目标)</th><th>RSI</th><th>%B</th><th>量比</th><th>离 50 日线</th><th>涨跌</th></tr></thead><tbody>
 <tr><td>SPCX</td><td>横盘; 呼 自 06-16</td><td>平 (昨 159.53)</td><td>59 / 第 25</td><td>0.74 / 第 62</td><td>0.97 / 第 60</td><td>+12.7% / 第 76</td><td>+1.25% / 第 65</td></tr>
@@ -98,75 +637,7 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <tr><td>ARM</td><td>横盘; 呼 自 06-18</td><td>平 (昨 275.5)</td><td>44 / 第 37</td><td>0.30 / 第 29</td><td>0.72 / 第 35</td><td>-1.3% / 第 42</td><td>-3.27% / 第 17</td></tr>
 <tr><td>SNDK</td><td>横盘; 呼 自 06-22</td><td>平 (昨 1610.21)</td><td>44 / 第 5</td><td>0.21 / 第 5</td><td>0.65 / 第 13</td><td>-0.0% / 第 14</td><td>-1.72% / 第 30</td></tr>
 <tr><td>TSM</td><td>横盘; 呼 自 10-05</td><td>财报 (昨 457.99)</td><td>52 / 第 31</td><td>0.54 / 第 34</td><td>0.92 / 第 47</td><td>+4.8% / 第 45</td><td>-1.02% / 第 27</td></tr>
-</tbody></table><h2 id="浪-2-抄底加仓的期权做法">浪 2 抄底加仓的期权做法</h2>
-<p><strong>SPCX</strong> 现价 162.57 (拿着): 没有可执行的浪 2 价位 (估值价不可用, 两门不能同时成立), 不开加仓期权单</p>
-<p><strong>META</strong> 现价 718.67 (买房): 想买价 第 1 档 613.35 (-14.7%), 第 2 档 613.35, 失效 539.03; 隐含波动率不贵不便宜 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 照计划的一半, 第 2 档用长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>) (21 日剔财报 <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 37%)</p>
-<ul>
-<li>1. 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 暂不卖。delta 0.25-0.35 那一档 (11-20 P665) 被行权的接货价 648.25 比第 1 档 613.35 高 6%, 等于高于第 1 档买; 股价再跌约 5% 后这一档才对得上, 那之前到第 1 档直接买股</li>
-<li>2. 跌到第 2 档 613.35: 买 <strong>2027-12-17 C580</strong> (431 天) 代替第 2 份股票; 今天中间价 217.47 = $21,748/张 (到价时更便宜); 到那价位时 每张 delta +68 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.13 股/$1, theta -14.55$/天, vega +239.83$/波动率点; 1 张约等于 68 股, 每天时间损耗约 $14.55/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
-<li>4. 跌进深回撤区 590.08-630.16 (回吐 61.8%-78.6%): 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 价差 (30-60 天, 卖约 630 的 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> / 买低一到两档), 最大亏损封顶, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> / vega 风险被买入腿抵掉; 当天按表重选合约</li>
-<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
-<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
-</ul>
-<p><strong>NET</strong> 现价 360.93 (买房): 想买价 第 1 档 129.37 (-64.2%), 第 2 档 129.37, 失效 272.74; 隐含波动率不贵不便宜 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 照计划的一半, 第 2 档用长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>) (21 日剔财报 <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 51%)</p>
-<ul>
-<li>1. 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 暂不卖。delta 0.25-0.35 那一档 (11-20 P330) 被行权的接货价 312.30 比第 1 档 129.37 高 141%, 等于高于第 1 档买; 股价再跌约 59% 后这一档才对得上, 那之前到第 1 档直接买股</li>
-<li>2. 跌到第 2 档 129.37: 买 <strong>2028-01-21 C130</strong> (466 天) 代替第 2 份股票; 今天中间价 245.00 = $24,500/张 (到价时更便宜); 到那价位时 每张 delta +67 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.36 股/$1, theta -4.40$/天, vega +52.73$/波动率点; 1 张约等于 67 股, 每天时间损耗约 $4.40/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
-<li>4. 跌进深回撤区 291.61-306.43 (回吐 61.8%-78.6%): 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 价差 (30-60 天, 卖约 306 的 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> / 买低一到两档), 最大亏损封顶, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> / vega 风险被买入腿抵掉; 当天按表重选合约</li>
-<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
-<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
-</ul>
-<p><strong>ISRG</strong> 现价 423.96 (买房): 想买价 第 1 档 381.56 (-10.0%), 第 2 档 377.99, 失效 332.02; 隐含波动率偏贵 (卖方占便宜: 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> / 价差为主, 少买单腿) (21 日剔财报 <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 38%)</p>
-<ul>
-<li>1. 等第 1 档时收钱: 卖 <strong>2026-11-20 P395</strong> (39 天, <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 43%), 中间价 11.45 = $1,145/张, 挂中间价; 被行权 = 以 383.55 接货 (-9.5% vs 现价, 第 1 档 381.56); 到期被行权概率约 32%; 按占用现金年化 27.1%; 张数 = 第 1 份计划股数 / 100, 计划张数全卖; 跨财报 10-21, 再减半</li>
-<li>希腊值: 每张 delta +27 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> -0.56 股/$1, theta +24.11$/天, vega -46.11$/波动率点。theta 是收入, 每天约 $24.11/张; short <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> / short vega 是风险: 跌 $1 多接 0.6 股的 delta, <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 涨 1 点亏 $46.11/张</li>
-<li>管理 (房东规则, 2026-10-08 选 A): 剩余价值 &lt;= 卖出价的 15% 或股价的 0.1% (取高) 就买回, 再卖下一张; 被行权 = 在第 1 档附近接第 1 份 (目的就是接货); roll 只在 4 周内且净 credit &gt;= 0, 拿不到就接受行权; 收盘跌破浪 1 起点 332.02 = 浪 2 失效: 买回或只拿 credit roll, 不接货</li>
-<li>接货之后 = 轮子: 只在局部顶卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>, 行权价一律速度尺 q90 (不往平值 / 价内拧); 活龙 (放量创 20 日新高 / 收复吸顶 / 冲过 <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> 墙 / 20 日涨 25%) 不卖 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>; 周五不卖; 股票被 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 走 = 次日开盘买回股票, 不卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 接回</li>
-<li>2. 跌到第 2 档 377.99: 买 <strong>2028-01-21 C360</strong> (466 天) 代替第 2 份股票; 今天中间价 120.90 = $12,090/张 (到价时更便宜); 到那价位时 每张 delta +67 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.21 股/$1, theta -8.49$/天, vega +154.20$/波动率点; 1 张约等于 67 股, 每天时间损耗约 $8.49/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
-<li>3. <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵: 用 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 价差代替单买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (卖出的腿抵掉大部分 vega): 买 2027-09-17 C410 / 卖 C550, 净付 48.85 = $4,885/张, 最多赚 $9,115/张</li>
-<li>4. 跌进深回撤区 351.70-367.14 (回吐 61.8%-78.6%): 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 价差 (30-60 天, 卖约 367 的 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> / 买低一到两档), 最大亏损封顶, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> / vega 风险被买入腿抵掉; 当天按表重选合约</li>
-<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
-<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
-</ul>
-<p><strong>GOOGL</strong> 现价 351.66 (观察): 没有可执行的浪 2 价位 (无有效浪 1 (近段涨幅不足)), 不开加仓期权单</p>
-<p><strong>TSLA</strong> 现价 382.70 (不碰): 做多分类不碰, 没有做多期权单 (猎场 B 候选时按猎场进场单)</p>
-<p><strong>AMZN</strong> 现价 262.43 (观察): 想买价 第 1 档 255.62 (-2.6%), 第 2 档 255.33, 失效 226.65; 隐含波动率偏贵 (卖方占便宜: 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> / 价差为主, 少买单腿) (21 日剔财报 <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 33%)</p>
-<ul>
-<li>1. 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 不卖 (做多分类 观察; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着); 到第 1 档直接买股</li>
-<li>2. 跌到第 2 档 255.33: 买 <strong>2027-07-16 C240</strong> (277 天) 代替第 2 份股票; 今天中间价 49.08 = $4,908/张 (到价时更便宜); 到那价位时 每张 delta +67 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.45 股/$1, theta -6.63$/天, vega +80.16$/波动率点; 1 张约等于 67 股, 每天时间损耗约 $6.63/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
-<li>3. <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵: 用 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 价差代替单买 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> (卖出的腿抵掉大部分 vega): 买 2027-07-16 C260 / 卖 C340, 净付 25.77 = $2,578/张, 最多赚 $5,422/张</li>
-<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
-<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
-</ul>
-<p><strong>AXON</strong> 现价 422.89 (观察): 已跌破浪 1 起点 491.49, 浪 2 失效; 不卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>, 已卖的只 credit roll 或买回, 不接货</p>
-<p><strong>AMD</strong> 现价 608.10 (不碰): 做多分类不碰, 没有做多期权单 (猎场 B 候选时按猎场进场单)</p>
-<p><strong>AAPL</strong> 现价 336.64 (观察): 没有可执行的浪 2 价位 (无确认底), 不开加仓期权单</p>
-<p><strong>CRWD</strong> 现价 275.04 (不碰): 做多分类不碰, 没有做多期权单 (猎场 B 候选时按猎场进场单)</p>
-<p><strong>MELI</strong> 现价 1,889.85 (未评分): 想买价 第 1 档 1,798.04 (-4.9%), 第 2 档 1,776.70, 失效 1,546.81; 隐含波动率不贵不便宜 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 照计划的一半, 第 2 档用长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>) (21 日剔财报 <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 35%)</p>
-<ul>
-<li>1. 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 不卖 (做多分类 未评分; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着); 到第 1 档直接买股</li>
-<li>2. 跌到第 2 档 1,776.70: 买 <strong>2027-12-17 C1680</strong> (431 天) 代替第 2 份股票; 今天中间价 492.00 = $49,200/张 (到价时更便宜); 到那价位时 每张 delta +68 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.04 股/$1, theta -42.48$/天, vega +694.70$/波动率点; 1 张约等于 68 股, 每天时间损耗约 $42.48/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
-<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
-<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
-</ul>
-<p><strong>KLAC</strong> 现价 195.57 (观察): 没有可执行的浪 2 价位 (无有效浪 1 (近段涨幅不足)), 不开加仓期权单</p>
-<p><strong>MSFT</strong> 现价 535.07 (观察): 想买价 第 1 档 446.22 (-16.6%), 第 2 档 443.95, 失效 352.83; 隐含波动率不贵不便宜 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 照计划的一半, 第 2 档用长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>) (21 日剔财报 <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 27%)</p>
-<ul>
-<li>1. 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 不卖 (做多分类 观察; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> = 承诺接货, 只给买房 / 拿着); 到第 1 档直接买股</li>
-<li>2. 跌到第 2 档 443.95: 买 <strong>2027-09-17 C420</strong> (340 天) 代替第 2 份股票; 今天中间价 146.47 = $14,648/张 (到价时更便宜); 到那价位时 每张 delta +67 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.25 股/$1, theta -10.02$/天, vega +154.55$/波动率点; 1 张约等于 67 股, 每天时间损耗约 $10.02/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
-<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
-<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
-</ul>
-<p><strong>NVDA</strong> 现价 229.28 (不碰): 做多分类不碰, 没有做多期权单 (猎场 B 候选时按猎场进场单)</p>
-<p><strong>ARM</strong> 现价 266.28 (观察): 没有可执行的浪 2 价位 (估值价不可用, 两门不能同时成立), 不开加仓期权单</p>
-<p><strong>TSM</strong> 现价 453.31 (拿着): 想买价 第 1 档 225.81 (-50.2%), 第 2 档 225.81, 失效 374.67; 隐含波动率不贵不便宜 (卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 照计划的一半, 第 2 档用长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>) (21 日剔财报 <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 30%)</p>
-<ul>
-<li>1. 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span>: 暂不卖。delta 0.25-0.35 那一档 (11-13 P430) 被行权的接货价 421.93 比第 1 档 225.81 高 87%, 等于高于第 1 档买; 股价再跌约 46% 后这一档才对得上, 那之前到第 1 档直接买股</li>
-<li>2. 跌到第 2 档 225.81: 买 <strong>2027-12-17 C210</strong> (431 天) 代替第 2 份股票; 今天中间价 255.65 = $25,565/张 (到价时更便宜); 到那价位时 每张 delta +69 股, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> +0.34 股/$1, theta -5.37$/天, vega +86.79$/波动率点; 1 张约等于 69 股, 每天时间损耗约 $5.37/张 (长期 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 的 theta 小, 这是选 9-18 个月的原因); <span class="term" tabindex="0" data-tip="隐含波动率: 期权价格里市场预期的波动幅度, 越高期权越贵。">IV</span> 偏贵时改用下面的价差</li>
-<li>4. 跌进深回撤区 398.45-417.12 (回吐 61.8%-78.6%): 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 价差 (30-60 天, 卖约 417 的 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> / 买低一到两档), 最大亏损封顶, <span class="term" tabindex="0" data-tip="期权做市商的对冲强度; 负 gamma 时做市商追涨杀跌, 波动放大。">gamma</span> / vega 风险被买入腿抵掉; 当天按表重选合约</li>
-<li>5. 不做: 浪 2 里卖近月 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 封顶 (会被反弹打穿); 买近月虚值 <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span> 当彩票 (theta 吃光)</li>
-<li>6. 仓位与对冲: 同一驱动同一方向的权利金合计 &lt;= 组合 2%; 卖 <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 的名义金额按股票仓位算; 已持股的票按持仓操作 (轮子: <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 1 份 = 持股 1/6, 往下速度尺 q90, 两周到期, 股票 + <span class="term" tabindex="0" data-tip="看跌期权。卖 put = 承诺在行权价接货, 先收一笔权利金。">put</span> 敞口 &lt;= 1.5 倍持股), 不按这里</li>
-</ul><details class="chunk"><summary>纸面账</summary>
+</tbody></table><details class="chunk"><summary>纸面账</summary>
 <ul>
 <li>纸面 价差: 还没有结算的</li>
 <li>纸面 铁鹰: 还没有结算的</li>
