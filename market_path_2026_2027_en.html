@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Big-Operator Path 2026-2027</title>
+<meta name="description" content="S&P 500 from 2026-10-13 to 2027-12-31, three scenario paths (main / supported / crash), event lines, invalidation line; NET / SPCX / TSLA shadow paths. A scenario, not a forecast.">
+<link rel="alternate" hreflang="zh" href="https://research.empireintegration.com/market_path_2026_2027.html">
+<link rel="alternate" hreflang="en" href="https://research.empireintegration.com/market_path_2026_2027_en.html">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.35.3/plotly.min.js"></script>
+<style>
+:root {
+  --bg: #ffffff; --fg: #1f2328; --muted: #57606a; --grid: #e6e8eb; --card: #f6f8fa; --border: #d0d7de;
+  --main: #1f5fbf; --support: #1a7f4b; --crash: #c0392b; --net: #d9730d; --spcx: #7c3aed; --tsla: #0e7c86; --fomc: #8b949e; --fail: #c0392b; --switch: #1a7f4b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1117; --fg: #e6edf3; --muted: #9da7b3; --grid: #2a313a; --card: #161b22; --border: #30363d;
+    --main: #79b8ff; --support: #56d364; --crash: #ff7b72; --net: #ffa657; --spcx: #d2a8ff; --tsla: #39d2c0; --fomc: #6e7681; --fail: #ff7b72; --switch: #56d364;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1117; --fg: #e6edf3; --muted: #9da7b3; --grid: #2a313a; --card: #161b22; --border: #30363d;
+  --main: #79b8ff; --support: #56d364; --crash: #ff7b72; --net: #ffa657; --spcx: #d2a8ff; --tsla: #39d2c0; --fomc: #6e7681; --fail: #ff7b72; --switch: #56d364;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); overflow-x: hidden; }
+body { font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Roboto, sans-serif; line-height: 1.5; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 1.4rem; margin: 0 0 4px; }
+h2 { font-size: 1.1rem; margin: 28px 0 8px; }
+.sub { color: var(--muted); font-size: 0.9rem; margin: 0 0 12px; }
+.lang { float: right; font-size: 0.9rem; margin: 2px 0 0 12px; }
+.lang a { color: var(--main); text-decoration: none; }
+.strip { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 16px; }
+.pill { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; }
+.pill b { font-weight: 600; }
+.chart { width: 100%; height: 560px; }
+.chart2 { width: 100%; height: 440px; }
+.note { color: var(--muted); font-size: 0.82rem; margin: 6px 0 0; }
+.tablewrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 0.8rem; }
+th, td { border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
+th { background: var(--card); position: sticky; top: 0; }
+td:nth-child(3), td:nth-child(4) { white-space: nowrap; }
+.foot { color: var(--muted); font-size: 0.8rem; margin: 20px 0 8px; }
+@media (max-width: 640px) {
+  .chart { height: 480px; }
+  .chart2 { height: 400px; }
+  h1 { font-size: 1.2rem; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="lang"><a href="market_path_2026_2027.html">中文</a> | EN</div>
+  <h1>Big-operator path: S&P 500 from 2026-10-13 to 2027-12-31</h1>
+  <p class="sub">A scenario, not a forecast; data as of 2026-10-13; author naughty boss</p>
+  <div class="strip">
+    <span class="pill"><b>Main path 50%</b>: pin -> run-up into the IPO window -> exhale after year-end -> 2027-02 trough -> third-year inhale, year-end 8,700</span>
+    <span class="pill"><b>Supported path 22%</b>: no 12-09 hike + oil falls back, exhale only -5%, year-end 9,100</span>
+    <span class="pill"><b>Crash path 28%</b>: 12-09 hike + broken IPO + write-down, 2027-04/05 trough 6,150, year-end 6,600</span>
+    <span class="pill"><b>Invalidation</b> 6,900 (SPY 688); <b>switch to supported</b> if close > 8,300 before 2027-01-31</span>
+  </div>
+
+  <h2>Figure 1: S&P 500 three paths and event lines (monthly points, est = estimated date)</h2>
+  <div id="fig1" class="chart"></div>
+  <p class="note">Thick line = main path; thin dashed = supported / crash; grey verticals = FOMC (* = with dot plot); coloured verticals = election / IPO / unlocks / earnings seasons / key points; red horizontal = main-path invalidation line; hover for the level and the matching SPY. Start 7,805.45 (10-13 close).</p>
+
+  <h2>Figure 2: NET / SPCX / TSLA main-path shadows (each 10-13 close = 100)</h2>
+  <div id="fig2" class="chart2"></div>
+  <p class="note">Start: NET 347.70 / SPCX 156.54 / TSLA 375.23 (10-13 close). Year-end bands: NET 240-320 / SPCX 100-180 / TSLA 300-450, checked against the house 2027 year-end p50 (250 / 132 / 354). Verticals = the six SPCX unlock tranches and the 10-21 / 10-30 earnings of the two names.</p>
+
+  <h2>Stage path table (condensed; full table in the report)</h2>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Stage</th><th>Drivers</th><th>S&P 500 range (month-end)</th><th>SPY</th><th>The big operators' move</th><th>Leading indicators / data dates</th><th>Falsifiers</th></tr></thead>
+    <tbody>
+      <tr><td>2026-10</td><td>CPI 10-14; third-quarter reports (TSLA 10-21, big-four clouds 10-28 to 10-30); FOMC 10-28 hold about 80%; oil $105</td><td>7,600-7,900 (7,720)</td><td>758-788</td><td>Market makers pin 776-785; hedge funds start selling semis to make room; PR wave before the SPCX 10-26 first tranche</td><td>CPI core > 3.5% = hot; big-four cloud capex and free cash flow</td><td>Close < 7,550 with spread > 380bp = the exhale comes early</td></tr>
+      <tr><td>2026-11</td><td>Election 11-03; refunding 11-04; SPCX 11-05 unlock 1.3B shares + earnings; CPI 11-10; Anthropic roadshow (est 11-09) to pricing (est 11-20 to 11-25); NVDA about 11-19</td><td>7,750-8,100, high 8,080 (7,980)</td><td>773-808</td><td>Run-up into the IPO window; old positions swapped into the new stock (index up, semis flat); SPCX absorbed on attention</td><td>S-1 public (est 10-23): price range and lock-up; SPCX 11-05 weekly close 130 / 150</td><td>Pricing below $1.5T or delayed; close > 8,300 with spread < 300bp = supported path</td></tr>
+      <tr><td>2026-12</td><td>SPCX 12-08 unlock 798M shares; FOMC 12-09 hike (futures about 80%) + dot plot; appropriations 12-11; quad witching + rebalance 12-18</td><td>7,550-8,050 (7,760)</td><td>753-803</td><td>Hold until 12-18, distribute after; gamma expiry pulls the pin; hedge funds lock the year and de-lever</td><td>Dot plot 2027 median; SPCX 12-08 weekly close; volume in the 5 sessions after 12-18</td><td>Dot plot 2027 >= 4.4 = crash path upgraded; no hike + oil < $85 = supported path</td></tr>
+      <tr><td>2027-01</td><td>Fourth-quarter reports (big-four clouds 01-27 to 02-04 give 2027 capex guidance); FOMC 01-27</td><td>7,050-7,650 (7,300)</td><td>703-763</td><td>Main leg of the exhale: trend funds sell in steps below the 50 / 100-day lines, vol-target funds cut equity</td><td>2027 capex guidance growth (>= +20% / < +10%); 10-year 5.5%; spread 380 / 400</td><td>Spread >= 400bp or 10-year >= 5.75% = crash</td></tr>
+      <tr><td>2027-02</td><td>SPCX 02-04 / 02-16 unlocks; 10-year peaks (est 5.4-5.6%)</td><td>7,000-7,500, trough 7,100 (7,350)</td><td>698-748</td><td>Nobody at the bottom: buybacks + insider buying + sellers from the 11-24 top come back to buy</td><td>Stocks fall first, then the 10-year peaks (1994 / 2018) or both at once (2000 / 2007); count of insider buys</td><td>Close < 6,900 = main path invalid</td></tr>
+      <tr><td>2027-03</td><td>FOMC 03-17 dot plot (pause confirmed); quad witching 03-19</td><td>7,300-7,800 (7,650)</td><td>728-778</td><td>Vol-target funds re-add, trend funds flip long</td><td>Futures vs dot plot gap <= 20bp; 1-year < 4.0%</td><td>Another hike on 03-17 = crash path</td></tr>
+      <tr><td>2027-04 to 06</td><td>First-quarter reports; FOMC 04-28 / 06-09; OpenAI S-1 public and roadshow (est); SPCX 12 months listed on 06-12 + 06-14 Musk tranche</td><td>7,650-8,500 (end-06 8,250)</td><td>763-848</td><td>Broadening to cyclicals / small caps; run-up before the second lab IPO (smaller); SPCX index-inclusion PR</td><td>2027 EPS consensus (418) revisions; OpenAI pricing vs about $1.4T; SPCX trailing-four-quarter GAAP</td><td>EPS cut > 5%; pricing below the bridge round = re-rating reverses</td></tr>
+      <tr><td>2027-07 to 09</td><td>Second-quarter reports; FOMC 07-28 / 09-15 (first cut candidate); Jackson Hole</td><td>8,050-8,700 (end-09 8,450)</td><td>803-867</td><td>2028 supply gets put on the calendar; the cut narrative pulls the last leg</td><td>First hint of 2028 capex; spread > 350bp = cascade early; reason for the cut (inflation / jobs)</td><td>Guidance says "flat"; a jobs-driven cut = the 2028 bear tilt comes early</td></tr>
+      <tr><td>2027-10 to 12</td><td>Third-quarter reports = first look at 2028 capex guidance; FOMC 10-27 / 12-08 (2028 dot plot); lab lock-ups expire (est)</td><td>8,300-9,000 (end-12 8,700)</td><td>827-897</td><td>Top zone: hedge funds buy their 2028 far-dated protection; new-stock lock-up sellers + year-end locking</td><td>2028 capex guidance growth (< 10% = second derivative turns negative); memory contract prices q/q; 2028 dot plot</td><td>Guidance >= +15% with spread < 350bp = supported path, top delayed; close > 9,200 = 1999 type</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="foot">Price anchor verified at 2026-10-13 (Yahoo Finance S&P 500 close; yfinance SPY / NET / SPCX / TSLA close; FRED 10-09 / 10-12). A scenario, not a forecast; not investment advice.</p>
+</div>
+
+<script>
+(function () {
+  var SPY_RATIO = 0.0997;
+  var main = [["2026-10-13",7805],["2026-10-30",7720],["2026-11-24",8080],["2026-11-30",7980],["2026-12-31",7760],["2027-01-29",7300],["2027-02-10",7100],["2027-02-26",7350],["2027-03-31",7650],["2027-04-30",7900],["2027-05-28",8050],["2027-06-30",8250],["2027-07-30",8400],["2027-08-31",8300],["2027-09-30",8450],["2027-10-29",8600],["2027-11-30",8750],["2027-12-31",8700]];
+  var support = [["2026-10-13",7805],["2026-10-30",7780],["2026-11-24",8150],["2026-11-30",8100],["2026-12-31",8150],["2027-01-29",8000],["2027-02-26",8100],["2027-03-31",8350],["2027-04-30",8500],["2027-05-28",8600],["2027-06-30",8800],["2027-07-30",9000],["2027-08-31",8900],["2027-09-30",9100],["2027-10-29",9300],["2027-11-30",9250],["2027-12-31",9100]];
+  var crash = [["2026-10-13",7805],["2026-10-30",7600],["2026-11-24",7900],["2026-11-30",7700],["2026-12-31",7250],["2027-01-29",6800],["2027-02-26",6500],["2027-03-31",6300],["2027-04-30",6150],["2027-05-28",6250],["2027-06-30",6500],["2027-07-30",6700],["2027-08-31",6500],["2027-09-30",6700],["2027-10-29",6800],["2027-11-30",6700],["2027-12-31",6600]];
+
+  var events1 = [
+    {d:"2026-10-28", t:"FOMC 10-28", k:"fomc"},
+    {d:"2026-11-03", t:"Midterm election 11-03", k:"key"},
+    {d:"2026-11-05", t:"SPCX unlocks 10-26 / 11-05 (est)", k:"unlock"},
+    {d:"2026-11-24", t:"Anthropic pricing (est 11-20 to 11-25)", k:"ipo"},
+    {d:"2026-12-08", t:"SPCX unlock 12-08", k:"unlock"},
+    {d:"2026-12-09", t:"FOMC 12-09 *", k:"fomc"},
+    {d:"2026-12-18", t:"Quad witching / rebalance 12-18", k:"key"},
+    {d:"2027-01-13", t:"Fourth-quarter season starts (2027 capex guidance)", k:"earn"},
+    {d:"2027-01-27", t:"FOMC 01-27", k:"fomc"},
+    {d:"2027-02-10", t:"Key point 1: exhale trough (est 02-10)", k:"key"},
+    {d:"2027-02-16", t:"SPCX unlocks 02-04 / 02-16 (est)", k:"unlock"},
+    {d:"2027-03-17", t:"FOMC 03-17 *", k:"fomc"},
+    {d:"2027-04-14", t:"First-quarter season starts", k:"earn"},
+    {d:"2027-04-28", t:"FOMC 04-28", k:"fomc"},
+    {d:"2027-06-04", t:"OpenAI pricing (est)", k:"ipo"},
+    {d:"2027-06-09", t:"FOMC 06-09 *", k:"fomc"},
+    {d:"2027-06-14", t:"SPCX Musk tranche unlock 06-14", k:"unlock"},
+    {d:"2027-07-14", t:"Second-quarter season starts", k:"earn"},
+    {d:"2027-07-28", t:"FOMC 07-28", k:"fomc"},
+    {d:"2027-09-15", t:"FOMC 09-15 *", k:"fomc"},
+    {d:"2027-10-13", t:"Key point 2: third-quarter reports = first look at 2028 capex", k:"key"},
+    {d:"2027-10-27", t:"FOMC 10-27", k:"fomc"},
+    {d:"2027-12-08", t:"FOMC 12-08 *", k:"fomc"}
+  ];
+
+  var net = [["2026-10-13",100],["2026-10-30",102],["2026-11-24",116],["2026-11-30",111],["2026-12-31",101],["2027-01-29",86],["2027-02-10",79],["2027-02-26",83],["2027-03-31",91],["2027-04-30",95],["2027-05-28",92],["2027-06-30",96],["2027-07-30",86],["2027-08-31",78],["2027-09-30",81],["2027-10-29",86],["2027-11-30",83],["2027-12-31",82]];
+  var spcx = [["2026-10-13",100],["2026-10-23",103],["2026-10-30",96],["2026-11-06",89],["2026-11-30",86],["2026-12-08",80],["2026-12-31",77],["2027-01-29",69],["2027-02-10",64],["2027-02-26",67],["2027-03-31",73],["2027-04-30",77],["2027-05-28",80],["2027-06-14",89],["2027-06-30",86],["2027-07-30",83],["2027-08-31",77],["2027-09-30",80],["2027-10-29",86],["2027-11-30",89],["2027-12-31",86]];
+  var tsla = [["2026-10-13",100],["2026-10-21",97],["2026-10-30",99],["2026-11-24",112],["2026-11-30",109],["2026-12-31",104],["2027-01-29",85],["2027-02-10",77],["2027-02-26",81],["2027-03-31",88],["2027-04-30",92],["2027-05-28",91],["2027-06-30",97],["2027-07-30",101],["2027-08-31",96],["2027-09-30",99],["2027-10-29",104],["2027-11-30",107],["2027-12-31",101]];
+  var base = {NET:347.70, SPCX:156.54, TSLA:375.23};
+
+  var events2 = [
+    {d:"2026-10-21", t:"TSLA earnings 10-21", k:"earn"},
+    {d:"2026-10-26", t:"SPCX unlock 10-26", k:"unlock"},
+    {d:"2026-10-30", t:"NET earnings 10-30", k:"earn"},
+    {d:"2026-11-05", t:"SPCX unlock 11-05 (est) + earnings", k:"unlock"},
+    {d:"2026-11-24", t:"Anthropic pricing (est)", k:"ipo"},
+    {d:"2026-12-08", t:"SPCX unlock 12-08", k:"unlock"},
+    {d:"2027-02-04", t:"SPCX unlock 02-04 (est)", k:"unlock"},
+    {d:"2027-02-16", t:"SPCX unlock 02-16 (est)", k:"unlock"},
+    {d:"2027-06-14", t:"SPCX Musk tranche 06-14", k:"unlock"}
+  ];
+
+  function cssVar(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function col(xy, i) { return xy.map(function (p) { return p[i]; }); }
+
+  function baseLayout(fg, muted, grid, bg, title) {
+    return {
+      paper_bgcolor: bg, plot_bgcolor: bg,
+      font: {color: fg, size: 12},
+      margin: {l: 56, r: 20, t: 90, b: 48},
+      hovermode: "x unified",
+      hoverlabel: {bgcolor: bg, bordercolor: muted, font: {color: fg}},
+      legend: {orientation: "h", x: 0, y: -0.14, font: {color: fg}},
+      xaxis: {type: "date", range: ["2026-10-01", "2028-01-10"], gridcolor: grid, zeroline: false, tickformat: "%Y-%m", dtick: "M1", tickangle: -45, tickfont: {size: 10}},
+      yaxis: {title: {text: title, font: {color: muted}}, gridcolor: grid, zeroline: false, tickformat: ",d"},
+      shapes: [], annotations: []
+    };
+  }
+
+  function eventShapes(layout, evs, colors, nTop) {
+    var topSlot = 0, botSlot = 0;
+    evs.forEach(function (e) {
+      var isFomc = e.k === "fomc";
+      var c = colors[e.k] || colors.key;
+      layout.shapes.push({type: "line", xref: "x", yref: "paper", x0: e.d, x1: e.d, y0: 0, y1: 1,
+        line: {color: c, width: isFomc ? 1 : 1.3, dash: isFomc ? "dot" : "dash"}, opacity: isFomc ? 0.55 : 0.75});
+      if (isFomc) {
+        var yb = 0.02 + (botSlot % 2) * 0.05; botSlot++;
+        layout.annotations.push({xref: "x", yref: "paper", x: e.d, y: yb, text: e.t, showarrow: false, textangle: -90,
+          xanchor: "right", yanchor: "bottom", font: {size: 9, color: c}, opacity: 0.9});
+      } else {
+        var slot = topSlot % (nTop || 2); topSlot++;
+        layout.annotations.push({xref: "x", yref: "paper", x: e.d, y: 1.0, text: e.t, showarrow: false, textangle: -90,
+          xanchor: "center", yanchor: "bottom", xshift: slot * 13, font: {size: 9.5, color: c}});
+      }
+    });
+  }
+
+  function draw() {
+    var fg = cssVar("--fg"), muted = cssVar("--muted"), grid = cssVar("--grid"), bg = cssVar("--bg");
+    var colors = {key: cssVar("--fg"), fomc: cssVar("--fomc"), unlock: cssVar("--spcx"), ipo: cssVar("--net"), earn: cssVar("--tsla")};
+
+    var hov = "%{x|%Y-%m-%d}<br>S&P %{y:,d} / SPY %{customdata:.0f}<extra>%{fullData.name}</extra>";
+    var data1 = [
+      {name: "Main path 50%", x: col(main, 0), y: col(main, 1), customdata: col(main, 1).map(function (v) { return v * SPY_RATIO; }),
+        mode: "lines+markers", line: {color: cssVar("--main"), width: 3.5}, marker: {size: 6}, hovertemplate: hov},
+      {name: "Supported path 22%", x: col(support, 0), y: col(support, 1), customdata: col(support, 1).map(function (v) { return v * SPY_RATIO; }),
+        mode: "lines+markers", line: {color: cssVar("--support"), width: 1.4, dash: "dash"}, marker: {size: 4}, hovertemplate: hov},
+      {name: "Crash path 28%", x: col(crash, 0), y: col(crash, 1), customdata: col(crash, 1).map(function (v) { return v * SPY_RATIO; }),
+        mode: "lines+markers", line: {color: cssVar("--crash"), width: 1.4, dash: "dash"}, marker: {size: 4}, hovertemplate: hov}
+    ];
+    var l1 = baseLayout(fg, muted, grid, bg, "S&P 500 (points)");
+    l1.yaxis.range = [5800, 9600];
+    l1.margin.t = 225;
+    // failure line and switch line
+    l1.shapes.push({type: "line", xref: "paper", yref: "y", x0: 0, x1: 1, y0: 6900, y1: 6900, line: {color: cssVar("--fail"), width: 1.5, dash: "dot"}});
+    l1.annotations.push({xref: "paper", yref: "y", x: 0.995, y: 6900, text: "Main-path invalidation 6,900 (SPY 688): a close below it before 2027-03-17 invalidates", showarrow: false, xanchor: "right", yanchor: "bottom", font: {size: 10, color: cssVar("--fail")}});
+    l1.shapes.push({type: "line", xref: "x", yref: "y", x0: "2026-10-13", x1: "2027-01-31", y0: 8300, y1: 8300, line: {color: cssVar("--switch"), width: 1.2, dash: "dot"}});
+    l1.annotations.push({xref: "x", yref: "y", x: "2027-01-31", y: 8300, text: "Close > 8,300 before 2027-01-31 = switch to supported path", showarrow: false, xanchor: "left", yanchor: "bottom", font: {size: 10, color: cssVar("--switch")}});
+    eventShapes(l1, events1, colors, 3);
+    Plotly.newPlot("fig1", data1, l1, {responsive: true, displayModeBar: false});
+
+    function hov2(name) { return "%{x|%Y-%m-%d}<br>" + name + " %{y:.0f} (about $%{customdata:.0f})<extra></extra>"; }
+    var data2 = [
+      {name: "NET (347.70 = 100)", x: col(net, 0), y: col(net, 1), customdata: col(net, 1).map(function (v) { return base.NET * v / 100; }),
+        mode: "lines+markers", line: {color: cssVar("--net"), width: 2.5}, marker: {size: 5}, hovertemplate: hov2("NET")},
+      {name: "SPCX (156.54 = 100)", x: col(spcx, 0), y: col(spcx, 1), customdata: col(spcx, 1).map(function (v) { return base.SPCX * v / 100; }),
+        mode: "lines+markers", line: {color: cssVar("--spcx"), width: 2.5}, marker: {size: 5}, hovertemplate: hov2("SPCX")},
+      {name: "TSLA (375.23 = 100)", x: col(tsla, 0), y: col(tsla, 1), customdata: col(tsla, 1).map(function (v) { return base.TSLA * v / 100; }),
+        mode: "lines+markers", line: {color: cssVar("--tsla"), width: 2.5}, marker: {size: 5}, hovertemplate: hov2("TSLA")}
+    ];
+    var l2 = baseLayout(fg, muted, grid, bg, "Normalised (10-13 close = 100)");
+    l2.yaxis.range = [55, 125];
+    l2.yaxis.tickformat = "d";
+    l2.margin.t = 190;
+    l2.shapes.push({type: "line", xref: "paper", yref: "y", x0: 0, x1: 1, y0: 100, y1: 100, line: {color: muted, width: 1, dash: "dot"}});
+    eventShapes(l2, events2, colors, 2);
+    Plotly.newPlot("fig2", data2, l2, {responsive: true, displayModeBar: false});
+  }
+
+  draw();
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  if (mq && mq.addEventListener) { mq.addEventListener("change", draw); } else if (mq && mq.addListener) { mq.addListener(draw); }
+})();
+</script>
+</body>
+</html>
