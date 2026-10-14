@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>大庄做局主路径 2026-2027</title>
+<meta name="description" content="标普 500 从 2026-10-13 到 2027-12-31 的三条推演路径 (主路径 / 托市 / 崩盘), 事件竖线, 失效线; NET / SPCX / TSLA 影子路径。推演, 非预测。">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.35.3/plotly.min.js"></script>
+<style>
+:root {
+  --bg: #ffffff; --fg: #1f2328; --muted: #57606a; --grid: #e6e8eb; --card: #f6f8fa; --border: #d0d7de;
+  --main: #1f5fbf; --support: #1a7f4b; --crash: #c0392b; --net: #d9730d; --spcx: #7c3aed; --tsla: #0e7c86; --fomc: #8b949e; --fail: #c0392b; --switch: #1a7f4b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1117; --fg: #e6edf3; --muted: #9da7b3; --grid: #2a313a; --card: #161b22; --border: #30363d;
+    --main: #79b8ff; --support: #56d364; --crash: #ff7b72; --net: #ffa657; --spcx: #d2a8ff; --tsla: #39d2c0; --fomc: #6e7681; --fail: #ff7b72; --switch: #56d364;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1117; --fg: #e6edf3; --muted: #9da7b3; --grid: #2a313a; --card: #161b22; --border: #30363d;
+  --main: #79b8ff; --support: #56d364; --crash: #ff7b72; --net: #ffa657; --spcx: #d2a8ff; --tsla: #39d2c0; --fomc: #6e7681; --fail: #ff7b72; --switch: #56d364;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); overflow-x: hidden; }
+body { font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Roboto, sans-serif; line-height: 1.5; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 1.4rem; margin: 0 0 4px; }
+h2 { font-size: 1.1rem; margin: 28px 0 8px; }
+.sub { color: var(--muted); font-size: 0.9rem; margin: 0 0 12px; }
+.strip { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 16px; }
+.pill { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; }
+.pill b { font-weight: 600; }
+.chart { width: 100%; height: 560px; }
+.chart2 { width: 100%; height: 440px; }
+.note { color: var(--muted); font-size: 0.82rem; margin: 6px 0 0; }
+.tablewrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 0.8rem; }
+th, td { border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
+th { background: var(--card); position: sticky; top: 0; }
+td:nth-child(3), td:nth-child(4) { white-space: nowrap; }
+.foot { color: var(--muted); font-size: 0.8rem; margin: 20px 0 8px; }
+@media (max-width: 640px) {
+  .chart { height: 480px; }
+  .chart2 { height: 400px; }
+  h1 { font-size: 1.2rem; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>大庄做局主路径: 标普 500 从 2026-10-13 到 2027-12-31</h1>
+  <p class="sub">推演, 非预测; 数据截至 2026-10-13; 作者 naughty boss</p>
+  <div class="strip">
+    <span class="pill"><b>主路径 50%</b>: 钉住 -> 上市窗口拉高 -> 年末后呼 -> 2027-02 谷 -> 第三年吸, 年末 8,700</span>
+    <span class="pill"><b>托市 22%</b>: 12 月不加息 + 油回落, 呼只 -5%, 年末 9,100</span>
+    <span class="pill"><b>崩盘 28%</b>: 12 月加息 + 破发 + 减记, 2027-04/05 谷 6,150, 年末 6,600</span>
+    <span class="pill"><b>失效线</b> 6,900 (SPY 688); <b>切托市</b> 2027-01-31 前收 > 8,300</span>
+  </div>
+
+  <h2>图 1: 标普 500 三条路径与事件线 (月度点, 估 = 估计日期)</h2>
+  <div id="fig1" class="chart"></div>
+  <p class="note">粗线 = 主路径; 细虚线 = 托市 / 崩盘; 灰色竖线 = FOMC (带 * 的有点阵图); 彩色竖线 = 选举 / 上市 / 解禁 / 财报季 / 关键点; 红色横线 = 主路径失效线; 悬停看点位与对应 SPY。起点 7,805.45 (10-13 收盘)。</p>
+
+  <h2>图 2: NET / SPCX / TSLA 主路径影子 (各自 10-13 收盘 = 100)</h2>
+  <div id="fig2" class="chart2"></div>
+  <p class="note">起点: NET 347.70 / SPCX 156.54 / TSLA 375.23 (10-13 收盘)。年末带: NET 240-320 / SPCX 100-180 / TSLA 300-450, 与 house 2027 年末分布 p50 (250 / 132 / 354) 对表。竖线 = SPCX 六档解禁与两只票的 10 月财报。</p>
+
+  <h2>分段路径表 (精简版; 全表见报告)</h2>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>阶段</th><th>驱动</th><th>标普 500 区间 (月末)</th><th>SPY</th><th>庄的动作</th><th>领先指标 / 出数日</th><th>反证</th></tr></thead>
+    <tbody>
+      <tr><td>2026-10</td><td>CPI 10-14; 三季报 (TSLA 10-21, 四大云 10-28 到 10-30); FOMC 10-28 按兵约 80%; 油 $105</td><td>7,600-7,900 (7,720)</td><td>758-788</td><td>做市商钉 776-785; 对冲基金卖半导体腾仓; SPCX 10-26 首档前 PR</td><td>CPI 核心 > 3.5% = 热; 四大云 capex 与自由现金流</td><td>收 < 7,550 且利差 > 380bp = 呼提前</td></tr>
+      <tr><td>2026-11</td><td>选举 11-03; 再融资 11-04; SPCX 11-05 解禁 13.0 亿股 + 财报; CPI 11-10; Anthropic 路演 (估 11-09) 到定价 (估 11-20 到 11-25); NVDA 约 11-19</td><td>7,750-8,100, 高 8,080 (7,980)</td><td>773-808</td><td>上市窗口前拉高; 老仓换新股 (指数涨, 半导体不涨); SPCX 靠注意力承接</td><td>S-1 公开 (估 10-23) 定价区间与锁定; SPCX 11-05 周收 130 / 150</td><td>定价不到 1.5 万亿或推迟; 收 > 8,300 且利差 < 300bp = 托市</td></tr>
+      <tr><td>2026-12</td><td>SPCX 12-08 解禁 7.98 亿股; FOMC 12-09 加息 (期货约 80%) + 点阵图; 拨款 12-11; 四巫日 + 再平衡 12-18</td><td>7,550-8,050 (7,760)</td><td>753-803</td><td>12-18 前守住, 之后派发; gamma 到期钉子拔掉; 对冲基金锁业绩去杠杆</td><td>点阵图 2027 中位; SPCX 12-08 周收; 12-18 后 5 日量</td><td>点阵图 2027 >= 4.4 = 崩盘升档; 不加息 + 油 < $85 = 托市</td></tr>
+      <tr><td>2027-01</td><td>四季报 (四大云 01-27 到 02-04 给 2027 capex 指引); FOMC 01-27</td><td>7,050-7,650 (7,300)</td><td>703-763</td><td>呼段主跌: 趋势基金破 50 / 100 日线分批卖, 波动率目标基金减股</td><td>2027 capex 指引增速 (>= +20% / < +10%); 10 年期 5.5%; 利差 380 / 400</td><td>利差 >= 400bp 或 10 年期 >= 5.75% = 崩盘</td></tr>
+      <tr><td>2027-02</td><td>SPCX 02-04 / 02-16 解禁; 10 年期见顶 (估 5.4-5.6%)</td><td>7,000-7,500, 谷 7,100 (7,350)</td><td>698-748</td><td>底部无人: 回购 + 内部人买入 + 11 月的卖家回头接</td><td>股票先跌后 10 年期见顶 (1994 / 2018) 还是同时 (2000 / 2007); 内部人买入笔数</td><td>收 < 6,900 = 主路径失效</td></tr>
+      <tr><td>2027-03</td><td>FOMC 03-17 点阵图 (停手确认); 四巫日 03-19</td><td>7,300-7,800 (7,650)</td><td>728-778</td><td>波动率目标基金回补, 趋势基金翻多</td><td>期货对点阵图分歧 <= 20bp; 1 年期 < 4.0%</td><td>03-17 继续加息 = 崩盘路径</td></tr>
+      <tr><td>2027-04 到 06</td><td>一季报; FOMC 04-28 / 06-09; OpenAI S-1 公开与路演 (估); SPCX 06-12 满 12 个月 + 06-14 Musk 档</td><td>7,650-8,500 (06 末 8,250)</td><td>763-848</td><td>扩散到周期 / 小盘; 第二家实验室上市前拉高 (力度小); SPCX 入选叙事 PR</td><td>2027 EPS 共识 (418) 修正; OpenAI 定价对约 1.4 万亿; SPCX 近四季 GAAP</td><td>EPS 下修 > 5%; 定价低于过桥轮 = 重估反转</td></tr>
+      <tr><td>2027-07 到 09</td><td>二季报; FOMC 07-28 / 09-15 (首次降息候选); 杰克逊霍尔</td><td>8,050-8,700 (09 末 8,450)</td><td>803-867</td><td>把 2028 供给排进日历; 降息叙事拉最后一波</td><td>2028 capex 第一次口风; 利差 > 350bp = 级联提前; 降息理由 (通胀 / 就业)</td><td>指引出现 "持平"; 因就业降息 = 2028 偏熊提前</td></tr>
+      <tr><td>2027-10 到 12</td><td>三季报 = 2028 capex 指引第一眼; FOMC 10-27 / 12-08 (点阵图 2028); 实验室锁定到期 (估)</td><td>8,300-9,000 (12 末 8,700)</td><td>827-897</td><td>顶部区: 对冲基金买齐 2028 远期保护; 新股锁定到期的卖方 + 年末锁业绩</td><td>2028 capex 指引增速 (< 10% = 二阶导转负); 存储合同价环比; 2028 点阵图</td><td>指引 >= +15% 且利差 < 350bp = 托市, 顶延后; 收 > 9,200 = 1999 型</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="foot">Price anchor verified at 2026-10-13 (Yahoo Finance 标普 500 收盘; yfinance SPY / NET / SPCX / TSLA 收盘; FRED 10-09 / 10-12)。推演, 非预测; 不构成投资建议。</p>
+</div>
+
+<script>
+(function () {
+  var SPY_RATIO = 0.0997;
+  var main = [["2026-10-13",7805],["2026-10-30",7720],["2026-11-24",8080],["2026-11-30",7980],["2026-12-31",7760],["2027-01-29",7300],["2027-02-10",7100],["2027-02-26",7350],["2027-03-31",7650],["2027-04-30",7900],["2027-05-28",8050],["2027-06-30",8250],["2027-07-30",8400],["2027-08-31",8300],["2027-09-30",8450],["2027-10-29",8600],["2027-11-30",8750],["2027-12-31",8700]];
+  var support = [["2026-10-13",7805],["2026-10-30",7780],["2026-11-24",8150],["2026-11-30",8100],["2026-12-31",8150],["2027-01-29",8000],["2027-02-26",8100],["2027-03-31",8350],["2027-04-30",8500],["2027-05-28",8600],["2027-06-30",8800],["2027-07-30",9000],["2027-08-31",8900],["2027-09-30",9100],["2027-10-29",9300],["2027-11-30",9250],["2027-12-31",9100]];
+  var crash = [["2026-10-13",7805],["2026-10-30",7600],["2026-11-24",7900],["2026-11-30",7700],["2026-12-31",7250],["2027-01-29",6800],["2027-02-26",6500],["2027-03-31",6300],["2027-04-30",6150],["2027-05-28",6250],["2027-06-30",6500],["2027-07-30",6700],["2027-08-31",6500],["2027-09-30",6700],["2027-10-29",6800],["2027-11-30",6700],["2027-12-31",6600]];
+
+  var events1 = [
+    {d:"2026-10-28", t:"FOMC 10-28", k:"fomc"},
+    {d:"2026-11-03", t:"中期选举 11-03", k:"key"},
+    {d:"2026-11-05", t:"SPCX 解禁 10-26 / 11-05 (估)", k:"unlock"},
+    {d:"2026-11-24", t:"Anthropic 定价 (估 11-20 到 11-25)", k:"ipo"},
+    {d:"2026-12-08", t:"SPCX 解禁 12-08", k:"unlock"},
+    {d:"2026-12-09", t:"FOMC 12-09 *", k:"fomc"},
+    {d:"2026-12-18", t:"四巫日 / 再平衡 12-18", k:"key"},
+    {d:"2027-01-13", t:"四季报季起 (2027 capex 指引)", k:"earn"},
+    {d:"2027-01-27", t:"FOMC 01-27", k:"fomc"},
+    {d:"2027-02-10", t:"关键点 1: 呼段谷 (估 02-10)", k:"key"},
+    {d:"2027-02-16", t:"SPCX 解禁 02-04 / 02-16 (估)", k:"unlock"},
+    {d:"2027-03-17", t:"FOMC 03-17 *", k:"fomc"},
+    {d:"2027-04-14", t:"一季报季起", k:"earn"},
+    {d:"2027-04-28", t:"FOMC 04-28", k:"fomc"},
+    {d:"2027-06-04", t:"OpenAI 定价 (估)", k:"ipo"},
+    {d:"2027-06-09", t:"FOMC 06-09 *", k:"fomc"},
+    {d:"2027-06-14", t:"SPCX Musk 档解禁 06-14", k:"unlock"},
+    {d:"2027-07-14", t:"二季报季起", k:"earn"},
+    {d:"2027-07-28", t:"FOMC 07-28", k:"fomc"},
+    {d:"2027-09-15", t:"FOMC 09-15 *", k:"fomc"},
+    {d:"2027-10-13", t:"关键点 2: 三季报 = 2028 capex 第一眼", k:"key"},
+    {d:"2027-10-27", t:"FOMC 10-27", k:"fomc"},
+    {d:"2027-12-08", t:"FOMC 12-08 *", k:"fomc"}
+  ];
+
+  var net = [["2026-10-13",100],["2026-10-30",102],["2026-11-24",116],["2026-11-30",111],["2026-12-31",101],["2027-01-29",86],["2027-02-10",79],["2027-02-26",83],["2027-03-31",91],["2027-04-30",95],["2027-05-28",92],["2027-06-30",96],["2027-07-30",86],["2027-08-31",78],["2027-09-30",81],["2027-10-29",86],["2027-11-30",83],["2027-12-31",82]];
+  var spcx = [["2026-10-13",100],["2026-10-23",103],["2026-10-30",96],["2026-11-06",89],["2026-11-30",86],["2026-12-08",80],["2026-12-31",77],["2027-01-29",69],["2027-02-10",64],["2027-02-26",67],["2027-03-31",73],["2027-04-30",77],["2027-05-28",80],["2027-06-14",89],["2027-06-30",86],["2027-07-30",83],["2027-08-31",77],["2027-09-30",80],["2027-10-29",86],["2027-11-30",89],["2027-12-31",86]];
+  var tsla = [["2026-10-13",100],["2026-10-21",97],["2026-10-30",99],["2026-11-24",112],["2026-11-30",109],["2026-12-31",104],["2027-01-29",85],["2027-02-10",77],["2027-02-26",81],["2027-03-31",88],["2027-04-30",92],["2027-05-28",91],["2027-06-30",97],["2027-07-30",101],["2027-08-31",96],["2027-09-30",99],["2027-10-29",104],["2027-11-30",107],["2027-12-31",101]];
+  var base = {NET:347.70, SPCX:156.54, TSLA:375.23};
+
+  var events2 = [
+    {d:"2026-10-21", t:"TSLA 财报 10-21", k:"earn"},
+    {d:"2026-10-26", t:"SPCX 解禁 10-26", k:"unlock"},
+    {d:"2026-10-30", t:"NET 财报 10-30", k:"earn"},
+    {d:"2026-11-05", t:"SPCX 解禁 11-05 (估) + 财报", k:"unlock"},
+    {d:"2026-11-24", t:"Anthropic 定价 (估)", k:"ipo"},
+    {d:"2026-12-08", t:"SPCX 解禁 12-08", k:"unlock"},
+    {d:"2027-02-04", t:"SPCX 解禁 02-04 (估)", k:"unlock"},
+    {d:"2027-02-16", t:"SPCX 解禁 02-16 (估)", k:"unlock"},
+    {d:"2027-06-14", t:"SPCX Musk 档 06-14", k:"unlock"}
+  ];
+
+  function cssVar(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function col(xy, i) { return xy.map(function (p) { return p[i]; }); }
+
+  function baseLayout(fg, muted, grid, bg, title) {
+    return {
+      paper_bgcolor: bg, plot_bgcolor: bg,
+      font: {color: fg, size: 12},
+      margin: {l: 56, r: 20, t: 90, b: 48},
+      hovermode: "x unified",
+      hoverlabel: {bgcolor: bg, bordercolor: muted, font: {color: fg}},
+      legend: {orientation: "h", x: 0, y: -0.14, font: {color: fg}},
+      xaxis: {type: "date", range: ["2026-10-01", "2028-01-10"], gridcolor: grid, zeroline: false, tickformat: "%Y-%m", dtick: "M1", tickangle: -45, tickfont: {size: 10}},
+      yaxis: {title: {text: title, font: {color: muted}}, gridcolor: grid, zeroline: false, tickformat: ",d"},
+      shapes: [], annotations: []
+    };
+  }
+
+  function eventShapes(layout, evs, colors, nTop) {
+    var topSlot = 0, botSlot = 0;
+    evs.forEach(function (e) {
+      var isFomc = e.k === "fomc";
+      var c = colors[e.k] || colors.key;
+      layout.shapes.push({type: "line", xref: "x", yref: "paper", x0: e.d, x1: e.d, y0: 0, y1: 1,
+        line: {color: c, width: isFomc ? 1 : 1.3, dash: isFomc ? "dot" : "dash"}, opacity: isFomc ? 0.55 : 0.75});
+      if (isFomc) {
+        var yb = 0.02 + (botSlot % 2) * 0.05; botSlot++;
+        layout.annotations.push({xref: "x", yref: "paper", x: e.d, y: yb, text: e.t, showarrow: false, textangle: -90,
+          xanchor: "right", yanchor: "bottom", font: {size: 9, color: c}, opacity: 0.9});
+      } else {
+        var slot = topSlot % (nTop || 2); topSlot++;
+        layout.annotations.push({xref: "x", yref: "paper", x: e.d, y: 1.0, text: e.t, showarrow: false, textangle: -90,
+          xanchor: "center", yanchor: "bottom", xshift: slot * 13, font: {size: 9.5, color: c}});
+      }
+    });
+  }
+
+  function draw() {
+    var fg = cssVar("--fg"), muted = cssVar("--muted"), grid = cssVar("--grid"), bg = cssVar("--bg");
+    var colors = {key: cssVar("--fg"), fomc: cssVar("--fomc"), unlock: cssVar("--spcx"), ipo: cssVar("--net"), earn: cssVar("--tsla")};
+
+    var hov = "%{x|%Y-%m-%d}<br>标普 %{y:,d} / SPY %{customdata:.0f}<extra>%{fullData.name}</extra>";
+    var data1 = [
+      {name: "主路径 50%", x: col(main, 0), y: col(main, 1), customdata: col(main, 1).map(function (v) { return v * SPY_RATIO; }),
+        mode: "lines+markers", line: {color: cssVar("--main"), width: 3.5}, marker: {size: 6}, hovertemplate: hov},
+      {name: "托市路径 22%", x: col(support, 0), y: col(support, 1), customdata: col(support, 1).map(function (v) { return v * SPY_RATIO; }),
+        mode: "lines+markers", line: {color: cssVar("--support"), width: 1.4, dash: "dash"}, marker: {size: 4}, hovertemplate: hov},
+      {name: "崩盘路径 28%", x: col(crash, 0), y: col(crash, 1), customdata: col(crash, 1).map(function (v) { return v * SPY_RATIO; }),
+        mode: "lines+markers", line: {color: cssVar("--crash"), width: 1.4, dash: "dash"}, marker: {size: 4}, hovertemplate: hov}
+    ];
+    var l1 = baseLayout(fg, muted, grid, bg, "标普 500 (点)");
+    l1.yaxis.range = [5800, 9600];
+    l1.margin.t = 225;
+    // failure line and switch line
+    l1.shapes.push({type: "line", xref: "paper", yref: "y", x0: 0, x1: 1, y0: 6900, y1: 6900, line: {color: cssVar("--fail"), width: 1.5, dash: "dot"}});
+    l1.annotations.push({xref: "paper", yref: "y", x: 0.995, y: 6900, text: "主路径失效线 6,900 (SPY 688), 2027-03-17 前收盘跌破即失效", showarrow: false, xanchor: "right", yanchor: "bottom", font: {size: 10, color: cssVar("--fail")}});
+    l1.shapes.push({type: "line", xref: "x", yref: "y", x0: "2026-10-13", x1: "2027-01-31", y0: 8300, y1: 8300, line: {color: cssVar("--switch"), width: 1.2, dash: "dot"}});
+    l1.annotations.push({xref: "x", yref: "y", x: "2027-01-31", y: 8300, text: "2027-01-31 前收 > 8,300 = 切托市路径", showarrow: false, xanchor: "left", yanchor: "bottom", font: {size: 10, color: cssVar("--switch")}});
+    eventShapes(l1, events1, colors, 3);
+    Plotly.newPlot("fig1", data1, l1, {responsive: true, displayModeBar: false});
+
+    function hov2(name) { return "%{x|%Y-%m-%d}<br>" + name + " %{y:.0f} (约 $%{customdata:.0f})<extra></extra>"; }
+    var data2 = [
+      {name: "NET (347.70 = 100)", x: col(net, 0), y: col(net, 1), customdata: col(net, 1).map(function (v) { return base.NET * v / 100; }),
+        mode: "lines+markers", line: {color: cssVar("--net"), width: 2.5}, marker: {size: 5}, hovertemplate: hov2("NET")},
+      {name: "SPCX (156.54 = 100)", x: col(spcx, 0), y: col(spcx, 1), customdata: col(spcx, 1).map(function (v) { return base.SPCX * v / 100; }),
+        mode: "lines+markers", line: {color: cssVar("--spcx"), width: 2.5}, marker: {size: 5}, hovertemplate: hov2("SPCX")},
+      {name: "TSLA (375.23 = 100)", x: col(tsla, 0), y: col(tsla, 1), customdata: col(tsla, 1).map(function (v) { return base.TSLA * v / 100; }),
+        mode: "lines+markers", line: {color: cssVar("--tsla"), width: 2.5}, marker: {size: 5}, hovertemplate: hov2("TSLA")}
+    ];
+    var l2 = baseLayout(fg, muted, grid, bg, "归一化 (10-13 收盘 = 100)");
+    l2.yaxis.range = [55, 125];
+    l2.yaxis.tickformat = "d";
+    l2.margin.t = 190;
+    l2.shapes.push({type: "line", xref: "paper", yref: "y", x0: 0, x1: 1, y0: 100, y1: 100, line: {color: muted, width: 1, dash: "dot"}});
+    eventShapes(l2, events2, colors, 2);
+    Plotly.newPlot("fig2", data2, l2, {responsive: true, displayModeBar: false});
+  }
+
+  draw();
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  if (mq && mq.addEventListener) { mq.addEventListener("change", draw); } else if (mq && mq.addListener) { mq.addListener(draw); }
+})();
+</script>
+</body>
+</html>
