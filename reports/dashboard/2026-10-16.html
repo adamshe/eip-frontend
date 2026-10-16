@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NET Leading-Indicator Dashboard</title>
+<style>
+  :root{--bg:#0e1420;--panel:#171f2e;--text:#e8ecf2;--muted:#8a94a6;--line:#2a3548;
+        --green:#7be0a2;--yellow:#f5b942;--red:#ff6b5e;--blue:#4fd1c5}
+  body{background:var(--bg);color:var(--text);font-family:ui-monospace,Menlo,Consolas,monospace;
+       font-size:14px;margin:0;padding:32px;line-height:1.6}
+  h1{font-size:18px;margin:0 0 4px}
+  .muted{color:var(--muted);font-size:12px}
+  .banner{padding:12px 16px;border-radius:6px;margin:16px 0;font-weight:bold}
+  .banner.GREEN{background:rgba(123,224,162,.12);border:1px solid var(--green);color:var(--green)}
+  .banner.YELLOW{background:rgba(245,185,66,.12);border:1px solid var(--yellow);color:var(--yellow)}
+  .banner.RED{background:rgba(255,107,94,.15);border:1px solid var(--red);color:var(--red)}
+  .banner.MISSING{background:rgba(138,148,166,.12);border:1px solid var(--muted);color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin:12px 0}
+  th{color:var(--muted);text-transform:uppercase;font-size:11px;text-align:left;
+     border-bottom:1px solid var(--line);padding:6px 8px}
+  td{border-bottom:1px solid var(--line);padding:8px;vertical-align:top}
+  .st{padding:1px 8px;border-radius:3px;font-size:11px;white-space:nowrap}
+  .st.GREEN{color:var(--green);border:1px solid var(--green)}
+  .st.YELLOW{color:var(--yellow);border:1px solid var(--yellow)}
+  .st.RED{color:var(--red);border:1px solid var(--red)}
+  .st.STALE,.st.MISSING,.st.UNRELIABLE{color:var(--muted);border:1px solid var(--muted)}
+  .st.EVENT{color:var(--red);border:2px solid var(--red);font-weight:bold}
+  .st.INFO{color:var(--blue);border:1px solid var(--blue)}
+  .layer-tag{color:var(--muted);font-size:11px}
+  svg{color:var(--blue)}
+  .cal{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0}
+  .cal div{border:1px solid var(--line);border-radius:4px;padding:6px 12px;font-size:12px}
+  .cal .flag{border-color:var(--yellow);color:var(--yellow)}
+  a{color:var(--blue);text-decoration:none}
+  h2{font-size:14px;margin-top:28px;color:var(--muted);text-transform:uppercase}
+  .layer-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin:10px 0}
+  .layer-card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+  .layer-card h3{margin:0 0 6px;font-size:13px;color:var(--text)}
+  .layer-card p{margin:4px 0;font-size:12px;color:var(--muted);line-height:1.6}
+  .layer-card p b{color:var(--blue)}
+  .composite-note{border-left:3px solid var(--blue);padding:8px 12px;margin:10px 0;font-size:12px;color:var(--text);background:var(--panel)}
+  .months{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin:10px 0}
+  .month{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px}
+  .month h3{margin:0 0 8px;font-size:13px;color:var(--text);text-align:center;letter-spacing:.1em}
+  .month table{margin:0;table-layout:fixed}
+  .month th{font-size:9px;text-align:center;padding:2px;border:none}
+  .month td{border:1px solid var(--line);padding:2px 3px;height:38px;vertical-align:top;font-size:10px;position:relative}
+  .month td.empty{border-color:transparent}
+  .month td.past{opacity:.35}
+  .month td.today{outline:2px solid var(--blue);outline-offset:-2px}
+  .month td.has-event{background:rgba(245,185,66,.10);border-color:var(--yellow)}
+  .month td.has-event.flag{background:rgba(255,107,94,.12);border-color:var(--red)}
+  .month .dnum{color:var(--muted);font-size:10px}
+  .month .ev{display:block;color:var(--yellow);font-size:9px;line-height:1.25;margin-top:1px;overflow:hidden}
+  .month td.flag .ev{color:var(--red)}
+  .handbook{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0}
+  .hb{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px}
+  .hb .hb-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .hb .hb-id{font-weight:bold;color:var(--text)}
+  .hb .hb-label{color:var(--muted);font-size:11px}
+  .imp{font-size:10px;padding:1px 8px;border-radius:3px;white-space:nowrap}
+  .imp.p0{color:var(--red);border:1px solid var(--red)}
+  .imp.p1{color:var(--yellow);border:1px solid var(--yellow)}
+  .imp.p2{color:var(--muted);border:1px solid var(--muted)}
+  .hb p{margin:5px 0 0;font-size:12px;line-height:1.6;color:var(--muted)}
+  .hb p b{color:var(--blue)}
+</style>
+</head>
+<body>
+<h1>NET Leading-Indicator Dashboard</h1>
+<div class="muted"><a href="../index.html">每日报告索引 (猎场 / 鲸群日报 / 股性 / gamma)</a> | <a href="../../long_score.html">做多榜</a> | generated 2026-10-16 23:03Z | doctrine: single needle = note, three same-direction = signal | no value is ever fabricated</div>
+
+<div class="banner RED">GLOBAL RED -- NET closed below invalidation line -- thesis line broken
+</div>
+
+<h2>How to read this board -- 层级读法</h2>
+<div class="layer-cards">
+
+  <div class="layer-card">
+    <h3>Layer A -- 本体质量 (NET 自身遥测)</h3>
+    <p><b>测什么:</b> 直接测 NET 这台收费站的运转: 流量过站量 (radar)、开发者飞轮 (npm)、路网覆盖 (w3techs)、管理层信心 (jobs)、硬承诺 (cRPO)。</p>
+    <p><b>怎么读:</b> 三针同向绿 = 本体质量 SIGNAL UP, 基本面动能确认; 单针只作注意。A 层强而 C 层弱 = 好公司坏环境, 仓位帽压低; A 层弱 = 不管环境多好都别加。</p>
+  </div>
+
+  <div class="layer-card">
+    <h3>Layer B -- 行业趋势 (上游水位)</h3>
+    <p><b>测什么:</b> NET 活在互联网扩张 + 云需求两条水系里: 新域名 (DNIB) 是进水口, 三大云增速是潮汐。水位决定所有船的吃水。</p>
+    <p><b>怎么读:</b> 季度更新的慢层, 作背景板: 两针齐绿 = 涨潮, A 层的绿更可信; 水位转弱而 A 层还绿 = NET 在逆水行舟, 检查是份额扩张还是滞后。</p>
+  </div>
+
+  <div class="layer-card">
+    <h3>Layer C -- 市场逻辑模式 (玩家的实际下注)</h3>
+    <p><b>测什么:</b> 现在整个市场按哪套规则在跑, 由玩家真金白银的下注读出: 信用 (HY OAS = 拒付定价)、汇率杠杆 (USDJPY = carry 心电图)、事件钟 (S-1 = IPO 发令枪)、价格闸门 ($305 = 市场对 agent 经济故事的实际下注线)。</p>
+    <p><b>怎么读:</b> C 层一票否决: 任一针 RED 直接把全局打 RED, A/B 再绿也不放行 -- '市场逻辑裂了, 好标的也先站开'。C 层 SIGNAL UP + A 层跟上 = 全绿放行。</p>
+  </div>
+
+  <div class="layer-card">
+    <h3>Layer M -- Mirror-本体 (玩家对 NET 的下注)</h3>
+    <p><b>测什么:</b> 三元 Law 里 mirror 的本体侧: C 层是市场整体的镜子 (可不可读), 这层是玩家对这一个名字的下注方向 (期权流 / 跨日 / gamma)。alpha = 本体与 mirror 的偏离, 偏离要有两边才算得出。</p>
+    <p><b>怎么读:</b> 不进否决。只和 A 层一起决定今日格子: 本体 UP 而下注不动 = 错价买点; 本体不动而下注偏多 = 叙事溢价, 卖 call 的位置。</p>
+  </div>
+
+</div>
+<div class="composite-note">合成规则 (L2 教义): 市场逻辑模式决定该不该在场 (一票否决), 本体质量决定在场买什么 (三针同向才叫信号), 行业趋势决定本体那几针的可信度; 全局 = worst(C 层, A 层); NET 收破 $305 或任何 EVENT = 无条件顶格横幅。今日格子 = 本体信号 x mirror 状态查表 (action_matrix), 每格一个动作。</div>
+
+<h2>Layer signals -- 今日层信号</h2>
+<table>
+<tr><th>Layer</th><th>Signal</th><th>Note</th></tr>
+
+<tr><td>A</td><td>--</td><td>note only: strongest = radar_traffic YELLOW</td></tr>
+
+<tr><td>B</td><td>--</td><td>note only: strongest = vrsn_dnib YELLOW</td></tr>
+
+<tr><td>C</td><td>--</td><td>note only: strongest = hy_oas RED</td></tr>
+
+<tr><td>M</td><td>--</td><td>note only: strongest = mirror_entity GREEN</td></tr>
+
+</table>
+
+
+<h2>今日格子 -- 本体 x Mirror -> 动作 (三元 Law 查表)</h2>
+<div class="composite-note"><b>本体 NONE x mirror RED</b> -> 站开: 本体未确认, regime 裂 -- 现金弹药, 等波 2<br><span class="muted">本体 NONE (note only: strongest = radar_traffic YELLOW); mirror RED (C 层有 RED 针)</span></div>
+
+
+
+<h2>Gamma strip -- dealer gamma + flip (as-of 2026-10-16, VIX 19.99 / 81 pct HIGH)</h2>
+<table>
+<tr><th>票</th><th>价格</th><th>Gamma (现价 +/-5% 带内)</th><th>Flip</th><th>距 flip</th><th>判定</th></tr>
+
+<tr>
+  <td><b>AAPL</b></td><td>343.46</td>
+  <td><span class="st GREEN">POS +68M</span> dealer 从 trader 手里买了期权 (long gamma): 涨卖跌买, 钉住</td>
+  <td>332.3</td>
+  <td>+3.4%</td>
+  <td>REVERSAL_UP</td>
+</tr>
+
+<tr>
+  <td><b>AMD</b></td><td>528.75</td>
+  <td><span class="st RED">NEG -13M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>556.5</td>
+  <td>-5.0%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>AMZN</b></td><td>250.00</td>
+  <td><span class="st GREEN">POS +15M</span> dealer 从 trader 手里买了期权 (long gamma): 涨卖跌买, 钉住</td>
+  <td>238.1</td>
+  <td>+5.0%</td>
+  <td>REVERSAL_UP</td>
+</tr>
+
+<tr>
+  <td><b>ARM</b></td><td>227.80</td>
+  <td><span class="st RED">NEG -3M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>无 (+/-15% 内同号)</td>
+  <td>--</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>AXON</b></td><td>390.29</td>
+  <td><span class="st RED">NEG -1M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>447.9</td>
+  <td>-12.9%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>CRWD</b></td><td>227.39</td>
+  <td><span class="st RED">NEG -6M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>260.9</td>
+  <td>-12.8%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>GOOGL</b></td><td>340.59</td>
+  <td><span class="st GREEN">POS +0M</span> dealer 从 trader 手里买了期权 (long gamma): 涨卖跌买, 钉住</td>
+  <td>329.5</td>
+  <td>+3.4%</td>
+  <td>REVERSAL_UP</td>
+</tr>
+
+<tr>
+  <td><b>ISRG</b></td><td>426.70</td>
+  <td><span class="st GREEN">POS +1M</span> dealer 从 trader 手里买了期权 (long gamma): 涨卖跌买, 钉住</td>
+  <td>395.8</td>
+  <td>+7.8%</td>
+  <td>REVERSAL_UP</td>
+</tr>
+
+<tr>
+  <td><b>KLAC</b></td><td>165.74</td>
+  <td><span class="st RED">NEG -1M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>无 (+/-15% 内同号)</td>
+  <td>--</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>MELI</b></td><td>1834.00</td>
+  <td><span class="st GREEN">POS +0M</span> dealer 从 trader 手里买了期权 (long gamma): 涨卖跌买, 钉住</td>
+  <td>1765.2</td>
+  <td>+3.9%</td>
+  <td>REVERSAL_UP</td>
+</tr>
+
+<tr>
+  <td><b>META</b></td><td>709.33</td>
+  <td><span class="st RED">NEG -5M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>672.1</td>
+  <td>+5.5%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>MSFT</b></td><td>529.05</td>
+  <td><span class="st GREEN">POS +45M</span> dealer 从 trader 手里买了期权 (long gamma): 涨卖跌买, 钉住</td>
+  <td>474.8</td>
+  <td>+11.4%</td>
+  <td>REVERSAL_UP</td>
+</tr>
+
+<tr>
+  <td><b>NET</b></td><td>296.30</td>
+  <td><span class="st RED">NEG -1M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>307.4</td>
+  <td>-3.6%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>NVDA</b></td><td>214.13</td>
+  <td><span class="st RED">NEG -60M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>212.5</td>
+  <td><span class="st YELLOW">+0.8%</span></td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>SPCX</b></td><td>146.03</td>
+  <td><span class="st RED">NEG -18M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>150.0</td>
+  <td>-2.6%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>TSLA</b></td><td>354.72</td>
+  <td><span class="st RED">NEG -10M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>355.6</td>
+  <td><span class="st YELLOW">-0.2%</span></td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>TSM</b></td><td>412.61</td>
+  <td><span class="st RED">NEG -14M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>428.1</td>
+  <td>-3.6%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>MU</b></td><td>878.84</td>
+  <td><span class="st RED">NEG -15M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>938.2</td>
+  <td>-6.3%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>SNDK</b></td><td>1299.30</td>
+  <td><span class="st RED">NEG -3M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>1465.0</td>
+  <td>-11.3%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>SPY</b></td><td>763.25</td>
+  <td><span class="st RED">NEG -785M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>780.4</td>
+  <td>-2.2%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>QQQ</b></td><td>709.80</td>
+  <td><span class="st RED">NEG -802M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>743.5</td>
+  <td>-4.5%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>CRWV</b></td><td>61.39</td>
+  <td><span class="st RED">NEG -5M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>69.2</td>
+  <td>-11.3%</td>
+  <td>TRENDING</td>
+</tr>
+
+<tr>
+  <td><b>ORCL</b></td><td>128.23</td>
+  <td><span class="st RED">NEG -24M</span> dealer 把期权卖给了 trader (short gamma): 涨追买跌追卖, 放大</td>
+  <td>132.4</td>
+  <td>-3.1%</td>
+  <td>TRENDING</td>
+</tr>
+
+</table>
+<div class="composite-note">读法 (naughty boss 2026-09-23): <b>POS = dealer 从 trader 手里买了期权</b> (trader 净卖 call / 卖 put 给 dealer), dealer 持 long gamma, 对冲是涨卖跌买, 价格被钉在 +gamma 行权价附近; <b>NEG = dealer 把期权卖给了 trader</b> (trader 净买 call / 买 put), dealer 持 short gamma, 对冲是涨追买跌追卖, 动作被放大。Flip = 正负交界价; 距 flip <=1% 标黄 (跌破即换象限)。已排除当日到期合约 (收盘后归零)。细表见下方 "Reversal indicator"。</div>
+
+
+<h2>Needles</h2>
+<table>
+<tr><th>Needle</th><th>Layer</th><th>Status</th><th>Value</th><th>Age</th><th>90d</th><th>Note</th><th>Source</th></tr>
+
+<tr>
+  <td>radar_traffic</td>
+  <td class="layer-tag">A</td>
+  <td><span class="st YELLOW">YELLOW</span></td>
+  <td>1.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,3.0 1.9,3.0 3.7,3.0 5.6,3.0 7.4,3.0 9.3,3.0 11.2,3.0 13.0,3.0 14.9,3.0 16.7,3.0 18.6,3.0 20.5,3.0 22.3,3.0 24.2,3.0 26.0,3.0 27.9,3.0 29.8,3.0 31.6,3.0 33.5,3.0 35.3,3.0 37.2,3.0 39.1,3.0 40.9,3.0 42.8,3.0 44.7,3.0 46.5,3.0 48.4,3.0 50.2,3.0 52.1,3.0 54.0,3.0 55.8,3.0 57.7,3.0 59.5,3.0 61.4,3.0 63.3,3.0 65.1,3.0 67.0,3.0 68.8,3.0 70.7,3.0 72.6,3.0 74.4,3.0 76.3,3.0 78.1,3.0 80.0,3.0 81.9,3.0 83.7,3.0 85.6,3.0 87.4,3.0 89.3,3.0 91.2,3.0 93.0,3.0 94.9,3.0 96.7,3.0 98.6,3.0 100.5,3.0 102.3,3.0 104.2,3.0 106.0,3.0 107.9,3.0 109.8,3.0 111.6,3.0 113.5,3.0 115.3,3.0 117.2,3.0 119.1,3.0 120.9,3.0 122.8,3.0 124.7,3.0 126.5,3.0 128.4,3.0 130.2,33.0 132.1,3.0 134.0,3.0 135.8,3.0 137.7,3.0 139.5,3.0 141.4,3.0 143.3,3.0 145.1,3.0 147.0,3.0 148.8,3.0 150.7,3.0 152.6,3.0 154.4,3.0 156.3,3.0 158.1,3.0 160.0,3.0"/></svg></td>
+  <td>traffic q/q slope +1.723% vs +0.644%; AI-crawler share latest 36.9% (trend +1.08pp/wk over 8w)</td>
+  <td class="muted"><a href="https://api.cloudflare.com/client/v4/radar/http/timeseries">src</a></td>
+</tr>
+
+<tr>
+  <td>wrangler_npm</td>
+  <td class="layer-tag">A</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>20,236,377.96</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 1.8,33.0 3.6,33.0 5.5,33.0 7.3,33.0 9.1,33.0 10.9,33.0 12.7,31.5 14.5,31.5 16.4,31.5 18.2,31.5 20.0,31.5 21.8,31.5 23.6,31.5 25.5,31.5 27.3,31.5 29.1,31.5 30.9,32.2 32.7,32.2 34.5,32.2 36.4,32.2 38.2,32.2 40.0,32.2 41.8,32.2 43.6,32.1 45.5,32.1 47.3,32.1 49.1,32.1 50.9,32.1 52.7,32.1 54.5,32.1 56.4,32.1 58.2,32.1 60.0,32.1 61.8,32.1 63.6,32.1 65.5,32.1 67.3,32.1 69.1,32.1 70.9,32.1 72.7,30.3 74.5,30.3 76.4,30.3 78.2,30.3 80.0,28.1 81.8,28.1 83.6,28.1 85.5,28.1 87.3,28.1 89.1,28.1 90.9,28.1 92.7,28.1 94.5,28.1 96.4,28.1 98.2,28.1 100.0,28.1 101.8,28.1 103.6,26.7 105.5,26.7 107.3,26.7 109.1,26.7 110.9,26.4 112.7,26.4 114.5,26.4 116.4,26.4 118.2,26.4 120.0,26.4 121.8,26.4 123.6,26.4 125.5,26.4 127.3,26.4 129.1,26.4 130.9,26.4 132.7,26.4 134.5,26.4 136.4,24.1 138.2,18.5 140.0,18.5 141.8,18.5 143.6,18.5 145.5,18.5 147.3,18.5 149.1,18.5 150.9,9.7 152.7,9.7 154.5,3.0 156.4,3.0 158.2,3.0 160.0,3.0"/></svg></td>
+  <td>13w MA slope +1.7107%/wk, latest week 26,850,068 dl</td>
+  <td class="muted"><a href="https://api.npmjs.org/downloads/range/last-year/wrangler">src</a></td>
+</tr>
+
+<tr>
+  <td>w3techs_share</td>
+  <td class="layer-tag">A</td>
+  <td><span class="st YELLOW">YELLOW</span></td>
+  <td>24.60</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 1.9,33.0 3.8,33.0 5.7,33.0 7.6,33.0 9.5,33.0 11.4,33.0 13.3,33.0 15.2,33.0 17.1,33.0 19.0,33.0 21.0,33.0 22.9,33.0 24.8,33.0 26.7,33.0 28.6,33.0 30.5,33.0 32.4,33.0 34.3,33.0 36.2,33.0 38.1,33.0 40.0,33.0 41.9,33.0 43.8,33.0 45.7,33.0 47.6,33.0 49.5,33.0 51.4,33.0 53.3,33.0 55.2,33.0 57.1,33.0 59.0,33.0 61.0,33.0 62.9,33.0 64.8,33.0 66.7,33.0 68.6,33.0 70.5,33.0 72.4,33.0 74.3,33.0 76.2,33.0 78.1,33.0 80.0,33.0 81.9,33.0 83.8,33.0 85.7,33.0 87.6,33.0 89.5,33.0 91.4,33.0 93.3,33.0 95.2,33.0 97.1,33.0 99.0,33.0 101.0,33.0 102.9,33.0 104.8,33.0 106.7,33.0 108.6,33.0 110.5,33.0 112.4,33.0 114.3,33.0 116.2,33.0 118.1,33.0 120.0,33.0 121.9,33.0 123.8,33.0 125.7,33.0 127.6,33.0 129.5,33.0 131.4,33.0 133.3,33.0 135.2,33.0 137.1,33.0 139.0,33.0 141.0,33.0 142.9,33.0 144.8,33.0 146.7,33.0 148.6,33.0 150.5,33.0 152.4,33.0 154.3,33.0 156.2,33.0 158.1,33.0 160.0,33.0"/></svg></td>
+  <td>cached (fetched 1d ago, next fetch after 28d); slope +0.00pp over 3 readings</td>
+  <td class="muted"><a href="https://w3techs.com/technologies/details/cn-cloudflare">src</a></td>
+</tr>
+
+<tr>
+  <td>cf_jobs</td>
+  <td class="layer-tag">A</td>
+  <td><span class="st YELLOW">YELLOW</span></td>
+  <td>436.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,32.4 1.8,32.6 3.6,32.6 5.5,32.6 7.3,32.4 9.1,32.4 10.9,31.2 12.7,31.4 14.5,33.0 16.4,32.8 18.2,32.8 20.0,32.8 21.8,32.8 23.6,32.4 25.5,31.6 27.3,31.6 29.1,31.4 30.9,31.0 32.7,31.6 34.5,31.0 36.4,30.8 38.2,30.6 40.0,31.4 41.8,31.8 43.6,30.2 45.5,29.8 47.3,29.8 49.1,31.0 50.9,30.8 52.7,30.8 54.5,29.8 56.4,30.0 58.2,30.0 60.0,30.4 61.8,30.8 63.6,28.4 65.5,27.8 67.3,26.8 69.1,26.0 70.9,25.8 72.7,25.2 74.5,26.0 76.4,23.0 78.2,21.6 80.0,21.6 81.8,21.6 83.6,20.6 85.5,21.2 87.3,21.0 89.1,21.4 90.9,21.4 92.7,21.4 94.5,21.4 96.4,20.2 98.2,20.2 100.0,20.2 101.8,17.8 103.6,18.0 105.5,16.4 107.3,15.8 109.1,15.4 110.9,14.2 112.7,14.2 114.5,13.8 116.4,15.6 118.2,15.6 120.0,15.6 121.8,15.6 123.6,15.0 125.5,13.6 127.3,13.2 129.1,13.4 130.9,13.4 132.7,12.8 134.5,12.4 136.4,11.8 138.2,13.2 140.0,12.0 141.8,11.2 143.6,9.6 145.5,8.6 147.3,6.8 149.1,7.4 150.9,7.4 152.7,5.2 154.5,3.4 156.4,3.0 158.2,4.0 160.0,5.0"/></svg></td>
+  <td>436 postings (146 GTM/Sales/AI), -1.1% -- inside noise band</td>
+  <td class="muted"><a href="https://boards-api.greenhouse.io/v1/boards/cloudflare/jobs">src</a></td>
+</tr>
+
+<tr>
+  <td>net_quarterly</td>
+  <td class="layer-tag">A</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>35.00</td>
+  <td class="muted">64d</td>
+  <td></td>
+  <td>rev 36.0% / cRPO 35.0% / 100k+ cust 4698 / NRR 120.0% (entered 64d ago)</td>
+  <td class="muted">manual</td>
+</tr>
+
+<tr>
+  <td>vrsn_dnib</td>
+  <td class="layer-tag">B</td>
+  <td><span class="st YELLOW">YELLOW</span></td>
+  <td>11.50</td>
+  <td class="muted">64d</td>
+  <td></td>
+  <td>new regs 11.5M, YoY +13.9% (entered 64d ago)</td>
+  <td class="muted">manual</td>
+</tr>
+
+<tr>
+  <td>hyperscaler</td>
+  <td class="layer-tag">B</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>3.00</td>
+  <td class="muted">64d</td>
+  <td></td>
+  <td>AWS 37.0% / Azure 43.0% / GCP 82.0%; 3/3 accelerating (entered 64d ago)</td>
+  <td class="muted">manual</td>
+</tr>
+
+<tr>
+  <td>hy_oas</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st RED">RED</span></td>
+  <td>323.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,27.9 1.9,27.9 3.7,27.9 5.6,27.9 7.4,27.9 9.3,27.9 11.2,29.8 13.0,29.8 14.9,29.8 16.7,29.8 18.6,29.8 20.5,28.4 22.3,28.4 24.2,28.4 26.0,28.4 27.9,26.1 29.8,27.0 31.6,27.0 33.5,26.1 35.3,26.1 37.2,28.4 39.1,28.4 40.9,28.8 42.8,28.8 44.7,28.8 46.5,28.4 48.4,28.4 50.2,28.4 52.1,29.8 54.0,29.8 55.8,31.6 57.7,31.6 59.5,33.0 61.4,31.6 63.3,30.7 65.1,30.2 67.0,30.7 68.8,30.7 70.7,30.7 72.6,29.3 74.4,29.8 76.3,29.8 78.1,27.9 80.0,27.9 81.9,28.4 83.7,30.7 85.6,27.9 87.4,27.9 89.3,27.9 91.2,27.9 93.0,27.9 94.9,25.6 96.7,25.6 98.6,25.6 100.5,28.4 102.3,28.4 104.2,28.4 106.0,29.3 107.9,29.3 109.8,29.3 111.6,29.3 113.5,30.2 115.3,29.3 117.2,29.3 119.1,29.3 120.9,27.0 122.8,27.0 124.7,23.8 126.5,23.8 128.4,23.8 130.2,23.8 132.1,17.8 134.0,17.8 135.8,13.6 137.7,10.8 139.5,9.0 141.4,3.5 143.3,9.9 145.1,9.0 147.0,13.2 148.8,10.4 150.7,7.6 152.6,7.6 154.4,9.5 156.3,7.2 158.1,3.0 160.0,3.9"/></svg></td>
+  <td>level 323bps, widened +57bps in 20td</td>
+  <td class="muted">fred:BAMLH0A0HYM2</td>
+</tr>
+
+<tr>
+  <td>usdjpy</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>158.34</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,14.6 1.9,14.6 3.7,14.6 5.6,14.6 7.4,14.6 9.3,14.6 11.2,14.6 13.0,14.6 14.9,6.6 16.7,6.6 18.6,6.6 20.5,6.6 22.3,6.6 24.2,6.6 26.0,6.6 27.9,6.6 29.8,6.6 31.6,6.6 33.5,6.6 35.3,6.6 37.2,8.1 39.1,8.1 40.9,8.1 42.8,8.1 44.7,8.1 46.5,8.1 48.4,8.1 50.2,8.1 52.1,8.1 54.0,8.1 55.8,8.1 57.7,8.1 59.5,3.0 61.4,3.0 63.3,3.0 65.1,3.0 67.0,3.0 68.8,3.0 70.7,3.0 72.6,21.5 74.4,21.5 76.3,21.5 78.1,21.5 80.0,21.5 81.9,21.5 83.7,33.0 85.6,33.0 87.4,33.0 89.3,33.0 91.2,33.0 93.0,33.0 94.9,33.0 96.7,33.0 98.6,33.0 100.5,33.0 102.3,33.0 104.2,33.0 106.0,17.9 107.9,17.9 109.8,17.9 111.6,17.9 113.5,17.9 115.3,17.9 117.2,17.9 119.1,17.9 120.9,17.9 122.8,17.9 124.7,17.9 126.5,17.9 128.4,17.9 130.2,17.9 132.1,16.4 134.0,16.4 135.8,16.4 137.7,16.4 139.5,16.4 141.4,16.4 143.3,13.4 145.1,13.4 147.0,13.4 148.8,13.4 150.7,13.4 152.6,13.4 154.4,10.8 156.3,10.8 158.1,10.8 160.0,10.8"/></svg></td>
+  <td>USD/JPY 158.34 (2026-10-09); vol normal</td>
+  <td class="muted">fred:DEXJPUS</td>
+</tr>
+
+<tr>
+  <td>edgar_s1</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>0.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 1.9,33.0 3.7,33.0 5.6,33.0 7.4,33.0 9.3,33.0 11.2,33.0 13.0,33.0 14.9,33.0 16.7,33.0 18.6,33.0 20.5,33.0 22.3,33.0 24.2,33.0 26.0,33.0 27.9,33.0 29.8,33.0 31.6,33.0 33.5,33.0 35.3,33.0 37.2,33.0 39.1,33.0 40.9,33.0 42.8,33.0 44.7,33.0 46.5,33.0 48.4,33.0 50.2,33.0 52.1,33.0 54.0,33.0 55.8,33.0 57.7,33.0 59.5,33.0 61.4,33.0 63.3,28.0 65.1,28.0 67.0,28.0 68.8,28.0 70.7,23.0 72.6,23.0 74.4,23.0 76.3,28.0 78.1,28.0 80.0,28.0 81.9,28.0 83.7,28.0 85.6,33.0 87.4,33.0 89.3,33.0 91.2,33.0 93.0,33.0 94.9,33.0 96.7,33.0 98.6,33.0 100.5,33.0 102.3,33.0 104.2,33.0 106.0,33.0 107.9,3.0 109.8,3.0 111.6,3.0 113.5,3.0 115.3,3.0 117.2,3.0 119.1,3.0 120.9,3.0 122.8,3.0 124.7,3.0 126.5,3.0 128.4,3.0 130.2,3.0 132.1,3.0 134.0,3.0 135.8,33.0 137.7,33.0 139.5,33.0 141.4,33.0 143.3,33.0 145.1,33.0 147.0,33.0 148.8,18.0 150.7,18.0 152.6,18.0 154.4,18.0 156.3,18.0 158.1,23.0 160.0,33.0"/></svg></td>
+  <td>no S-1/S-1A hits for ['"OpenAI"', '"Anthropic"'] in last 7d</td>
+  <td class="muted"><a href="https://efts.sec.gov/LATEST/search-index">src</a></td>
+</tr>
+
+<tr>
+  <td>tickers</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st RED">RED</span></td>
+  <td>296.30</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,13.2 1.8,13.2 3.7,13.2 5.5,13.2 7.4,13.2 9.2,13.2 11.0,18.4 12.9,18.4 14.7,21.3 16.6,21.3 18.4,21.3 20.2,21.3 22.1,21.3 23.9,23.3 25.7,23.3 27.6,23.3 29.4,23.3 31.3,26.5 33.1,30.9 34.9,30.9 36.8,26.1 38.6,26.1 40.5,30.4 42.3,30.4 44.1,31.4 46.0,31.4 47.8,31.4 49.7,28.9 51.5,28.9 53.3,28.9 55.2,20.9 57.0,20.9 58.9,23.8 60.7,23.8 62.5,22.0 64.4,28.7 66.2,33.0 68.0,29.0 69.9,30.9 71.7,30.9 73.6,30.9 75.4,29.1 77.2,18.9 79.1,18.9 80.9,19.9 82.8,19.9 84.6,21.5 86.4,13.4 88.3,14.5 90.1,13.4 92.0,13.4 93.8,14.5 95.6,15.3 97.5,15.3 99.3,15.3 101.1,12.2 103.0,12.2 104.8,15.7 106.7,6.2 108.5,6.2 110.3,4.8 112.2,5.0 114.0,6.2 115.9,5.9 117.7,5.9 119.5,5.9 121.4,3.7 123.2,3.7 125.1,7.1 126.9,7.1 128.7,7.1 130.6,7.1 132.4,5.4 134.3,5.4 136.1,5.9 137.9,7.6 139.8,6.4 141.6,7.0 143.4,3.5 145.3,5.0 147.1,9.1 149.0,9.5 150.8,3.0 152.6,6.4 154.5,7.5 156.3,15.5 158.2,18.2 160.0,25.0"/></svg></td>
+  <td>NET 296.30, NVDA 214.13, AMD 528.75, META 709.33, ARM 227.80, QQQ 709.80, SPY 763.25, SPCX 146.03; NET vs invalidation 305: -2.9%</td>
+  <td class="muted">yfinance</td>
+</tr>
+
+<tr>
+  <td>short_interest</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st INFO">INFO</span></td>
+  <td>7,664,139.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,3.0 1.9,3.0 3.8,3.0 5.7,3.0 7.6,3.0 9.5,3.0 11.4,3.0 13.3,3.0 15.2,3.0 17.1,3.0 19.0,3.0 21.0,3.0 22.9,3.0 24.8,3.0 26.7,3.0 28.6,3.0 30.5,3.0 32.4,3.0 34.3,3.0 36.2,3.0 38.1,19.2 40.0,19.2 41.9,19.2 43.8,19.2 45.7,19.2 47.6,19.2 49.5,19.2 51.4,19.2 53.3,19.2 55.2,19.2 57.1,19.2 59.0,19.2 61.0,19.2 62.9,19.2 64.8,19.2 66.7,19.2 68.6,19.2 70.5,19.2 72.4,19.2 74.3,19.2 76.2,33.0 78.1,33.0 80.0,33.0 81.9,33.0 83.8,33.0 85.7,33.0 87.6,33.0 89.5,33.0 91.4,33.0 93.3,33.0 95.2,33.0 97.1,33.0 99.0,33.0 101.0,33.0 102.9,33.0 104.8,33.0 106.7,33.0 108.6,33.0 110.5,33.0 112.4,33.0 114.3,33.0 116.2,33.0 118.1,33.0 120.0,13.4 121.9,13.4 123.8,13.4 125.7,13.4 127.6,13.4 129.5,13.4 131.4,13.4 133.3,13.4 135.2,13.4 137.1,13.4 139.0,13.4 141.0,13.4 142.9,13.4 144.8,13.4 146.7,13.4 148.6,13.4 150.5,14.2 152.4,14.2 154.3,14.2 156.2,14.2 158.1,14.2 160.0,14.2"/></svg></td>
+  <td>NET SI 7,664,139 sh @ 2026-09-30 (-0.5% biweekly, DTC 2.48)</td>
+  <td class="muted"><a href="https://api.finra.org/data/group/otcMarket/name/consolidatedShortInterest">src</a></td>
+</tr>
+
+<tr>
+  <td>options_skew</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st INFO">INFO</span></td>
+  <td>-0.04</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,4.6 2.0,4.6 4.0,4.6 5.9,4.6 7.9,4.6 9.9,4.6 11.9,4.9 13.8,33.0 15.8,4.6 17.8,4.6 19.8,4.6 21.7,4.6 23.7,4.6 25.7,4.7 27.7,4.5 29.6,4.8 31.6,4.8 33.6,3.9 35.6,3.9 37.5,4.9 39.5,3.0 41.5,3.0 43.5,4.7 45.4,4.7 47.4,4.7 49.4,4.6 51.4,4.6 53.3,4.2 55.3,4.2 57.3,4.1 59.3,3.8 61.2,4.4 63.2,4.8 65.2,4.5 67.2,4.5 69.1,4.1 71.1,4.2 73.1,4.2 75.1,4.2 77.0,3.8 79.0,3.9 81.0,4.9 83.0,3.8 84.9,4.3 86.9,4.2 88.9,4.2 90.9,4.3 92.8,4.5 94.8,4.5 96.8,4.5 98.8,4.2 100.7,8.3 102.7,4.8 104.7,4.5 106.7,4.5 108.6,4.7 110.6,4.6 112.6,4.1 114.6,3.3 116.5,3.3 118.5,3.3 120.5,3.3 122.5,3.3 124.4,4.4 126.4,4.4 128.4,4.2 130.4,4.2 132.3,3.7 134.3,4.7 136.3,3.9 138.3,4.2 140.2,4.6 142.2,4.2 144.2,3.8 146.2,4.0 148.1,4.8 150.1,4.8 152.1,4.3 154.1,4.0 156.0,4.3 158.0,5.3 160.0,5.5"/></svg></td>
+  <td>2026-11-13 (28d): 25d call IV 76.7% - put IV 80.5% = -3.8%</td>
+  <td class="muted">yfinance</td>
+</tr>
+
+<tr>
+  <td>stock_character</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st INFO">INFO</span></td>
+  <td>50.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,33.0 5.9,33.0 11.9,33.0 17.8,32.3 23.7,32.3 29.6,32.3 35.6,31.7 41.5,30.3 47.4,29.0 53.3,28.3 59.3,20.3 65.2,20.3 71.1,22.3 77.0,22.3 83.0,22.3 88.9,22.3 94.8,15.7 100.7,17.0 106.7,27.7 112.6,29.0 118.5,31.0 124.4,27.0 130.4,27.7 136.3,29.0 142.2,33.0 148.1,19.0 154.1,20.3 160.0,3.0"/></svg></td>
+  <td>as-of 2026-10-16; ACTION x50: AMD 砸 -3.9% (>=2.5%) -> 当天不接, 隔天看; AMD 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看; AMD 坏房, 不在房东名单: 不卖 put / 不接货 / 不卖 call; AMZN 砸 -2.5% (>=2.5%) -> 当天不接, 隔天看; ARM 砸 -4.9% (>=2.5%) -> 当天不接, 隔天看; ARM 横盘中缩量急跌 (量比 0.78) -> 下面没人接, 不接 (5 日收复 33% vs 平量 49%); AXON 砸 -8.1% (>=2.5%) -> 当天不接, 隔天看; AXON 破位原因: 板块同跌 (IGV -4.8%) -> 板块清洗, 与大盘同跌的洗盘同一机制; 10 日 +3.5%; 照洗盘接, 单票也可全量 (已证实 (汇总) / 可疑 (单票)); AXON 放量 (量比 1.43) 跌破前 20 日低点, 不在上升的 200 日线上方 -> 真跌, 不接 (10 日 -2.7%, 已证实); CRWD 砸 -8.9% (>=2.5%) -> 当天不接, 隔天看; CRWD 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看; CRWD 破位原因: 板块同跌 (IGV -4.8%) -> 板块清洗, 与大盘同跌的洗盘同一机制; 10 日 +3.5%; 照洗盘接, 单票也可全量 (已证实 (汇总) / 可疑 (单票)); CRWD 坏房, 不在房东名单: 不卖 put / 不接货 / 不卖 call; GOOGL 砸 -2.6% (>=2.5%) -> 当天不接, 隔天看; GOOGL 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看; KLAC 砸 -2.7% (>=2.5%) -> 当天不接, 隔天看; KLAC 高置信底: 底部读数 4/8 (偏离50<=10 / BIAS20<=10 / %B<=0 / 呼日) + 恐慌门亮 (恐惧贪婪 18 (第 6 百分位)) -> 可加大接货 (样本外局部底 58% vs 无门 43%, 一年约 3-7 天, 可疑偏正); 底部不卖 call; KLAC 破位原因: 板块同跌 (SMH -3.4%) -> 板块清洗, 与大盘同跌的洗盘同一机制; 10 日 +3.5%; 照洗盘接, 单票也可全量 (已证实 (汇总) / 可疑 (单票)); KLAC 放量 (量比 1.44) 跌破前 20 日低点, 不在上升的 200 日线上方 -> 真跌, 不接 (10 日 -2.7%, 已证实); MELI 砸 -3.1% (>=2.5%) -> 当天不接, 隔天看; MELI 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看; MELI 横盘中缩量急跌 (量比 0.47) -> 下面没人接, 不接 (5 日收复 33% vs 平量 49%); META 砸 -4.6% (>=2.5%) -> 当天不接, 隔天看; MSFT 砸 -3.1% (>=2.5%) -> 当天不接, 隔天看; NET 砸 -8.7% (>=2.5%) -> 当天不接, 隔天看; NET 破位原因: 板块同跌 (IGV -4.8%) -> 板块清洗, 与大盘同跌的洗盘同一机制; 10 日 +3.5%; 照洗盘接, 单票也可全量 (已证实 (汇总) / 可疑 (单票)); NET 洗盘: 大盘同跌 -2.5%, 放量 (量比 1.43) 跌破前 20 日低点 -> 明天开盘买股接货, 全量 (10 日 +4.5%, 已证实); SPCX 砸 -3.3% (>=2.5%) -> 当天不接, 隔天看; TSLA 砸 -5.3% (>=2.5%) -> 当天不接, 隔天看; TSLA 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看; TSLA 破位原因: 财报前 10 个交易日 (2026-10-22 财报) -> 财报前降仓与对冲, 10 日内收回 75% vs 51%; 照洗盘接, 单票也可全量 (已证实); TSLA 放量 (量比 1.79) 跌破前 20 日低点, 不在上升的 200 日线上方 -> 真跌, 不接 (10 日 -2.7%, 已证实); TSM 砸 -2.5% (>=2.5%) -> 当天不接, 隔天看; TSM 破位原因: 板块同跌 (SMH -3.4%) -> 板块清洗, 与大盘同跌的洗盘同一机制; 10 日 +3.5%; 照洗盘接, 单票也可全量 (已证实 (汇总) / 可疑 (单票)); TSM 洗盘: 大盘同跌 -2.5%, 放量 (量比 1.56) 跌破前 20 日低点 -> 明天开盘买股接货, 全量 (10 日 +4.5%, 已证实); MU 砸 -3.3% (>=2.5%) -> 当天不接, 隔天看; MU 高置信底: 底部读数 5/8 (偏离50<=10 / BIAS20<=10 / TD买9/13近3日 / %B<=0 / 呼日) + 恐慌门亮 (恐惧贪婪 18 (第 6 百分位)) -> 可加大接货 (样本外局部底 58% vs 无门 43%, 一年约 3-7 天, 可疑偏正); 底部不卖 call; SNDK 砸 -3.9% (>=2.5%) -> 当天不接, 隔天看; SNDK 高置信底: 底部读数 6/8 (偏离50<=10 / BIAS20<=10 / TD买9/13近3日 / %B<=0 / RSI<=30 / 呼日) + 恐慌门亮 (恐惧贪婪 18 (第 6 百分位)) -> 可加大接货 (样本外局部底 58% vs 无门 43%, 一年约 3-7 天, 可疑偏正); 底部不卖 call; SPY 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看; SPY 破位原因: 查不到原因 -> 流量为主, 更安全但没有收益边际; 仓位照洗盘行 (已证实 (更安全)); SPY 洗盘: 大盘同跌 -2.5%, 放量 (量比 1.52) 跌破20 日线 -> 明天开盘买股接货, 全量 (10 日 +4.5%, 已证实); QQQ 砸 -2.5% (>=2.5%) -> 当天不接, 隔天看; QQQ 破位原因: 查不到原因 -> 流量为主, 更安全但没有收益边际; 仓位照洗盘行 (已证实 (更安全)); QQQ 洗盘: 大盘同跌 -2.5%, 放量 (量比 1.84) 跌破前 20 日低点 -> 明天开盘买股接货, 全量 (10 日 +4.5%, 已证实); CRWV 砸 -8.1% (>=2.5%) -> 当天不接, 隔天看; CRWV 破位原因: 目标价下调 (不降级) (Mizuho) -> 信息, 弱势延续; 不按洗盘接, 10 个交易日后复核 (可疑); CRWV 放量 (量比 2.39) 跌破前 20 日低点, 不在上升的 200 日线上方 -> 真跌, 不接 (10 日 -2.7%, 已证实); CRWV 坏房, 不在房东名单: 不卖 put / 不接货 / 不卖 call; ORCL 砸 -4.6% (>=2.5%) -> 当天不接, 隔天看</td>
+  <td class="muted">stock_character</td>
+</tr>
+
+<tr>
+  <td>gamma_reversal</td>
+  <td class="layer-tag">C</td>
+  <td><span class="st INFO">INFO</span></td>
+  <td>6.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,24.8 6.4,22.1 12.8,27.5 19.2,27.5 25.6,27.5 32.0,27.5 38.4,27.5 44.8,27.5 51.2,24.8 57.6,24.8 64.0,13.9 70.4,13.9 76.8,19.4 83.2,33.0 89.6,33.0 96.0,24.8 102.4,24.8 108.8,22.1 115.2,19.4 121.6,3.0 128.0,13.9 134.4,8.5 140.8,5.7 147.2,33.0 153.6,33.0 160.0,16.6"/></svg></td>
+  <td>VIX 19.99 pctile 81% HIGH | AAPL REVERSAL_UP band +68M flip 332.3 (3.4%); AMD TRENDING band -13M flip 556.5 (-5.0%); AMZN REVERSAL_UP band +15M flip 238.1 (5.0%); ARM TRENDING band -3M flip None (None%); AXON TRENDING band -1M flip 447.9 (-12.9%); CRWD TRENDING band -6M flip 260.9 (-12.8%); GOOGL REVERSAL_UP band +0M flip 329.5 (3.4%); ISRG REVERSAL_UP band +1M flip 395.8 (7.8%); KLAC TRENDING band -1M flip None (None%); MELI REVERSAL_UP band +0M flip 1765.2 (3.9%); META TRENDING band -5M flip 672.1 (5.5%); MSFT REVERSAL_UP band +45M flip 474.8 (11.4%); NET TRENDING band -1M flip 307.4 (-3.6%); NVDA TRENDING band -60M flip 212.5 (0.8%); SPCX TRENDING band -18M flip 150.0 (-2.6%); TSLA TRENDING band -10M flip 355.6 (-0.2%); TSM TRENDING band -14M flip 428.1 (-3.6%); MU TRENDING band -15M flip 938.2 (-6.3%); SNDK TRENDING band -3M flip 1465.0 (-11.3%); SPY TRENDING band -785M flip 780.4 (-2.2%); QQQ TRENDING band -802M flip 743.5 (-4.5%); CRWV TRENDING band -5M flip 69.2 (-11.3%); ORCL TRENDING band -24M flip 132.4 (-3.1%)</td>
+  <td class="muted">gamma_reversal</td>
+</tr>
+
+<tr>
+  <td>mirror_entity</td>
+  <td class="layer-tag">M</td>
+  <td><span class="st GREEN">GREEN</span></td>
+  <td>2.00</td>
+  <td class="muted">today</td>
+  <td><svg width="160" height="36" viewBox="0 0 160 36"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0.0,23.0 11.4,23.0 22.9,23.0 34.3,33.0 45.7,23.0 57.1,23.0 68.6,13.0 80.0,33.0 91.4,33.0 102.9,33.0 114.3,23.0 125.7,23.0 137.1,23.0 148.6,13.0 160.0,3.0"/></svg></td>
+  <td>NET 下注合计 +2: 今日流 多头 $2.5M; 跨日 多头 2/3 日; gamma TRENDING (as-of 2026-10-16)</td>
+  <td class="muted">whale_ambush/flow + gamma_reversal</td>
+</tr>
+
+</table>
+
+<h2>Calendar -- 裁决日历</h2>
+<div class="months">
+
+  <div class="month">
+    <h3>2026-10</h3>
+    <table>
+      <tr><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th></tr>
+      
+      <tr>
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="past ">
+          <span class="dnum">1</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">2</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">3</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">4</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="past ">
+          <span class="dnum">5</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">6</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">7</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">8</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">9</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">10</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">11</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="past ">
+          <span class="dnum">12</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">13</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">14</span>
+          
+        </td>
+        
+        <td class="past ">
+          <span class="dnum">15</span>
+          
+        </td>
+        
+        <td class="today ">
+          <span class="dnum">16</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">17</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">18</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="has-event flag">
+          <span class="dnum">19</span>
+          <span class="ev">ACTION: sell 260P wk3</span>
+        </td>
+        
+        <td class="">
+          <span class="dnum">20</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">21</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">22</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">23</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">24</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">25</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="has-event ">
+          <span class="dnum">26</span>
+          <span class="ev">ACTION: sell 240P wk4</span>
+        </td>
+        
+        <td class="">
+          <span class="dnum">27</span>
+          
+        </td>
+        
+        <td class="has-event ">
+          <span class="dnum">28</span>
+          <span class="ev">GATE: 四大地主 capex 指引 -- Q4终裁唯一机制闸门 (基率 0/20), 命中才印后建仓上限1%; 10-30 周链已挂</span>
+        </td>
+        
+        <td class="has-event ">
+          <span class="dnum">29</span>
+          <span class="ev">NET Q3 print (yfinance; was est 11/05)</span><span class="ev">BOJ meeting (Oct 29-30, official)</span>
+        </td>
+        
+        <td class="">
+          <span class="dnum">30</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">31</span>
+          
+        </td>
+        
+        <td class="empty"></td>
+        
+        
+      </tr>
+      
+    </table>
+  </div>
+
+  <div class="month">
+    <h3>2026-11</h3>
+    <table>
+      <tr><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th></tr>
+      
+      <tr>
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="">
+          <span class="dnum">1</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">2</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">3</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">4</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">5</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">6</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">7</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">8</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">9</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">10</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">11</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">12</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">13</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">14</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">15</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">16</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">17</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">18</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">19</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">20</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">21</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">22</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">23</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">24</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">25</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">26</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">27</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">28</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">29</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">30</span>
+          
+        </td>
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+      </tr>
+      
+    </table>
+  </div>
+
+  <div class="month">
+    <h3>2026-12</h3>
+    <table>
+      <tr><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th></tr>
+      
+      <tr>
+        
+        <td class="empty"></td>
+        
+        
+        <td class="">
+          <span class="dnum">1</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">2</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">3</span>
+          
+        </td>
+        
+        <td class="has-event ">
+          <span class="dnum">4</span>
+          <span class="ev">ACTION: SPCX 解禁前最终检查 (仓位/兑现计划确认)</span>
+        </td>
+        
+        <td class="">
+          <span class="dnum">5</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">6</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">7</span>
+          
+        </td>
+        
+        <td class="has-event ">
+          <span class="dnum">8</span>
+          <span class="ev">SPCX lockup expiry day 180: 797.6M sh (424B4; $175.50 price trigger not met; whale put ladder 150->80 armed)</span>
+        </td>
+        
+        <td class="">
+          <span class="dnum">9</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">10</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">11</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">12</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">13</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">14</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">15</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">16</span>
+          
+        </td>
+        
+        <td class="has-event ">
+          <span class="dnum">17</span>
+          <span class="ev">BOJ meeting (Dec 17-18, official)</span>
+        </td>
+        
+        <td class="">
+          <span class="dnum">18</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">19</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">20</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">21</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">22</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">23</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">24</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">25</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">26</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">27</span>
+          
+        </td>
+        
+      </tr>
+      
+      <tr>
+        
+        <td class="">
+          <span class="dnum">28</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">29</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">30</span>
+          
+        </td>
+        
+        <td class="">
+          <span class="dnum">31</span>
+          
+        </td>
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+        <td class="empty"></td>
+        
+        
+      </tr>
+      
+    </table>
+  </div>
+
+</div>
+<div class="cal">
+
+<div class="flag">T+3d | 2026-10-19 | ACTION: sell 260P wk3</div>
+
+<div class="">T+10d | 2026-10-26 | ACTION: sell 240P wk4</div>
+
+<div class="">T+12d | 2026-10-28 | GATE: 四大地主 capex 指引 -- Q4终裁唯一机制闸门 (基率 0/20), 命中才印后建仓上限1%; 10-30 周链已挂</div>
+
+<div class="">T+13d | 2026-10-29 | NET Q3 print (yfinance; was est 11/05)</div>
+
+<div class="">T+13d | 2026-10-29 | BOJ meeting (Oct 29-30, official)</div>
+
+<div class="">T+49d | 2026-12-04 | ACTION: SPCX 解禁前最终检查 (仓位/兑现计划确认)</div>
+
+<div class="">T+53d | 2026-12-08 | SPCX lockup expiry day 180: 797.6M sh (424B4; $175.50 price trigger not met; whale put ladder 150->80 armed)</div>
+
+<div class="">T+62d | 2026-12-17 | BOJ meeting (Dec 17-18, official)</div>
+
+</div>
+
+
+<h2>Weekly roadmap -- 鲸群周表核对 (定稿 2026-08-17, 每日自动对照)</h2>
+<table>
+<tr><th>Week</th><th>Anchor</th><th>QQQ</th><th>SPY</th><th>NET</th><th>SPCX</th><th>Actual close</th></tr>
+
+<tr style="opacity:.4">
+  <td>2026-08-17</td><td>月度opex 8/21 (8/20 杀分支提前)</td><td>700-718</td><td>756-770</td><td>278-295 地板已破</td><td>126-140</td>
+  <td>--</td>
+</tr>
+
+<tr style="opacity:.4">
+  <td>2026-08-24</td><td>8/26 NVDA 裁决: 过关 (beat+raise, 盘后+4%, 破beat-then-die魔咒)</td><td>过关分支激活 720-740</td><td>768-780</td><td>292-308 闸门重测</td><td>133-145</td>
+  <td>--</td>
+</tr>
+
+<tr style="opacity:.4">
+  <td>2026-08-31</td><td>SPY 785C 到期(已远OTM)</td><td>705-735</td><td>755-775</td><td>275-300</td><td>122-138</td>
+  <td>--</td>
+</tr>
+
+<tr style="opacity:.4">
+  <td>2026-09-07</td><td>ORCL财报+CPI (9/9 SPCX 解禁 319.0M + 9/10 59.1M)</td><td>700-730</td><td>752-772</td><td>278-305</td><td>138-152</td>
+  <td>--</td>
+</tr>
+
+<tr style="opacity:.4">
+  <td>2026-09-14</td><td>三巫9/18: QQQ 685/660价差+SPCX 230P结算周 (9/16 FOMC 分叉点)</td><td>682-720 (37k组靶685)</td><td>748-770</td><td>318-340 (v6: OI墙340/350)</td><td>135-155</td>
+  <td>--</td>
+</tr>
+
+<tr style="opacity:.4">
+  <td>2026-09-21</td><td>x402 + S-1高危窗 + SPCX 9/24 解禁 328.4M (v7: 9/21 NET +8.7% 真空上浮, 315-345 被穿)</td><td>735-755 (v8: 740 -29M 脚下 / 750-760 上墙; 09-24 Nov P720 x11250 卖 = 11 月地板 720)</td><td>760-772 (v8: C772 x25000 卖 + 785 墙; 760 -81M 放大点; 09-24 Oct-16 P768 x10000 ToOpen 对冲)</td><td>345-365 (v8: 收 358.8, +墙 355/360; 09-23 Mar-27 collar 340/470 x1000 = 地板 340; 450-490 买家 4 天 $2.2M)</td><td>140-155 (v8: 解禁日持平量 0.81x, flip 150.6; 09-24 Sep-27 collar 120/170 x5000 ToOpen 对赌 Jun-27 多头 RR)</td>
+  <td>--</td>
+</tr>
+
+<tr style="opacity:.4">
+  <td>2026-09-28</td><td>IPO定价窗 = 低矮顶 (330C: 现价351已过行权价, 上方360-368在清仓, 顶部窗355-385下沿已到)</td><td>733-755 (v9: 09-25 Sep-30 C710-730 x6 万张 bid 卖 $111M = 深 ITM 多头季末离场; Oct-23 P711 x12000 买)</td><td>762-785 (v9: 09-25 Oct-30 P755/P725 x55358 双 SellToOpen $51M = 地板 755; 785 墙不变)</td><td>340-360 (v9: 09-25 鲸卖 Oct-16 C340 ITM + Oct-02 C350 x998 封顶; 360/380 ratio 押到 360 不到 380; 340 collar 地板)</td><td>140-153 (v9: 深 ITM 合成空第三天 $9.2M; Jan-27 C165 x4305 SellToOpen; 量 0.61x 供给渗出)</td>
+  <td>--</td>
+</tr>
+
+<tr style="outline:2px solid var(--blue);outline-offset:-2px;font-weight:bold">
+  <td>2026-10-12</td><td>Oct opex: 716P + SPCX 130P/100P结算 (09-15 collar 730C 9/21已被穿; 新collar Oct-16 x30000 ToOpen)</td><td>700-760 (v8: 天花板 775 / 枢轴 760 不变; Oct-16 P700 OI 71k 在减 (x17000 卖) -> 地板 700 变软)</td><td>745-785 (v8: 天花板 785 不变; Oct-16 P732/730 x30000 三日下移 = 地板 730-745; P768 x10000 ATM)</td><td>320-370 (v9: Oct-16 ITM 磁铁 340-350 + 顶盖 380/430; 322.5 第一 -gamma 点; flip 313-315)</td><td>125-150 (v8: Oct-16 P135 x36k 买方 = 放大点 135; 155 +7.5M / 160 +15M 上墙; 09-22 P155 平仓已移除 155 缓冲)</td>
+  <td>QQQ 710 | SPY 763 | NET 296 | SPCX 146</td>
+</tr>
+
+<tr style="">
+  <td>2026-10-19</td><td>E-revision + NET Q3 10/29</td><td>670-700</td><td>725-748</td><td>财报binary</td><td>98-118</td>
+  <td>--</td>
+</tr>
+
+<tr style="">
+  <td>2026-11-02</td><td>选举反抽 (租不持有)</td><td>690-720</td><td>740-762</td><td>295-325</td><td>105-122 反抽</td>
+  <td>--</td>
+</tr>
+
+<tr style="">
+  <td>2026-11-16</td><td>SPCX front-run 主段 + SPY 750P 射程</td><td>675-705</td><td>726-750</td><td>285-315</td><td>95-115</td>
+  <td>--</td>
+</tr>
+
+<tr style="">
+  <td>2026-12-07</td><td>FOMC 周 + 12/8 解禁 797.6M (424B4 第180天; 8/24 Dec 110P $12M 靶, 110 = Sep27 245/110 空腿, 待重评; 09-21 对手盘: Jun-27 多头RR $32M + 09-16 Mar-27 C185 $26M)</td><td>660-692</td><td>702-728</td><td>278-310</td><td>88-106 解禁周</td>
+  <td>--</td>
+</tr>
+
+<tr style="">
+  <td>2026-12-14</td><td>12/18 opex 年终结算 (8/21新Dec 725/650价差BE 688确认; 09-15 对手盘 Dec 800/830价差 $59.7M 押>800, 09-21 未加码, 数值未动待naughty boss裁)</td><td>648-688 (09-21流: Dec地板675-700/上限770, 与本行矛盾待naughty boss裁)</td><td>682-715 (2027地板700: Sep-27 P700/705 x9000 $21M + Jan-28 P700 $24M)</td><td>270-305 (2028 collar 305-490, 440-490 = 鲸call-away靶)</td><td>80-100</td>
+  <td>--</td>
+</tr>
+
+</table>
+<div class="composite-note">执行计划: 9/28 卖 NET 10/09 330 ITM call (顶部窗口); 10/5 起每周卖 put, 300 起步每周下移 20 (300 -&gt; 280 -&gt; 260 -&gt; 240)。NET 收破 $305 = NET 列作废, 切 290-300 地板剧本。</div>
+
+
+
+<h2>Reversal indicator -- VIX x dealer gamma (as-of 2026-10-16)</h2>
+<div class="composite-note">VIX 19.99 = 一年第 81 百分位 (<b>HIGH</b>, 1y 13.47-31.05, 5d +34.7%)。命中: <b>AAPL, AMZN, GOOGL, ISRG, MELI, MSFT</b></div>
+<table>
+<tr><th>票</th><th>现价</th><th>判定</th><th>带内 gamma (+/-5%)</th><th>全链净</th><th>flip</th><th>距 flip</th><th>ATM IV / RV20</th><th>最大 +gamma 行权</th><th>最大 -gamma 行权</th><th>今日流 dealer gamma</th></tr>
+
+
+<tr style="font-weight:bold">
+  <td>AAPL</td><td>343.46</td>
+  <td>REVERSAL_UP</td>
+  <td>+68.3M</td><td>+77.0M</td>
+  <td>332.3</td>
+  <td>+3.4%</td>
+  <td>26.2 / 16.2</td>
+  <td class="muted">350 (+31M), 360 (+20M)</td><td class="muted">330 (-11M), 320 (-7M)</td><td class="muted">+6.5M (ask 7 / bid 13)</td>
+</tr>
+
+
+
+<tr>
+  <td>AMD</td><td>528.75</td>
+  <td>TRENDING</td>
+  <td>-12.7M</td><td>-15.2M</td>
+  <td>556.5</td>
+  <td>-5.0%</td>
+  <td>54.6 / 56.1</td>
+  <td class="muted">620 (+3M), 600 (+1M)</td><td class="muted">550 (-2M), 440 (-2M)</td><td class="muted">+0.5M (ask 13 / bid 11)</td>
+</tr>
+
+
+
+<tr style="font-weight:bold">
+  <td>AMZN</td><td>250.00</td>
+  <td>REVERSAL_UP</td>
+  <td>+14.6M</td><td>+71.1M</td>
+  <td>238.1</td>
+  <td>+5.0%</td>
+  <td>40.0 / 24.4</td>
+  <td class="muted">260 (+23M), 265 (+19M)</td><td class="muted">240 (-7M), 235 (-6M)</td><td class="muted">+1.2M (ask 24 / bid 30)</td>
+</tr>
+
+
+
+<tr>
+  <td>ARM</td><td>227.80</td>
+  <td>TRENDING</td>
+  <td>-3.1M</td><td>-6.0M</td>
+  <td>--</td>
+  <td>--</td>
+  <td>68.0 / 93.3</td>
+  <td class="muted">252.5 (+0M), 245 (+0M)</td><td class="muted">230 (-1M), 240 (-1M)</td><td class="muted">+0.5M (ask 17 / bid 34)</td>
+</tr>
+
+
+
+<tr>
+  <td>AXON</td><td>390.29</td>
+  <td>TRENDING</td>
+  <td>-0.7M</td><td>-0.9M</td>
+  <td>447.9</td>
+  <td>-12.9%</td>
+  <td>58.1 / 35.0</td>
+  <td class="muted">470 (+0M), 460 (+0M)</td><td class="muted">380 (-0M), 400 (-0M)</td><td class="muted">+0.1M (ask 2 / bid 9)</td>
+</tr>
+
+
+
+<tr>
+  <td>CRWD</td><td>227.39</td>
+  <td>TRENDING</td>
+  <td>-5.5M</td><td>-10.1M</td>
+  <td>260.9</td>
+  <td>-12.8%</td>
+  <td>56.1 / 53.4</td>
+  <td class="muted">275 (+0M), 290 (+0M)</td><td class="muted">240 (-2M), 225 (-2M)</td><td class="muted">+0.7M (ask 12 / bid 29)</td>
+</tr>
+
+
+
+<tr style="font-weight:bold">
+  <td>GOOGL</td><td>340.59</td>
+  <td>REVERSAL_UP</td>
+  <td>+0.2M</td><td>+29.5M</td>
+  <td>329.5</td>
+  <td>+3.4%</td>
+  <td>38.2 / 22.6</td>
+  <td class="muted">370 (+12M), 355 (+11M)</td><td class="muted">330 (-5M), 335 (-3M)</td><td class="muted">+0.9M (ask 27 / bid 25)</td>
+</tr>
+
+
+
+<tr style="font-weight:bold">
+  <td>ISRG</td><td>426.70</td>
+  <td>REVERSAL_UP</td>
+  <td>+0.7M</td><td>+1.1M</td>
+  <td>395.8</td>
+  <td>+7.8%</td>
+  <td>62.0 / 25.5</td>
+  <td class="muted">425 (+0M), 460 (+0M)</td><td class="muted">415 (-0M), 390 (-0M)</td><td class="muted">-0.0M (ask 3 / bid 5)</td>
+</tr>
+
+
+
+<tr>
+  <td>KLAC</td><td>165.74</td>
+  <td>TRENDING</td>
+  <td>-1.2M</td><td>-3.2M</td>
+  <td>--</td>
+  <td>--</td>
+  <td>65.0 / 41.9</td>
+  <td class="muted">177.5 (+1M), 182.5 (+1M)</td><td class="muted">224 (-2M), 160 (-1M)</td><td class="muted">+0.1M (ask 19 / bid 14)</td>
+</tr>
+
+
+
+<tr style="font-weight:bold">
+  <td>MELI</td><td>1834.00</td>
+  <td>REVERSAL_UP</td>
+  <td>+0.2M</td><td>+0.9M</td>
+  <td>1765.2</td>
+  <td>+3.9%</td>
+  <td>44.4 / 41.4</td>
+  <td class="muted">2100 (+0M), 2200 (+0M)</td><td class="muted">1710 (-0M), 1750 (-0M)</td><td class="muted">+0.0M (ask 1 / bid 1)</td>
+</tr>
+
+
+
+<tr>
+  <td>META</td><td>709.33</td>
+  <td>TRENDING</td>
+  <td>-5.2M</td><td>+16.5M</td>
+  <td>672.1</td>
+  <td>+5.5%</td>
+  <td>57.7 / 57.6</td>
+  <td class="muted">800 (+7M), 700 (+3M)</td><td class="muted">680 (-4M), 670 (-1M)</td><td class="muted">-2.5M (ask 34 / bid 9)</td>
+</tr>
+
+
+
+<tr style="font-weight:bold">
+  <td>MSFT</td><td>529.05</td>
+  <td>REVERSAL_UP</td>
+  <td>+44.9M</td><td>+81.3M</td>
+  <td>474.8</td>
+  <td>+11.4%</td>
+  <td>32.6 / 22.3</td>
+  <td class="muted">550 (+12M), 555 (+9M)</td><td class="muted">500 (-2M), 522.5 (-1M)</td><td class="muted">-1.6M (ask 24 / bid 14)</td>
+</tr>
+
+
+
+<tr>
+  <td>NET</td><td>296.30</td>
+  <td>TRENDING <span class="muted">[flow 符号冲突]</span></td>
+  <td>-0.6M</td><td>-0.4M</td>
+  <td>307.4</td>
+  <td>-3.6%</td>
+  <td>60.6 / 56.7</td>
+  <td class="muted">400 (+0M), 370 (+0M)</td><td class="muted">270 (-0M), 350 (-0M)</td><td class="muted">+0.4M (ask 17 / bid 41)</td>
+</tr>
+
+
+
+<tr>
+  <td>NVDA</td><td>214.13</td>
+  <td>TRENDING <span class="muted">[flow 符号冲突]</span></td>
+  <td>-60.1M</td><td>+15.8M</td>
+  <td>212.5</td>
+  <td>+0.8%</td>
+  <td>36.2 / 24.7</td>
+  <td class="muted">230 (+32M), 245 (+26M)</td><td class="muted">205 (-20M), 200 (-18M)</td><td class="muted">+21.1M (ask 29 / bid 29)</td>
+</tr>
+
+
+
+<tr>
+  <td>SPCX</td><td>146.03</td>
+  <td>TRENDING</td>
+  <td>-18.1M</td><td>-13.2M</td>
+  <td>150.0</td>
+  <td>-2.6%</td>
+  <td>69.6 / 52.6</td>
+  <td class="muted">180 (+5M), 190 (+3M)</td><td class="muted">140 (-8M), 135 (-6M)</td><td class="muted">-1.1M (ask 37 / bid 25)</td>
+</tr>
+
+
+
+<tr>
+  <td>TSLA</td><td>354.72</td>
+  <td>TRENDING</td>
+  <td>-10.2M</td><td>-0.1M</td>
+  <td>355.6</td>
+  <td>-0.2%</td>
+  <td>59.1 / 31.6</td>
+  <td class="muted">400 (+6M), 385 (+3M)</td><td class="muted">340 (-3M), 330 (-3M)</td><td class="muted">-1.4M (ask 21 / bid 7)</td>
+</tr>
+
+
+
+<tr>
+  <td>TSM</td><td>412.61</td>
+  <td>TRENDING</td>
+  <td>-13.5M</td><td>-16.2M</td>
+  <td>428.1</td>
+  <td>-3.6%</td>
+  <td>34.5 / 29.7</td>
+  <td class="muted">460 (+3M), 480 (+1M)</td><td class="muted">410 (-3M), 400 (-3M)</td><td class="muted">+1.3M (ask 16 / bid 27)</td>
+</tr>
+
+
+
+<tr>
+  <td>MU</td><td>878.84</td>
+  <td>TRENDING</td>
+  <td>-15.1M</td><td>-18.5M</td>
+  <td>938.2</td>
+  <td>-6.3%</td>
+  <td>54.9 / 48.1</td>
+  <td class="muted">1035 (+1M), 980 (+1M)</td><td class="muted">900 (-3M), 850 (-3M)</td><td class="muted">+0.9M (ask 9 / bid 17)</td>
+</tr>
+
+
+
+<tr>
+  <td>SNDK</td><td>1299.30</td>
+  <td>TRENDING</td>
+  <td>-3.1M</td><td>-5.5M</td>
+  <td>1465.0</td>
+  <td>-11.3%</td>
+  <td>76.2 / 53.4</td>
+  <td class="muted">1500 (+0M), 1600 (+0M)</td><td class="muted">1250 (-1M), 1400 (-0M)</td><td class="muted">+0.1M (ask 18 / bid 20)</td>
+</tr>
+
+
+
+<tr>
+  <td>SPY</td><td>763.25</td>
+  <td>TRENDING</td>
+  <td>-784.8M</td><td>-934.4M</td>
+  <td>780.4</td>
+  <td>-2.2%</td>
+  <td>14.2 / 10.5</td>
+  <td class="muted">800 (+46M), 780 (+29M)</td><td class="muted">760 (-149M), 745 (-120M)</td><td class="muted">-24.2M (ask 40 / bid 32)</td>
+</tr>
+
+
+
+<tr>
+  <td>QQQ</td><td>709.80</td>
+  <td>TRENDING</td>
+  <td>-801.9M</td><td>-757.8M</td>
+  <td>743.5</td>
+  <td>-4.5%</td>
+  <td>23.4 / 18.6</td>
+  <td class="muted">760 (+25M), 770 (+15M)</td><td class="muted">700 (-116M), 715 (-104M)</td><td class="muted">-113.9M (ask 19 / bid 18)</td>
+</tr>
+
+
+
+<tr>
+  <td>CRWV</td><td>61.39</td>
+  <td>TRENDING</td>
+  <td>-4.8M</td><td>-13.6M</td>
+  <td>69.2</td>
+  <td>-11.3%</td>
+  <td>95.4 / 86.8</td>
+  <td class="muted">70 (+2M), 95 (+1M)</td><td class="muted">55 (-6M), 60 (-4M)</td><td class="muted">-0.5M (ask 33 / bid 30)</td>
+</tr>
+
+
+
+<tr>
+  <td>ORCL</td><td>128.23</td>
+  <td>TRENDING</td>
+  <td>-24.1M</td><td>-17.7M</td>
+  <td>132.4</td>
+  <td>-3.1%</td>
+  <td>58.6 / 56.7</td>
+  <td class="muted">145 (+7M), 150 (+5M)</td><td class="muted">130 (-8M), 120 (-7M)</td><td class="muted">+2.4M (ask 18 / bid 32)</td>
+</tr>
+
+
+</table>
+<div class="composite-note">规则 (naughty boss 2026-09-22): 高 VIX (>=70 pct) + 正 gamma = 向上反转候选; 低 VIX (<=30 pct) + 负 gamma = 向下反转候选; 低 VIX + 正 gamma 且高出 flip <=1% = ON_FLIP 前置信号 (跌破 flip 即进反转结构); 其余 PINNED / TRENDING / NEUTRAL。gamma 符号来自现价 +/-5% 带内 OI (SpotGamma 约定), flip = 价格网格上 GEX 过零点; 今日流 = 客户 ask 买使 dealer 空 gamma, bid 卖使 dealer 多 gamma。</div>
+
+
+
+<h2>Stock character -- 股性读数 (房东法, as-of 2026-10-16)</h2>
+
+<div class="composite-note"><b>ACTION</b><br>AMD: 砸 -3.9% (>=2.5%) -> 当天不接, 隔天看<br>AMD: 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看<br>AMD: 坏房, 不在房东名单: 不卖 put / 不接货 / 不卖 call<br>AMZN: 砸 -2.5% (>=2.5%) -> 当天不接, 隔天看<br>ARM: 砸 -4.9% (>=2.5%) -> 当天不接, 隔天看<br>ARM: 横盘中缩量急跌 (量比 0.78) -> 下面没人接, 不接 (5 日收复 33% vs 平量 49%)<br>AXON: 砸 -8.1% (>=2.5%) -> 当天不接, 隔天看<br>AXON: 破位原因: 板块同跌 (IGV -4.8%) -> 板块清洗, 与大盘同跌的洗盘同一机制; 10 日 +3.5%; 照洗盘接, 单票也可全量 (已证实 (汇总) / 可疑 (单票))<br>AXON: 放量 (量比 1.43) 跌破前 20 日低点, 不在上升的 200 日线上方 -> 真跌, 不接 (10 日 -2.7%, 已证实)<br>CRWD: 砸 -8.9% (>=2.5%) -> 当天不接, 隔天看<br>CRWD: 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看<br>CRWD: 破位原因: 板块同跌 (IGV -4.8%) -> 板块清洗, 与大盘同跌的洗盘同一机制; 10 日 +3.5%; 照洗盘接, 单票也可全量 (已证实 (汇总) / 可疑 (单票))<br>CRWD: 坏房, 不在房东名单: 不卖 put / 不接货 / 不卖 call<br>GOOGL: 砸 -2.6% (>=2.5%) -> 当天不接, 隔天看<br>GOOGL: 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看<br>KLAC: 砸 -2.7% (>=2.5%) -> 当天不接, 隔天看<br>KLAC: 高置信底: 底部读数 4/8 (偏离50<=10 / BIAS20<=10 / %B<=0 / 呼日) + 恐慌门亮 (恐惧贪婪 18 (第 6 百分位)) -> 可加大接货 (样本外局部底 58% vs 无门 43%, 一年约 3-7 天, 可疑偏正); 底部不卖 call<br>KLAC: 破位原因: 板块同跌 (SMH -3.4%) -> 板块清洗, 与大盘同跌的洗盘同一机制; 10 日 +3.5%; 照洗盘接, 单票也可全量 (已证实 (汇总) / 可疑 (单票))<br>KLAC: 放量 (量比 1.44) 跌破前 20 日低点, 不在上升的 200 日线上方 -> 真跌, 不接 (10 日 -2.7%, 已证实)<br>MELI: 砸 -3.1% (>=2.5%) -> 当天不接, 隔天看<br>MELI: 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看<br>MELI: 横盘中缩量急跌 (量比 0.47) -> 下面没人接, 不接 (5 日收复 33% vs 平量 49%)<br>META: 砸 -4.6% (>=2.5%) -> 当天不接, 隔天看<br>MSFT: 砸 -3.1% (>=2.5%) -> 当天不接, 隔天看<br>NET: 砸 -8.7% (>=2.5%) -> 当天不接, 隔天看<br>NET: 破位原因: 板块同跌 (IGV -4.8%) -> 板块清洗, 与大盘同跌的洗盘同一机制; 10 日 +3.5%; 照洗盘接, 单票也可全量 (已证实 (汇总) / 可疑 (单票))<br>NET: 洗盘: 大盘同跌 -2.5%, 放量 (量比 1.43) 跌破前 20 日低点 -> 明天开盘买股接货, 全量 (10 日 +4.5%, 已证实)<br>SPCX: 砸 -3.3% (>=2.5%) -> 当天不接, 隔天看<br>TSLA: 砸 -5.3% (>=2.5%) -> 当天不接, 隔天看<br>TSLA: 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看<br>TSLA: 破位原因: 财报前 10 个交易日 (2026-10-22 财报) -> 财报前降仓与对冲, 10 日内收回 75% vs 51%; 照洗盘接, 单票也可全量 (已证实)<br>TSLA: 放量 (量比 1.79) 跌破前 20 日低点, 不在上升的 200 日线上方 -> 真跌, 不接 (10 日 -2.7%, 已证实)<br>TSM: 砸 -2.5% (>=2.5%) -> 当天不接, 隔天看<br>TSM: 破位原因: 板块同跌 (SMH -3.4%) -> 板块清洗, 与大盘同跌的洗盘同一机制; 10 日 +3.5%; 照洗盘接, 单票也可全量 (已证实 (汇总) / 可疑 (单票))<br>TSM: 洗盘: 大盘同跌 -2.5%, 放量 (量比 1.56) 跌破前 20 日低点 -> 明天开盘买股接货, 全量 (10 日 +4.5%, 已证实)<br>MU: 砸 -3.3% (>=2.5%) -> 当天不接, 隔天看<br>MU: 高置信底: 底部读数 5/8 (偏离50<=10 / BIAS20<=10 / TD买9/13近3日 / %B<=0 / 呼日) + 恐慌门亮 (恐惧贪婪 18 (第 6 百分位)) -> 可加大接货 (样本外局部底 58% vs 无门 43%, 一年约 3-7 天, 可疑偏正); 底部不卖 call<br>SNDK: 砸 -3.9% (>=2.5%) -> 当天不接, 隔天看<br>SNDK: 高置信底: 底部读数 6/8 (偏离50<=10 / BIAS20<=10 / TD买9/13近3日 / %B<=0 / RSI<=30 / 呼日) + 恐慌门亮 (恐惧贪婪 18 (第 6 百分位)) -> 可加大接货 (样本外局部底 58% vs 无门 43%, 一年约 3-7 天, 可疑偏正); 底部不卖 call<br>SPY: 急跌盘中跌破 50 日线 -> 不接 (跌破后 5 日收复率比未破低 12pp); 等收回 50 日线再看<br>SPY: 破位原因: 查不到原因 -> 流量为主, 更安全但没有收益边际; 仓位照洗盘行 (已证实 (更安全))<br>SPY: 洗盘: 大盘同跌 -2.5%, 放量 (量比 1.52) 跌破20 日线 -> 明天开盘买股接货, 全量 (10 日 +4.5%, 已证实)<br>QQQ: 砸 -2.5% (>=2.5%) -> 当天不接, 隔天看<br>QQQ: 破位原因: 查不到原因 -> 流量为主, 更安全但没有收益边际; 仓位照洗盘行 (已证实 (更安全))<br>QQQ: 洗盘: 大盘同跌 -2.5%, 放量 (量比 1.84) 跌破前 20 日低点 -> 明天开盘买股接货, 全量 (10 日 +4.5%, 已证实)<br>CRWV: 砸 -8.1% (>=2.5%) -> 当天不接, 隔天看<br>CRWV: 破位原因: 目标价下调 (不降级) (Mizuho) -> 信息, 弱势延续; 不按洗盘接, 10 个交易日后复核 (可疑)<br>CRWV: 放量 (量比 2.39) 跌破前 20 日低点, 不在上升的 200 日线上方 -> 真跌, 不接 (10 日 -2.7%, 已证实)<br>CRWV: 坏房, 不在房东名单: 不卖 put / 不接货 / 不卖 call<br>ORCL: 砸 -4.6% (>=2.5%) -> 当天不接, 隔天看</div>
+
+<table>
+<tr><th>票</th><th>收盘</th><th>涨跌</th><th>周几</th><th>离50日线</th><th>偏移率 EMA20 (顶均 / 顶max)</th><th>RSI</th><th>%B</th><th>量比</th><th>当前腿</th><th>地板 (put)</th><th>上限 (call)</th><th>3日内事件</th></tr>
+
+<tr>
+  <td>AAPL</td>
+  <td>343.46</td>
+  <td>+0.43%</td>
+  <td>Fri</td>
+  <td>+5.5%</td>
+  <td>+2.0% <span class="muted">(5.4 / 5.8)</span></td>
+  <td>62</td>
+  <td>0.86</td>
+  <td>1.62</td>
+  <td>UP +13.6%/46d (中位 16.6%/31.0d)</td><td>SMA50 316.0-335.0 (最佳支撑 SMA20)</td><td>BBU 346.0 / x1.25 407.0 / x1.29 420.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>AMD</td>
+  <td>528.75</td>
+  <td>-5.95%</td>
+  <td>Fri</td>
+  <td>-1.6%</td>
+  <td>-9.8% <span class="muted">(11.3 / 31.6)</span></td>
+  <td>38</td>
+  <td>-0.21</td>
+  <td>1.05</td>
+  <td>DOWN -18.6%/8d (中位 -11.2%/5.0d)</td><td>SMA50 521.0-553.0 (最佳支撑 EMA8)</td><td>BBU 668.0 / x1.25 671.0 / x1.29 693.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>AMZN</td>
+  <td>250.00</td>
+  <td>-1.87%</td>
+  <td>Fri</td>
+  <td>-2.8%</td>
+  <td>-1.7% <span class="muted">(9.0 / 15.2)</span></td>
+  <td>45</td>
+  <td>0.33</td>
+  <td>1.09</td>
+  <td>DOWN -13.4%/31d (中位 -13.4%/31.0d)</td><td>SMA50 249.0-265.0 (最佳支撑 SMA10)</td><td>BBU 263.0 / x1.25 321.0 / x1.29 332.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>ARM</td>
+  <td>227.80</td>
+  <td>-6.94%</td>
+  <td>Fri</td>
+  <td>-15.0%</td>
+  <td>-15.3% <span class="muted">(15.1 / 38.4)</span></td>
+  <td>34</td>
+  <td>0.02</td>
+  <td>0.78</td>
+  <td>DOWN -25.9%/10d (中位 -18.1%/5.0d)</td><td>SMA50 260.0-276.0 (最佳支撑 SMA21)</td><td>BBU 348.0 / x1.25 335.0 / x1.29 346.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>AXON</td>
+  <td>390.29</td>
+  <td>-6.45%</td>
+  <td>Fri</td>
+  <td>-22.4%</td>
+  <td>-8.9% <span class="muted">(16.7 / 25.5)</span></td>
+  <td>32</td>
+  <td>0.02</td>
+  <td>1.43</td>
+  <td>DOWN -39.6%/41d (中位 -21.7%/11.0d)</td><td>SMA50 488.0-518.0 (最佳支撑 EMA55)</td><td>BBU 457.0 / x1.25 628.0 / x1.29 648.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>CRWD</td>
+  <td>227.39</td>
+  <td>-7.02%</td>
+  <td>Fri</td>
+  <td>-2.5%</td>
+  <td>-10.0% <span class="muted">(14.5 / 27.1)</span></td>
+  <td>39</td>
+  <td>-0.19</td>
+  <td>1.58</td>
+  <td>DOWN -18.5%/8d (中位 -17.5%/8.0d)</td><td>SMA50 226.0-240.0 (最佳支撑 EMA34)</td><td>BBU 284.0 / x1.25 291.0 / x1.29 301.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>GOOGL</td>
+  <td>340.59</td>
+  <td>-2.47%</td>
+  <td>Fri</td>
+  <td>-1.2%</td>
+  <td>-1.7% <span class="muted">(6.5 / 8.8)</span></td>
+  <td>44</td>
+  <td>0.22</td>
+  <td>1.12</td>
+  <td>DOWN -12.4%/25d (中位 -14.4%/25.0d)</td><td>SMA50 334.0-355.0 (最佳支撑 BBL)</td><td>BBU 357.0 / x1.25 431.0 / x1.29 445.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr>
+  <td>ISRG</td>
+  <td>426.70</td>
+  <td>-0.27%</td>
+  <td>Fri</td>
+  <td>+8.9%</td>
+  <td>+3.9% <span class="muted">(5.4 / 6.1)</span></td>
+  <td>65</td>
+  <td>0.86</td>
+  <td>1.31</td>
+  <td>UP +22.2%/27d (中位 20.9%/14.0d)</td><td>SMA50 380.0-403.0 (最佳支撑 EMA20)</td><td>BBU 433.0 / x1.25 490.0 / x1.29 505.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>KLAC</td>
+  <td>165.74</td>
+  <td>-5.00%</td>
+  <td>Fri</td>
+  <td>-11.3%</td>
+  <td>-11.1% <span class="muted">(11.0 / 24.0)</span></td>
+  <td>31</td>
+  <td>-0.11</td>
+  <td>1.44</td>
+  <td>DOWN -19.9%/10d (中位 -11.4%/6.0d)</td><td>SMA50 181.0-193.0 (最佳支撑 BBL)</td><td>BBU 211.0 / x1.25 234.0 / x1.29 241.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>MELI</td>
+  <td>1834.00</td>
+  <td>-1.24%</td>
+  <td>Fri</td>
+  <td>-1.4%</td>
+  <td>-0.1% <span class="muted">(4.2 / 5.1)</span></td>
+  <td>50</td>
+  <td>0.60</td>
+  <td>0.47</td>
+  <td>UP +12.3%/7d (中位 12.6%/10.5d)</td><td>SMA50 1804.0-1916.0 (最佳支撑 BBL)</td><td>BBU 1945.0 / x1.25 2325.0 / x1.29 2399.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>META</td>
+  <td>709.33</td>
+  <td>-3.72%</td>
+  <td>Fri</td>
+  <td>+8.3%</td>
+  <td>-1.4% <span class="muted">(9.0 / 16.1)</span></td>
+  <td>50</td>
+  <td>0.09</td>
+  <td>0.94</td>
+  <td>DOWN -8.8%/16d (中位 -15.1%/13.5d)</td><td>SMA50 636.0-675.0 (最佳支撑 BBL)</td><td>BBU 768.0 / x1.25 819.0 / x1.29 845.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>MSFT</td>
+  <td>529.05</td>
+  <td>-1.93%</td>
+  <td>Fri</td>
+  <td>+4.7%</td>
+  <td>+1.2% <span class="muted">(-- / --)</span></td>
+  <td>57</td>
+  <td>0.65</td>
+  <td>1.08</td>
+  <td>UP +54.0%/76d (中位 31.4%/53.0d)</td><td>SMA50 490.0-521.0 (最佳支撑 BBL)</td><td>BBU 550.0 / x1.25 632.0 / x1.29 652.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>NET</td>
+  <td>296.30</td>
+  <td>-6.33%</td>
+  <td>Fri</td>
+  <td>-7.4%</td>
+  <td>-11.5% <span class="muted">(12.9 / 21.4)</span></td>
+  <td>36</td>
+  <td>-0.28</td>
+  <td>1.43</td>
+  <td>DOWN -17.9%/5d (中位 -17.9%/5.0d)</td><td>SMA50 310.0-330.0 (最佳支撑 SMA50)</td><td>BBU 377.0 / x1.25 400.0 / x1.29 413.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr>
+  <td>NVDA</td>
+  <td>214.13</td>
+  <td>-1.43%</td>
+  <td>Fri</td>
+  <td>-4.0%</td>
+  <td>-5.1% <span class="muted">(6.6 / 12.4)</span></td>
+  <td>38</td>
+  <td>-0.05</td>
+  <td>1.15</td>
+  <td>DOWN -10.5%/8d (中位 -10.6%/9.0d)</td><td>SMA50 216.0-230.0 (最佳支撑 SMA100)</td><td>BBU 241.0 / x1.25 279.0 / x1.29 288.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>SPCX <span class="muted">[历史不足 88d]</span></td>
+  <td>146.03</td>
+  <td>-1.74%</td>
+  <td>Fri</td>
+  <td>-1.4%</td>
+  <td>-5.5% <span class="muted">(10.3 / 25.5)</span></td>
+  <td>44</td>
+  <td>0.23</td>
+  <td>1.07</td>
+  <td>DOWN -15.1%/8d (中位 -15.1%/6.0d)</td><td>SMA50 144.0-153.0 (最佳支撑 SMA20)</td><td>BBU 172.0 / x1.25 185.0 / x1.29 191.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>TSLA</td>
+  <td>354.72</td>
+  <td>-2.13%</td>
+  <td>Fri</td>
+  <td>-1.3%</td>
+  <td>-3.6% <span class="muted">(7.2 / 10.5)</span></td>
+  <td>42</td>
+  <td>0.12</td>
+  <td>1.79</td>
+  <td>UP +28.3%/51d (中位 12.2%/12.0d)</td><td>SMA50 349.0-370.0 (最佳支撑 BBL)</td><td>BBU 391.0 / x1.25 449.0 / x1.29 464.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>TSM</td>
+  <td>412.61</td>
+  <td>-2.28%</td>
+  <td>Fri</td>
+  <td>-5.0%</td>
+  <td>-7.1% <span class="muted">(8.6 / 8.9)</span></td>
+  <td>34</td>
+  <td>-0.05</td>
+  <td>1.56</td>
+  <td>DOWN -15.1%/9d (中位 -15.1%/9.0d)</td><td>SMA50 421.0-447.0 (最佳支撑 BBL)</td><td>BBU 488.0 / x1.25 543.0 / x1.29 560.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>MU</td>
+  <td>878.84</td>
+  <td>-5.63%</td>
+  <td>Fri</td>
+  <td>-10.6%</td>
+  <td>-11.7% <span class="muted">(16.6 / 31.8)</span></td>
+  <td>34</td>
+  <td>-0.10</td>
+  <td>1.12</td>
+  <td>DOWN -19.9%/11d (中位 -17.5%/3.5d)</td><td>SMA50 954.0-1013.0 (最佳支撑 SMA10)</td><td>BBU 1162.0 / x1.25 1229.0 / x1.29 1268.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>SNDK</td>
+  <td>1299.30</td>
+  <td>-6.85%</td>
+  <td>Fri</td>
+  <td>-18.4%</td>
+  <td>-17.3% <span class="muted">(15.5 / 38.5)</span></td>
+  <td>30</td>
+  <td>-0.05</td>
+  <td>1.06</td>
+  <td>DOWN -31.1%/18d (中位 -15.8%/4.0d)</td><td>SMA50 1545.0-1641.0 (最佳支撑 SMA20)</td><td>BBU 1969.0 / x1.25 1991.0 / x1.29 2055.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>SPY</td>
+  <td>763.25</td>
+  <td>-1.11%</td>
+  <td>Fri</td>
+  <td>-0.7%</td>
+  <td>-1.0% <span class="muted">(-- / --)</span></td>
+  <td>44</td>
+  <td>0.14</td>
+  <td>1.52</td>
+  <td>UP +9.7%/118d (中位 9.7%/118.0d)</td><td>SMA50 745.0-792.0 (最佳支撑 EMA55)</td><td>BBU 782.0 / x1.25 961.0 / x1.29 991.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>QQQ</td>
+  <td>709.80</td>
+  <td>-2.50%</td>
+  <td>Fri</td>
+  <td>-2.3%</td>
+  <td>-3.6% <span class="muted">(-- / --)</span></td>
+  <td>35</td>
+  <td>-0.22</td>
+  <td>1.84</td>
+  <td>UP +14.8%/48d (中位 14.9%/39.5d)</td><td>SMA50 705.0-749.0 (最佳支撑 SMA100)</td><td>BBU 765.0 / x1.25 908.0 / x1.29 938.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>CRWV</td>
+  <td>61.39</td>
+  <td>-11.91%</td>
+  <td>Fri</td>
+  <td>-29.5%</td>
+  <td>-23.3% <span class="muted">(9.4 / 25.4)</span></td>
+  <td>29</td>
+  <td>-0.15</td>
+  <td>2.39</td>
+  <td>DOWN -33.1%/8d (中位 -24.9%/7.0d)</td><td>SMA50 84.0-90.0 (最佳支撑 SMA55)</td><td>BBU 100.0 / x1.25 109.0 / x1.29 112.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+<tr style="font-weight:bold">
+  <td>ORCL</td>
+  <td>128.23</td>
+  <td>-4.64%</td>
+  <td>Fri</td>
+  <td>-11.6%</td>
+  <td>-7.9% <span class="muted">(11.7 / 26.3)</span></td>
+  <td>40</td>
+  <td>-0.00</td>
+  <td>1.14</td>
+  <td>DOWN -11.4%/8d (中位 -14.9%/13.5d)</td><td>SMA50 141.0-149.0 (最佳支撑 SMA21)</td><td>BBU 151.0 / x1.25 181.0 / x1.29 187.0</td>
+  <td class="muted">2026-10-16 月度 opex（NET Oct $350 call 大 OI）; 2026-10-19 Cloudflare Connect 2026 (10/19-21 旧金山 Moscone West, 10/20 主会; 无投资者环节)</td>
+</tr>
+
+</table>
+
+<div class="composite-note">周五对照 NET 预判日历: 时段 10/12-10/16 预判 "财报前横盘 (仅牛市规则)" 区间 $318-417 (80%), 中位约 $368; 主路径 $360-380 (10/16 最大 call 墙 $380, 2,536 张), 实际收 296.30 = <b>区间外, 待 naughty boss 修订节奏参数</b>。收租动作: 两边 ATM 两周收租 | 证伪 tell: --</div>
+
+
+<div class="composite-note">规则: 顶部区 (%B>=0.97 且 RSI>=70) 卖 ITM call; 50 日线 +/-3% 卖 ITM put / 接货; 量比 <0.8 跌破 20 日线 = 假摔候选; 砸 >=2.5% 当天不接; 腿到中位 = 顶/底区。周一收盘卖 call、周五收盘卖 put; 两周到期; 月期权不跨财报。方法: docs/10_knowledge/investment/stockoptions/README_method.md。</div>
+
+
+<h2>Needle handbook -- 针法手册 (these are my leading indicators)</h2>
+<div class="handbook">
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">radar_traffic</span>
+      <span class="layer-tag">Layer A</span>
+      
+      <span class="imp p1">P1 确认</span>
+      <span class="st YELLOW">YELLOW</span>
+      <span class="hb-label">Cloudflare Radar global traffic + AI crawler share</span>
+    </div>
+    <p><b>为什么重要:</b> 生态流量水位 + AI 爬虫份额 = pay-to-crawl 的税基。爬虫份额越高, 9/15 强制收费翻转后的收入弹性越大。</p>
+    <p><b>怎么读:</b> 绿 = 流量增速环比加速; 黄 = 增速放缓但为正 (当前状态); 红 = 增速转负。AI 爬虫份额 (现 33.4%) 单独看趋势, 升 = 税基扩大。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">wrangler_npm</span>
+      <span class="layer-tag">Layer A</span>
+      
+      <span class="imp p1">P1 确认</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">wrangler npm weekly downloads, 13w MA slope</span>
+    </div>
+    <p><b>为什么重要:</b> 开发者飞轮的最快前哨: wrangler 是 Workers 开发工具, 下载斜率领先 Workers 收入 2-4 个季度。</p>
+    <p><b>怎么读:</b> 绿 = 13 周均线斜率为正 (现 +5.4%/周, 强); 黄 = 走平; 红 = 转负 = 开发者流失预警, 比财报早知道。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">w3techs_share</span>
+      <span class="layer-tag">Layer A</span>
+      
+      <span class="imp p2">P2 信息</span>
+      <span class="st YELLOW">YELLOW</span>
+      <span class="hb-label">W3Techs Cloudflare usage share (monthly)</span>
+    </div>
+    <p><b>为什么重要:</b> 全网份额 (现 24.6% of all websites) = 收费站的路网覆盖率。慢变量, 月度采样。</p>
+    <p><b>怎么读:</b> 看三次读数的斜率: 升 = 网络效应在扩; 平 = 成熟; 降 = 被替代信号 (罕见, 出现即重视)。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">cf_jobs</span>
+      <span class="layer-tag">Layer A</span>
+      
+      <span class="imp p2">P2 信息</span>
+      <span class="st YELLOW">YELLOW</span>
+      <span class="hb-label">Cloudflare Greenhouse postings (total + GTM/Sales/AI)</span>
+    </div>
+    <p><b>为什么重要:</b> 管理层自信心代理: GTM/销售岗位扩张 = 内部看到的需求管道。2026 重组后重新扩招 = 转折确认。</p>
+    <p><b>怎么读:</b> 绿 = 岗位数 +2% 以上; 黄 = 噪音带内; 红 = -2% 以上收缩 = 内部需求可见度转弱。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">net_quarterly</span>
+      <span class="layer-tag">Layer A</span>
+      
+      <span class="imp p0">P0 核心</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">NET quarterly prints (manual)</span>
+    </div>
+    <p><b>为什么重要:</b> cRPO YoY 是唯一的硬承诺指标 -- 客户已签约未确认的钱, 比收入领先 2-4 个季度, 比 guidance 诚实。</p>
+    <p><b>怎么读:</b> 绿 = cRPO YoY >= 30% (现 35%); 黄 = 25-30% 减速警告; 红 = < 25% = 增长故事折损, 估值模型换挡。季报日手工录入。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">vrsn_dnib</span>
+      <span class="layer-tag">Layer B</span>
+      
+      <span class="imp p1">P1 确认</span>
+      <span class="st YELLOW">YELLOW</span>
+      <span class="hb-label">Verisign DNIB new .com/.net registrations (manual, quarterly)</span>
+    </div>
+    <p><b>为什么重要:</b> 上游进水口: 新域名 = 新网站 = NET 未来客户的总供给。互联网还在扩张吗, 这针直接回答。</p>
+    <p><b>怎么读:</b> 绿 = 季度新注册 >= 1200 万且 YoY >= +15%; 黄 = 1000-1200 万 (现 1150 万, +13.9%); 红 = < 1000 万 = 水源萎缩。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">hyperscaler</span>
+      <span class="layer-tag">Layer B</span>
+      
+      <span class="imp p1">P1 确认</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">AWS/Azure/GCP growth pct (manual, quarterly)</span>
+    </div>
+    <p><b>为什么重要:</b> 云需求潮汐: 三大云增速加速 = 涨潮, 所有云生态船 (含 NET) 一起浮。也是 AI 需求真实性的对照组。</p>
+    <p><b>怎么读:</b> 绿 = 3 家中 >= 2 家环比自身上季加速 (现 3/3: AWS 37 / Azure 43 / GCP 82); 黄 = 不足 2 家; 潮退时 NET 的相对强度要单独审。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">hy_oas</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p0">P0 核心</span>
+      <span class="st RED">RED</span>
+      <span class="hb-label">HY OAS (FRED BAMLH0A0HYM2) -- funding-loop vital sign</span>
+    </div>
+    <p><b>为什么重要:</b> 拒付仪表 / 融资环命门: AI capex 靠发债续命, HY 利差走宽 = 债权人开始拒付 = 整条融资环断流的先兆。级联论 (KS-2) 的主闸门。</p>
+    <p><b>怎么读:</b> 绿 = 平静 (现 271bps, 十年低位); 黄 = 20 交易日内走宽 25-50bps; 红 = 走宽 50bps+ 或绝对值破 450 = 全局剧本换挡, 现金为王。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">usdjpy</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p1">P1 确认</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">USD/JPY (FRED DEXJPUS) + BOJ meeting flags</span>
+    </div>
+    <p><b>为什么重要:</b> Carry trade 心电图: 日元剧烈波动 = 全球杠杆资金的融资腿在抖, 2024/8 式连锁去杠杆的前哨。BOJ 会议 (10/29, 12/17) 前后重点盯。</p>
+    <p><b>怎么读:</b> 绿 = 20 日实现波动率正常; 黄 = 波动率超基线 2 个标准差 (当前状态) = 提高警觉; 配合 BOJ 日历读, 会议前的黄比平时的黄更重。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">edgar_s1</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p0">P0 核心 (EVENT 枪)</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">EDGAR full-text S-1 watch: OpenAI / Anthropic (EVENT gun)</span>
+    </div>
+    <p><b>为什么重要:</b> OpenAI/Anthropic 公开 S-1 = climax 窗口发令枪: 史上最大 distribution 开始打印, 造势期进入倒计时 (S-1 到定价约 4-6 周)。OpenAI 已于 6/8 秘密提交, 本针盯公开翻牌瞬间。</p>
+    <p><b>怎么读:</b> 绿 = 无命中; EVENT = 命中 = 立即行动信号: 造势段 melt-up 尾声 + IPO 定价后保护解除。这是全面板唯一的'响一次就够'针。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">tickers</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p0">P0 核心 (生死线)</span>
+      <span class="st RED">RED</span>
+      <span class="hb-label">Daily closes: NET / NVDA / AMD / META / ARM / QQQ / SPY / SPACEX_TICKER</span>
+    </div>
+    <p><b>为什么重要:</b> $305 是 thesis 的 invalidation 线: 8/7 财报跳空的顶, 破了说明市场拒绝了 agent 经济故事。NVDA 是 AI 税收发动机对照, VRSN 是域名生态对照。</p>
+    <p><b>怎么读:</b> 绿 = NET 距 $305 超过 +5%; 黄 = 0 到 +5% (贴线); 红 = 收破 $305 = 全局 RED 横幅, 一切多头纪律暂停。OI 侧下方真空到 $260, 破线不是小跌是滑落。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">short_interest</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p2">P2 信息</span>
+      <span class="st INFO">INFO</span>
+      <span class="hb-label">FINRA biweekly short interest, NET (informational)</span>
+    </div>
+    <p><b>为什么重要:</b> 轧空燃料计: 空头持仓的双周变化解释上涨的燃料构成 (7 月下旬 -16.8% = 那波拉升有轧空成分)。</p>
+    <p><b>怎么读:</b> 信息针不打分。SI 骤降 + 股价大涨 = 燃料已烧掉, 后续上涨需要真买盘; SI 堆积 + 股价横盘 = 弹簧在压。DTC (回补天数) > 5 才有逼空结构, 现 ~3 无。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">options_skew</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p2">P2 信息</span>
+      <span class="st INFO">INFO</span>
+      <span class="hb-label">NET 30d 25-delta call IV minus put IV (best effort)</span>
+    </div>
+    <p><b>为什么重要:</b> 静默吸筹探测器 (静默 ATH 律): 安静的价格带上 call 偏度走正 = 有人在悄悄用期权建多仓, 不推价格。</p>
+    <p><b>怎么读:</b> 30 天期 25-delta call IV 减 put IV: 正值且扩大 + 现货安静 = 吸筹信号; 负值扩大 = 对冲需求压倒投机。数据质量不够时标 UNRELIABLE, 宁缺毋假。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">stock_character</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p1">P1 执行 (房东层)</span>
+      <span class="st INFO">INFO</span>
+      <span class="hb-label">股性读数 (房东法): NET / SPCX / SPY / QQQ / AMD / TSLA / META / ARM 节奏 + 空间 + ACTION</span>
+    </div>
+    <p><b>为什么重要:</b> 房东法: 必然性给方向, 波动率给租金。每票的涨/跌腿中位、地板线 (触线反弹率最高的均线)、顶部共振 (布林上轨 + RSI) 从 6 个月日线统计出来, 不拍脑袋。方法见 docs/10_knowledge/investment/stockoptions/README_method.md。</p>
+    <p><b>怎么读:</b> 值 = 今日 ACTION 条数。顶部区 (%B>=0.97 且 RSI>=70) = 卖 ITM call 窗口; 50 日线 +/-3% = 卖 ITM put / 接货窗口; 量比 <0.8 跌破 20 日线 = 假摔候选; 砸 >=2.5% 当天不接; 当前腿到中位 = 顶/底区。周五对照 NET 预判日历, 每月 1 日 diff 参数 (>20% 标起变化)。信息针不打分, 决策归 naughty boss。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">gamma_reversal</span>
+      <span class="layer-tag">Layer C</span>
+      
+      <span class="imp p1">P1 领先 (反转结构)</span>
+      <span class="st INFO">INFO</span>
+      <span class="hb-label">反转指标 (naughty boss 2026-09-22): VIX 位置 x dealer gamma 符号 (现价 +/-5% 带内), 8 票</span>
+    </div>
+    <p><b>为什么重要:</b> dealer 正 gamma = 对冲盘逆势 (涨卖跌买), 压波动; 负 gamma = 对冲盘顺势, 放大波动。高 VIX 时正 gamma = 恐慌已定价而波动被压 -> 向上反转; 低 VIX 时负 gamma = 自满而波动会被放大 -> 向下反转。gamma 从全链 OI 按 SpotGamma 约定算 (客户净多 put / 净空 call), flip = 在价格网格上重定价 GEX 的过零点。</p>
+    <p><b>怎么读:</b> 值 = 命中票数 (REVERSAL_UP / REVERSAL_DOWN / ON_FLIP)。ON_FLIP = 低 VIX + 正 gamma 但只高出 flip 1% 以内, 跌破 flip 即进反转结构 (前置信号)。PINNED = 钉住区无结构。flow gamma 与 OI 符号相反且量级 >25% = naive 约定对该票失效 (散户 call 重的票), 标 conflict。单票看自身 ATM IV 与 RV20, 不只看指数 VIX。信息针不打分。</p>
+  </div>
+
+
+
+  <div class="hb">
+    <div class="hb-head">
+      <span class="hb-id">mirror_entity</span>
+      <span class="layer-tag">Layer M</span>
+      
+      <span class="imp p1">P1 (三元 Law 的 mirror 本体侧)</span>
+      <span class="st GREEN">GREEN</span>
+      <span class="hb-label">Mirror-本体: 玩家对 NET 的下注方向 (期权流净方向 x 跨日持续 x gamma 判定)</span>
+    </div>
+    <p><b>为什么重要:</b> C 层说市场整体可不可读, 这根说玩家对 NET 本身押哪边: 今日主动大单净方向 (+/-1)、近 3 日同向 (+/-1)、dealer gamma 反转判定 (+/-1)。有了它, '本体与 mirror 的偏离' 才是每天算出来的数, 不是口号。</p>
+    <p><b>怎么读:</b> GREEN = 下注偏多 (>= +2); RED = 下注偏空 (<= -2); YELLOW = 无倾向。本针不进 C 层否决, 只进 '今日格子' 的 mirror 轴。本体 UP + 这里 YELLOW/RED = 错价买点候选 (买房线); 本体 -- + 这里 GREEN = 叙事溢价 (收租线)。</p>
+  </div>
+
+
+</div>
+
+
+</body>
+</html>
