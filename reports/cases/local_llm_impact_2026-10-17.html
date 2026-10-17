@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>LLM 本地化对 NET 与 Anthropic / OpenAI 的冲击 (2026-10-17)</title><style>
+:root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
+      --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
+:root[data-theme="dark"]{--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:-0.01em;margin:1.6em 0 .5em}
+h1{font-size:30px;margin-top:.2em;border-bottom:2px solid var(--accent);padding-bottom:.35em}
+h2{font-size:22px;color:var(--accent)}
+h3{font-size:17px}
+p{margin:.6em 0}
+p,li,blockquote{overflow-wrap:anywhere}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);background:var(--panel);color:var(--muted);border-radius:0 6px 6px 0}
+ul,ol{padding-left:1.4em;margin:.5em 0}
+li{margin:.25em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th{font-family:var(--sans);font-weight:600;text-align:left;color:var(--muted);text-transform:none;border-bottom:2px solid var(--line);padding:8px 10px;background:var(--panel);white-space:nowrap}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:hover td{background:var(--panel)}
+.meta{color:var(--muted);font-size:13px;margin-bottom:1.5em}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:1em 0 2em}
+.toc a{border:0;display:block;padding:2px 0}
+.index li{margin:.4em 0}
+
+.nav{font-size:13px;color:var(--muted);margin-bottom:1em} .nav a{margin-right:14px}
+.digest{color:var(--muted);font-size:13px} .date{font-family:var(--serif);font-size:18px}
+.sec{border-top:1px solid var(--line);margin-top:2.2em;padding-top:.6em}
+:root{--bull:#1E8E3E;--bear:#C62828} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bull:#5CCB7A;--bear:#FF7B72}} :root[data-theme="dark"]{--bull:#5CCB7A;--bear:#FF7B72}
+.bull{color:var(--bull);font-weight:650} .bear{color:var(--bear);font-weight:650} .byline{color:var(--muted);font-size:13px;margin:0 0 1em}
+.term{border-bottom:1px dotted var(--muted);cursor:help}
+.term:focus{outline:none;background:var(--accent-soft)}
+#tip{position:fixed;z-index:50;max-width:min(340px,calc(100vw - 16px));background:var(--text);color:var(--bg);font-size:13px;
+line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);pointer-events:none}
+#tip[hidden]{display:none}</style></head>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1 id="llm-本地化对-net-与-anthropic-openai-的冲击-2026-10-17">LLM 本地化对 NET 与 Anthropic / OpenAI 的冲击 (2026-10-17)</h1>
+<p>naughty boss 10-17 提问: "VET LLM 本地化对 NET 和 AO 的冲击和影响", 附一篇 RTX Spark 首发体验帖。AO 按 Anthropic + OpenAI 读 (两家闭源前沿模型公司; 本站 10-04 已核无歧义, 本次没有找到指向别的含义的证据)。股价取 2026-10-16 收盘, 汇率取 10-17 报价, 模型价格取 10-17 官网牌价; 标 "估" 的是推算。</p>
+<h2 id="结论">结论</h2>
+<p>LLM 本地化是真的, 但它拿走的是最便宜的那一档词元 (token, 模型读写文字的计量单位, 一个汉字约 1-1.5 个), 不是 Anthropic / OpenAI 赚钱的那一档; 对 NET 净影响 0 到小正; 不改任何动作。</p>
+<ul>
+<li>机器是真的: 英伟达 RTX Spark 笔记本 10-16 全球开售 (美国 2,599 美元起, 国内 18,999 元起), 最高 128GB 统一内存 (CPU 与显卡共用一块大内存, 所以装得下 270 亿参数的模型); 华硕 128GB 版 37,999 元首发批次售罄, 数量未披露。帖子的数字大体属实, 只有视频生成时间被说短了一半。</li>
+<li>"Token 自由" 按字面不成立: 37,999 元 (约 5,683 美元) 按 3 年摊, 就算 24 小时满载, 本地每单位成本约 3.0 美元, 比同档或更强的云端小模型 (Claude Haiku 5.5 / GPT-6 Luna, 2.0 美元) 还贵; 只有对比同一模型的云价 (约 8.5-10.5 美元) 或国内开发者整天跑循环的账单, 才在 10-13 个月回本。本地真正赢在隐私、零延迟和 "用了不心疼"。</li>
+<li>质量差距还大: 本地跑得动的 270 亿参数模型综合测评 34 分, 前沿模型 51-58 分 (第三方 Artificial Analysis 智力指数, 10-17)。编程 agent、长任务、大上下文仍在云上。</li>
+<li>Anthropic 约九成收入来自企业 API 与编程 (第三方估), 暴露最小; OpenAI 消费订阅占比高、入口依赖手机与电脑系统, 暴露略大, 但消费者不会为省 20 美元月费买 2,599 美元起的电脑, 真正的渠道风险是系统厂商用本地小模型接走简单问题。两家已把小模型价降到每百万词元 0.10 / 0.50 美元 (Anthropic 比上一代低 10 倍, OpenAI 比上一代低 2-2.4 倍), 低档的价格战早已开打。</li>
+<li>NET: 唯一直接受损的是 Workers AI (NET 在边缘机房按调用卖开放权重模型推理), 它卖的正是本地免费跑的同一个模型, 但这块收入未披露, 估不到总收入 2%; 本地 agent 照样上网取数、调工具, 机器人识别和收费口的需求只增不减。</li>
+<li>算力出租与信用层: 本地吃的是旧显卡上跑开放模型的长尾, 不是前沿训练与前沿推理; 对旧卡租价方向略负, 量级小, 不改信用层判断。</li>
+</ul>
+<h3 id="要点与动作">要点与动作</h3>
+<ol>
+<li>不因本地化改判 -- 做什么: NET / Anthropic / OpenAI / 算力链的既有动作一律不变; 条件: 本地机首年 500-1,000 万台 (券商供应链, <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>) 能接走的词元按云端小模型价每年约 1-8 亿美元 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span>, 不到两家合计年化收入约 1,170 亿美元的 0.7%; 失效: 任一家在招股书或财报里把小模型档或个人订阅放缓归因于本地 / 端侧模型; 复核: Anthropic 公开 <span class="term" tabindex="0" data-tip="IPO 招股书; 公开后至少 15 天才能路演。">S-1</span> (上市招股书; 按 11-09 当周路演倒推最晚约 10-25, 截至 10-17 EDGAR 无), 2027-02。</li>
+<li>上市窗口防叙事, 不防经济账 -- 做什么: Anthropic 定价周 (11-17 到 24, <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>) 若出现 "便宜模型 / 本地替代" 集中叙事 (英伟达与 AI 链同日大跌且原因指向便宜模型, 同 2025-01 DeepSeek), 不追空; 条件: 叙事冲击不改收入结构; 失效: <span class="term" tabindex="0" data-tip="IPO 招股书; 公开后至少 15 天才能路演。">S-1</span> 显示小模型档或个人订阅占收入 &gt; 20%; 复核: <span class="term" tabindex="0" data-tip="IPO 招股书; 公开后至少 15 天才能路演。">S-1</span> 公开日, 定价周。</li>
+<li>三个读数决定是否升级 -- 做什么: 每月看; 条件 (任两项出现 = 本地化升为一线因素): (a) 128GB 级本地机单季出货 &gt; 300 万台; (b) 两家再次下调或下架小模型档, 或个人订阅增速连续两季低于 API; (c) H100 租价指数一季 -25% (本站既有升档项) 且同期开放模型托管商降价; 失效: 一年内三项都不出现, 本主题降为年度复查; 复核: 每月初, 2027-04。</li>
+<li>NET 见 NET 综合报告第 0g 节与要点 0g。</li>
+</ol>
+<h2 id="事实核查">事实核查</h2>
+<p>帖子是自媒体 "数字生命卡兹克" 10-17 长文 (搜狐转载) 的缩写。首发会邀请了 KOL, 原文没有广告标注, 但口径与厂商合作一致 (英伟达把腾讯云的桌面 agent WorkBuddy 列为首发伙伴, 主打 "本地与云端混合路由"), 所以只取作者自测数字, 不取 "人山人海" 一类描述。</p>
+<table><thead><tr><th>帖子说法</th><th>核实结果</th><th>档</th><th>来源 (日期)</th></tr></thead><tbody>
+<tr><td>RTX Spark 今晚 8 点开售</td><td>10-16 20:00 (北京时间) 全球开售; 美国 2,599 美元起, 国内笔记本 18,999 元起; 单芯片 = Grace 20 核 CPU + Blackwell 6,144 核 GPU, 最高 128GB 统一内存, 4 位精度算力 1 PFLOPS, 整机功耗约 80 瓦 (芯片 TDP 45-80 瓦); 内存带宽 300 GB/s (英伟达移植指南; 规格页未列; 273 GB/s 是同平台 DGX Spark 的数)</td><td>已核</td><td>英伟达新闻稿 10-16; 英伟达规格页与移植指南 (10-17 读取); 爱范儿 10-16; Computing for Geeks</td></tr>
+<tr><td>线下首发会人山人海</td><td>北京双井京东 MALL, 19:00-21:30, "大量粉丝和 KOL 专程赶来"</td><td>已核 (现场描述, 不作需求证据)</td><td>凤凰网 (转 IT之家) 10-16</td></tr>
+<tr><td>华硕 ProArt 创16 128G+1T 37,999 元</td><td>首发到手价 37,999 元; 创14 128G 35,999 元; 美国 ProArt P16 4,399.99 美元 (华硕官网)</td><td>已核</td><td>爱范儿 10-16; Tom's Hardware</td></tr>
+<tr><td>线上瞬间被抢光</td><td>IT之家称首发价版本 "迅速售罄", 无数量; 8 月华硕财报会称首批配额被渠道订空</td><td>已核 (售罄); 规模 未核</td><td>凤凰网 10-16; IT之家 08-18</td></tr>
+<tr><td>Qwen3.8-27B 每秒 30 词元</td><td>模型存在 (阿里 08-14 开放权重, 270 亿参数, Apache 2.0); 30/秒 是作者开启多词元预测加速后的自测, 单源; 物理上合理 (约 300 GB/s 带宽 / 4 位量化约 15GB 权重, 基线约 20/秒)</td><td>已核 (单源自测)</td><td>搜狐原文 10-17; Artificial Analysis</td></tr>
+<tr><td>Qwen Image 2.1 约 1 分钟一张</td><td>模型存在 (09-20 开放, 70 亿参数, 研究许可证, 商用需另签); 原文 "1K 左右的图, 1 分多钟"</td><td>已核 (单源)</td><td>datanorth; 搜狐原文</td></tr>
+<tr><td>H3 约 10 分钟</td><td>H3 = MiniMax H3 视频模型 (08-03 开放权重, 最长 15 秒); 原文写 "15 秒 720P, 本地约 20 分钟"</td><td>差异 (帖子短了一半)</td><td>搜狐原文; MiniMax 官网; 腾讯新闻 08-11</td></tr>
+<tr><td>2B 翻译模型 6 路并发, Chrome 插件近 0 延迟</td><td>B 站 Index LLM 团队的 2B 翻译模型 (Index-Translate, 09-30 开放, 基于 Qwen3.5); 作者自写插件, 6 路并行, "基本 1 秒出"</td><td>已核 (作者自述); 模型名为推定 (原文只写 "B站的一个2B的小模型"), 模型单源</td><td>搜狐原文; 凤凰网 (转 IT之家) 09-30</td></tr>
+<tr><td>Token 自由 / 取之不尽的智能</td><td>边际成本为零不等于成本为零 (见经济账); 本地智能 34 分对前沿 58 分</td><td><span class="term" tabindex="0" data-tip="结论真值三档: 现有证据与之矛盾, 或连最有动机的来源都没有支撑。不下注。">不支持</span> (按字面)</td><td>本文经济账</td></tr>
+</tbody></table>
+<h2 id="经济账">经济账</h2>
+<p>口径: 一单位 = 100 万输出词元 + 1,500 万输入词元 (OpenRouter 2025 年末平均提示约 6,000、回答约 400 词元, 约 15:1); 本地 Qwen3.8-27B 输出 30/秒 (作者自测)、读入 1,000/秒 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span>, 满载每月约 54 单位; 电费 80 瓦 x 0.6 元/度; 机器 37,999 元 = 5,683 美元 (汇率 6.686, 10-17); 云价是 10-17 牌价、不计缓存折扣 (计缓存云更便宜, 本地回本更慢)。</p>
+<table><thead><tr><th>对比对象 (10-17 牌价, 美元 / 百万词元 入 / 出)</th><th>智力指数</th><th>每单位云价 (美元)</th><th>满载回本 (月)</th><th>每天 6 小时回本 (月)</th></tr></thead><tbody>
+<tr><td>Claude Haiku 5.5 (0.10 / 0.50, 提示 &lt;= 10 万)</td><td>41 (xhigh)</td><td>2.00</td><td>56</td><td>223</td></tr>
+<tr><td>GPT-6 Luna (0.10 / 0.50)</td><td>35 (xhigh)</td><td>2.00</td><td>56</td><td>223</td></tr>
+<tr><td>DeepSeek V4.1 Flash (高峰 0.30 / 1.20; 闲时半价)</td><td>39 (max)</td><td>5.70 / 2.85</td><td>19 / 39</td><td>76 / 154</td></tr>
+<tr><td>Qwen3.8-27B 阿里云国际站 API (0.50 / 3.00; 国内站 3 / 12 元, 每单位约 8.5 美元, 满载约 13 个月)</td><td>34 (xhigh, 同一模型)</td><td>10.50</td><td>10</td><td>41</td></tr>
+<tr><td>Qwen3.8-27B Cloudflare Workers AI (0.45 / 3.20)</td><td>34 (同一模型)</td><td>9.95</td><td>11</td><td>43</td></tr>
+<tr><td>GPT-6.1 Sol (2 / 10)</td><td>51 (xhigh)</td><td>40</td><td>不可比 (质量不同)</td><td>--</td></tr>
+<tr><td>Claude Opus 5.5 (4 / 20)</td><td>58 (max)</td><td>80</td><td>不可比</td><td>--</td></tr>
+<tr><td>本地机 3 年摊销 (含电)</td><td>34</td><td>满载 3.04 / 每天 6 小时 11.87</td><td>--</td><td>--</td></tr>
+<tr><td>个人订阅 20 美元 / 200 美元每月</td><td>订阅给 51-58 分模型</td><td>--</td><td>284 / 28 (不可比)</td><td>--</td></tr>
+<tr><td>原文作者的 API 账单 (原文每天 100 多元, 约 3,000 元 / 月, flash 档小模型)</td><td>--</td><td>--</td><td>13 (若全部搬本地)</td><td>--</td></tr>
+<tr><td>图像: Workers AI FLUX.2 Klein 9B 0.015 美元 / 张</td><td>--</td><td>--</td><td>9 (满载 1 分钟一张)</td><td>63 (每天 200 张)</td></tr>
+<tr><td>视频: MiniMax H3 云端 0.8 元 / 秒 (2K; 本地自测是 720P, 档次不同, 回本偏乐观), 15 秒 12 元</td><td>--</td><td>--</td><td>1.5 (满载 20 分钟一条)</td><td>21 (每天 5 条)</td></tr>
+</tbody></table>
+<table><thead><tr><th>任务</th><th>去向</th><th>依据</th></tr></thead><tbody>
+<tr><td>翻译、摘要、改写、分类</td><td>本地</td><td>2B-27B 够用, 延迟最低</td></tr>
+<tr><td>代码补全、后台监控类小循环</td><td>本地</td><td>原文作者: "很多场景下绝对够了"</td></tr>
+<tr><td>图像、视频生成</td><td>本地</td><td>开放权重模型够好, 云端单价高</td></tr>
+<tr><td>私有数据 (病历、合同、源码)</td><td>本地</td><td>不出电脑</td></tr>
+<tr><td>前沿推理、长时间编程 agent</td><td>云</td><td>34 对 58 分; 本地 30/秒跑不动数小时的长任务</td></tr>
+<tr><td>大上下文 (几十万到百万)</td><td>云</td><td>微软实测本地 256K 时速度降到约 6 成 (StorageReview 读图)</td></tr>
+<tr><td>工具生态 (搜索、浏览、企业连接器)</td><td>云 + 网络</td><td>本地 agent 也要调远端工具</td></tr>
+</tbody></table>
+<p>用量结构 (谁的词元能被接走):</p>
+<ul>
+<li>Mozilla 09-15 报告: 8 月开放权重模型处理了 OpenRouter (按调用转售各家模型的平台) 的多数开发者词元; 约 4% 的模型层收入份额出自 2025-05 到 09 的旧窗口 (最近一次有人公布收入的数据), 不是 8 月 (二手转述, <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>; 中信里昂另有 29% 口径, 未调和, 未核)。</li>
+<li>OpenRouter 与 a16z 2025-12 报告: 开放权重约占词元三分之一, 其中 52% 是角色扮演; 价格降 10% 用量只增 0.5-0.7%, 付费用户选质量不选价格。</li>
+<li>Ramp (企业支出平台) 8 月: 平均词元价 0.68 美元 / 百万, 3 月 1.15, 客户在换便宜模型 (TechCrunch 09-09)。</li>
+</ul>
+<h2 id="net">NET</h2>
+<p>净影响 0 到小正, 不改 <span class="term" tabindex="0" data-tip="动作档: 观察, 不动仓。">WATCH</span> 与加仓价。分渠道: (a) Workers AI / AI Gateway 负 (卖的正是本地免费跑的模型, 估 &lt; 2% 收入, 影响 &lt; 0.5%); (b) 本地 agent 照样上网取数、调工具, 机器人管理需求升, 正; (c) 零信任 / 防外泄约 0 (看不到本地提示词, 但 agent 调内网要权限); (d) 模型权重分发收入约 0 (10-17 实测 Ollama 模型文件走 Cloudflare R2, Hugging Face 走 AWS); (e) "眼球经济已死" 论被加强: 买方碎成百万个个人 agent, 只能靠统一收费口, 但美元时点不变。三档: <span class="term" tabindex="0" data-tip="结论真值一档: 有 T1 支撑, 或 T2 交叉确认。可以重注。">已证实</span> = Workers AI 那一档被挤压; <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span> = 本地 agent 增加边缘需求; <span class="term" tabindex="0" data-tip="结论真值三档: 现有证据与之矛盾, 或连最有动机的来源都没有支撑。不下注。">不支持</span> = 本地化绕开 NET。详见 NET 综合报告第 0g 节。</p>
+<h2 id="anthropic-与-openai">Anthropic 与 OpenAI</h2>
+<table><thead><tr><th>项</th><th>Anthropic</th><th>OpenAI</th></tr></thead><tbody>
+<tr><td>规模</td><td>Q3 收入 168 亿美元, 环比 +45%, 调整后毛利 85%, 自由现金流为正 (10-14 投资者会, 彭博 / CNBC 转述, 非文件)</td><td>年化约 500 亿美元 (9 月底, 公司对投资者口径, FT / 彭博 10-08; 9 月下旬 CNBC 报的 680 亿含合作伙伴总收入, 已被下修)</td></tr>
+<tr><td>结构</td><td>直接 API 34% / 云伙伴 API 23% / Claude Code 19% / 企业席位 13% / 个人订阅 11% (第三方模型, <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>)</td><td>消费订阅 45-65% (未核: 所引汇总只给 Plus 约 30-35%, 各家估 36-70% 不等), API 15-25% (多家估算, <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>); 周活约 9 亿, 付费约 5,000 万</td></tr>
+<tr><td>可被本地接走</td><td>小模型档 + 少量个人订阅, 估 &lt; 5% 收入</td><td>简单问答用户, 估 &lt; 5-8%; 免费用户本来不付钱, 搬走反而省服务成本</td></tr>
+<tr><td>为什么</td><td>编程 agent 要前沿质量、长任务、工具; 企业经三朵云签约</td><td>入口在 App 与系统; 微软在 RTX Spark 上演示的是自家编程模型 MAI Code 1.1 Flash (1,370 亿参数, 每次只激活 68 亿) 本地跑, 约每秒 60 词元 (StorageReview 10-07)</td></tr>
+</tbody></table>
+<p>低档价格压力 (10-17 官网, <span class="term" tabindex="0" data-tip="结论真值一档: 有 T1 支撑, 或 T2 交叉确认。可以重注。">已证实</span>): Anthropic Haiku 4.5 每百万词元 1 / 5 美元 -&gt; Haiku 5.5 0.10 / 0.50 (降 10 倍); OpenAI gpt-5.6-luna 0.20 / 1.20 -&gt; GPT-6 Luna 0.10 / 0.50 (降 2-2.4 倍; 对更早的 gpt-5.4-mini 0.75 / 4.50 降 7.5-9 倍); 中国开放模型 API: DeepSeek V4.1 Flash 0.15-0.30 / 0.60-1.20, 阿里 Qwen3.8-27B 国际站 0.50 / 3.00 (国内站 3 / 12 元)。两家的小模型牌价已低于中国开放模型 API: 低档的价格战早已开打, 两家用 "蒸馏小模型 + 极低价" 守量, 本地机在成本上打不过这个价。</p>
+<table><thead><tr><th>先例</th><th>本地 / 开放一侧</th><th>中心 / 封闭一侧</th><th>读法</th></tr></thead><tbody>
+<tr><td>个人电脑对分时计算 (1975-1990)</td><td>个人电脑接走按时长卖算力的分时服务商</td><td>IBM 大型机收入 80 年代仍增长, 之后客户端-服务器、再到云又回到中心</td><td>被替代的是卖通用算力的中间商, 不是最强的中心</td></tr>
+<tr><td>Stable Diffusion 2022-08 开源, 本地可跑</td><td>开源方 Stability AI 商业化失败, 2024 创始 CEO 离任</td><td>Midjourney 收入约 0.5 亿 (2022) -&gt; 2 亿 (2023) -&gt; 3 亿 (2024) -&gt; 5 亿美元 (2025) (第三方估)</td><td>开源本地伤的是开源方自己的 API 生意, 质量领先的封闭方照涨</td></tr>
+<tr><td>苹果端侧智能 (2024 起)</td><td>约 30 亿参数端侧模型做简单任务</td><td>仍按年约 10 亿美元买 1.2 万亿参数 Gemini 给 Siri 做难题 (彭博; 合作已确认, 金额未公开)</td><td>最重视端侧的公司也把难题送云</td></tr>
+<tr><td>反例: 云游戏 (Stadia 2023 关停)、语音识别搬上手机</td><td>延迟敏感 + 设备够用 -&gt; 本地赢</td><td>云端语音接口降价</td><td>翻译、实时助手这类任务, 本地会赢</td></tr>
+</tbody></table>
+<p>上市叙事: 截至 10-17 EDGAR 全文检索无 Anthropic 公开 <span class="term" tabindex="0" data-tip="IPO 招股书; 公开后至少 15 天才能路演。">S-1</span>; 报道称最早 11-09 当周路演, 估值讨论 1.8-2 万亿美元 (彭博, <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>)。RTX Spark 开售当天英伟达只跌 1.43%, 且是大盘日, 市场没有把本地化当成对云的威胁。路演里 "开放权重 + 本地化让模型变便宜" 会是空方标准问题, 两家的数字能答: 收入在企业与编程, 低档已主动降价。更大的上市风险是增速 (Q3 环比 +45% 被报道为放缓) 和估值, 不是本地化。叙事冲击 (同 2025-01 DeepSeek 一日让英伟达 -17%) 不改收入结构, 概率低 (估 &lt; 10%)。</p>
+<p>三档判断:</p>
+<ul>
+<li><span class="term" tabindex="0" data-tip="结论真值一档: 有 T1 支撑, 或 T2 交叉确认。可以重注。">已证实</span>: 本地化接走的是最便宜那一档词元; 开放权重词元多、收入少; 两家已把小模型价降到 0.10 / 0.50 美元守量。</li>
+<li><span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>: OpenAI 比 Anthropic 更暴露 (消费订阅 + 系统入口), 量级估 &lt; 5-8% 收入, 时间 2-3 年; 上市窗口的叙事风险。</li>
+<li><span class="term" tabindex="0" data-tip="结论真值三档: 现有证据与之矛盾, 或连最有动机的来源都没有支撑。不下注。">不支持</span>: 2026-2027 本地化实质压低两家收入或上市估值; "推理搬本地 -&gt; 云 GPU 需求下降"。</li>
+</ul>
+<h2 id="对算力出租-信用层的含义">对算力出租 / 信用层的含义</h2>
+<ul>
+<li>本地吃的是旧显卡上跑开放权重模型的长尾词元, 不是前沿训练与前沿推理; 首年 500-1,000 万台按每天 15-60 分钟生成, 约每月 65-520 万亿词元 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span>, 按词元数可比 OpenRouter 全站 (约每月 100 万亿, 2026-05, <span class="term" tabindex="0" data-tip="结论真值二档: 有信号 (动机、异常、单源) 但证据只到 T3 / T4。可以小注, 必须带复核点。">可疑</span>), 按云端小模型价只值每年约 1-8 亿美元 <span class="term" tabindex="0" data-tip="本文推算的数字, 不是公司或市场公布的。">(估)</span>, 不改云 GPU 需求。</li>
+<li>受压的是 H100 一类旧卡的长尾出租价, 正好是 GPU 抵押贷款的抵押品价值来源 (新云 = 专门出租 GPU 的云公司, 其前三大客户是前沿实验室与超大厂, 不在本地化射程内): 方向负, 量级小; 信用层风险仍由融资 (OpenAI 过桥轮、高收益利差) 决定, 盯 H100 租价指数。</li>
+</ul>
+<h2 id="来源">来源</h2>
+<ul>
+<li>原帖原文: 搜狐转载 "数字生命卡兹克" 2026-10-17 <a href="https://sohu.com/a/1089059215_121675819">https://sohu.com/a/1089059215_121675819</a></li>
+<li>英伟达新闻稿 2026-10-16 (GlobeNewswire 经 StockTitan) <a href="https://www.stocktitan.net/news/NVDA/nvidia-rtx-spark-p-cs-available-today-a-new-beginning-for-windows-p-jl5hm310a68g.html">https://www.stocktitan.net/news/NVDA/nvidia-rtx-spark-p-cs-available-today-a-new-beginning-for-windows-p-jl5hm310a68g.html</a></li>
+<li>爱范儿 2026-10-16 华硕 ProArt 创16 开售 <a href="https://www.ifanr.com/digest/1684744">https://www.ifanr.com/digest/1684744</a></li>
+<li>凤凰网 2026-10-16 首发与售罄 <a href="https://tech.ifeng.com/c/8xHQO4VHZIW">https://tech.ifeng.com/c/8xHQO4VHZIW</a></li>
+<li>IT之家 2026-08-18 首批配额售罄 <a href="https://www.ithome.com/0/990/952.htm">https://www.ithome.com/0/990/952.htm</a></li>
+<li>Tom's Hardware 10 月 美国售价 <a href="https://www.tomshardware.com/laptops/nvidia-rtx-spark-devices-are-now-officially-on-sale-secure-the-surface-laptop-ultra-or-other-rtx-spark-laptops-here-starting-at-usd2-599-where-to-buy-pricing-and-availability-revealed-on-several-models">https://www.tomshardware.com/laptops/nvidia-rtx-spark-devices-are-now-officially-on-sale-secure-the-surface-laptop-ultra-or-other-rtx-spark-laptops-here-starting-at-usd2-599-where-to-buy-pricing-and-availability-revealed-on-several-models</a></li>
+<li>Computing for Geeks / StorageReview (带宽、微软实测) <a href="https://computingforgeeks.com/nvidia-rtx-spark-linux/">https://computingforgeeks.com/nvidia-rtx-spark-linux/</a> ; <a href="https://www.storagereview.com/sv/news/nvidia-rtx-spark-pre-orders-n1x-laptop-desktop-tdp-mxc-dgx-station-for-windows">https://www.storagereview.com/sv/news/nvidia-rtx-spark-pre-orders-n1x-laptop-desktop-tdp-mxc-dgx-station-for-windows</a></li>
+<li>英伟达规格页与移植指南 (TDP 45-80 瓦, 带宽 300 GB/s; 10-17 读取) <a href="https://www.nvidia.com/en-us/products/rtx-spark/specifications/">https://www.nvidia.com/en-us/products/rtx-spark/specifications/</a> ; <a href="https://docs.nvidia.com/rtx-spark/rtx-spark-porting-guide/0.1.0/overview.html">https://docs.nvidia.com/rtx-spark/rtx-spark-porting-guide/0.1.0/overview.html</a></li>
+<li>Artificial Analysis 模型页与排行 (10-17 读取) <a href="https://artificialanalysis.ai/models/qwen3-8-27b">https://artificialanalysis.ai/models/qwen3-8-27b</a> ; <a href="https://artificialanalysis.ai/leaderboards/models">https://artificialanalysis.ai/leaderboards/models</a></li>
+<li>Qwen-Image-2.1 (datanorth) <a href="https://datanorth.ai/news/qwen-releases-qwen-image-2-1">https://datanorth.ai/news/qwen-releases-qwen-image-2-1</a></li>
+<li>MiniMax H3 开源 (官网) <a href="https://www.minimaxi.com/news/minimax-h3-open-source">https://www.minimaxi.com/news/minimax-h3-open-source</a> ; 价格 (腾讯新闻 08-11) <a href="https://news.qq.com/rain/a/20260811A04BI400">https://news.qq.com/rain/a/20260811A04BI400</a></li>
+<li>Index-Translate (凤凰网转 IT之家 09-30) <a href="https://tech.ifeng.com/c/8wqj7o9KAiv">https://tech.ifeng.com/c/8wqj7o9KAiv</a></li>
+<li>WorkBuddy 与混合路由 (凤凰网) <a href="https://tech.ifeng.com/c/8xDX6jgirmW">https://tech.ifeng.com/c/8xDX6jgirmW</a></li>
+<li>价格页 (10-17 读取): Anthropic <a href="https://claude.com/pricing">https://claude.com/pricing</a> ; OpenAI <a href="https://developers.openai.com/api/docs/pricing">https://developers.openai.com/api/docs/pricing</a> ; DeepSeek <a href="https://api-docs.deepseek.com/quick_start/pricing">https://api-docs.deepseek.com/quick_start/pricing</a> ; Cloudflare Workers AI <a href="https://developers.cloudflare.com/workers-ai/platform/pricing/">https://developers.cloudflare.com/workers-ai/platform/pricing/</a> ; 阿里云百炼 <a href="https://help.aliyun.com/en/model-studio/qwen3-8-27b">https://help.aliyun.com/en/model-studio/qwen3-8-27b</a></li>
+<li>出货 (工商时报 2026-06-04, 美系外资供应链查访, 两款 RTX Spark 芯片合计上市后 12 个月 500-1,000 万台) <a href="https://www.ctee.com.tw/news/20260604700909-430201">https://www.ctee.com.tw/news/20260604700909-430201</a> ; 华硕 / 微星首批售罄与追加备货 (工商时报 07-29) <a href="https://www.ctee.com.tw/news/20260729700099-439901">https://www.ctee.com.tw/news/20260729700099-439901</a></li>
+<li>Mozilla 开放权重报告 (TechTimes 09-17) <a href="https://www.techtimes.com/articles/327646/20260917/chinese-open-weight-ai-handles-most-developer-tokens-closed-models-capture-96-revenue.htm">https://www.techtimes.com/articles/327646/20260917/chinese-open-weight-ai-handles-most-developer-tokens-closed-models-capture-96-revenue.htm</a></li>
+<li>OpenRouter 与 a16z State of AI 2025-12 <a href="https://openrouter.ai/state-of-ai">https://openrouter.ai/state-of-ai</a></li>
+<li>Anthropic Q3 收入 (CNBC 10-15 / 彭博 10-14) <a href="https://www.cnbc.com/2026/10/15/anthropics-third-quarter-revenue-hits-16point8-billion-ipo.html">https://www.cnbc.com/2026/10/15/anthropics-third-quarter-revenue-hits-16point8-billion-ipo.html</a></li>
+<li>OpenAI 9 月底年化约 500 亿美元 (彭博转 FT 2026-10-08) <a href="https://news.bloombergtax.com/artificial-intelligence/openais-annualized-revenue-nears-50-billion-ft-says">https://news.bloombergtax.com/artificial-intelligence/openais-annualized-revenue-nears-50-billion-ft-says</a></li>
+<li>Anthropic 收入结构第三方模型 (First Page Sage 10-01) <a href="https://firstpagesage.com/seo-blog/anthropic-profitability-analysis-statistics/">https://firstpagesage.com/seo-blog/anthropic-profitability-analysis-statistics/</a></li>
+<li>OpenAI 收入结构估算汇总 <a href="https://www.thrad.ai/content/chatgpt-revenue-streams-breakdown">https://www.thrad.ai/content/chatgpt-revenue-streams-breakdown</a></li>
+<li>Midjourney 收入估算 (Sacra / GetLatka) <a href="https://sacra.com/c/midjourney/">https://sacra.com/c/midjourney/</a></li>
+<li>苹果与谷歌 Gemini 合作 (The Register 2026-01-12) <a href="https://www.theregister.com/2026/01/12/apple_taps_google_gemini_siri/">https://www.theregister.com/2026/01/12/apple_taps_google_gemini_siri/</a></li>
+<li>影子 AI 与零信任 (Cloudflare 2025-08-25) <a href="https://www.cloudflare.com/press/press-releases/2025/cloudflare-launches-new-zero-trust-tools-for-secure-ai-adoption-at-scale/">https://www.cloudflare.com/press/press-releases/2025/cloudflare-launches-new-zero-trust-tools-for-secure-ai-adoption-at-scale/</a></li>
+<li>本站 10-17 实测: registry.ollama.ai 模型文件 307 跳转到 r2.cloudflarestorage.com; huggingface.co (前端经 AWS CloudFront) 下载 302 跳转到 us.aws.cdn.hf.co (AWS 美东 EC2); www.modelscope.cn 解析到阿里云 47.251 段。</li>
+<li>SEC EDGAR 全文检索 (10-17, 09-15 起 <span class="term" tabindex="0" data-tip="IPO 招股书; 公开后至少 15 天才能路演。">S-1</span> 含 "Anthropic" 7 份, 无一为 Anthropic 本身)。</li>
+<li>行情: yfinance 2026-10-16 收盘 (NET / QQQ / IGV / SMH / AKAM / FSLY / NVDA), 汇率 USDCNY 6.6862 (10-17)。</li>
+</ul>
+<h2 id="附录">附录</h2>
+<h3 id="信号块-2026-10-17">信号块 (2026-10-17)</h3></main><div id="tip" role="tooltip" hidden></div><script>
+(function(){var t=document.getElementById('tip');
+function term(e){return e.target&&e.target.closest?e.target.closest('.term'):null}
+function show(el){t.textContent=el.getAttribute('data-tip');t.hidden=false;var r=el.getBoundingClientRect(),w=t.offsetWidth,h=t.offsetHeight;
+var vw=Math.min(window.innerWidth,document.documentElement.clientWidth),x=Math.min(Math.max(8,r.left),vw-w-8),y=r.bottom+6;if(y+h>window.innerHeight-8){y=r.top-h-6}
+t.style.left=x+'px';t.style.top=y+'px'}
+document.addEventListener('mouseover',function(e){var el=term(e);if(el)show(el)});
+document.addEventListener('mouseout',function(e){if(term(e))t.hidden=true});
+document.addEventListener('focusin',function(e){var el=term(e);if(el)show(el)});
+document.addEventListener('focusout',function(e){if(term(e))t.hidden=true});
+document.addEventListener('click',function(e){var el=term(e);if(el){show(el)}else{t.hidden=true}});
+window.addEventListener('scroll',function(){t.hidden=true},{passive:true});})();
+</script></body></html>
