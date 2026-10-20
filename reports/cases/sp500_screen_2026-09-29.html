@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>S&amp;P 500 灰马筛选 (2026-09-29)</title><style>
+<meta name="robots" content="noindex,nofollow"><title>S&amp;P 500 长期成长股筛选 (2026-09-29)</title><style>
 :root{--bg:#FAF9F5;--panel:#F1EDE4;--line:#E3DDD1;--text:#141413;--muted:#6B6860;--accent:#D97757;--accent-soft:#F3D9CC;--code:#EFEBE3;
       --serif:"Tiempos Text",Georgia,"Songti SC","Noto Serif CJK SC",serif;--sans:"Inter","Helvetica Neue",Arial,"PingFang SC","Noto Sans CJK SC",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1E1B;--panel:#282622;--line:#3A372F;--text:#EDE9E0;--muted:#A39F94;--accent:#E08A6B;--accent-soft:#4A3428;--code:#2F2C26}}
@@ -42,19 +42,19 @@ tr:hover td{background:var(--panel)}
 #tip{position:fixed;z-index:50;max-width:min(340px,calc(100vw - 16px));background:var(--text);color:var(--bg);font-size:13px;
 line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);pointer-events:none}
 #tip[hidden]{display:none}</style></head>
-<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1 id="s-p-500-灰马筛选-2026-09-29">S&amp;P 500 灰马筛选 (2026-09-29)</h1>
-<p>口径: 市值 / 增速 / 目标价 = stockanalysis 2026-09-28 收盘 (<span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>); 财务 = <span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> / <span class="term" tabindex="0" data-tip="SEC 季报。">10-Q</span> / DEF 14A (<span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 散户两来源 = Stocktwits 关注数 (API 2026-09-29) + apewisdom Reddit 24h 榜 (2026-09-28), Robinhood 榜页 404。排除锚表 13 只; TTD 2026-09-21 已剔出 S&amp;P 500。框架 = long_score_framework_v2 三道门 + 六维, "像 NET" 取 inputs/NET.yaml。</p>
+<body><main><div class="nav"><a href="../index.html">报告索引</a> <a href="../../long_score.html">做多榜</a> <a href="../../net_dashboard.html">Dashboard (最新)</a></div><p class="byline">作者: Naughty Boss . Empire Integration LLC</p><h1 id="s-p-500-长期成长股筛选-2026-09-29">S&amp;P 500 长期成长股筛选 (2026-09-29)</h1>
+<p>口径: 市值 / 增速 / 目标价 = stockanalysis 2026-09-28 收盘 (<span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>); 财务 = <span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> / <span class="term" tabindex="0" data-tip="SEC 季报。">10-Q</span> / DEF 14A (<span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 散户两来源 = Stocktwits 关注数 (API 2026-09-29) + apewisdom Reddit 24h 榜 (2026-09-28), Robinhood 榜页 404。TTD 2026-09-21 已剔出 S&amp;P 500。以 NET 为参照对比。</p>
 <h2 id="1-结论">1. 结论</h2>
 <p>精选 6 只, 按 "像 NET" 程度排序:</p>
-<table><thead><tr><th>票</th><th>市值 $B</th><th>5x 目标 $B</th><th>D1 tier</th><th>灰马证据摘要</th></tr></thead><tbody>
-<tr><td>DASH</td><td>77.3</td><td>387</td><td>terminal (24-26)</td><td>$2.75B 0% CB 2030 + 回购 $1.05B 已执行; Stocktwits 18.6K / Reddit 榜外; 目标价 172-350 (2.0x); 创始人 55.5% 投票权</td></tr>
-<tr><td>COIN</td><td>50.6</td><td>253</td><td>multi_host 上沿 (20-23)</td><td>2025-08 两期 0% CB $3.0B 同一 capped <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>; 回购 $2B 已执行; Reddit 榜外但 Stocktwits 139K 偏热 = 半灰; 目标价 95-330 (3.5x) 六只最大</td></tr>
-<tr><td>AXON</td><td>34.5</td><td>173</td><td>terminal (23-25), 早期灰马 (&lt; $100B)</td><td>2026-09-16 $1.0B 0% CB 2031; Stocktwits 15.4K 六只最低 / Reddit 榜外; 目标价 440-830 全在现价上方</td></tr>
-<tr><td>ISRG</td><td>146.5</td><td>733 (硬件类天花板 $600B 需覆盖)</td><td>terminal (24-26)</td><td>回购授权 $5B (2026-04-30); Stocktwits 21.8K; 目标价 324-685 (2.1x); 职业 CEO -&gt; D2 封顶 19</td></tr>
-<tr><td>DDOG</td><td>96.5</td><td>482</td><td>single_hub 上沿 (15-17)</td><td>$870M 0% CB 2029; Stocktwits 25.8K; 目标价 158-340; 一年 +103% 已被发现</td></tr>
-<tr><td>APP</td><td>103.2</td><td>516</td><td>single_hub (13-16)</td><td>回购 Q2 $551M 余 $1.8B; Stocktwits 24.5K; 目标价 325-790 (2.4x); 集体诉讼 + 下调 = 机构在裂</td></tr>
+<table><thead><tr><th>票</th><th>市值 $B</th><th>5x 目标 $B</th><th>客户网络地位</th><th>资金面证据摘要</th></tr></thead><tbody>
+<tr><td>DASH</td><td>77.3</td><td>387</td><td>终端级</td><td>$2.75B 0% CB 2030 + 回购 $1.05B 已执行; Stocktwits 18.6K / Reddit 榜外; 目标价 172-350 (2.0x); 创始人 55.5% 投票权</td></tr>
+<tr><td>COIN</td><td>50.6</td><td>253</td><td>多枢纽之一 (偏强)</td><td>2025-08 两期 0% CB $3.0B 同一 capped <span class="term" tabindex="0" data-tip="看涨期权。持股者卖 call = 收租, 股价涨过行权价就要交货。">call</span>; 回购 $2B 已执行; Reddit 榜外但 Stocktwits 139K 偏热; 目标价 95-330 (3.5x) 六只最大</td></tr>
+<tr><td>AXON</td><td>34.5</td><td>173</td><td>终端级, 早期 (&lt; $100B)</td><td>2026-09-16 $1.0B 0% CB 2031; Stocktwits 15.4K 六只最低 / Reddit 榜外; 目标价 440-830 全在现价上方</td></tr>
+<tr><td>ISRG</td><td>146.5</td><td>733 (高于硬件类公司市值上沿约 $600B)</td><td>终端级</td><td>回购授权 $5B (2026-04-30); Stocktwits 21.8K; 目标价 324-685 (2.1x); 职业 CEO</td></tr>
+<tr><td>DDOG</td><td>96.5</td><td>482</td><td>单一枢纽 (偏强)</td><td>$870M 0% CB 2029; Stocktwits 25.8K; 目标价 158-340; 一年 +103% 已被发现</td></tr>
+<tr><td>APP</td><td>103.2</td><td>516</td><td>单一枢纽</td><td>回购 Q2 $551M 余 $1.8B; Stocktwits 24.5K; 目标价 325-790 (2.4x); 集体诉讼 + 下调 = 机构在裂</td></tr>
 </tbody></table>
-<p>一句话: 只有 DASH / COIN / AXON 同时满足 "0% 可转债辛迪加 + 创始人控股 + 关系层发行方"; COIN 与 NET 同为 x402 共同发行方, 位置最近, 但收入在缩、散户不冷。</p>
+<p>一句话: 只有 DASH / COIN / AXON 同时满足 "0% 可转债辛迪加 + 创始人控股 + 自己掌握客户网络"; COIN 与 NET 同为 x402 共同发行方, 位置最近, 但收入在缩、散户不冷。</p>
 <h2 id="2-粗筛表">2. 粗筛表</h2>
 <table><thead><tr><th>票</th><th>市值</th><th>增速</th><th>创始人</th><th>CB / 回购</th><th>散户 (Stocktwits / Reddit)</th><th>目标价</th></tr></thead><tbody>
 <tr><td>DASH</td><td>77.3</td><td>+33.6%</td><td>Tony Xu CEO, Class B 20 票 55.5%</td><td>CB $2.75B 0% 2030; 回购 $1.05B 已执行</td><td>18.6K / 榜外</td><td>172-350</td></tr>
@@ -82,111 +82,111 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <tr><td>FTNT</td><td>129.4</td><td>+18.8%</td><td>Ken Xie CEO</td><td>未核</td><td>未核 / 榜外</td><td>均值 164 (低于现价)</td></tr>
 <tr><td>XYZ</td><td>44.3</td><td>+5.1%</td><td>Dorsey CEO</td><td>未核</td><td>未核 / 榜外</td><td>均值 98</td></tr>
 </tbody></table>
-<h2 id="3-三道门-d1-一句话">3. 三道门 + D1 一句话</h2>
-<table><thead><tr><th>票</th><th>关系图 / 发行方 / 判据可数?</th><th>Adversary 门</th><th>范式门</th><th>结果</th></tr></thead><tbody>
+<h2 id="3-基本面检验">3. 基本面检验</h2>
+<table><thead><tr><th>票</th><th>客户网络 / 可数指标</th><th>去掉叙事仍赚钱?</th><th>替代威胁</th><th>结果</th></tr></thead><tbody>
 <tr><td>DASH</td><td>本地商业三边图发行方; 订单 / GOV / DashPass 可数</td><td>过 (TTM 净利 $8.4 亿)</td><td>Uber Eats 攻本层未成; ChatGPT 内 app 攻前端, 结账不在 chat 内</td><td>精选</td></tr>
-<tr><td>COIN</td><td>稳定币 + agent 结算 hub; 平台资产 / USDC / x402 份额可数</td><td>过 (订阅 $5.55 亿/季, 调整 <span class="term" tabindex="0" data-tip="息税折旧摊销前利润。">EBITDA</span> 14 季正)</td><td>Tempo / Arc / Robinhood 链在攻未成</td><td>精选 (半灰)</td></tr>
+<tr><td>COIN</td><td>稳定币 + agent 结算 hub; 平台资产 / USDC / x402 份额可数</td><td>过 (订阅 $5.55 亿/季, 调整 <span class="term" tabindex="0" data-tip="息税折旧摊销前利润。">EBITDA</span> 14 季正)</td><td>Tempo / Arc / Robinhood 链在攻未成</td><td>精选 (散户偏热)</td></tr>
 <tr><td>AXON</td><td>执法证据链记录系统; <span class="term" tabindex="0" data-tip="年化经常性收入: 按当前订阅速度折算的一年收入。">ARR</span> / <span class="term" tabindex="0" data-tip="老客户收入净留存率: 超过 100% 表示老客户比去年花得更多。">NRR</span> / 合同可数</td><td>过</td><td>Motorola / Flock 未成</td><td>精选 (早期)</td></tr>
-<tr><td>ISRG</td><td>医生 x 机器人终端对象; 装机 / 手术可数</td><td>过</td><td>Hugo / Ottava 获批未替换</td><td>精选 (D2 封顶)</td></tr>
+<tr><td>ISRG</td><td>医生 x 机器人终端对象; 装机 / 手术可数</td><td>过</td><td>Hugo / Ottava 获批未替换</td><td>精选 (职业 CEO)</td></tr>
 <tr><td>DDOG</td><td>云遥测管道 hub; $100k 客户可数</td><td>过</td><td>OTel / 云厂自带 未成</td><td>精选 (观察)</td></tr>
 <tr><td>APP</td><td>手游广告竞价 hub; 攻电商未成</td><td>过 (净利 $44 亿)</td><td>Meta / Google / Unity</td><td>精选 (观察)</td></tr>
 <tr><td>HOOD</td><td>散户券商 + 链</td><td>过</td><td>--</td><td>skip: 散户热 (101K, #60)</td></tr>
 <tr><td>PLTR</td><td>政企数据本体</td><td>过</td><td>--</td><td>skip: 散户热 (325K), 白马</td></tr>
-<tr><td>BE</td><td>现场供电 = 可互换</td><td>过</td><td>燃气轮机</td><td>skip: D1 + Reddit #15 + 诉讼</td></tr>
+<tr><td>BE</td><td>现场供电 = 可互换</td><td>过</td><td>燃气轮机</td><td>skip: 客户网络弱 + Reddit #15 + 诉讼</td></tr>
 <tr><td>RDDT</td><td>社区 x 语料发行方</td><td>过</td><td>--</td><td>skip: &lt; $30B + Reddit #9</td></tr>
-<tr><td>CVNA</td><td>二手车零售 hub</td><td>过</td><td>CarMax</td><td>观察: D1 低; F 可能 4</td></tr>
-<tr><td>DELL</td><td>服务器组装 = 可互换</td><td>过</td><td>SMCI / HPE</td><td>skip: 5x $1.7T 超天花板</td></tr>
-<tr><td>ANET</td><td>网络 OS, 前二客户集中</td><td>过</td><td>NVDA / 白牌</td><td>skip: 5x $1.29T 超天花板</td></tr>
-<tr><td>VRT</td><td>机柜 / 冷却 = 可互换</td><td>过</td><td>Schneider / Eaton</td><td>skip: 职业 CEO + D1</td></tr>
+<tr><td>CVNA</td><td>二手车零售 hub</td><td>过</td><td>CarMax</td><td>观察: 客户网络弱; 创始人素质可能很高</td></tr>
+<tr><td>DELL</td><td>服务器组装 = 可互换</td><td>过</td><td>SMCI / HPE</td><td>skip: 5x 后 $1.7T, 空间不足</td></tr>
+<tr><td>ANET</td><td>网络 OS, 前二客户集中</td><td>过</td><td>NVDA / 白牌</td><td>skip: 5x 后 $1.29T, 空间不足</td></tr>
+<tr><td>VRT</td><td>机柜 / 冷却 = 可互换</td><td>过</td><td>Schneider / Eaton</td><td>skip: 职业 CEO + 客户网络弱</td></tr>
 <tr><td>KLAC</td><td>过程控制垄断</td><td>过</td><td>--</td><td>skip: 增速 11.7% + 职业 CEO</td></tr>
-<tr><td>MRVL</td><td>定制硅 = 可互换</td><td>过</td><td>AVGO</td><td>skip: 职业 CEO + D1</td></tr>
+<tr><td>MRVL</td><td>定制硅 = 可互换</td><td>过</td><td>AVGO</td><td>skip: 职业 CEO + 客户网络弱</td></tr>
 <tr><td>GEV</td><td>燃气轮机寡头</td><td>过</td><td>Siemens / MHI</td><td>skip: 增速 13% + 职业 CEO</td></tr>
-<tr><td>UBER</td><td>出行三边图</td><td>过</td><td>Waymo / Tesla 正替换司机侧</td><td>skip: 职业 CEO + 范式门</td></tr>
+<tr><td>UBER</td><td>出行三边图</td><td>过</td><td>Waymo / Tesla 正替换司机侧</td><td>skip: 职业 CEO + 替代威胁</td></tr>
 <tr><td>ORCL</td><td>数据库 + AI 地主</td><td>过</td><td>--</td><td>skip: 循环融资 + 非创始人 CEO</td></tr>
-<tr><td>IBKR</td><td>券商 = 可互换</td><td>过</td><td>--</td><td>skip: 创始人非 CEO + D1</td></tr>
-<tr><td>ARES</td><td>私募信贷</td><td>过</td><td>--</td><td>skip: 判断类型门 (信贷周期)</td></tr>
-<tr><td>VEEV</td><td>药企 x HCP 垂直终端</td><td>过</td><td>Salesforce</td><td>skip: 增速 16.5%; "拿着" 候选</td></tr>
-<tr><td>FTNT</td><td>防火墙 = 可互换</td><td>过</td><td>PANW</td><td>skip: 增速 + D1</td></tr>
+<tr><td>IBKR</td><td>券商 = 可互换</td><td>过</td><td>--</td><td>skip: 创始人非 CEO + 客户网络弱</td></tr>
+<tr><td>ARES</td><td>私募信贷</td><td>过</td><td>--</td><td>skip: 信贷周期股</td></tr>
+<tr><td>VEEV</td><td>药企 x HCP 垂直终端</td><td>过</td><td>Salesforce</td><td>skip: 增速 16.5%; 适合持有, 不是高倍候选</td></tr>
+<tr><td>FTNT</td><td>防火墙 = 可互换</td><td>过</td><td>PANW</td><td>skip: 增速 + 客户网络弱</td></tr>
 <tr><td>XYZ</td><td>Cash App 图</td><td>过</td><td>--</td><td>skip: 增速 5.1%</td></tr>
 </tbody></table>
 <h2 id="4-精选逐票">4. 精选逐票</h2>
 <h3 id="dash">DASH</h3>
 <ul>
-<li>D1 terminal (24-26): (a) 美国餐饮外卖份额 56% (Statista, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>) 至 65-68% (foodspark, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>), 过 1/3; (b) Q2 2026 订单 9.7 亿 +27%, GOV $331 亿 +36%, 收入 $45 亿 +36%, 美国付费 DashPass 12 个月净增超此前 24 个月之和 (<span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> 2026-08-05, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); (c) 自建 Dot 机器人 + Waymo / Serve / Coco / Wing 接入自家调度层 = 自己发 agent (+2); -2: 人力履约成本, 第二层零美元披露。</li>
-<li>D2: 终态 = 本地实物商业的默认最后一公里 OS (人 / 机器人 / 无人机混合调度)。第一层 (美国外卖默认位置) 已锁, 确认 = CB + Deliveroo 并购; 第二层 (自动配送 + 广告) 概率 0.35, 无美元披露。</li>
-<li>D3: $77.3B -&gt; 5x $387B &lt; $5T; 10 年需市值 CAGR 17.5% (收入 +36% 下可行), 7 年需 26%。</li>
-<li>D4: +3 CB ($2.75B 0% 2030, 转股价 $291.97, 2025-05, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); +2 回购 ($1.05B 已执行, 余 $3.95B, <span class="term" tabindex="0" data-tip="SEC 季报。">10-Q</span>, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); -1 Xu 10b5-1 行权即卖 (Form 4 2026-08/09, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>) = 9。</li>
-<li>D5: 三边网络非软件稀缺 (2); AI 调度降本 (2); agent 前端既增强又威胁 (1); 创始人 20 票 (2); 范式 (1) = 8。</li>
-<li>灰马: 机构 = CB + 45 名分析师 35 买; 散户 = Stocktwits 18.6K, Reddit 榜外; 分歧 = 172-350, 距高 -37%。</li>
-<li>F: Tony Xu -- F1 1 (5 岁移民, 母亲医生不能执业, 随母洗碗); F2 1 (2013 郊区先行); F3 1 = 3 -&gt; D2 +1。</li>
-<li>Kill switch: (1) GOV 增速 &lt; 20% 连续两季 (Q3 2026-11 / Q4 2027-02) -&gt; D1 -3; (2) 第三方追踪美国份额 &lt; 50% (2027-06) -&gt; terminal 降 multi_host -7; (3) OpenAI / Google 代理结账拿走 &gt; 10% 订单且 DASH 只做后端 (2027-12) -&gt; D1 -4; (4) 2027-12 前无自动配送订单占比披露 -&gt; tier2 0.35 -&gt; 0.15, D2 -4。</li>
-<li>最像 NET: 0% CB + 创始人 20 票 + 关系发行方 + 第二层通道已定形态未定。最不像: 人力密集实物履约, 无协议发行, 天花板由抽成率定。</li>
+<li>客户网络 (终端级): (a) 美国餐饮外卖份额 56% (Statista, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>) 至 65-68% (foodspark, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>), 过 1/3; (b) Q2 2026 订单 9.7 亿 +27%, GOV $331 亿 +36%, 收入 $45 亿 +36%, 美国付费 DashPass 12 个月净增超此前 24 个月之和 (<span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> 2026-08-05, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); (c) 自建 Dot 机器人 + Waymo / Serve / Coco / Wing 接入自家调度层 = 自己发 agent; 弱项: 人力履约成本, 第二层零美元披露。</li>
+<li>终态: 本地实物商业的默认最后一公里 OS (人 / 机器人 / 无人机混合调度)。第一层 (美国外卖默认位置) 已锁, 确认 = CB + Deliveroo 并购; 第二层 (自动配送 + 广告) 概率 0.35 [E], 无美元披露。</li>
+<li>空间: $77.3B -&gt; 5x $387B; 10 年需市值 CAGR 17.5% (收入 +36% 下可行), 7 年需 26%。</li>
+<li>结构性买卖盘: 买 = CB ($2.75B 0% 2030, 转股价 $291.97, 2025-05, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>) + 回购 ($1.05B 已执行, 余 $3.95B, <span class="term" tabindex="0" data-tip="SEC 季报。">10-Q</span>, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 卖 = Xu 10b5-1 行权即卖 (Form 4 2026-08/09, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>)。</li>
+<li>AI 时代: 三边网络非软件稀缺; AI 调度降本; agent 前端既增强又威胁; 创始人 20 票。</li>
+<li>资金面: 机构 = CB + 45 名分析师 35 买; 散户 = Stocktwits 18.6K, Reddit 榜外; 分歧 = 172-350, 距高 -37%。</li>
+<li>创始人: Tony Xu -- 逆境 (5 岁移民, 母亲医生不能执业, 随母洗碗); 逆共识 (2013 郊区先行); 有控制权。</li>
+<li>Kill switch: (1) GOV 增速 &lt; 20% 连续两季 (Q3 2026-11 / Q4 2027-02) -&gt; 下调; (2) 第三方追踪美国份额 &lt; 50% (2027-06) -&gt; 终端级降为多枢纽之一, 大幅下调; (3) OpenAI / Google 代理结账拿走 &gt; 10% 订单且 DASH 只做后端 (2027-12) -&gt; 下调; (4) 2027-12 前无自动配送订单占比披露 -&gt; 第二层概率 0.35 -&gt; 0.15, 下调。</li>
+<li>最像 NET: 0% CB + 创始人 20 票 + 自己掌握客户网络 + 第二层通道已定形态未定。最不像: 人力密集实物履约, 无协议发行, 天花板由抽成率定。</li>
 </ul>
 <h3 id="coin">COIN</h3>
 <ul>
-<li>D1 multi_host 上沿 (20-23), 四个 hub: (a) 合规交易 + 托管: 平台资产 $2460 亿 = 全球加密市值 11.2%, 多数现货 BTC ETF 以 Coinbase Custody 托管 (Q2 deck <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>; Coindesk 2026-03 <span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>); (b) USDC 分发: 产品内均值 $200 亿 ATH +43%, 稳定币收入 $2.92 亿/季 (<span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); (c) Base 链发行方; (d) x402 共同发行方 (2025-09-23 与 Cloudflare 宣布, 2026-04-02 进 Linux Foundation, 22 家成员含 Visa / MA / Stripe / AWS; 公司称 90%+ 链上 agent 交易走 x402) -&gt; +2; -2: 交易收入 -22%, 四条链同攻, N2 未关死。</li>
-<li>D2: 终态 = 稳定币 + agent 支付的合规结算层 (NET 结算层的另一半)。第一层已锁 (确认 = CB + ETF 托管合同 + 基金会成员); 第二层 (x402 / Base 租金) 概率 0.4, 累计量 $5000 万级 (2026-04, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>) = 零美元级。</li>
-<li>D3: $50.6B -&gt; 5x $253B; 股价距 52 周高 -52%, 市值一年 -39%。</li>
-<li>D4: +3 CB (2025-08 $1.5B 0% 2029 + $1.5B 0% 2032, cap $595.98, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); +2 回购 ($2B 已执行, 授权 $4B, <span class="term" tabindex="0" data-tip="SEC 季报。">10-Q</span>, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); -1 Armstrong 10b5-1 88 笔卖零买 (<span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>) = 9。</li>
-<li>D5: 牌照 + 托管 + 流动性非软件稀缺 (2); AI 降本 (2); agent 支付是增强 (2); 创始人多数投票权 (2); 范式 (1) = 9。</li>
-<li>灰马: 机构 = CB + 回购 + 18 强买; 散户 = Reddit 榜外, 但 Stocktwits 139K (HOOD 101K, PLTR 325K) 偏热 -&gt; 半灰; 分歧 = 95-330 = 3.5x 六只最大。Adversary 补注: Q2 <span class="term" tabindex="0" data-tip="美国通用会计准则口径的利润, 含全部成本和一次性损益 (如持股重估)。">GAAP</span> 净亏 $3.6 亿, 收入 -19%, 存量在缩。</li>
-<li>F: Armstrong -- F1 0 (Airbnb -&gt; YC 顺滑); F2 2 (2012 合规交易所反共识; 2023 起诉 SEC 赢得撤案); F3 1 = 3 -&gt; D2 +1。</li>
-<li>Kill switch: (1) Q3 2026 (11 月初) 稳定币收入 &lt; $2.5 亿 或 USDC 均值环比降 -&gt; D2 -3; (2) 2027-06 前 x402 链上 agent 份额 &lt; 60% -&gt; D1 -4; (3) Circle 分成协议任何不利修订 (<span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span>) -&gt; D2 -5; (4) 连续三季 <span class="term" tabindex="0" data-tip="美国通用会计准则口径的利润, 含全部成本和一次性损益 (如持股重估)。">GAAP</span> 亏损且回购停 -&gt; D4 -3。</li>
-<li>最像 NET: 同一 x402 基金会的协议共同发行方, 0% CB 同一结构, 创始人控股。最不像: 收入随币价缩, 关系层被四条链围攻, 散户不冷。</li>
+<li>客户网络 (多枢纽之一, 偏强), 四个 hub: (a) 合规交易 + 托管: 平台资产 $2460 亿 = 全球加密市值 11.2%, 多数现货 BTC ETF 以 Coinbase Custody 托管 (Q2 deck <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>; Coindesk 2026-03 <span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>); (b) USDC 分发: 产品内均值 $200 亿 ATH +43%, 稳定币收入 $2.92 亿/季 (<span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); (c) Base 链发行方; (d) x402 共同发行方 (2025-09-23 与 Cloudflare 宣布, 2026-04-02 进 Linux Foundation, 22 家成员含 Visa / MA / Stripe / AWS; 公司称 90%+ 链上 agent 交易走 x402); 弱项: 交易收入 -22%, 四条链同攻, 替代路径未关死。</li>
+<li>终态: 稳定币 + agent 支付的合规结算层 (NET 结算层的另一半)。第一层已锁 (确认 = CB + ETF 托管合同 + 基金会成员); 第二层 (x402 / Base 租金) 概率 0.4 [E], 累计量 $5000 万级 (2026-04, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>) = 零美元级。</li>
+<li>空间: $50.6B -&gt; 5x $253B; 股价距 52 周高 -52%, 市值一年 -39%。</li>
+<li>结构性买卖盘: 买 = CB (2025-08 $1.5B 0% 2029 + $1.5B 0% 2032, cap $595.98, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>) + 回购 ($2B 已执行, 授权 $4B, <span class="term" tabindex="0" data-tip="SEC 季报。">10-Q</span>, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 卖 = Armstrong 10b5-1 88 笔卖零买 (<span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>)。</li>
+<li>AI 时代: 牌照 + 托管 + 流动性非软件稀缺; AI 降本; agent 支付是增强; 创始人多数投票权。</li>
+<li>资金面: 机构 = CB + 回购 + 18 强买; 散户 = Reddit 榜外, 但 Stocktwits 139K (HOOD 101K, PLTR 325K) 偏热; 分歧 = 95-330 = 3.5x 六只最大。补注: Q2 <span class="term" tabindex="0" data-tip="美国通用会计准则口径的利润, 含全部成本和一次性损益 (如持股重估)。">GAAP</span> 净亏 $3.6 亿, 收入 -19%, 存量在缩。</li>
+<li>创始人: Armstrong -- 经历顺滑 (Airbnb -&gt; YC); 逆共识强 (2012 合规交易所反共识; 2023 起诉 SEC 赢得撤案); 有控制权。</li>
+<li>Kill switch: (1) Q3 2026 (11 月初) 稳定币收入 &lt; $2.5 亿 或 USDC 均值环比降 -&gt; 下调; (2) 2027-06 前 x402 链上 agent 份额 &lt; 60% -&gt; 下调; (3) Circle 分成协议任何不利修订 (<span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span>) -&gt; 大幅下调; (4) 连续三季 <span class="term" tabindex="0" data-tip="美国通用会计准则口径的利润, 含全部成本和一次性损益 (如持股重估)。">GAAP</span> 亏损且回购停 -&gt; 下调。</li>
+<li>最像 NET: 同一 x402 基金会的协议共同发行方, 0% CB 同一结构, 创始人控股。最不像: 收入随币价缩, 客户网络被四条链围攻, 散户不冷。</li>
 </ul>
 <h3 id="axon">AXON</h3>
 <ul>
-<li>D1 terminal (23-25), 图只覆盖美国公共安全: (a) <span class="term" tabindex="0" data-tip="年化经常性收入: 按当前订阅速度折算的一年收入。">ARR</span> $16.4 亿 +39%, <span class="term" tabindex="0" data-tip="老客户收入净留存率: 超过 100% 表示老客户比去年花得更多。">NRR</span> 126%, 未来合同订单 $151 亿 +41% (Q2 PR 2026-08-05, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); (b) Evidence.com 是证据链记录系统, 一体化投标连胜 (civiciq, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>); (c) 自己发 agent (Draft One, AI Era 收入 +700%, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); -2: 无双重股权, 图边界 = 一国警察。</li>
-<li>D2: 终态 = 公共安全 OS (装备 + 证据 + 无人机第一响应 + 反无人机)。第一层已锁 (确认 = CB 2022 -&gt; 2026 续单 + $151 亿合同); 第二层已有美元 (Platform Solutions $1.5 亿/季 +123%, Dedrone &gt; $1 亿) -&gt; 概率 0.5。</li>
-<li>D3: $34.5B -&gt; 5x $173B; &lt; $100B 扣 2 (期权深度), 标 "早期灰马"。</li>
-<li>D4: +3 CB (2026-09-16 $1.0B 0% 2031, 转股价 $652.06, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 无回购; -1 Smith 行权即卖 (<span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>, Form 4 未逐笔核) = 7。</li>
-<li>D5: 装机 + 证据档案 + 政府信任 (2); AI 降本 (2); AI 增强采购 (2); 创始人无双重股权 (1); 范式 (1) = 8。</li>
-<li>灰马: 机构 = CB + 21 名分析师 18 买; 散户 = Stocktwits 15.4K 六只最低, Reddit 榜外; 分歧 = 440-830 全在现价 $425 上方; 距高 -44% (CB + 内存成本 + <span class="term" tabindex="0" data-tip="自由现金流 = 经营现金流 - 资本开支。">FCF</span> 负)。</li>
-<li>F: Rick Smith -- F1 2 (1991 两位好友被枪杀 -&gt; 1993 车库创业, 家庭近乎破产至 2001 IPO); F2 2 (1993 非致命武器, 2008 记录仪 + 云, 均先于共识); F3 0 (持股 3.8%) = 4 -&gt; D2 +2。</li>
-<li>Kill switch: (1) <span class="term" tabindex="0" data-tip="老客户收入净留存率: 超过 100% 表示老客户比去年花得更多。">NRR</span> &lt; 115% 或 <span class="term" tabindex="0" data-tip="年化经常性收入: 按当前订阅速度折算的一年收入。">ARR</span> 增速 &lt; 25% (Q3 2026-11) -&gt; D1 -3; (2) 未来合同订单增速 &lt; 20% (2027-02) -&gt; D2 -4; (3) 2027 全年 <span class="term" tabindex="0" data-tip="自由现金流 = 经营现金流 - 资本开支。">FCF</span> 仍负且调整 <span class="term" tabindex="0" data-tip="息税折旧摊销前利润。">EBITDA</span> 率 &lt; 22% -&gt; Adversary 门重审; (4) Motorola / Flock 2027 拿下 &gt;= 2 个美国前二十大机构记录仪合同 -&gt; 范式 1 -&gt; 0, D1 -3。</li>
+<li>客户网络 (终端级), 图只覆盖美国公共安全: (a) <span class="term" tabindex="0" data-tip="年化经常性收入: 按当前订阅速度折算的一年收入。">ARR</span> $16.4 亿 +39%, <span class="term" tabindex="0" data-tip="老客户收入净留存率: 超过 100% 表示老客户比去年花得更多。">NRR</span> 126%, 未来合同订单 $151 亿 +41% (Q2 PR 2026-08-05, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); (b) Evidence.com 是证据链记录系统, 一体化投标连胜 (civiciq, <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>); (c) 自己发 agent (Draft One, AI Era 收入 +700%, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 弱项: 无双重股权, 图边界 = 一国警察。</li>
+<li>终态: 公共安全 OS (装备 + 证据 + 无人机第一响应 + 反无人机)。第一层已锁 (确认 = CB 2022 -&gt; 2026 续单 + $151 亿合同); 第二层已有美元 (Platform Solutions $1.5 亿/季 +123%, Dedrone &gt; $1 亿) -&gt; 概率 0.5 [E]。</li>
+<li>空间: $34.5B -&gt; 5x $173B; &lt; $100B (期权深度不足), 属早期阶段。</li>
+<li>结构性买卖盘: 买 = CB (2026-09-16 $1.0B 0% 2031, 转股价 $652.06, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 无回购; 卖 = Smith 行权即卖 (<span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>, Form 4 未逐笔核)。</li>
+<li>AI 时代: 装机 + 证据档案 + 政府信任; AI 降本; AI 增强采购; 创始人无双重股权。</li>
+<li>资金面: 机构 = CB + 21 名分析师 18 买; 散户 = Stocktwits 15.4K 六只最低, Reddit 榜外; 分歧 = 440-830 全在现价 $425 上方; 距高 -44% (CB + 内存成本 + <span class="term" tabindex="0" data-tip="自由现金流 = 经营现金流 - 资本开支。">FCF</span> 负)。</li>
+<li>创始人: Rick Smith -- 逆境强 (1991 两位好友被枪杀 -&gt; 1993 车库创业, 家庭近乎破产至 2001 IPO); 逆共识强 (1993 非致命武器, 2008 记录仪 + 云, 均先于共识); 控制权弱 (持股 3.8%)。</li>
+<li>Kill switch: (1) <span class="term" tabindex="0" data-tip="老客户收入净留存率: 超过 100% 表示老客户比去年花得更多。">NRR</span> &lt; 115% 或 <span class="term" tabindex="0" data-tip="年化经常性收入: 按当前订阅速度折算的一年收入。">ARR</span> 增速 &lt; 25% (Q3 2026-11) -&gt; 下调; (2) 未来合同订单增速 &lt; 20% (2027-02) -&gt; 下调; (3) 2027 全年 <span class="term" tabindex="0" data-tip="自由现金流 = 经营现金流 - 资本开支。">FCF</span> 仍负且调整 <span class="term" tabindex="0" data-tip="息税折旧摊销前利润。">EBITDA</span> 率 &lt; 22% -&gt; 重审基本面; (4) Motorola / Flock 2027 拿下 &gt;= 2 个美国前二十大机构记录仪合同 -&gt; 判定替代发生, 下调。</li>
 <li>最像 NET: 新鲜 0% CB + 创始人在位 + 自己发 agent + 第二层已有美元。最不像: 盘子薄, 客户是政府, 无双重股权。</li>
 </ul>
 <h3 id="isrg">ISRG</h3>
 <ul>
-<li>D1 terminal (24-26): 装机 11,710 台 da Vinci +12%, Ion 1,096 台 +21%; Q2 手术 +16%, 经常性收入 85% (<span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> 2026-07-16, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 关系持有人 = 医生培训 + 耗材; -2: 无创始人, 单边付费。</li>
-<li>D2 封顶 19 (职业 CEO Rosa 2025-07): 终态 = 软组织机器人手术默认平台 + 手术数据层; 第一层已锁 (Hugo 2025-12 / Ottava 2026-07-22 获批 = 追赶非替换); 第二层 (自主手术 / 数据) 概率 0.3。</li>
-<li>D3: $146.5B -&gt; 5x $733B; 按硬件类 $600B 天花板只有 4.1x = 12 分, 需 ceiling_class 覆盖留痕。</li>
-<li>D4: +2 回购 ($5B 授权 2026-04-30, 执行额未核); 无 CB; -1 Rosa 卖 $1340 万 (<span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>) = 6。</li>
-<li>D5: 装机 (2) / AI 降本 (2) / AI 增强 (1) / 无创始人 (0) / 范式 (1) = 6。</li>
-<li>灰马: 机构 = 回购 + 24/32 买; 散户 21.8K, Reddit 榜外; 分歧 324-685 (2.1x), 距高 -31%。</li>
-<li>F: Rosa 职业经理人 = 0 -&gt; D2 封顶 19。</li>
-<li>Kill switch: (1) da Vinci 手术增速 &lt; 12% (Q4 2026, 2027-01) -&gt; D1 -3; (2) Ottava 2027 装机 &gt; 200 台 或 dV5 季度放置同比降 -&gt; 范式 1 -&gt; 0; (3) 单台手术耗材收入同比 -5% (2027) -&gt; D2 -3; (4) 回购年执行 &lt; $10 亿而高管持续卖 -&gt; D4 -2。</li>
-<li>最像 NET: 拿掉它图要重布, 对手获批却拿不走手术。最不像: 无创始人无 CB, 硬件收租型, 撞硬件天花板。</li>
+<li>客户网络 (终端级): 装机 11,710 台 da Vinci +12%, Ion 1,096 台 +21%; Q2 手术 +16%, 经常性收入 85% (<span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> 2026-07-16, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 关系持有人 = 医生培训 + 耗材; 弱项: 无创始人, 单边付费。</li>
+<li>终态 (职业 CEO Rosa 2025-07, 限制上行): 软组织机器人手术默认平台 + 手术数据层; 第一层已锁 (Hugo 2025-12 / Ottava 2026-07-22 获批 = 追赶非替换); 第二层 (自主手术 / 数据) 概率 0.3 [E]。</li>
+<li>空间: $146.5B -&gt; 5x $733B; 硬件类公司市值上沿约 $600B, 只有 4.1x 空间 [E]。</li>
+<li>结构性买卖盘: 买 = 回购 ($5B 授权 2026-04-30, 执行额未核); 无 CB; 卖 = Rosa 卖 $1340 万 (<span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>)。</li>
+<li>AI 时代: 装机是资产; AI 降本; AI 增强; 无创始人。</li>
+<li>资金面: 机构 = 回购 + 24/32 买; 散户 21.8K, Reddit 榜外; 分歧 324-685 (2.1x), 距高 -31%。</li>
+<li>CEO: Rosa 职业经理人。</li>
+<li>Kill switch: (1) da Vinci 手术增速 &lt; 12% (Q4 2026, 2027-01) -&gt; 下调; (2) Ottava 2027 装机 &gt; 200 台 或 dV5 季度放置同比降 -&gt; 判定替代发生; (3) 单台手术耗材收入同比 -5% (2027) -&gt; 下调; (4) 回购年执行 &lt; $10 亿而高管持续卖 -&gt; 下调。</li>
+<li>最像 NET: 拿掉它图要重布, 对手获批却拿不走手术。最不像: 无创始人无 CB, 硬件 + 耗材持续收费型, 接近硬件类市值上沿。</li>
 </ul>
 <h3 id="ddog">DDOG</h3>
 <ul>
-<li>D1 single_hub 上沿 (15-17): Q2 收入 $11.2 亿 +36%, $100k+ 客户 4,720 +23% 占 <span class="term" tabindex="0" data-tip="年化经常性收入: 按当前订阅速度折算的一年收入。">ARR</span> 91%, <span class="term" tabindex="0" data-tip="自由现金流 = 经营现金流 - 资本开支。">FCF</span> $2.79 亿 (<span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> 2026-08-06, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 关系 = 云工作负载遥测管道, 持有人是它但 OTel / 云厂可替代; 多产品占比未披露。</li>
-<li>D2: 终态 = AI 应用运维控制面; 第一层清晰未锁; 第二层概率 0.3 -&gt; 14-19 档。</li>
-<li>D3: $96.5B -&gt; 5x $482B。</li>
-<li>D4: +3 CB ($870M 0% 2029, 2024-12, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 无回购; -1 Pomel 10b5-1 2026-07/08/09 连续卖 (Form 4 <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>; Fool 2026-08-24 $1110 万 <span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>) = 7。</li>
-<li>D5: 数据管道部分建于软件稀缺 (1); AI 降本 (2); AI 原生客户增强采购 (2); 创始人 10 票 17.3% (2); 范式 (1) = 8。</li>
-<li>灰马: 机构 = CB + 41/46 买; 散户冷; 但分歧偏小 (均值 $286 贴现价 $269) 且一年 +103% -&gt; 已被发现, D6 差。</li>
-<li>F: Pomel -- F1 0 (Centrale Paris -&gt; IBM 顺滑); F2 1 (2010 云监控); F3 1 = 2 -&gt; D2 +0。</li>
-<li>Kill switch: (1) $100k+ 客户增速 &lt; 15% (Q3 2026-11) -&gt; D1 -2; (2) 2027 收入增速 &lt; 25% -&gt; D2 -3; (3) AI 原生大客户转自建, 单客户 &gt; 5% 收入流失 -&gt; D1 -3; (4) 毛留存 &lt; 95% (OTel 替换) -&gt; 降 interchangeable -9。</li>
+<li>客户网络 (单一枢纽, 偏强): Q2 收入 $11.2 亿 +36%, $100k+ 客户 4,720 +23% 占 <span class="term" tabindex="0" data-tip="年化经常性收入: 按当前订阅速度折算的一年收入。">ARR</span> 91%, <span class="term" tabindex="0" data-tip="自由现金流 = 经营现金流 - 资本开支。">FCF</span> $2.79 亿 (<span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> 2026-08-06, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 关系 = 云工作负载遥测管道, 持有人是它但 OTel / 云厂可替代; 多产品占比未披露。</li>
+<li>终态: AI 应用运维控制面; 第一层清晰未锁; 第二层概率 0.3 [E]。</li>
+<li>空间: $96.5B -&gt; 5x $482B。</li>
+<li>结构性买卖盘: 买 = CB ($870M 0% 2029, 2024-12, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 无回购; 卖 = Pomel 10b5-1 2026-07/08/09 连续卖 (Form 4 <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>; Fool 2026-08-24 $1110 万 <span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>)。</li>
+<li>AI 时代: 数据管道部分建于软件稀缺; AI 降本; AI 原生客户增强采购; 创始人 10 票 17.3%。</li>
+<li>资金面: 机构 = CB + 41/46 买; 散户冷; 但分歧偏小 (均值 $286 贴现价 $269) 且一年 +103% -&gt; 已被发现, 价格位置差。</li>
+<li>创始人: Pomel -- 经历顺滑 (Centrale Paris -&gt; IBM); 逆共识 (2010 云监控); 有控制权。</li>
+<li>Kill switch: (1) $100k+ 客户增速 &lt; 15% (Q3 2026-11) -&gt; 下调; (2) 2027 收入增速 &lt; 25% -&gt; 下调; (3) AI 原生大客户转自建, 单客户 &gt; 5% 收入流失 -&gt; 下调; (4) 毛留存 &lt; 95% (OTel 替换) -&gt; 降为可替换, 大幅下调。</li>
 <li>最像 NET: 0% CB + 创始人双重股权 + 每客户产品数上升。最不像: 可替代 hub, 不发协议, 股价已跑完一段。</li>
 </ul>
 <h3 id="app">APP</h3>
 <ul>
-<li>D1 single_hub (13-16): Q2 收入 $19.2 亿 +53% (低于预期 $20M), Q3 指引 +46-48% (<span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 关系 = 手游广告竞价 (MAX), 持有人是它但 Meta / Google / Unity 可替代; 电商扩张放缓 (BofA 2026-07-13, <span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>) = 攻别人关系层未成。</li>
-<li>D2: 终态 = 全品类效果广告网络; 第一层 (手游) 未锁; 第二层 (电商) 概率 0.25, 无美元拆分 -&gt; 8-13 档。</li>
-<li>D3: $103.2B -&gt; 5x $516B。</li>
-<li>D4: +2 回购 (Q2 $551M, 余 $1.8B, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 无 CB; Foroughi 2026-08 Form 4 为税务代扣非卖出 (<span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>) = 7。</li>
-<li>D5: 核心资产 = Axon 模型 + 数据, 建于软件 / 模型稀缺 (0); AI 降本 (2); AI 增强 (2); 创始人 20 票 60.9% (2); 范式 (1) = 7。</li>
-<li>灰马: 散户冷 (24.5K, 榜外); 分歧最大 (325-790; 三个月 Hold 3 -&gt; 6, 均值 $654 -&gt; $498); 但机构 conviction 在裂 (集体诉讼 2026-09, 指控 AI 视频工具延迟) = 只满足两条。</li>
-<li>F: Foroughi -- F1 1 (伊朗出生, 两伊战争移民); F2 1 (2023 Axon 2 全押); F3 1 = 3 -&gt; D2 +1。</li>
-<li>Kill switch: (1) Q3 2026-11 收入增速 &lt; 40% -&gt; D2 -4; (2) 2027-02 电商广告主数仍无披露 -&gt; tier2 0.25 -&gt; 0.1; (3) 诉讼 discovery 证实模型进度失实 (2027) -&gt; Adversary 门重审; (4) MAX 份额 &lt; 50% 或回购停 -&gt; D1 -3 / D4 -2。</li>
-<li>最像 NET: 创始人 20 票 + 现金流巨大 + 分歧极大。最不像: 关系可替代, 核心资产是模型 (L2 受害), 机构在撤。</li>
+<li>客户网络 (单一枢纽): Q2 收入 $19.2 亿 +53% (低于预期 $20M), Q3 指引 +46-48% (<span class="term" tabindex="0" data-tip="SEC 重大事件公告 (财报、并购、高管变动、会计更正等)。">8-K</span> <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 关系 = 手游广告竞价 (MAX), 持有人是它但 Meta / Google / Unity 可替代; 电商扩张放缓 (BofA 2026-07-13, <span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span>) = 攻别人客户网络未成。</li>
+<li>终态: 全品类效果广告网络; 第一层 (手游) 未锁; 第二层 (电商) 概率 0.25 [E], 无美元拆分。</li>
+<li>空间: $103.2B -&gt; 5x $516B。</li>
+<li>结构性买卖盘: 买 = 回购 (Q2 $551M, 余 $1.8B, <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>); 无 CB; Foroughi 2026-08 Form 4 为税务代扣非卖出 (<span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span>)。</li>
+<li>AI 时代: 核心资产 = Axon 模型 + 数据, 建于软件 / 模型稀缺 (受 AI 冲击); AI 降本; AI 增强; 创始人 20 票 60.9%。</li>
+<li>资金面: 散户冷 (24.5K, 榜外); 分歧最大 (325-790; 三个月 Hold 3 -&gt; 6, 均值 $654 -&gt; $498); 但机构 conviction 在裂 (集体诉讼 2026-09, 指控 AI 视频工具延迟)。</li>
+<li>创始人: Foroughi -- 逆境 (伊朗出生, 两伊战争移民); 逆共识 (2023 Axon 2 全押); 有控制权。</li>
+<li>Kill switch: (1) Q3 2026-11 收入增速 &lt; 40% -&gt; 下调; (2) 2027-02 电商广告主数仍无披露 -&gt; 第二层概率 0.25 -&gt; 0.1; (3) 诉讼 discovery 证实模型进度失实 (2027) -&gt; 重审基本面; (4) MAX 份额 &lt; 50% 或回购停 -&gt; 下调。</li>
+<li>最像 NET: 创始人 20 票 + 现金流巨大 + 分歧极大。最不像: 关系可替代, 核心资产是模型 (受 AI 冲击), 机构在撤。</li>
 </ul>
 <h2 id="5-建议下一步">5. 建议下一步</h2>
 <ul>
-<li>写完整 long_score yaml: DASH (第一, 三证据齐 + 三道门干净), COIN (第二, 先处理 "半灰" 与收入收缩, 并核 Q2 deck 的 Base 结算量原文), AXON (第三, 标早期灰马, 等 11 月 Q3 <span class="term" tabindex="0" data-tip="老客户收入净留存率: 超过 100% 表示老客户比去年花得更多。">NRR</span>)。</li>
-<li>ISRG 写 yaml 但预期落 "拿着" (D2 封顶 19); DDOG / APP 进观察, 11 月财报重评; CVNA 单做 F 评估 (D1 低但 F 可能 4)。</li>
-<li>不写: HOOD / PLTR / BE / RDDT (散户热), ANET / DELL (撞硬件天花板), UBER / NOW / PANW (职业 CEO + 范式门), ORCL (循环融资, 归泡沫框架)。</li>
+<li>深入研究优先级: DASH (第一, 资金面证据齐 + 基本面干净), COIN (第二, 先处理散户偏热与收入收缩, 并核 Q2 deck 的 Base 结算量原文), AXON (第三, 早期阶段, 等 11 月 Q3 <span class="term" tabindex="0" data-tip="老客户收入净留存率: 超过 100% 表示老客户比去年花得更多。">NRR</span>)。</li>
+<li>ISRG 预期结论是 "可持有" (职业 CEO 限制上行); DDOG / APP 进观察, 11 月财报重评; CVNA 单独评估创始人 (客户网络弱但创始人素质可能很高)。</li>
+<li>不做: HOOD / PLTR / BE / RDDT (散户热), ANET / DELL (空间不足), UBER / NOW / PANW (职业 CEO + 替代威胁), ORCL (循环融资, 归泡沫风险一类)。</li>
 <li>缺口: Robinhood 榜页 404; 期权散户占比未核; DDOG 多产品占比、ISRG 回购执行额、AXON 内部人 Form 4 未逐笔核; 市场份额数字均为 <span class="term" tabindex="0" data-tip="信源三级: 只有一个来源, 但细节具体可核查 (时间、人名、数字)。中等可信, 文中注明单源。">T3</span>。</li>
 </ul>
 <h2 id="6-来源">6. 来源</h2>
@@ -265,7 +265,6 @@ line-height:1.5;padding:6px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0
 <li><span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span> VEEV 双重股权日落: <a href="https://www.transactionaldelights.com/content/with-the-sunset-of-its-dual-class-arriving-veeva-systems-veev-decides-to-embrace-stakeholder-governance-and-become-a-public-benefit-corporation">https://www.transactionaldelights.com/content/with-the-sunset-of-its-dual-class-arriving-veeva-systems-veev-decides-to-embrace-stakeholder-governance-and-become-a-public-benefit-corporation</a></li>
 <li><span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span> IBKR CEO Galik: <a href="https://www.marketsmedia.com/galik-to-succeed-peterffy-as-interactive-brokers-ceo/">https://www.marketsmedia.com/galik-to-succeed-peterffy-as-interactive-brokers-ceo/</a> ; <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> BE Sridhar: <a href="https://www.bloomenergy.com/team/board-kr-sridhar/">https://www.bloomenergy.com/team/board-kr-sridhar/</a> ; <span class="term" tabindex="0" data-tip="信源一级: 一手且难伪造, 如收盘价、SEC 文件 (10-K / 10-Q / 8-K)、官方统计。可当硬事实。">T1</span> UBER Khosrowshahi: <a href="https://www.uber.com/us/en/about/leadership/dara-khosrowshahi/">https://www.uber.com/us/en/about/leadership/dara-khosrowshahi/</a></li>
 <li><span class="term" tabindex="0" data-tip="信源二级: 3 个以上立场不同的独立来源确认同一件事。可当硬事实。">T2</span> Fool 创始人在位名单 (2026-03-02): <a href="https://www.fool.com/research/founder-led-stocks-outperformed-the-sp-500/">https://www.fool.com/research/founder-led-stocks-outperformed-the-sp-500/</a></li>
-<li>内部: docs/10_knowledge/investment/long_score_framework_v2.md ; src/tools/long_score/inputs/NET.yaml ; src/tools/long_score/anchors.yaml</li>
 </ul></main><div id="tip" role="tooltip" hidden></div><script>
 (function(){var t=document.getElementById('tip');
 function term(e){return e.target&&e.target.closest?e.target.closest('.term'):null}
