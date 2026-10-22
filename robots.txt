@@ -1,11 +1,11 @@
 # research.empireintegration.com -- EIP Research
-# Independent strategic and investment research by Adam He,
+# Independent strategic and investment research by Naughty Boss,
 # Empire Integration Partners.
 #
 # Search engines are welcome to index this site. AI training and
 # answer-engine crawlers are not licensed for free access; paid access
 # will be offered through Cloudflare pay per crawl (HTTP 402) once enabled.
-# Attribution: Adam He / Empire Integration Partners.
+# Attribution: Naughty Boss / Empire Integration Partners.
 # Machine-readable index with JSON-LD: /
 
 # --- AI training and answer-engine crawlers: no free access (paid access via HTTP 402 when enabled) ---
