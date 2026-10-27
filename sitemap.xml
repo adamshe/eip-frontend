@@ -724,4 +724,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/reports/daily/2026-10-26_en"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://research.empireintegration.com/reports/daily/2026-10-26"/>
   </url>
+  <url>
+    <loc>https://research.empireintegration.com/reports/cases/agi_endgame_sandbox_2026-10-25</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://research.empireintegration.com/reports/cases/agi_endgame_sandbox_2026-10-25_en</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
