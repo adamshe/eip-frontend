@@ -742,4 +742,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/reports/daily/2026-10-27_en"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://research.empireintegration.com/reports/daily/2026-10-27"/>
   </url>
+  <url>
+    <loc>https://research.empireintegration.com/oligarchy_end_state_korea_signal</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://research.empireintegration.com/oligarchy_end_state_korea_signal_en</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
