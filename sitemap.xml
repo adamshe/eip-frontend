@@ -28,7 +28,7 @@
 
   <url>
     <loc>https://research.empireintegration.com/net_dashboard</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -539,12 +539,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://research.empireintegration.com/reports/cases/GOOGL_forward_valuation_2026-10-01</loc>
-    <lastmod>2026-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://research.empireintegration.com/reports/cases/HIMS_2026-10-04</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -813,5 +807,11 @@
     <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://research.empireintegration.com/reports/daily/2026-10-30_en</loc>
+    <lastmod>2026-10-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/reports/daily/2026-10-30_en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://research.empireintegration.com/reports/daily/2026-10-30"/>
   </url>
 </urlset>
