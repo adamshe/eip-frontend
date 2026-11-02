@@ -4,7 +4,7 @@
 
   <url>
     <loc>https://research.empireintegration.com/</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -28,7 +28,7 @@
 
   <url>
     <loc>https://research.empireintegration.com/net_dashboard</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -96,7 +96,7 @@
 
   <url>
     <loc>https://research.empireintegration.com/ai_hype_cycle_endgame_en</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/ai_hype_cycle_endgame_en"/>
@@ -105,7 +105,7 @@
 
   <url>
     <loc>https://research.empireintegration.com/ai_hype_cycle_endgame</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/ai_hype_cycle_endgame_en"/>
@@ -726,7 +726,7 @@
   </url>
   <url>
     <loc>https://research.empireintegration.com/reports/cases/agi_endgame_sandbox_2026-10-25_en</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -738,13 +738,13 @@
   </url>
   <url>
     <loc>https://research.empireintegration.com/oligarchy_end_state_korea_signal</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://research.empireintegration.com/oligarchy_end_state_korea_signal_en</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -762,19 +762,19 @@
   </url>
   <url>
     <loc>https://research.empireintegration.com/reports/cases/oligarchy_end_state_korea_signal_2026-10-28_en</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://research.empireintegration.com/ai_endgame_layoff_limit</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://research.empireintegration.com/ai_endgame_layoff_limit_en</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -792,7 +792,7 @@
   </url>
   <url>
     <loc>https://research.empireintegration.com/reports/cases/ai_endgame_layoff_limit_2026-10-28_en</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -828,14 +828,26 @@
   </url>
   <url>
     <loc>https://research.empireintegration.com/toll_booths</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://research.empireintegration.com/toll_booths_en</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://research.empireintegration.com/reports/daily/2026-11-02_en</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/reports/daily/2026-11-02_en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://research.empireintegration.com/reports/daily/2026-11-02"/>
+  </url>
+  <url>
+    <loc>https://research.empireintegration.com/reports/cases/GOOGL_forward_valuation_2026-10-01</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
