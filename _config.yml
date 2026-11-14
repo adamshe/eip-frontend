@@ -1,0 +1,5 @@
+# GitHub Pages (ui-ai) build only. research.empireintegration.com serves the files directly and never reads this file.
+# Pages listed here are published on research only.
+exclude:
+  - nvda_huang_enemies_friends.html
+  - nvda_huang_enemies_friends_en.html
