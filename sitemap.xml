@@ -4,7 +4,7 @@
 
   <url>
     <loc>https://research.empireintegration.com/</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -28,7 +28,7 @@
 
   <url>
     <loc>https://research.empireintegration.com/net_dashboard</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -990,14 +990,20 @@
   </url>
   <url>
     <loc>https://research.empireintegration.com/nvda_huang_enemies_friends</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://research.empireintegration.com/nvda_huang_enemies_friends_en</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://research.empireintegration.com/reports/daily/2026-11-16_en</loc>
+    <lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/reports/daily/2026-11-16_en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://research.empireintegration.com/reports/daily/2026-11-16"/>
   </url>
 </urlset>
