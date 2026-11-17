@@ -4,7 +4,7 @@
 
   <url>
     <loc>https://research.empireintegration.com/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -28,7 +28,7 @@
 
   <url>
     <loc>https://research.empireintegration.com/net_dashboard</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -630,7 +630,7 @@
   </url>
   <url>
     <loc>https://research.empireintegration.com/reports/cases/NET_2026-10-21</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1005,5 +1005,11 @@
     <lastmod>2026-11-16</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/reports/daily/2026-11-16_en"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://research.empireintegration.com/reports/daily/2026-11-16"/>
+  </url>
+  <url>
+    <loc>https://research.empireintegration.com/reports/daily/2026-11-17_en</loc>
+    <lastmod>2026-11-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/reports/daily/2026-11-17_en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://research.empireintegration.com/reports/daily/2026-11-17"/>
   </url>
 </urlset>
