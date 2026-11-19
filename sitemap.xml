@@ -4,7 +4,7 @@
 
   <url>
     <loc>https://research.empireintegration.com/</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -1017,5 +1017,17 @@
     <lastmod>2026-11-18</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/reports/daily/2026-11-18_en"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://research.empireintegration.com/reports/daily/2026-11-18"/>
+  </url>
+  <url>
+    <loc>https://research.empireintegration.com/fed_ai_who_pays</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://research.empireintegration.com/fed_ai_who_pays_en</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
