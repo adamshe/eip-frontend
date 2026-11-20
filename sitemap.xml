@@ -1068,7 +1068,7 @@
   </url>
   <url>
     <loc>https://research.empireintegration.com/reports/daily/2026-11-19_en</loc>
-    <lastmod>2026-11-20</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/reports/daily/2026-11-19_en"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://research.empireintegration.com/reports/daily/2026-11-19"/>
   </url>
@@ -1083,5 +1083,11 @@
     <lastmod>2026-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://research.empireintegration.com/reports/daily/2026-11-20_en</loc>
+    <lastmod>2026-11-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://research.empireintegration.com/reports/daily/2026-11-20_en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://research.empireintegration.com/reports/daily/2026-11-20"/>
   </url>
 </urlset>
